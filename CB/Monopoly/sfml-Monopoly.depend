@@ -1,0 +1,532 @@
+# depslib dependency file v1.0
+1745507220 source:d:\!gforum-2025\projects\monopoly\icon.rc
+
+1745509643 source:d:\!gforum-2025\projects\monopoly\sources\main.cpp
+	"render.h"
+
+1745510042 d:\!gforum-2025\projects\monopoly\sources\render.h
+	"model.h"
+
+1745509431 d:\!gforum-2025\projects\monopoly\sources\model.h
+	"player.h"
+
+1745508364 d:\!gforum-2025\projects\monopoly\sources\player.h
+	"common.h"
+
+1745508513 d:\!gforum-2025\projects\monopoly\sources\common.h
+	<SFML/Graphics.hpp>
+	<iostream>
+	<fstream>
+	<string>
+	<list>
+	<map>
+
+1733935265 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics.hpp
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/CircleShape.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/ConvexShape.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Font.hpp>
+	<SFML/Graphics/Glyph.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/RectangleShape.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Graphics/RenderTexture.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/Graphics/Shader.hpp>
+	<SFML/Graphics/Shape.hpp>
+	<SFML/Graphics/Sprite.hpp>
+	<SFML/Graphics/StencilMode.hpp>
+	<SFML/Graphics/Text.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/Graphics/VertexBuffer.hpp>
+	<SFML/Graphics/View.hpp>
+	<SFML/Window.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\blendmode.hpp
+	<SFML/Graphics/Export.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\export.hpp
+	<SFML/Config.hpp>
+
+1734738943 d:\!gforum-2025\sfml-3.0.0\include\sfml\config.hpp
+	"TargetConditionals.h"
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\circleshape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+	<SFML/System/Vector2.hpp>
+	<cstddef>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\shape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/System/Vector2.hpp>
+	<cstddef>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\color.hpp
+	<cstdint>
+	<SFML/Graphics/Color.inl>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\color.inl
+	<SFML/Graphics/Color.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\drawable.hpp
+	<SFML/Graphics/Export.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\primitivetype.hpp
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\rect.hpp
+	<SFML/System/Vector2.hpp>
+	<optional>
+	<SFML/Graphics/Rect.inl>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\vector2.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Angle.hpp>
+	<SFML/System/Vector2.inl>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\export.hpp
+	<SFML/Config.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\angle.hpp
+	<SFML/System/Angle.inl>
+
+1733935265 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\angle.inl
+	<SFML/System/Angle.hpp>
+	<cassert>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\vector2.inl
+	<SFML/System/Vector2.hpp>
+	<cassert>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\rect.inl
+	<SFML/Graphics/Rect.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\renderstates.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/CoordinateType.hpp>
+	<SFML/Graphics/StencilMode.hpp>
+	<SFML/Graphics/Transform.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\coordinatetype.hpp
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\stencilmode.hpp
+	<SFML/Graphics/Export.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\transform.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/System/Vector2.hpp>
+	<array>
+	<SFML/Graphics/Transform.inl>
+
+1733935265 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\transform.inl
+	<SFML/Graphics/Transform.hpp>
+	<array>
+	<cstddef>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\transformable.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/System/Angle.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\vertexarray.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<vector>
+	<cstddef>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\vertex.hpp
+	<SFML/Graphics/Color.hpp>
+	<SFML/System/Vector2.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\convexshape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+	<vector>
+	<cstddef>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\font.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Glyph.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/System/Vector2.hpp>
+	<filesystem>
+	<memory>
+	<string>
+	<unordered_map>
+	<vector>
+	<cstddef>
+	<cstdint>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\glyph.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\texture.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/CoordinateType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/System/Vector2.hpp>
+	<filesystem>
+	<cstddef>
+	<cstdint>
+
+1733935265 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\glresource.hpp
+	<SFML/Window/Export.hpp>
+	<memory>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\export.hpp
+	<SFML/Config.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\image.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/System/Vector2.hpp>
+	<filesystem>
+	<optional>
+	<string_view>
+	<vector>
+	<cstddef>
+	<cstdint>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\rectangleshape.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Shape.hpp>
+	<SFML/System/Vector2.hpp>
+	<cstddef>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\rendertarget.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/BlendMode.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/CoordinateType.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/StencilMode.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/View.hpp>
+	<SFML/System/Vector2.hpp>
+	<array>
+	<cstddef>
+	<cstdint>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\view.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Transform.hpp>
+	<SFML/System/Angle.hpp>
+	<SFML/System/Vector2.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\rendertexture.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/System/Vector2.hpp>
+	<memory>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\contextsettings.hpp
+	<SFML/Config.hpp>
+	<cstdint>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\renderwindow.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/Window.hpp>
+	<SFML/Window/WindowEnums.hpp>
+	<SFML/Window/WindowHandle.hpp>
+	<SFML/System/Vector2.hpp>
+	<cstdint>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\videomode.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector2.hpp>
+	<vector>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\window.hpp
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/Window/WindowBase.hpp>
+	<SFML/Window/WindowEnums.hpp>
+	<SFML/Window/WindowHandle.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/Time.hpp>
+	<memory>
+	<cstdint>
+
+1734719566 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\windowbase.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/Window/Vulkan.hpp>
+	<SFML/Window/WindowEnums.hpp>
+	<SFML/Window/WindowHandle.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Vector2.hpp>
+	<memory>
+	<optional>
+	<cstdint>
+	<SFML/Window/WindowBase.inl>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\vulkan.hpp
+	<SFML/Window/Export.hpp>
+	<vector>
+	<cstdint>
+
+1733935265 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\windowenums.hpp
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\windowhandle.hpp
+	<SFML/Config.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\time.hpp
+	<chrono>
+	<cstdint>
+	<SFML/System/Time.inl>
+
+1733935265 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\time.inl
+	<SFML/System/Time.hpp>
+	<ratio>
+	<cassert>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\windowbase.inl
+	<SFML/Window/Event.hpp>
+	<SFML/Window/WindowBase.hpp>
+	<utility>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\event.hpp
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+	<SFML/Window/Sensor.hpp>
+	<SFML/System/Vector2.hpp>
+	<variant>
+	<SFML/Window/Event.inl>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\joystick.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/String.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\string.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Utf.hpp>
+	<locale>
+	<string>
+	<cstddef>
+	<cstdint>
+	<SFML/System/String.inl>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\utf.hpp
+	<SFML/Config.hpp>
+	<array>
+	<locale>
+	<cstdint>
+	<cstdlib>
+	<SFML/System/Utf.inl>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\utf.inl
+	<SFML/System/Utf.hpp>
+
+1733935265 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\string.inl
+	<SFML/System/String.hpp>
+	<iterator>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\keyboard.hpp
+	<SFML/Window/Export.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\mouse.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector2.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\sensor.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector3.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\vector3.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Vector3.inl>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\vector3.inl
+	<SFML/System/Vector3.hpp>
+	<cassert>
+
+1733935265 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\event.inl
+	<SFML/Window/Event.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\clock.hpp
+	<SFML/System/Export.hpp>
+	<chrono>
+	<ratio>
+	<type_traits>
+	<SFML/System/SuspendAwareClock.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\suspendawareclock.hpp
+	<SFML/System/Export.hpp>
+	<chrono>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\shader.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Glsl.hpp>
+	<SFML/Window/GlResource.hpp>
+	<filesystem>
+	<string>
+	<string_view>
+	<unordered_map>
+	<cstddef>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\glsl.hpp
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+	<cstddef>
+	<SFML/Graphics/Glsl.inl>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\glsl.inl
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Glsl.hpp>
+	<array>
+	<cstddef>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\sprite.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<array>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\text.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/VertexArray.hpp>
+	<SFML/System/String.hpp>
+	<SFML/System/Vector2.hpp>
+	<cstddef>
+	<cstdint>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\graphics\vertexbuffer.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Window/GlResource.hpp>
+	<cstddef>
+
+1733935265 d:\!gforum-2025\sfml-3.0.0\include\sfml\window.hpp
+	<SFML/Window/Clipboard.hpp>
+	<SFML/Window/Context.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/Cursor.hpp>
+	<SFML/Window/Event.hpp>
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+	<SFML/Window/Sensor.hpp>
+	<SFML/Window/Touch.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/Window.hpp>
+	<SFML/Window/WindowEnums.hpp>
+	<SFML/Window/WindowHandle.hpp>
+	<SFML/System.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\clipboard.hpp
+	<SFML/Window/Export.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\context.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/System/Vector2.hpp>
+	<memory>
+	<string_view>
+	<cstdint>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\cursor.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector2.hpp>
+	<memory>
+	<optional>
+	<cstdint>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\window\touch.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector2.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Angle.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/Err.hpp>
+	<SFML/System/Exception.hpp>
+	<SFML/System/FileInputStream.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/MemoryInputStream.hpp>
+	<SFML/System/Sleep.hpp>
+	<SFML/System/String.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Utf.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\err.hpp
+	<SFML/System/Export.hpp>
+	<iosfwd>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\exception.hpp
+	<SFML/System/Export.hpp>
+	<stdexcept>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\fileinputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Export.hpp>
+	<SFML/System/InputStream.hpp>
+	<filesystem>
+	<memory>
+	<cstdint>
+	<cstdio>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\inputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Export.hpp>
+	<optional>
+	<cstdint>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\memoryinputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Export.hpp>
+	<SFML/System/InputStream.hpp>
+	<cstddef>
+	<cstdint>
+
+1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\sleep.hpp
+	<SFML/System/Export.hpp>
+
