@@ -1,8 +1,22 @@
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <sstream>
 #include <string>
 #include <vector>
+
+#include <locale>
+#include <codecvt>
+
+std::string WstrToUtf8(const std::wstring& str)
+{   std::wstring_convert<std::codecvt_utf8<wchar_t> > strCnv;
+    return strCnv.to_bytes(str);
+}
+
+std::wstring utf8ToWstr(const std::string& str)
+{   std::wstring_convert< std::codecvt_utf8<wchar_t> > strCnv;
+    return strCnv.from_bytes(str);
+}
 
 #define l(v)           std::cout << #v << " = " << (v) << std::endl;
 #define TESTCLASS(F)   std::cout << "RUN: "#F; std::cout << '\n';\
@@ -77,8 +91,8 @@ namespace model
         /// Получить базовый конфиг.     |
         ///------------------------------:
         static const Config& getDefault()
-        {   static Config config;
-            return        config;
+        {   static   Config  config;
+            return           config;
         }
 
         void info() const
@@ -148,7 +162,7 @@ namespace model
         ///------------------------------|
         /// Тут тест этого класса.       |
         ///------------------------------:
-        static void test()
+        TEST
         {
             std::cout << "statusesCells: \n";
 
@@ -184,7 +198,6 @@ namespace model
         /// Друзья приватных методов.    |
         ///------------------------------:
         friend std::ostream& operator<<(std::ostream& o, const Cell& cell);
-        friend void ::tests();
         friend struct Field;
     };
 
@@ -249,11 +262,9 @@ namespace model
         ///------------------------------|
         /// Тест класса.                 |
         ///------------------------------:
-        friend void ::tests();
-        static void   test ()
+        TEST
         {
-            {
-                Field   field(Config::getDefault());
+            {   Field   field(Config::getDefault());
                         field.info();
 
                 Cell&   cell = field[0];
@@ -279,10 +290,19 @@ namespace model
         unsigned position{0};
 
         void info() const
-        {   std::cout << name << "::"; l(position)
+        {   std::cout << std::setw(15 - nn + name.size()) << name     << "::"
+                      << std::setw( 3)                    << position << '\n';
         }
 
-private:
+        ///------------------------------|
+        /// Для utf8 в std::setw.        |
+        ///------------------------------:
+        unsigned nn;
+        void   init()
+        {   nn = utf8ToWstr(name).size();
+        }
+
+    private:
         ///------------------------------|
         /// Тест класса.                 |
         ///------------------------------:
@@ -295,14 +315,81 @@ private:
 
 
 ///----------------------------------------------------------------------------|
+/// Тестовая игровая площадка.
+///----------------------------------------------------------------------------:
+struct  TestGame
+{       TestGame() : field(model::Config::getDefault())
+        {
+            for(auto& pers : perses)
+            {   pers.init();
+            }
+        }
+
+    void run()
+    {   loop();
+    }
+
+    void info() const
+    {   for(const auto& pers : perses)
+        {   pers.info();
+        }
+    }
+
+private:
+    std::vector<model::Person> perses
+    {   {"Bot:Pete"   },
+        {"Bot:Ann"    },
+        {"Вася Пупкин"}
+    };
+
+    model::Field field;
+
+    void  loop()
+    {
+        info();
+
+        unsigned step{0};
+
+        for(bool isDone = true; isDone;)
+        {
+            std::cout   << "\nНажмите ENTER, чтобы сделать "
+                        << ++step << " шаг ... \n";
+
+            std::cin.get();
+
+            for(auto& pers : perses)
+            {
+                const unsigned randNumber = rand() % 6;
+                l(randNumber)
+
+                pers.position = field.add(pers.position, randNumber);
+
+                pers.info();
+            }
+        }
+    }
+
+    ///------------------------------|
+    /// Тест класса.                 |
+    ///------------------------------:
+    TEST
+    {   TestGame    testGame;
+                    testGame.run();
+    }
+};
+
+
+///----------------------------------------------------------------------------|
 /// Все тесты классов.
 ///----------------------------------------------------------------------------:
 void tests()
 {
 /// TESTCLASS(model::Cell::test  );
 /// TESTCLASS(model::Config::test);
-    TESTCLASS(model::Field::test );
-    TESTCLASS(model::Person::test);
+/// TESTCLASS(model::Field::test );
+/// TESTCLASS(model::Person::test);
+
+    TESTCLASS(TestGame::test);
 }
 
 
@@ -310,7 +397,7 @@ void tests()
 /// Старт программы.
 ///----------------------------------------------------------------------------:
 int main()
-{   std::system ("chcp 65001");
+{   std::system   ("chcp 65001");
     std::cout << "Привет Мир!\n" << std::endl;
 
     tests ();
