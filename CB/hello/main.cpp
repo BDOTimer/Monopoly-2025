@@ -288,10 +288,13 @@ namespace model
         /// Поле у нас лента...          |
         ///------------------------------:
         unsigned position{0};
+        unsigned status  {1};
 
         void info() const
-        {   std::cout << std::setw(15 - nn + name.size()) << name     << "::"
-                      << std::setw( 3)                    << position << '\n';
+        {   auto n = 15 - nn + name.size();
+            std::cout << "Имя::"      << std::setw(n) << name     << " - "
+                      << "position::" << std::setw(3) << position << " - "
+                      << "status::"   << std::setw(2) << status   << '\n';
         }
 
         ///------------------------------|
