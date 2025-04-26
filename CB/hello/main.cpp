@@ -13,6 +13,12 @@
 #include <locale>
 #include <codecvt>
 
+#include <windows.h>
+
+#ifndef     __MINGW32__
+    #pragma execution_character_set( "utf-8" )
+#endif  //  __MINGW32__
+
 std::string WstrToUtf8(const std::wstring& str)
 {   std::wstring_convert<std::codecvt_utf8<wchar_t> > strCnv;
     return strCnv.to_bytes(str);
@@ -320,7 +326,9 @@ namespace model
         ///------------------------------:
         unsigned nn;
         void   init()
-        {   nn = (unsigned)utf8ToWstr(name).size();
+        {
+			const auto     s = utf8ToWstr(name);
+			nn = (unsigned)s.size();
         }
 
     private:
@@ -344,6 +352,7 @@ struct  TestGame
             for(auto& pers : perses)
             {   pers.init();
             }
+
         }
 
     void run()
@@ -428,6 +437,8 @@ void tests()
 ///----------------------------------------------------------------------------:
 int main()
 {   std::system ("chcp 65001>nul");
+	//SetConsoleOutputCP(65001);
+
     std::cout << "Привет Мир!\n" << std::endl;
 
     tests ();
