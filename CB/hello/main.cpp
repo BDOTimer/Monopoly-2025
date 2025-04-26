@@ -1,9 +1,14 @@
+﻿///----------------------------------------------------------------------------|
+/// Модель игры Монополия-2025.
+///----------------------------------------------------------------------------:
+#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 #include <iostream>
 #include <iomanip>
 #include <fstream>
 #include <sstream>
-#include <string>
+#include <string_view>
 #include <vector>
+#include <tuple>
 
 #include <locale>
 #include <codecvt>
@@ -36,6 +41,16 @@ void tests();
 
 namespace model
 {
+
+    ///------------------------------------------------------------------------|
+    /// Правила.
+    ///------------------------------------------------------------------------:
+    struct Rules
+    {
+
+    };
+
+
     ///------------------------------------------------------------------------|
     /// Конфигурация Модели.
     ///------------------------------------------------------------------------:
@@ -112,8 +127,7 @@ namespace model
         ///------------------------------|
         /// Тест класса.                 |
         ///------------------------------:
-        friend void ::tests();
-        static void   test ()
+        TEST
         {
             {   Config config;
                      l(config. getDefault().amountCells)
@@ -216,19 +230,21 @@ namespace model
     ///------------------------------------------------------------------------:
     struct  Field : std::vector<Cell>
     {       Field(const Config& cfg)
-            {   init(cfg);
+            {   init           (cfg);
             }
 
-        unsigned add(unsigned pos, unsigned step) const
-        {   unsigned res  = pos + step;
-            if(      res >= size()) res -= size();
-            return   res;
+        struct PersonQ {unsigned pos; bool isStart{false}; };
+
+        PersonQ add(unsigned pos, unsigned step) const
+        {   size_t res  = pos + step;
+            if(      res >= size()) { return { unsigned(res -= size()), true }; }
+            return  {(unsigned)res};
         }
 
         unsigned sub(unsigned pos, unsigned step) const
-        {   unsigned res  = pos - step;
+        {   size_t res  = pos - step;
             if(      res >= size()) res += size();
-            return   res;
+            return (unsigned)res;
         }
 
         void info() const
@@ -288,13 +304,15 @@ namespace model
         /// Поле у нас лента...          |
         ///------------------------------:
         unsigned position{0};
-        unsigned status  {1};
+        unsigned status  {0};
+        unsigned circle  {1};
 
         void info() const
         {   auto n = 15 - nn + name.size();
-            std::cout << "Имя::"      << std::setw(n) << name     << " - "
-                      << "position::" << std::setw(3) << position << " - "
-                      << "status::"   << std::setw(2) << status   << '\n';
+            std::cout << "Имя: "       << std::setw(n) << name     << ",  "
+                      << "position = " << std::setw(3) << position << ",  "
+                      << "status = "   << std::setw(2) << status+1 << ",  "
+                      << "circle = "   << std::setw(4) << circle   << '\n';
         }
 
         ///------------------------------|
@@ -302,7 +320,7 @@ namespace model
         ///------------------------------:
         unsigned nn;
         void   init()
-        {   nn = utf8ToWstr(name).size();
+        {   nn = (unsigned)utf8ToWstr(name).size();
         }
 
     private:
@@ -355,7 +373,7 @@ private:
 
         for(bool isDone = true; isDone;)
         {
-            std::cout   << "\nНажмите ENTER, чтобы сделать "
+            std::cout   << "\nПАУЗА::Нажмите ENTER, чтобы сделать "
                         << ++step << " шаг ... \n";
 
             std::cin.get();
@@ -365,7 +383,16 @@ private:
                 const unsigned randNumber = rand() % 6;
                 l(randNumber)
 
-                pers.position = field.add(pers.position, randNumber);
+                const auto&[pos, isStart]
+                    = field.add(pers.position, randNumber);
+
+                if(isStart)
+                {   if(++pers.status == 3) pers.status  = 0;
+
+                    ++pers.circle;
+                }
+
+                pers.position = pos;
 
                 pers.info();
             }
@@ -400,7 +427,7 @@ void tests()
 /// Старт программы.
 ///----------------------------------------------------------------------------:
 int main()
-{   std::system   ("chcp 65001");
+{   std::system ("chcp 65001>nul");
     std::cout << "Привет Мир!\n" << std::endl;
 
     tests ();
