@@ -18,6 +18,7 @@
 				<Linker>
 					<Add option="-s" />
 					<Add option="-static" />
+					<Add option="-Wno-unknown-pragmas" />
 				</Linker>
 			</Target>
 		</Build>
