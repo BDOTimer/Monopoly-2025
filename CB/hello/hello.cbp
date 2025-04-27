@@ -10,7 +10,7 @@
 				<Option output="bin/Release/hello" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
-				<Option compiler="gcc" />
+				<Option compiler="mingw_gcc_142-ucrt" />
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-std=c++26" />
@@ -26,6 +26,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="../../task-dev.txt" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
