@@ -1,4 +1,5 @@
-﻿///----------------------------------------------------------------------------|
+﻿const char* const LOGO = "Model::Monopoly-2025[ver::0.0.1]";
+///----------------------------------------------------------------------------|
 /// Модель игры Монополия-2025.
 ///----------------------------------------------------------------------------:
 #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
@@ -103,8 +104,7 @@ namespace model
 		bool doValidation() const
 		{
 			for (const auto& s : statuses)
-			{
-				if (s.size() != amountSatusesCell) return false;
+			{   if (s.size() != amountSatusesCell) return false;
 			}
 
 			if (W * 2 + (H - 2) * 2 != amountCells) return false;
@@ -118,15 +118,14 @@ namespace model
 		/// Получить базовый конфиг.     |
 		///------------------------------:
 		static const Config& getDefault()
-		{
-			static   Config  config;
+		{   static   Config  config;
 			return           config;
 		}
 
 		void info() const
 		{
-			std::cout << "nmodel::Config::doValidation() ---> "
-				<< (doValidation() ? "SUCCESS!" : "FAIL ...") << '\n';
+			std::cout   << "nmodel::Config::doValidation() ---> "
+                        << (doValidation() ? "SUCCESS!" : "FAIL ...") << '\n';
 
 			int cnt{};
 			for (const auto& r : getGen())
@@ -149,11 +148,10 @@ namespace model
 					   config.info();
 			}
 
-			{
-   Config config{8, 4, {"4321","6789"}, 3, 3};
-	 l(config.amountCells)
-	   config.info();
-}
+			{   Config config{8, 4, {"4321","6789"}, 3, 3};
+                l(config.amountCells)
+                config.info();
+            }
 		}
 	};
 
@@ -162,11 +160,10 @@ namespace model
 	/// Описание(класс) ячейки на карте.
 	///------------------------------------------------------------------------:
 	struct  Cell
-	{
-		Cell() {}
-		Cell(const Array1U& init) : statuses(init)
-		{
-		}
+	{       Cell() {}
+            Cell(const Array1U& init) : statuses(init)
+            {
+            }
 
 		///------------------------------|
 		/// Получить статус по номеру.   |
@@ -226,9 +223,9 @@ namespace model
 			}
 		}
 
-			///------------------------------|
-			/// Друзья приватных методов.    |
-			///------------------------------:
+        ///------------------------------|
+        /// Друзья приватных методов.    |
+        ///------------------------------:
 		friend std::ostream& operator<<(std::ostream& o, const Cell& cell);
 		friend struct Field;
 	};
@@ -238,8 +235,7 @@ namespace model
 	/// Вывод Cell в консоль.            |
 	///----------------------------------:
 	std::ostream& operator<<(std::ostream& o, const Cell& cell)
-	{
-		for (const auto status : cell.statuses) o << status;
+	{   for (const auto status : cell.statuses) o << status;
 		return o;
 	}
 
@@ -248,11 +244,9 @@ namespace model
 	/// Поле Модели.
 	///------------------------------------------------------------------------:
 	struct  Field : std::vector<Cell>
-	{
-		Field(const Config& cfg)
-		{
-			init(cfg);
-		}
+	{       Field(const Config& cfg)
+            {   init(cfg);
+            }
 
 		struct PersonQ { unsigned pos; bool isStart{ false }; };
 
@@ -274,10 +268,9 @@ namespace model
 		{
 			l(size())
 
-				for (const auto& cell : *this)
-				{
-					cell.info();
-				}
+            for (const auto& cell : *this)
+            {   cell.info();
+            }
 		}
 
 	private:
@@ -334,8 +327,7 @@ namespace model
 		unsigned circle{ 1 };
 
 		void info() const
-		{
-			auto n = 15 - nn + name.size();
+		{   auto n = 15 - nn + name.size();
 			std::cout << "Имя: " << std::setw(n) << name << ",  "
 				<< "position = " << std::setw(3) << position << ",  "
 				<< "status = " << std::setw(2) << status + 1 << ",  "
@@ -347,8 +339,7 @@ namespace model
 		///------------------------------:
 		unsigned nn;
 		void   init()
-		{
-			const auto     s = utf8ToWstr(name);
+		{   const auto     s = utf8ToWstr(name);
 			nn = (unsigned)s.size();
 		}
 
@@ -368,15 +359,12 @@ namespace model
 /// Тестовая игровая площадка.
 ///----------------------------------------------------------------------------:
 struct  TestGame
-{
-	TestGame() : field(model::Config::getDefault())
-	{
-		for (auto& pers : perses)
-		{
-			pers.init();
-		}
-
-	}
+{       TestGame() : field(model::Config::getDefault())
+        {
+            for (auto& pers : perses)
+            {   pers.init();
+            }
+        }
 
 	void run()
 	{
@@ -393,7 +381,7 @@ struct  TestGame
 
 private:
 	std::vector<model::Person> perses
-	{ {"Bot:Pete"   },
+	{   {"Bot:Pete"   },
 		{"Bot:Ann"    },
 		{"Вася Пупкин"}
 	};
@@ -408,29 +396,31 @@ private:
 
 		for (bool isDone = true; isDone;)
 		{
-			std::cout << "\nПАУЗА::Нажмите ENTER, чтобы сделать "
-				<< ++step << " шаг ... \n";
+			std::cout   << "\nПАУЗА::Нажмите ENTER, чтобы сделать "
+                        << ++step << " шаг ... \n";
 
 			std::cin.get();
 
+			std::system("cls"); std::cout << "Старт " << LOGO << "\n\n";
+
 			for (auto& pers : perses)
 			{
-				const unsigned randNumber = rand() % 6;
+				const unsigned randNumber = rand() % 6 + 1;
 				l(randNumber)
 
-					const auto& [pos, isStart]
+                const auto& [pos, isStart]
 					= field.add(pers.position, randNumber);
 
-					if (isStart)
-					{
-						if (++pers.status == 3) pers.status = 0;
+                if (isStart)
+                {
+                    if (++pers.status == 3) pers.status = 0;
 
-						++pers.circle;
-					}
+                    ++pers.circle;
+                }
 
-					pers.position = pos;
+                pers.position = pos;
 
-					pers.info();
+                pers.info();
 			}
 		}
 	}
@@ -469,7 +459,7 @@ int main()
 
     srand(unsigned(time(NULL)));
 
-	std::cout << "Привет Мир!\n" << std::endl;
+	std::cout << "Старт " << LOGO << "\n\n";
 
 	tests();
 
