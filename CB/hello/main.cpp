@@ -63,6 +63,7 @@ namespace model
 	///------------------------------------------------------------------------|
 	/// Конфигурация Модели.
 	///------------------------------------------------------------------------:
+	struct Field;
 	struct Config
 	{
 		bool loadFromFile(std::string_view filename)
@@ -83,6 +84,33 @@ namespace model
 		unsigned W{ 9 };
 		unsigned H{ 8 };
 
+		std::vector<unsigned> chances
+		{   4, 7, 9, 12, 16, 19, 24, 26, 29
+		};
+
+		Field* pfield{nullptr};
+
+		///------------------------------|
+		/// Расшифровка статуса.         |
+		///------------------------------:
+		static std::string_view decodeStatus(unsigned status)
+		{
+		    const unsigned N = 4;
+
+		    if(status >= N) status = N - 1;
+
+		    static const char* m[N]
+		    {   "Ребёнок ",
+		        "Взрослый",
+		        "Родитель",
+		        "Чужой   "
+		    };
+		    return m[status];
+		}
+
+		///------------------------------|
+		/// Билд массива статусов.       |
+		///------------------------------:
 		const Array2U getGen() const
 		{
 			Array2U m(amountCells, Array1U(amountSatusesCell));
@@ -101,6 +129,9 @@ namespace model
 			return m;
 		}
 
+		///------------------------------|
+		/// Проверка конфига на ошибки.  |
+		///------------------------------:
 		bool doValidation() const
 		{
 			for (const auto& s : statuses)
@@ -108,6 +139,13 @@ namespace model
 			}
 
 			if (W * 2 + (H - 2) * 2 != amountCells) return false;
+
+			//if(chances.size() <= amountCells) chances.resize(amountCells);
+
+			if(!chances.empty() && 0 == chances.front())
+            {
+                /// TODO: Сделать рандомную генерацию шансов ...
+            }
 
 			/// TODO ...
 
@@ -189,6 +227,11 @@ namespace model
 		unsigned id;
 
 		///------------------------------|
+		/// Шанс.                        |
+		///------------------------------:
+		unsigned chance{0};
+
+		///------------------------------|
 		/// Тут тест этого класса.       |
 		///------------------------------:
 		TEST
@@ -228,6 +271,7 @@ namespace model
         ///------------------------------:
 		friend std::ostream& operator<<(std::ostream& o, const Cell& cell);
 		friend struct Field;
+		friend struct Person;
 	};
 
 
@@ -292,6 +336,11 @@ namespace model
 					cell.statuses.push_back(statuses[i][j]);
 				}
 			}
+
+			///-------------------------------|
+            /// Установка шансов.             |
+            ///-------------------------------:
+            for(auto& i : cfg.chances) (*this)[i].chance = 1;
 		}
 
 		///------------------------------|
@@ -323,15 +372,23 @@ namespace model
 		/// Поле у нас лента...          |
 		///------------------------------:
 		unsigned position{ 0 };
-		unsigned status{ 0 };
-		unsigned circle{ 1 };
+		unsigned status  { 0 };
+		unsigned circle  { 1 };
+
+        const Config* cfg{nullptr};
 
 		void info() const
-		{   auto n = 15 - nn + name.size();
-			std::cout << "Имя: " << std::setw(n) << name << ",  "
-				<< "position = " << std::setw(3) << position << ",  "
-				<< "status = " << std::setw(2) << status + 1 << ",  "
-				<< "circle = " << std::setw(4) << circle << '\n';
+		{
+		    unsigned chance = (*(cfg->pfield))[position].chance;
+
+		    auto n = 15 - nn + name.size();
+			std::cout << "Имя: "      << std::setw(n) << name       << ",  "
+				      << "Позиция = " << std::setw(3) << position   << ",  "
+				      << "Статус = "  << std::setw(2)
+				      << Config::decodeStatus(status)               << ",  "
+				      << "Круг = "    << std::setw(4) << circle     << ",  "
+				      << "Шанс = "    << std::setw(3) << chance
+				      << '\n';
 		}
 
 		///------------------------------|
@@ -349,7 +406,7 @@ namespace model
 		///------------------------------:
 		TEST
 		{ Person  person;
-					person.info();
+                  person.info();
 		}
 	};
 }
@@ -363,19 +420,23 @@ struct  TestGame
         {
             for (auto& pers : perses)
             {   pers.init();
+
+                pers.cfg = &model::Config::getDefault();
             }
+
+            model::Config* cfg
+                = const_cast<model::Config*>(&model::Config::getDefault());
+
+            cfg->pfield = &field;
         }
 
 	void run()
-	{
-		loop();
+	{   loop();
 	}
 
 	void info() const
-	{
-		for (const auto& pers : perses)
-		{
-			pers.info();
+	{   for (const auto& pers : perses)
+		{   pers.info();
 		}
 	}
 
