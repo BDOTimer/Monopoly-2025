@@ -452,61 +452,44 @@ namespace model
                     person.info();
         }
     };
-}
 
 
-///----------------------------------------------------------------------------|
-/// Тестовая игровая площадка.
-///----------------------------------------------------------------------------:
-struct  TestGame
-{       TestGame() : field(model::Config::getDefault())
-        {
-            for (auto& pers : perses)
-            {   pers.init();
+    ///------------------------------------------------------------------------|
+    /// Арбитер.
+    ///------------------------------------------------------------------------:
+    struct  Referee
+    {       Referee() : field(model::Config::getDefault())
+            {
+                for (auto& pers : perses)
+                {   pers.init();
 
-                pers.cfg = &model::Config::getDefault();
+                    pers.cfg = &model::Config::getDefault();
+
+                }
+
+                model::Config* cfg
+                    = const_cast<model::Config*>(&model::Config::getDefault());
+
+                cfg->pfield = &field;
             }
 
-            model::Config* cfg
-                = const_cast<model::Config*>(&model::Config::getDefault());
-
-            cfg->pfield = &field;
+    protected:
+        void info() const
+        {   for (const auto& pers : perses)
+            {   pers.info();
+            }
         }
 
-    void run()
-    {   loop();
-    }
+        std::vector<model::Person> perses
+        {   {"Bot:Pete"   },
+            {"Bot:Ann"    },
+            {"Вася Пупкин"}
+        };
 
-    void info() const
-    {   for (const auto& pers : perses)
-        {   pers.info();
-        }
-    }
+        model::Field field;
 
-private:
-    std::vector<model::Person> perses
-    {   {"Bot:Pete"   },
-        {"Bot:Ann"    },
-        {"Вася Пупкин"}
-    };
-
-    model::Field field;
-
-    void  loop()
-    {
-        info();
-
-        unsigned step{ 0 };
-
-        for (bool isDone = true; isDone;)
+        bool  step()
         {
-            std::cout   << "\nПАУЗА::Нажмите ENTER, чтобы сделать "
-                        << ++step << " шаг ... \n";
-
-            std::cin.get();
-
-            std::system("cls"); std::cout << "Процесс " << LOGO << "\n\n";
-
             for (auto& pers : perses)
             {
                 const unsigned randNumber = rand() % 6 + 1;
@@ -528,6 +511,37 @@ private:
 
                 std::cout << std::endl;
             }
+            return true;
+        }
+    };
+
+}   /// namespace model
+
+
+///----------------------------------------------------------------------------|
+/// Тестовая игровая площадка.
+///----------------------------------------------------------------------------:
+struct  TestGame : model::Referee
+{       TestGame()
+        {
+        }
+
+    void run()
+    {
+        info();
+
+        unsigned cnt{ 0 };
+
+        for (bool isDone = true; isDone;)
+        {
+            std::cout   << "\nПАУЗА::Нажмите ENTER, чтобы сделать "
+                        << ++cnt << " шаг ... \n";
+
+            std::cin.get();
+
+            std::system("cls"); std::cout << "Процесс " << LOGO << "\n\n";
+
+            isDone = step();
         }
     }
 
