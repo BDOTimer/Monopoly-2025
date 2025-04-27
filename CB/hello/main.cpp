@@ -10,6 +10,7 @@
 #include <string_view>
 #include <vector>
 #include <tuple>
+#include <map>
 
 #include <locale>
 #include <codecvt>
@@ -17,18 +18,16 @@
 #include <windows.h>
 
 #ifndef     __MINGW32__
-#pragma execution_character_set( "utf-8" )
+    #pragma execution_character_set( "utf-8" )
 #endif  //  __MINGW32__
 
 std::string WstrToUtf8(const std::wstring& str)
-{
-	std::wstring_convert<std::codecvt_utf8<wchar_t> > strCnv;
+{   std::wstring_convert<std::codecvt_utf8<wchar_t> > strCnv;
 	return strCnv.to_bytes(str);
 }
 
 std::wstring utf8ToWstr(const std::string& str)
-{
-	std::wstring_convert< std::codecvt_utf8<wchar_t> > strCnv;
+{   std::wstring_convert< std::codecvt_utf8<wchar_t> > strCnv;
 	return strCnv.from_bytes(str);
 }
 
@@ -74,8 +73,8 @@ namespace model
 		///------------------------------|
 		/// Количество ячеек на поле.    |
 		///------------------------------:
-		unsigned amountCells{ 30 };
-		unsigned amountSatusesCell{ 3 };
+		unsigned amountCells      { 30 };
+		unsigned amountSatusesCell{ 3  };
 
 		std::vector<std::string> statuses
 		{ "123", "231", "312"
@@ -90,22 +89,19 @@ namespace model
 
 		Field* pfield{nullptr};
 
+        const char* statusNames[4]
+        {   "Ребёнок ",
+            "Взрослый",
+            "Родитель",
+            "Чужой   "
+        };
+
 		///------------------------------|
 		/// Расшифровка статуса.         |
 		///------------------------------:
-		static std::string_view decodeStatus(unsigned status)
-		{
-		    const unsigned N = 4;
-
-		    if(status >= N) status = N - 1;
-
-		    static const char* m[N]
-		    {   "Ребёнок ",
-		        "Взрослый",
-		        "Родитель",
-		        "Чужой   "
-		    };
-		    return m[status];
+		std::string_view decodeStatus(unsigned status) const
+		{   constexpr unsigned N = sizeof statusNames / sizeof *statusNames ;
+		    return statusNames[status >= N ? N - 1 : status];
 		}
 
 		///------------------------------|
@@ -402,12 +398,12 @@ namespace model
 		    unsigned chance = (*(cfg->pfield))[position].chance;
 
 		    auto n = 15 - nn + name.size();
-			std::cout << "Имя: "      << std::setw(n) << name       << ",  "
-				      << "Позиция = " << std::setw(3) << position   << ",  "
+			std::cout << "Имя: "      << std::setw(n) << name       << ", "
+				      << "Позиция = " << std::setw(4) << position   << ", "
 				      << "Статус = "  << std::setw(2)
-				      << Config::decodeStatus(status)               << ",  "
-				      << "Круг = "    << std::setw(4) << circle     << ",  "
-				      << "Шанс = "    << std::setw(3) << chance
+				      <<  cfg->decodeStatus(status)                 << ", "
+				      << "Круг = "    << std::setw(3) << circle     << ", "
+				      << "Шанс = "    << std::setw(2) << chance
 				      << '\n';
 		}
 
@@ -482,7 +478,7 @@ private:
 
 			std::cin.get();
 
-			std::system("cls"); std::cout << "Старт " << LOGO << "\n\n";
+			std::system("cls"); std::cout << "Процесс " << LOGO << "\n\n";
 
 			for (auto& pers : perses)
 			{
@@ -502,6 +498,8 @@ private:
                 pers.position = pos;
 
                 pers.info();
+
+                std::cout << std::endl;
 			}
 		}
 	}
@@ -510,7 +508,7 @@ private:
 	/// Тест класса.                 |
 	///------------------------------:
 	TEST
-	{ TestGame    testGame;
+	{   TestGame    testGame;
 					testGame.run();
 	}
 };
