@@ -1,221 +1,47 @@
 ﻿///----------------------------------------------------------------------------|
 /// Модель игры Монополия-2025.
-    const char* const LOGO = "Model::Monopoly-2025[ver::0.0.1]";
+    const char* const LOGO = "Model::Monopoly-2025[ver::0.0.2]";
 ///----------------------------------------------------------------------------:
-#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
-#include <iostream>
-#include <iomanip>
-#include <fstream>
-#include <sstream>
-#include <string_view>
-#include <vector>
-#include <tuple>
-#include <map>
+#include "config-model.h"
 
 #include <locale>
 #include <codecvt>
 
-#include <windows.h>
 
+namespace win
+{
 #ifndef     __MINGW32__
+    #include <windows.h>
     #pragma execution_character_set( "utf-8" )
 #endif  //  __MINGW32__
+}
 
 std::string WstrToUtf8(const std::wstring& str)
 {   std::wstring_convert<std::codecvt_utf8<wchar_t> > strCnv;
     return strCnv.to_bytes(str);
 }
 
+
 std::wstring utf8ToWstr(const std::string& str)
 {   std::wstring_convert< std::codecvt_utf8<wchar_t> > strCnv;
     return strCnv.from_bytes(str);
 }
 
-#define l(v)           std::cout << #v << " = " << (v) << std::endl;
-#define TESTCLASS(F)   std::cout << "RUN: "#F; std::cout << '\n';\
-                  F(); std::cout << '\n';
-
-#define TEST friend void ::tests(); static void test()
-
-///----------------------------------|
-/// Для удобства чтения?             |
-/// Array1U это одномерный           |
-/// массив из натуральных числе.     |
-///----------------------------------:
-using Array1U = std::vector<unsigned>;
-using Array2U = std::vector<Array1U >;
-
-void tests();
-
 namespace model
 {
-
     ///------------------------------------------------------------------------|
-    /// Правила.
-    ///------------------------------------------------------------------ Rules:
-    struct Rules
+    /// Карточка.
+    ///------------------------------------------------------------------- Card:
+    struct  Card
     {
-        std::vector<std::vector<std::vector<unsigned>>> prices
-        {
-            /// Ребенок:
-            {   {   120,  1, 13, 22 },
-                {   100, 16, 28,  7 },
-                {    80,  7, 19, 25 },
-                {    60, 10         }
-            },
+        std::string_view type; /// Тип.
+        std::string_view name; /// Название.
+        std::string_view txtr; /// Texture.
 
-            /// Взрослый:
-            {   {   120,  8, 17, 29 },
-                {   100,  2, 11, 23 },
-                {    80, 14, 26, 20 },
-                {    60,  5         }
-            },
-
-            /// Родитель:
-            {   {   120, 16, 18, 24 },
-                {   100,  9, 21, 27 },
-                {    80,  3, 12, 30 },
-                {    60, 15         }
-            }
-        };
-    };
-
-
-    ///------------------------------------------------------------------------|
-    /// Конфигурация Модели.
-    ///----------------------------------------------------------------- Config:
-    struct Field;
-    struct Config
-    {
-        bool loadFromFile(std::string_view filename)
-        {   /// TODO ...
-            return true;
-        }
-
-        ///------------------------------|
-        /// Количество ячеек на поле.    |
-        ///------------------------------:
-        unsigned amountCells      { 30 };
-        unsigned amountSatusesCell{ 3  };
-
-        std::vector<std::string> statuses
-        { "123", "231", "312"
-        };
-
-        unsigned W{ 9 };
-        unsigned H{ 8 };
-
-        std::vector<unsigned> chances
-        {   4, 7, 9, 12, 16, 19, 24, 26, 29
-        };
-
-        Field* pfield{nullptr};
-
-        const char* statusNames[4]
-        {   "Ребёнок ",
-            "Взрослый",
-            "Родитель",
-            "Чужой   "
-        };
-
-        ///------------------------------|
-        /// Особые Правила.              |
-        ///------------------------------:
-        Rules rules;
-
-        ///------------------------------|
-        /// Расшифровка статуса.         |
-        ///------------------------------:
-        std::string_view decodeStatus(unsigned status) const
-        {   constexpr unsigned N = sizeof statusNames / sizeof *statusNames ;
-            return statusNames[status >= N ? N - 1 : status];
-        }
-
-        ///------------------------------|
-        /// Билд массива статусов.       |
-        ///------------------------------:
-        const Array2U getGen() const
-        {
-            Array2U m(amountCells, Array1U(amountSatusesCell));
-
-            for (unsigned i = 0, k = 0; i < m.size(); ++i)
-            {
-                const   auto s = statuses[k];
-                for (unsigned j = 0; j < amountSatusesCell; ++j)
-                {
-                    m[i][j] = s[j] - '0';
-                }
-
-                if (++k == statuses.size()) k = 0;
-            }
-
-            return m;
-        }
-
-        ///------------------------------|
-        /// Проверка конфига на ошибки.  |
-        ///------------------------------:
-        bool doValidation() const
-        {
-            for (const auto& s : statuses)
-            {   if (s.size() != amountSatusesCell) return false;
-            }
-
-            if (W * 2 + (H - 2) * 2 != amountCells) return false;
-
-            //if(chances.size() <= amountCells) chances.resize(amountCells);
-
-            if(!chances.empty() && 0 == chances.front())
-            {
-                /// TODO: Сделать рандомную генерацию шансов ...
-            }
-
-            /// TODO ...
-
-            return true;
-        }
-
-        ///------------------------------|
-        /// Получить базовый конфиг.     |
-        ///------------------------------:
-        static const Config& getDefault()
-        {   static   Config  config;
-            return           config;
-        }
-
-        void info() const
-        {
-            std::cout   << "nmodel::Config::doValidation() ---> "
-                        << (doValidation() ? "SUCCESS!" : "FAIL ...") << '\n';
-
-            int cnt{};
-            for (const auto& r : getGen())
-            {
-                std::cout << ++cnt << "\t: ";
-                for (const auto n : r)
-                {
-                    std::cout << n;
-                }   std::cout << '\n';
-            }       std::cout << '\n';
-        }
-
-        ///------------------------------|
-        /// Тест класса.                 |
-        ///------------------------------:
-        TEST
-        {
-            {   Config config;
-                     l(config.getDefault().amountCells)
-                       config.info();
-            }
-
-            {   Config config{8, 4, {"4321","6789"}, 3, 3};
-                l(config.amountCells)
-                config.info();
-            }
+        std::string infoName() const
+        {   return std::format("\"{}\"", name.data());
         }
     };
-
 
     ///------------------------------------------------------------------------|
     /// Описание(класс) ячейки на карте.
@@ -252,7 +78,9 @@ namespace model
         ///------------------------------|
         /// Шанс.                        |
         ///------------------------------:
-        unsigned chance{0};
+        unsigned chance {0};
+
+        Card* card{nullptr};
 
         ///------------------------------|
         /// Тут тест этого класса.       |
@@ -295,6 +123,7 @@ namespace model
         friend std::ostream& operator<<(std::ostream& o, const Cell& cell);
         friend struct Field;
         friend struct Person;
+        friend struct Referee;
     };
 
 
@@ -370,8 +199,7 @@ namespace model
         /// Тест класса.                 |
         ///------------------------------:
         TEST
-        {
-            {   Field   field(Config::getDefault());
+        {   {   Field   field(Config::getDefault());
                         field.info();
 
                 Cell& cell = field[0];
@@ -423,6 +251,7 @@ namespace model
         void info() const
         {
             unsigned chance = (*(cfg->pfield))[position].chance;
+            Card*    card   = (*(cfg->pfield))[position].card;
 
             auto n = 15 - nn + name.size();
             std::cout << ">>"         << std::setw(n) << name       << ", "
@@ -430,7 +259,8 @@ namespace model
                       << "Статус = "  << std::setw(2)
                       <<  cfg->decodeStatus(status)                 << ", "
                       << "Круг = "    << std::setw(3) << circle     << ", "
-                      << "Шанс = "    << std::setw(2) << chance
+                      << "Шанс = "    << std::setw(2) << chance     << ", "
+                      << card->infoName()
                       << '\n';
         }
 
@@ -458,19 +288,23 @@ namespace model
     /// Арбитер.
     ///---------------------------------------------------------------- Referee:
     struct  Referee
-    {       Referee() : field(model::Config::getDefault())
+    {       Referee(const Config& Cfg) : field(Cfg), config(Cfg)
             {
                 for (auto& pers : perses)
                 {   pers.init();
 
-                    pers.cfg = &model::Config::getDefault();
-
+                    pers.cfg = &Cfg;
                 }
 
                 model::Config* cfg
-                    = const_cast<model::Config*>(&model::Config::getDefault());
+                    = const_cast<model::Config*>(&Cfg);
 
                 cfg->pfield = &field;
+
+                getCards   ();
+                cards2Field();
+
+                if(config.isMixerCards) mixerCards();
             }
 
     protected:
@@ -486,14 +320,56 @@ namespace model
             {"Вася Пупкин"}
         };
 
-        model::Field field;
+        model::Field  field;
+
+        const Config& config;
+
+        std::vector<model::Card >  cards;
+        std::vector<model::Card*> pcards;
+
+        ///------------------------------|
+        /// Получить карточки из конфига.|
+        ///------------------------------:
+        void getCards()
+        {
+            cards.reserve(config.amountCells);
+
+            for(const auto& type : config.cardNames)
+            {
+                std::string_view t = type.front();
+
+                for(size_t i = 2; i < type.size(); i += 2)
+                {   cards.emplace_back( Card{t, type[i], });
+                    pcards.push_back  (&cards.back());
+                }
+            }
+        }
+
+        void cards2Field()
+        {   for(size_t i = 0; i < field.size(); ++i)
+            {   field [i].card = pcards[i];
+            }
+        }
+
+        void infoCards() const
+        {   for(const auto pc : pcards)
+            {   std::cout << pc->type << " : " << pc->name << '\n';
+            }   std::cout << '\n';
+        }
+
+        void mixerCards()
+        {   for(size_t i = 0; i < pcards.size(); ++i)
+            {   const unsigned   randNumber = rand() % pcards.size();
+                std::swap(pcards[randNumber], pcards[i]);
+            }
+        }
 
         bool  step()
         {
             for (auto& pers : perses)
             {
                 const unsigned randNumber = rand() % 6 + 1;
-                l(randNumber)
+                             l(randNumber)
 
                 const auto& [pos, isStart]
                     = field.add(pers.position, randNumber);
@@ -513,6 +389,8 @@ namespace model
             }
             return true;
         }
+
+        friend struct TestGame;
     };
 
 }   /// namespace model
@@ -522,8 +400,10 @@ namespace model
 /// Тестовая игровая площадка.
 ///------------------------------------------------------------------- TestGame:
 struct  TestGame : model::Referee
-{       TestGame()
-        {
+{       TestGame() : model::Referee(model::Config::getDefault())
+        {   model::Config::getDefault().infoValidation();
+
+            infoCards();
         }
 
     void run()

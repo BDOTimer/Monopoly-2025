@@ -21,6 +21,9 @@
   <ItemGroup>
     <ClCompile Include="..\..\CB\hello\main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\CB\hello\config-model.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
