@@ -419,7 +419,12 @@ struct  TestGame : model::Referee
 
             std::cin.get();
 
-            std::system("cls"); std::cout << "Процесс " << LOGO << "\n\n";
+            if(!model::Config::getDefault().isScrollConsole)
+            {   std::system("cls");
+                std::cout << "Процесс " << LOGO << "\n\n";
+            }
+            else std::cout << "|------------------------------------------\n\n";
+
 
             isDone = step();
         }

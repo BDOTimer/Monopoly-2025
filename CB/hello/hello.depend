@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1745854623 source:d:\!gforum-2025\projects\monopoly-2025\cb\hello\main.cpp
+1745868116 source:d:\!gforum-2025\projects\monopoly-2025\cb\hello\main.cpp
 	"config-model.h"
 	<locale>
 	<codecvt>
 	<windows.h>
 
-1745854656 d:\!gforum-2025\projects\monopoly-2025\cb\hello\config-model.h
+1745868154 d:\!gforum-2025\projects\monopoly-2025\cb\hello\config-model.h
 	<iostream>
 	<iomanip>
 	<fstream>
