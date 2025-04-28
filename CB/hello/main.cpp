@@ -339,7 +339,7 @@ namespace model
                 std::string_view t = type.front();
 
                 for(size_t i = 2; i < type.size(); i += 2)
-                {   cards.emplace_back( Card{t, type[i], });
+                {   cards.emplace_back( Card{t, type[i], type[i+1]});
                     pcards.push_back  (&cards.back());
                 }
             }
