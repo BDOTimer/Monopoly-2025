@@ -253,15 +253,15 @@ namespace model
             unsigned chance = (*(cfg->pfield))[position].chance;
             Card*    card   = (*(cfg->pfield))[position].card;
 
-            auto n = 15 - nn + name.size();
-            std::cout << ">>"         << std::setw(n) << name       << ", "
-                      << "Позиция = " << std::setw(4) << position   << ", "
-                      << "Статус = "  << std::setw(2)
-                      <<  cfg->decodeStatus(status)                 << ", "
-                      << "Круг = "    << std::setw(3) << circle     << ", "
-                      << "Шанс = "    << std::setw(2) << chance     << ", "
-                      << card->infoName()
-                      << '\n';
+        /// auto n = 15 - nn + name.size();
+            std::cout << ">> "                           << name     << "\n"
+                      << "Деньги  = "    << std::setw(4) << money    << "\n"
+                      << "Позиция = "    << std::setw(4) << position << "\n"
+                      << "Статус  = "    << std::setw(4)
+                      <<  cfg->decodeStatus(status)                  << "\n"
+                      << "Круг    = "    << std::setw(4) << circle   << "\n"
+                      << "Шанс    = "    << std::setw(4) << chance   << "\n"
+                      << card->infoName()                            << "\n\n";
         }
 
         ///------------------------------|
@@ -269,8 +269,11 @@ namespace model
         ///------------------------------:
         unsigned nn;
         void   init()
-        {   const auto     s = utf8ToWstr(name);
-            nn = (unsigned)s.size();
+        {
+        /// const auto     s = utf8ToWstr(name);
+        /// nn = (unsigned)s.size();
+
+            money = cfg->startMoney;
         }
 
     private:
@@ -291,9 +294,8 @@ namespace model
     {       Referee(const Config& Cfg) : field(Cfg), config(Cfg)
             {
                 for (auto& pers : perses)
-                {   pers.init();
-
-                    pers.cfg = &Cfg;
+                {   pers.cfg   = &Cfg;
+                    pers.init();
                 }
 
                 model::Config* cfg
@@ -369,7 +371,7 @@ namespace model
             for (auto& pers : perses)
             {
                 const unsigned randNumber = rand() % 6 + 1;
-                             l(randNumber)
+                ///          l(randNumber)
 
                 const auto& [pos, isStart]
                     = field.add(pers.position, randNumber);
@@ -384,8 +386,6 @@ namespace model
                 pers.position = pos;
 
                 pers.info();
-
-                std::cout << std::endl;
             }
             return true;
         }
