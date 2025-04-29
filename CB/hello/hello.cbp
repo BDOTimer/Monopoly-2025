@@ -29,6 +29,7 @@
 		<Unit filename="../../task-dev.txt" />
 		<Unit filename="config-model.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="myl.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

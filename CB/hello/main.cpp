@@ -2,7 +2,7 @@
 /// Модель игры Монополия-2025.
     const char* const LOGO = "Model::Monopoly-2025[ver::0.0.2]";
 ///----------------------------------------------------------------------------:
-#include "config-model.h"
+#include "myl.h"
 
 #include <locale>
 #include <codecvt>
@@ -261,7 +261,7 @@ namespace model
                       <<  cfg->decodeStatus(status)                  << "\n"
                       << "Круг    = "    << std::setw(4) << circle   << "\n"
                       << "Шанс    = "    << std::setw(4) << chance   << "\n"
-                      << card->infoName()                            << "\n\n";
+                      <<  card->infoName()                           << "\n\n";
         }
 
         ///------------------------------|
@@ -291,8 +291,13 @@ namespace model
     /// Арбитер.
     ///---------------------------------------------------------------- Referee:
     struct  Referee
-    {       Referee(const Config& Cfg) : field(Cfg), config(Cfg)
+    {       Referee(const Config& Cfg) :
+                field (Cfg),
+                config(Cfg),
+                whoFirstPlayer(Cfg.amountPlayers)
             {
+                srand(unsigned(time(NULL)));
+
                 for (auto& pers : perses)
                 {   pers.cfg   = &Cfg;
                     pers.init();
@@ -307,12 +312,23 @@ namespace model
                 cards2Field();
 
                 if(config.isMixerCards) mixerCards();
+
+                order = myl::WhoFirstPlayer::getFastOrder(Cfg.amountPlayers);
+
+                std::cout << "Жеребьевка: ";
+                for(const auto n : order) std::cout << (n+1) << " ";
+
+                std::cout << '\n';
+
+                for(unsigned i = 0; i < perses.size(); ++i)
+                {   std::cout << perses[order[i]].name << '\n';
+                }
             }
 
     protected:
         void info() const
-        {   for (const auto& pers : perses)
-            {   pers.info();
+        {   for(unsigned i = 0; i < perses.size(); ++i)
+            {   perses[order[i]].info();
             }
         }
 
@@ -328,6 +344,9 @@ namespace model
 
         std::vector<model::Card >  cards;
         std::vector<model::Card*> pcards;
+
+        myl::WhoFirstPlayer whoFirstPlayer;
+        std::vector<unsigned>        order;
 
         ///------------------------------|
         /// Получить карточки из конфига.|
@@ -368,8 +387,10 @@ namespace model
 
         bool  step()
         {
-            for (auto& pers : perses)
+            for(unsigned i = 0; i < perses.size(); ++i)
             {
+                auto& pers = perses[order[i]];
+
                 const unsigned randNumber = rand() % 6 + 1;
                 ///          l(randNumber)
 
@@ -408,6 +429,14 @@ struct  TestGame : model::Referee
 
     void run()
     {
+        std::string_view bannerStartGame
+        {   "///-----------------------------------|\n"
+            "///         ИГРА НАЧАЛАСЬ!            |\n"
+            "///-----------------------------------:\n"
+        };
+
+        std::cout << bannerStartGame << '\n';
+
         info();
 
         unsigned cnt{ 0 };
@@ -445,6 +474,8 @@ struct  TestGame : model::Referee
 ///---------------------------------------------------------------------- tests:
 void tests()
 {
+    /// myl::tests();
+
     /// TESTCLASS(model::Cell::test  );
     /// TESTCLASS(model::Config::test);
     /// TESTCLASS(model::Field::test );
@@ -461,8 +492,6 @@ int main()
 {
     std::system( "chcp 65001>nul" );
 /// SetConsoleOutputCP(65001);
-
-    srand(unsigned(time(NULL)));
 
     std::cout << "Старт " << LOGO << "\n\n";
 
