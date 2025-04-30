@@ -27,9 +27,10 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="../../task-dev.txt" />
-		<Unit filename="config-model.h" />
-		<Unit filename="main.cpp" />
-		<Unit filename="myl.h" />
+		<Unit filename="sources/!m-model.h" />
+		<Unit filename="sources/config-model.h" />
+		<Unit filename="sources/main.cpp" />
+		<Unit filename="sources/myl.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

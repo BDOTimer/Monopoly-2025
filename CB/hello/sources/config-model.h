@@ -5,15 +5,25 @@
 /// Дефолтный дизайн для детей! (детский вариант)
 ///----------------------------------------------------------------------------:
 #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
+#include <functional>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
 #include <sstream>
-#include <string_view>
+#include <string>
 #include <vector>
 #include <format>
 #include <tuple>
 #include <map>
+
+
+namespace win
+{
+#ifndef     __MINGW32__
+    #include <windows.h>
+    #pragma execution_character_set( "utf-8" )
+#endif  //  __MINGW32__
+}
 
 
 #define l(v)           std::cout << #v << " = " << (v) << std::endl;
@@ -35,6 +45,70 @@ void tests();
 
 namespace model
 {
+    using  FooEvent = std::function<bool()>;
+	struct Referee;
+
+    ///------------------------------------------------------------------------|
+    /// Управляющий событиями.
+    ///---------------------------------------------------------- ManagerEvents:
+    struct  ManagerEvents
+    {       ManagerEvents()
+            {
+            }
+
+        void push(unsigned i)
+        {   events.push_back(eventsInstall[i]);
+        }
+
+        void make()
+        {   if(events.empty()) return;
+            for(auto foo : events) foo();
+            events.clear();
+        }
+
+        template<typename T>
+        void initEvents(T* referee)
+        {
+            eventsInstall =
+            {
+                ///----------------------------------|
+                /// #0: Тестовое событие.            |
+                ///----------------------------------:
+                [referee]()
+                {
+                    std::cout <<     "\n"
+                    "///-------------|\n"
+                    "/// Событие #0. |\n"
+                    "///-------------|\n";
+
+                    l(referee->cfg->moneyBank)
+
+                    std::cout << '\n';
+
+                    return true;
+                },
+
+                ///----------------------------------|
+                /// #1: ...                          |
+                ///----------------------------------:
+                [referee]()
+                {
+                    return true;
+                }
+
+                ///----------------------------------|
+                /// #2: ...                          |
+                ///----------------------------------:
+                /// ...
+            };
+        }
+
+    private:
+        std::vector<FooEvent> events;
+        std::vector<FooEvent> eventsInstall;
+    };
+
+
     ///------------------------------------------------------------------------|
     /// Правила.
     ///------------------------------------------------------------------ Rules:
@@ -160,6 +234,11 @@ namespace model
         ///------------------------------:
         unsigned startMoney{300};
 
+        ///------------------------------|
+        /// Денеги Банка.                |
+        ///------------------------------:
+        unsigned moneyBank{3200};
+
         const char* statusNames[4]
         {   "Ребёнок ",
             "Взрослый",
@@ -183,6 +262,11 @@ namespace model
         /// Особые Правила.              |
         ///------------------------------:
         Rules rules;
+
+        ///------------------------------|
+        /// Управление событиями.        |
+        ///------------------------------:
+        ManagerEvents managerEvents;
 
         ///------------------------------|
         /// Расшифровка статуса.         |

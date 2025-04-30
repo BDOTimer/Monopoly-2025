@@ -1,6 +1,10 @@
-﻿///----------------------------------------------------------------------------|
+﻿#ifndef M_MODEL_H
+#define M_MODEL_H
+
+const char* const LOGO = "Model::Monopoly-2025[ver::0.0.2]";
+///----------------------------------------------------------------------------|
+/// "!m-model.h"
 /// Модель игры Монополия-2025.
-    const char* const LOGO = "Model::Monopoly-2025[ver::0.0.2]";
 ///----------------------------------------------------------------------------:
 #include "myl.h"
 
@@ -8,24 +12,16 @@
 #include <codecvt>
 
 
-namespace win
-{
-#ifndef     __MINGW32__
-    #include <windows.h>
-    #pragma execution_character_set( "utf-8" )
-#endif  //  __MINGW32__
-}
-
-std::string WstrToUtf8(const std::wstring& str)
+inline std::string WstrToUtf8(const std::wstring& str)
 {   std::wstring_convert<std::codecvt_utf8<wchar_t> > strCnv;
     return strCnv.to_bytes(str);
 }
 
-
-std::wstring utf8ToWstr(const std::string& str)
+inline std::wstring utf8ToWstr(const std::string& str)
 {   std::wstring_convert< std::codecvt_utf8<wchar_t> > strCnv;
     return strCnv.from_bytes(str);
 }
+
 
 namespace model
 {
@@ -42,6 +38,19 @@ namespace model
         {   return std::format("\"{}\"", name.data());
         }
     };
+
+
+    ///------------------------------------------------------------------------|
+    /// Банк.
+    ///------------------------------------------------------------------- Bank:
+    struct  Bank
+    {       Bank(const Config& cfg) : money(cfg.moneyBank)
+            {
+            }
+
+        unsigned money;
+    };
+
 
     ///------------------------------------------------------------------------|
     /// Описание(класс) ячейки на карте.
@@ -206,6 +215,8 @@ namespace model
                         cell.info();
             }
         }
+
+		friend struct Referee;
     };
 
     ///------------------------------------------------------------------------|
@@ -247,6 +258,10 @@ namespace model
         std::map<std::string, unsigned>  specs;
 
         const Config* cfg{nullptr};
+
+        void make()
+        {   const_cast<model::Config*>(cfg)->managerEvents.make();
+        }
 
         void info() const
         {
@@ -292,9 +307,9 @@ namespace model
     ///---------------------------------------------------------------- Referee:
     struct  Referee
     {       Referee(const Config& Cfg) :
-                field (Cfg),
-                config(Cfg),
-                whoFirstPlayer(Cfg.amountPlayers)
+                field(Cfg),
+                whoFirstPlayer(Cfg.amountPlayers),
+                bank (Cfg)
             {
                 srand(unsigned(time(NULL)));
 
@@ -303,15 +318,17 @@ namespace model
                     pers.init();
                 }
 
-                model::Config* cfg
-                    = const_cast<model::Config*>(&Cfg);
+                cfg = const_cast<model::Config*>(&Cfg);
 
                 cfg->pfield = &field;
+                cfg->managerEvents.initEvents<Referee>(this);
+            //  cfg->managerEvents.push(0);
+            //  cfg->managerEvents.make( );
 
                 getCards   ();
                 cards2Field();
 
-                if(config.isMixerCards) mixerCards();
+                if(cfg->isMixerCards) mixerCards();
 
                 order = myl::WhoFirstPlayer::getFastOrder(Cfg.amountPlayers);
 
@@ -340,7 +357,7 @@ namespace model
 
         model::Field  field;
 
-        const Config& config;
+        model::Config* cfg;
 
         std::vector<model::Card >  cards;
         std::vector<model::Card*> pcards;
@@ -348,14 +365,16 @@ namespace model
         myl::WhoFirstPlayer whoFirstPlayer;
         std::vector<unsigned>        order;
 
+        Bank bank;
+
         ///------------------------------|
         /// Получить карточки из конфига.|
         ///------------------------------:
         void getCards()
         {
-            cards.reserve(config.amountCells);
+            cards.reserve(cfg->amountCells);
 
-            for(const auto& type : config.cardNames)
+            for(const auto& type : cfg->cardNames)
             {
                 std::string_view t = type.front();
 
@@ -385,10 +404,17 @@ namespace model
             }
         }
 
+        ///------------------------------|
+        /// Все игроки делают по 1 ходу. |
+        ///------------------------------:
         bool  step()
         {
             for(unsigned i = 0; i < perses.size(); ++i)
             {
+                if(unsigned randN = (rand() % 10); randN < 3)
+                {   cfg->managerEvents.push(0);
+                }
+
                 auto& pers = perses[order[i]];
 
                 const unsigned randNumber = rand() % 6 + 1;
@@ -405,99 +431,17 @@ namespace model
                 }
 
                 pers.position = pos;
-
+                pers.make();
                 pers.info();
             }
             return true;
         }
 
         friend struct TestGame;
+        friend struct ManagerEvents;
     };
 
 }   /// namespace model
 
 
-///----------------------------------------------------------------------------|
-/// Тестовая игровая площадка.
-///------------------------------------------------------------------- TestGame:
-struct  TestGame : model::Referee
-{       TestGame() : model::Referee(model::Config::getDefault())
-        {   model::Config::getDefault().infoValidation();
-
-            infoCards();
-        }
-
-    void run()
-    {
-        std::string_view bannerStartGame
-        {   "///-----------------------------------|\n"
-            "///         ИГРА НАЧАЛАСЬ!            |\n"
-            "///-----------------------------------:\n"
-        };
-
-        std::cout << bannerStartGame << '\n';
-
-        info();
-
-        unsigned cnt{ 0 };
-
-        for (bool isDone = true; isDone;)
-        {
-            std::cout   << "\nПАУЗА::Нажмите ENTER, чтобы сделать "
-                        << ++cnt << " шаг ... \n";
-
-            std::cin.get();
-
-            if(!model::Config::getDefault().isScrollConsole)
-            {   std::system("cls");
-                std::cout << "Процесс " << LOGO << "\n\n";
-            }
-            else std::cout << "|------------------------------------------\n\n";
-
-
-            isDone = step();
-        }
-    }
-
-    ///------------------------------|
-    /// Тест класса.                 |
-    ///------------------------------:
-    TEST
-    {   TestGame    testGame;
-                    testGame.run();
-    }
-};
-
-
-///----------------------------------------------------------------------------|
-/// Все тесты классов.
-///---------------------------------------------------------------------- tests:
-void tests()
-{
-    /// myl::tests();
-
-    /// TESTCLASS(model::Cell::test  );
-    /// TESTCLASS(model::Config::test);
-    /// TESTCLASS(model::Field::test );
-    /// TESTCLASS(model::Person::test);
-
-    TESTCLASS(TestGame::test);
-}
-
-
-///----------------------------------------------------------------------------|
-/// Старт программы.
-///----------------------------------------------------------------------- main:
-int main()
-{
-    std::system( "chcp 65001>nul" );
-/// SetConsoleOutputCP(65001);
-
-    std::cout << "Старт " << LOGO << "\n\n";
-
-    tests();
-
-    std::cout << "Программа закончила работу.\n" << std::endl;
-
-    return 0;
-}
+#endif // M_MODEL_H

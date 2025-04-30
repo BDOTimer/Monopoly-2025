@@ -16,3 +16,31 @@
 	<tuple>
 	<map>
 
+1746001474 source:d:\!gforum-2025\projects\monopoly-2025\cb\hello\sources\main.cpp
+	"!m-model.h"
+
+1746016969 d:\!gforum-2025\projects\monopoly-2025\cb\hello\sources\!m-model.h
+	"myl.h"
+	<locale>
+	<codecvt>
+	<windows.h>
+
+1745997860 d:\!gforum-2025\projects\monopoly-2025\cb\hello\sources\myl.h
+	"config-model.h"
+	<algorithm>
+	<iostream>
+	<string>
+	<vector>
+
+1746016715 d:\!gforum-2025\projects\monopoly-2025\cb\hello\sources\config-model.h
+	<functional>
+	<iostream>
+	<iomanip>
+	<fstream>
+	<sstream>
+	<string>
+	<vector>
+	<format>
+	<tuple>
+	<map>
+
