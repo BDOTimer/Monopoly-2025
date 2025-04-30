@@ -46,7 +46,7 @@ void tests();
 namespace model
 {
     using  FooEvent = std::function<bool()>;
-	struct Referee;
+    struct Referee;
 
     ///------------------------------------------------------------------------|
     /// Управляющий событиями.
