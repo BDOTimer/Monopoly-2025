@@ -4,6 +4,8 @@
 ## Правила игры:
  https://github.com/slava-rusi11/Monopolia/blob/main/Правила%20игры.%20Промышленная%20монополия.txt
  
+ [ссыль](https://github.com/slava-rusi11/Monopolia/blob/main/Правила%20игры.%20Промышленная%20монополия.txt)
+ 
 ## План что нужно сделать:
  https://github.com/slava-rusi11/Monopolia/blob/main/План-лист.txt
 
