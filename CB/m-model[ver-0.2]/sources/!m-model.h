@@ -158,6 +158,8 @@ namespace model
         unsigned           priseBase;
         std::array<unsigned,3>   buy;
         std::array<unsigned,3>  sell;
+        unsigned        difference{};
+        float              persent{};
     };
 
 

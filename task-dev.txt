@@ -10,7 +10,7 @@
 6.  [+] startMoney{300}; Деньги у игроков на старте.
 7.  [+] [25.04.29] struct  WhoFirstPlayer; Жеребьёвщик.
 8.  [+] [25.04.29] struct ManagerEvents; Управитель событиями.
-9.  [+]            struct  Bank; Банк.
+9.  [+]            struct Bank; Банк.
 
 x.  [-] ...
 ...
