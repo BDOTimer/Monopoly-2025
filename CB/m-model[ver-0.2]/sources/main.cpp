@@ -29,9 +29,12 @@ struct  TestGame   : model::Referee
         for (bool isDone = true; isDone;)
         {
             std::cout   << "\nПАУЗА::Нажмите ENTER, чтобы сделать "
-                        << ++cnt << " шаг ... \n";
+                        << ++cnt << " шаг ... или '0' для завершения ...\n";
 
-            std::cin.get();
+            {
+                std::string e; std::getline(std::cin, e);
+                if(e.back() == '0') break;
+            }
 
             if(!model::Config::getDefault().isScrollConsole)
             {   std::system("cls");
