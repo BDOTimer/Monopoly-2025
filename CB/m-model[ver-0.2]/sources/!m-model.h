@@ -193,8 +193,11 @@ namespace model
         ///------------------------------:
         std::map<std::string, unsigned>  specs;
 
-        void make()
-        {   const_cast<model::Config*>(&cfg)->managerEvents.make();
+        void doEvent()
+        {   if(cfg.managerEvents.empty()) return;
+
+            std::cout << "Событие для " << name << ":\n";
+            const_cast<model::Config*>(&cfg)->managerEvents.make();
         }
 
         void info() const
@@ -203,14 +206,13 @@ namespace model
         /// Card*    card   = (*(cfg.pfield))[position].card;
 
         /// auto n = 15 - nn + name.size();
-            std::cout << "\n"
-                         ">> Имя  : \""                  << name     << "\"\n"
-                      << "Деньги  = "    << std::setw(4) << money    << "\n"
-                      << "Позиция = "    << std::setw(4) << position << "\n"
-                      << "Статус  = "    << std::setw(4)
+            std::cout << ">> Имя  : \""                  << name     << "\"\n"
+                      << "   Деньги  = " << std::setw(4) << money    << "\n"
+                      << "   Позиция = " << std::setw(4) << position << "\n"
+                      << "   Статус  = " << std::setw(4)
                       << cfg.decodeStatus(status)                    << "\n"
-                      << "Круг    = "    << std::setw(4) << circle   << "\n"
-                      << "Шанс    = "    << std::setw(4) << chance   << "\n";
+                      << "   Круг    = " << std::setw(4) << circle   << "\n"
+                      << "   Шанс    = " << std::setw(4) << chance   << "\n\n";
         }
 
         ///------------------------------|
@@ -309,10 +311,6 @@ namespace model
         {
             for(unsigned i = 0; i < perses.size(); ++i)
             {
-                if(unsigned randN = (rand() % 10); randN < 3)
-                {   cfg->managerEvents.push(0);
-                }
-
                 auto& pers = perses[order[i]];
 
                 const unsigned randNumber = rand() % 6 + 1;
@@ -321,6 +319,13 @@ namespace model
                 const auto& [pos, isStart]
                     = field.add(pers.position, randNumber);
 
+                pers.position = pos;
+
+                ///------------------------------|
+                /// Ячейка с шансом?             |
+                ///------------------------------:
+                if(field[pos].chance > 0) genChanse();
+
                 if (isStart)
                 {
                     if (++pers.status == 3) pers.status = 0;
@@ -328,11 +333,25 @@ namespace model
                     ++pers.circle;
                 }
 
-                pers.position = pos;
-                pers.make();
+                pers.doEvent();
                 pers.info();
+
+                //std::cout << std::endl;
             }
             return true;
+        }
+
+        ///------------------------------|
+        /// Генератор события.           |
+        ///------------------------------:
+        void genChanse()
+        {
+            if(unsigned randN = (rand() % 10); randN < 3)
+            {
+                unsigned randNChance = rand() % cfg->managerEvents.getSize();
+
+                cfg->managerEvents.push(randNChance);
+            }
         }
 
         friend struct TestGame;

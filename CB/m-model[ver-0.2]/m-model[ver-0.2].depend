@@ -30,10 +30,10 @@
 
 1746032227 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\field.inc
 
-1746085156 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\main.cpp
+1746086948 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\main.cpp
 	"!m-model.h"
 
-1746086679 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\!m-model.h
+1746117243 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\!m-model.h
 	"myl.h"
 	<locale>
 	<codecvt>
@@ -46,7 +46,7 @@
 	<string>
 	<vector>
 
-1746083462 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\config-model.h
+1746116910 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\config-model.h
 	<functional>
 	<iostream>
 	<iomanip>
