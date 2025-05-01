@@ -30,3 +30,34 @@
 
 1746032227 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\field.inc
 
+1746085156 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\main.cpp
+	"!m-model.h"
+
+1746086679 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\!m-model.h
+	"myl.h"
+	<locale>
+	<codecvt>
+	"field.inc"
+
+1746079598 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\myl.h
+	"config-model.h"
+	<algorithm>
+	<iostream>
+	<string>
+	<vector>
+
+1746083462 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\config-model.h
+	<functional>
+	<iostream>
+	<iomanip>
+	<fstream>
+	<sstream>
+	<string>
+	<vector>
+	<format>
+	<tuple>
+	<map>
+	<windows.h>
+
+1746079598 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\field.inc
+

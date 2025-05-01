@@ -7,11 +7,9 @@
 ///----------------------------------------------------------------------------|
 /// Тестовая игровая площадка.
 ///------------------------------------------------------------------- TestGame:
-struct  TestGame : model::Referee
+struct  TestGame   : model::Referee
 {       TestGame() : model::Referee(model::Config::getDefault())
         {   model::Config::getDefault().infoValidation();
-
-            infoCards();
         }
 
     void run()
@@ -63,16 +61,13 @@ void tests()
 {
     /// myl::tests();
 
-    TESTCLASS(model::Field2::test );
-
     /// TESTCLASS(model::Cell::test  );
     /// TESTCLASS(model::Config::test);
     /// TESTCLASS(model::Field::test );
     /// TESTCLASS(model::Person::test);
 
-
-
-    /// TESTCLASS(TestGame::test);
+    ///
+    TESTCLASS(TestGame::test);
 }
 
 

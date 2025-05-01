@@ -1,7 +1,7 @@
 ﻿#ifndef M_MODEL_H
 #define M_MODEL_H
 
-const char* const LOGO = "Model::Monopoly-2025[ver::0.0.2]";
+const char* const LOGO = "Model::Monopoly-2025[ver::0.2.1]";
 ///----------------------------------------------------------------------------|
 /// "!m-model.h"
 /// Модель игры Монополия-2025.
@@ -54,101 +54,8 @@ namespace model
 
     ///------------------------------------------------------------------------|
     /// Описание(класс) ячейки на карте.
-    ///------------------------------------------------------------------- Cell:
-    struct  Cell
-    {       Cell() {}
-            Cell(const Array1U& init) : statuses(init)
-            {
-            }
-
-        ///------------------------------|
-        /// Получить статус по номеру.   |
-        ///------------------------------:
-        unsigned getStatus(unsigned number) const { return statuses[number]; }
-
-        void info() const
-        {
-            std::cout << "id::" << id << "\t";
-            for (const auto n : statuses) std::cout << n;
-            std::cout << '\n';
-        }
-
-    private:
-        ///------------------------------|
-        /// Массив со статусами.         |
-        ///------------------------------:
-        Array1U statuses;
-
-        ///------------------------------|
-        /// Ячейка может иметь ID.       |
-        ///------------------------------:
-        unsigned id;
-
-        ///------------------------------|
-        /// Шанс.                        |
-        ///------------------------------:
-        unsigned chance {0};
-
-        Card* card{nullptr};
-
-        ///------------------------------|
-        /// Тут тест этого класса.       |
-        ///------------------------------:
-        TEST
-        {
-            std::cout << "statusesCells: \n";
-
-            {   ///----------------------|
-                /// Создаем объект ячейки|
-                ///----------------------:
-                Cell         cell({1,2,3});
-
-                ///----------------------|
-                /// Дебажим в консоль.   |
-                ///----------------------:
-                std::cout << cell << std::endl;
-            }
-
-            {   ///----------------------|
-                /// Данные для ячейки    |
-                ///----------------------:
-                Array1U           m{2,3, 1};
-
-                ///----------------------|
-                /// Создаем объект ячейки|
-                ///----------------------:
-                Cell         cell(m);
-
-                ///----------------------|
-                /// Дебажим в консоль.   |
-                ///----------------------:
-                std::cout << cell << std::endl;
-            }
-        }
-
-        ///------------------------------|
-        /// Друзья приватных методов.    |
-        ///------------------------------:
-        friend std::ostream& operator<<(std::ostream& o, const Cell& cell);
-        friend struct Field;
-        friend struct Person;
-        friend struct Referee;
-    };
-
-
-    ///----------------------------------|
-    /// Вывод Cell в консоль.            |
-    ///----------------------------------:
-    std::ostream& operator<<(std::ostream& o, const Cell& cell)
-    {   for (const auto status : cell.statuses) o << status;
-        return o;
-    }
-
-
-    ///------------------------------------------------------------------------|
-    /// Описание(класс) ячейки на карте.
     ///------------------------------------------------------------------ Cell2:
-    struct  Cell2
+    struct  Cell
     {
         unsigned                  id;
         std::string             type;
@@ -160,128 +67,99 @@ namespace model
         std::array<unsigned,3>  sell;
         unsigned        difference{};
         float              persent{};
+
+        void debug() const
+        {
+        }
+
+        friend std::ostream& operator<<(std::ostream& o, const Cell& cell);
     };
+
+
+    ///----------------------------------|
+    /// Вывод Cell в консоль.            |
+    ///----------------------------------:
+    std::ostream& operator<<(std::ostream& o, const Cell& e)
+    {   o   << std::setw(4) << e.id
+            << std::setw(4) << e.chance
+            << std::setw(4) << e.status
+            << std::setw(4) << e.priseBase
+            << std::setw(4) << e.buy [0]
+            << std::setw(4) << e.buy [1]
+            << std::setw(4) << e.buy [2]
+            << std::setw(4) << e.sell[0]
+            << std::setw(4) << e.sell[1]
+            << std::setw(4) << e.sell[2]
+            << "  "         << e.name;
+        return o;
+    }
 
 
     ///------------------------------------------------------------------------|
     /// Поле Модели.
     ///------------------------------------------------------------------ Field:
-    struct  Field2   :  std::vector<Cell2>
-    {       Field2() :  std::vector<Cell2>
-                     {
-                        #include "field.inc"
-                     }
+    struct  Field                    :  std::vector<Cell>
+    {       Field(const Config& cfg) :  std::vector<Cell>
+                                     {
+                                        #include "field.inc"
+                                     },
+                                     cfg(cfg)
             {
-            }
-
-        void debug()
-        {   for(const auto& e : *this)
-            {
-                std::cout << std::setw(4) << e.id
-                          << std::setw(4) << e.chance
-                          << std::setw(4) << e.status
-                          << std::setw(4) << e.priseBase
-                          << std::setw(4) << e.buy [0]
-                          << std::setw(4) << e.buy [1]
-                          << std::setw(4) << e.buy [2]
-                          << std::setw(4) << e.sell[0]
-                          << std::setw(4) << e.sell[1]
-                          << std::setw(4) << e.sell[2]
-                          << "  " << e.name << '\n';
-            }
-        }
-
-    private:
-        ///------------------------------|
-        /// Тест класса.                 |
-        ///------------------------------:
-        TEST
-        {   {   Field2  field;
-                        field.debug();
-            }
-        }
-    };
-
-
-    ///------------------------------------------------------------------------|
-    /// Поле Модели.
-    ///------------------------------------------------------------------ Field:
-    struct  Field : std::vector<Cell>
-    {       Field(const Config& cfg)
-            {   init(cfg);
             }
 
         struct PersonQ { unsigned pos; bool isStart{ false }; };
 
         PersonQ add(unsigned pos, unsigned step) const
-        {
-            size_t res = pos + step;
+        {   size_t res = pos + step;
             if (res >= size()) { return { unsigned(res -= size()), true }; }
             return  { (unsigned)res };
         }
 
         unsigned sub(unsigned pos, unsigned step) const
-        {
-            size_t res = pos - step;
+        {   size_t res = pos - step;
             if (res >= size()) res += size();
             return (unsigned)res;
         }
 
-        void info() const
-        {
-            l(size())
-
-            for (const auto& cell : *this)
-            {   cell.info();
-            }
-        }
+    friend  std::ostream& operator<<(std::ostream& o, const Field& field);
 
     private:
-        void init(const Config& cfg)
-        {
-            const Array2U statuses = cfg.getGen();
-            reserve(cfg.amountCells);
-
-            for (unsigned i = 0; i < cfg.amountCells; ++i)
-            {
-                emplace_back(Cell());
-
-                Cell& cell = back();
-                cell.id = i;
-                cell.statuses.reserve(cfg.amountSatusesCell);
-
-                for (unsigned j = 0; j < cfg.amountSatusesCell; ++j)
-                {
-                    cell.statuses.push_back(statuses[i][j]);
-                }
-            }
-
-            ///-------------------------------|
-            /// Установка шансов.             |
-            ///-------------------------------:
-            for(auto& i : cfg.chances) (*this)[i].chance = 1;
-        }
+        const Config& cfg;
 
         ///------------------------------|
         /// Тест класса.                 |
         ///------------------------------:
         TEST
         {   {   Field   field(Config::getDefault());
-                        field.info();
-
-                Cell& cell = field[0];
-                        cell.info();
+                     ln(field)
             }
         }
-
-		friend struct Referee;
     };
+
+
+    ///----------------------------------|
+    /// Вывод Cell в консоль.            |
+    ///----------------------------------:
+    std::ostream& operator<<(std::ostream& o, const Field& field)
+    {   for(const auto& cell : field)
+        {          o << cell << '\n';
+        }   return o;
+    }
+
 
     ///------------------------------------------------------------------------|
     /// Персонаж.
     ///----------------------------------------------------------------- Person:
     struct  Person
-    {
+    {       Person(const Config& cfg, std::string_view name)
+                :   cfg (cfg ),
+                    name(name)
+
+            {   init();
+            }
+
+        const Config& cfg;
+
         ///------------------------------|
         /// Имя персонажа.               |
         ///------------------------------:
@@ -315,26 +193,24 @@ namespace model
         ///------------------------------:
         std::map<std::string, unsigned>  specs;
 
-        const Config* cfg{nullptr};
-
         void make()
-        {   const_cast<model::Config*>(cfg)->managerEvents.make();
+        {   const_cast<model::Config*>(&cfg)->managerEvents.make();
         }
 
         void info() const
         {
-            unsigned chance = (*(cfg->pfield))[position].chance;
-            Card*    card   = (*(cfg->pfield))[position].card;
+            unsigned chance = (*(cfg.pfield))[position].chance;
+        /// Card*    card   = (*(cfg.pfield))[position].card;
 
         /// auto n = 15 - nn + name.size();
-            std::cout << ">> "                           << name     << "\n"
+            std::cout << "\n"
+                         ">> Имя  : \""                  << name     << "\"\n"
                       << "Деньги  = "    << std::setw(4) << money    << "\n"
                       << "Позиция = "    << std::setw(4) << position << "\n"
                       << "Статус  = "    << std::setw(4)
-                      <<  cfg->decodeStatus(status)                  << "\n"
+                      << cfg.decodeStatus(status)                    << "\n"
                       << "Круг    = "    << std::setw(4) << circle   << "\n"
-                      << "Шанс    = "    << std::setw(4) << chance   << "\n"
-                      <<  card->infoName()                           << "\n\n";
+                      << "Шанс    = "    << std::setw(4) << chance   << "\n";
         }
 
         ///------------------------------|
@@ -346,7 +222,7 @@ namespace model
         /// const auto     s = utf8ToWstr(name);
         /// nn = (unsigned)s.size();
 
-            money = cfg->startMoney;
+            money = cfg.startMoney;
         }
 
     private:
@@ -354,7 +230,12 @@ namespace model
         /// Тест класса.                 |
         ///------------------------------:
         TEST
-        {   Person  person;
+        {   Field   field(Config::getDefault());
+
+            Config* cfg = const_cast<model::Config*>(&Config::getDefault());
+                    cfg->pfield = &field;
+
+            Person  person(Config::getDefault(), "Patison");
                     person.info();
         }
     };
@@ -365,16 +246,21 @@ namespace model
     ///---------------------------------------------------------------- Referee:
     struct  Referee
     {       Referee(const Config& Cfg) :
+                perses
+                {   Person(Cfg, "Bot:Pete"   ),
+                    Person(Cfg, "Bot:Ann"    ),
+                    Person(Cfg, "Вася Пупкин")
+                },
                 field(Cfg),
                 whoFirstPlayer(Cfg.amountPlayers),
                 bank (Cfg)
             {
+                ///------------------------|
+                /// Инициализация ГПСЧ.    |
+                ///------------------------:
                 srand(unsigned(time(NULL)));
 
-                for (auto& pers : perses)
-                {   pers.cfg   = &Cfg;
-                    pers.init();
-                }
+                ln(field)
 
                 cfg = const_cast<model::Config*>(&Cfg);
 
@@ -382,11 +268,6 @@ namespace model
                 cfg->managerEvents.initEvents<Referee>(this);
             //  cfg->managerEvents.push(0);
             //  cfg->managerEvents.make( );
-
-                getCards   ();
-                cards2Field();
-
-                if(cfg->isMixerCards) mixerCards();
 
                 order = myl::WhoFirstPlayer::getFastOrder(Cfg.amountPlayers);
 
@@ -407,11 +288,7 @@ namespace model
             }
         }
 
-        std::vector<model::Person> perses
-        {   {"Bot:Pete"   },
-            {"Bot:Ann"    },
-            {"Вася Пупкин"}
-        };
+        std::vector<model::Person> perses;
 
         model::Field  field;
 
@@ -424,43 +301,6 @@ namespace model
         std::vector<unsigned>        order;
 
         Bank bank;
-
-        ///------------------------------|
-        /// Получить карточки из конфига.|
-        ///------------------------------:
-        void getCards()
-        {
-            cards.reserve(cfg->amountCells);
-
-            for(const auto& type : cfg->cardNames)
-            {
-                std::string_view t = type.front();
-
-                for(size_t i = 2; i < type.size(); i += 2)
-                {   cards.emplace_back( Card{t, type[i], type[i+1]});
-                    pcards.push_back  (&cards.back());
-                }
-            }
-        }
-
-        void cards2Field()
-        {   for(size_t i = 0; i < field.size(); ++i)
-            {   field [i].card = pcards[i];
-            }
-        }
-
-        void infoCards() const
-        {   for(const auto pc : pcards)
-            {   std::cout << pc->type << " : " << pc->name << '\n';
-            }   std::cout << '\n';
-        }
-
-        void mixerCards()
-        {   for(size_t i = 0; i < pcards.size(); ++i)
-            {   const unsigned   randNumber = rand() % pcards.size();
-                std::swap(pcards[randNumber], pcards[i]);
-            }
-        }
 
         ///------------------------------|
         /// Все игроки делают по 1 ходу. |

@@ -26,7 +26,8 @@ namespace win
 }
 
 
-#define l(v)           std::cout << #v << " = " << (v) << std::endl;
+#define  l(v)          std::cout << #v << " = " << (v) << std::endl;
+#define ln(v)          std::cout << #v << ":\n" << (v) << std::endl;
 #define TESTCLASS(F)   std::cout << "RUN: "#F; std::cout << '\n';\
                   F(); std::cout << '\n';
 
@@ -172,64 +173,6 @@ namespace model
         };
 
         ///------------------------------|
-        /// Дизайн карточек для поля.    |
-        /// Ограничение:                 |
-        ///     size == amountCells      |
-        ///------------------------------:
-        std::vector<std::vector<std::string>> cardNames
-        {
-            {   "Гражданская промышленность" , "texture1.jpg",
-                ///——————————————————————————————————————————:
-                "Будет танковый завод"       , "texture2.jpg",
-                "Артиллерийский"             , "texture3.jpg",
-                "Авиационный"                , "texture4.jpg",
-                "Завод по выпуску автоматов" , "texture5.jpg",
-                "Завод по выпуску пистолетов", "texture6.jpg",
-                "Завод катюш"                , "texture7.jpg",
-                "Тактических ракет"          , "texture8.jpg",
-                "Вертолётов"                 , "texture9.jpg",
-                "Военного обмундирования"    , "txtr10.jpg",
-                "Военных грузовиков"         , "text11.jpg"
-            },
-            {
-                "Детская промышленность"     , "txtr12.jpg",
-                ///————————————————————————————————————————:
-                "Завод воздушных шариков"    , "txtr13.jpg",
-                "Фабрика велосипедов"        , "txtr14.jpg",
-             "Фабрика костюмов для мальчиков", "txtr15.jpg",
-                "Фабрика платьев для девочек", "txtr16.jpg",
-                "Фабрика кукол"              , "txtr17.jpg",
-                "Фабрика детский автомобилей", "txtr18.jpg",
-   "Фабрика по выпуску роботов трансформеров", "txtr19.jpg",
-                "Фабрика самокатов"          , "txtr20.jpg",
-            //  "Фабрика детских роликов"    , "txtr21.jpg",
-                "Фабрик детской обуви"       , "txtr22.jpg",
-                "Фабрика плюшевых мишек"     , "txtr23.jpg"
-            },
-            {
-                "Гражданский сектор продукты", "txtr24.jpg",
-                ///————————————————————————————————————————:
-                "Молоко завод"               , "txtr25.jpg",
-                "Колбасный завод"            , "txtr26.jpg",
-                "Хлебо завод"                , "txtr27.jpg",
-                "Кондитерская"               , "txtr28.jpg",
-                "Консервный завод"           , "txtr29.jpg",
-                "Завод макаронных изделий"   , "txtr30.jpg",
-                "Завод газированных напитков", "txtr31.jpg",
-                "Завод по выпуску соков"     , "txtr32.jpg",
-                "Фабрика мороженного"        , "txtr33.jpg",
-                "Фруктовая ферма"            , "txtr34.jpg"
-            }
-        };
-
-        ///------------------------------|
-        /// Перемешать порядок карточек? |
-        ///     false - нет              |
-        ///     true  - да               |
-        ///------------------------------:
-        bool isMixerCards{false};
-
-        ///------------------------------|
         /// Денеги у игроков на старте.  |
         ///------------------------------:
         unsigned startMoney{300};
@@ -238,13 +181,6 @@ namespace model
         /// Денеги Банка.                |
         ///------------------------------:
         unsigned moneyBank{3200};
-
-        const char* statusNames[4]
-        {   "Ребёнок ",
-            "Взрослый",
-            "Родитель",
-            "Чужой   "
-        };
 
         ///------------------------------|
         /// Количество игроков.          |
@@ -268,6 +204,13 @@ namespace model
         ///------------------------------:
         ManagerEvents managerEvents;
 
+        const char* statusNames[4]
+        {   "Ребёнок ",
+            "Взрослый",
+            "Родитель",
+            "Чужой   "
+        };
+
         ///------------------------------|
         /// Расшифровка статуса.         |
         ///------------------------------:
@@ -277,56 +220,11 @@ namespace model
         }
 
         ///------------------------------|
-        /// Билд массива статусов.       |
-        ///------------------------------:
-        const Array2U getGen() const
-        {
-            Array2U m(amountCells, Array1U(amountSatusesCell));
-
-            for (unsigned i = 0, k = 0; i < m.size(); ++i)
-            {
-                const   auto s = statuses[k];
-                for (unsigned j = 0; j < amountSatusesCell; ++j)
-                {
-                    m[i][j] = s[j] - '0';
-                }
-
-                if (++k == statuses.size()) k = 0;
-            }
-
-            return m;
-        }
-
-        ///------------------------------|
         /// Проверка конфига на ошибки.  |
         ///------------------------------:
         bool doValidation() const
         {
-            for (const auto& s : statuses)
-            {   if (s.size() != amountSatusesCell) return false;
-            }
-
             if (W * 2 + (H - 2) * 2 != amountCells) return false;
-
-            //if(chances.size() <= amountCells) chances.resize(amountCells);
-
-            if(!chances.empty() && 0 == chances.front())
-            {
-                /// TODO: Сделать рандомную генерацию шансов ...
-            }
-
-            ///------------------------------|
-            /// Все карточки должны иметь    |
-            /// уникальные имена и кол-во    |
-            /// имен должно быть равно       |
-            /// кол-ву карточе.              |
-            ///------------------------------:
-            {   size_t cnt{};
-                for(const auto& e : cardNames)
-                {   cnt += e.size() - 2;
-                }
-                if(cnt != amountCells * 2) return false;
-            }
 
             /// TODO ...
 
@@ -349,16 +247,6 @@ namespace model
         void info() const
         {
             infoValidation();
-
-            int cnt{};
-            for (const auto& r : getGen())
-            {
-                std::cout << ++cnt << "\t: ";
-                for (const auto n : r)
-                {
-                    std::cout << n;
-                }   std::cout << '\n';
-            }       std::cout << '\n';
         }
 
         ///------------------------------|
@@ -369,11 +257,6 @@ namespace model
             {   Config config;
                      l(config.getDefault().amountCells)
                        config.info();
-            }
-
-            {   Config config{8, 4, {"4321","6789"}, 3, 3};
-                l(config.amountCells)
-                config.info();
             }
         }
     };

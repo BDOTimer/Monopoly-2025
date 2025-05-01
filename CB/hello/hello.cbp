@@ -27,7 +27,6 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="../../field.txt" />
-		<Unit filename="../../task-dev.txt" />
 		<Unit filename="sources/!m-model.h" />
 		<Unit filename="sources/config-model.h" />
 		<Unit filename="sources/main.cpp" />
