@@ -206,7 +206,7 @@ namespace model
         /// Card*    card   = (*(cfg.pfield))[position].card;
 
         /// auto n = 15 - nn + name.size();
-            std::cout << ">> Имя  : \""                  << name     << "\"\n"
+            std::cout << ">> Имя     : \""               << name     << "\"\n"
                       << "   Деньги  = " << std::setw(4) << money    << "\n"
                       << "   Позиция = " << std::setw(4) << position << "\n"
                       << "   Статус  = " << std::setw(4)
@@ -248,15 +248,17 @@ namespace model
     ///---------------------------------------------------------------- Referee:
     struct  Referee
     {       Referee(const Config& Cfg) :
-                perses
-                {   Person(Cfg, "Bot:Pete"   ),
-                    Person(Cfg, "Bot:Ann"    ),
-                    Person(Cfg, "Вася Пупкин")
-                },
                 field(Cfg),
                 whoFirstPlayer(Cfg.amountPlayers),
                 bank (Cfg)
             {
+                ///------------------------|
+                /// Профили игроков.       |
+                ///------------------------:
+                for(const auto& pl : Cfg.players)
+                {   perses.emplace_back(Person(Cfg, pl.name));
+                }
+
                 ///------------------------|
                 /// Инициализация ГПСЧ.    |
                 ///------------------------:

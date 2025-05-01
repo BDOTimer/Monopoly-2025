@@ -249,6 +249,23 @@ namespace model
         ///------------------------------:
         ManagerEvents managerEvents;
 
+        ///------------------------------|
+        /// Профиль игрока.              |
+        ///------------------------------:
+        struct Players
+        {   bool       isBot;
+            std::string name;
+        };
+
+        ///------------------------------|
+        /// Состав игроков.              |
+        ///------------------------------:
+        std::vector<Players> players
+        {   {true , "bot::Ann"   },
+            {true , "bot::Pete"  },
+            {false, "Вася Пупкин"}
+        };
+
         const char* statusNames[4]
         {   "Ребёнок ",
             "Взрослый",
