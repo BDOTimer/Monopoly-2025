@@ -62,8 +62,8 @@ namespace model
         unsigned              chance;
         unsigned              status;
         unsigned           priseBase;
-        std::array<unsigned,3>  sell;
         std::array<unsigned,3>   buy;
+        std::array<unsigned,3>  sell;
         unsigned        difference{};
         float              persent{};
 
@@ -225,9 +225,9 @@ namespace model
                 << "   Круг    = " << std::setw(4) << circle   << "\n"
                 << "   Шанс    = " << std::setw(4) << chance   << "\n"
                 << "   Товар   = " <<                 cell.name<< "\n"
-                << "   Кол-во  = "
+                << "   Кол-во  = " << std::setw(4)
                 << (cell.amountThings != 0 ?
-                          std::to_string(cell.amountThings) : "пусто") << "\n"
+                          std::to_string(cell.amountThings) : " пусто") << "\n"
                 << "   Продажа = " << std::setw(4) << cell.buy [status] << "\n"
                 << "   Покупка = " << std::setw(4) << cell.sell[status] << "\n"
                 << "\n\n";
@@ -270,17 +270,21 @@ namespace model
                 /// Купить.                                |
                 ///----------------------------------------:
                 case 0:
-                {   const unsigned price = cell.buy[status];
+                {   const unsigned& price = cell.sell[status];
 
-                    if( money >= price && cell.amountThings > 0)
-                    {   money -= price;
+                    bool isMoney = money >= price;
+                    bool isEmpty = cell.amountThings == 0;
+
+                    if( isMoney && !isEmpty)
+                    {   money   -=  price;
                       --cell.amountThings;
 
                         cargo[cell.name] = 1;
 
                         std::cout << "Товар " << cell.name << " был куплен!\n";
                     }
-                    else std::cout << "Мало денег / товар отсутсвует ...\n";
+                    else if( isEmpty) std::cout << "... нет товара ...\n";
+                    else if(!isMoney) std::cout << "... мало денег ...\n";
 
                     break;
                 }
@@ -289,7 +293,7 @@ namespace model
                 /// Продать.                               |
                 ///----------------------------------------:
                 case 1:
-                {   const unsigned price = cell.sell[status];
+                {   const unsigned& price = cell.buy[status];
 
                     if(auto p = cargo.find(cell.name); p != cargo.end())
                     {
