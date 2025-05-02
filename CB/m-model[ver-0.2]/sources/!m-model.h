@@ -62,8 +62,8 @@ namespace model
         unsigned              chance;
         unsigned              status;
         unsigned           priseBase;
-        std::array<unsigned,3>   buy;
         std::array<unsigned,3>  sell;
+        std::array<unsigned,3>   buy;
         unsigned        difference{};
         float              persent{};
 
