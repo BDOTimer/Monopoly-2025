@@ -202,7 +202,6 @@ namespace model
         /// Количество ячеек на поле.    |
         ///------------------------------:
         unsigned amountCells      { 30 };
-        unsigned amountSatusesCell{ 3  };
 
         std::vector<std::string> worldGeometry
         {   "OOOOOOOOO",
@@ -213,13 +212,6 @@ namespace model
             "O.......O",
             "O.......O",
             "OOOOOOOOO"
-        };
-
-        ///------------------------------|
-        /// Ячейки с шансами.            |
-        ///------------------------------:
-        std::vector<unsigned> chances
-        {   4, 7, 9, 12, 16, 19, 24, 26, 29
         };
 
         ///------------------------------|
@@ -266,9 +258,9 @@ namespace model
         /// Состав игроков.              |
         ///------------------------------:
         std::vector<Players> players
-        {   {true , "bot::Ann"   },
-            {true , "bot::Pete"  },
-            {false, "Вася Пупкин"}
+        {   {true , "bot::gudleifr"},
+            {true , "bot::aliskda" },
+            {false, "Вася Пупкин"  }
         };
 
         const char* statusNames[4]

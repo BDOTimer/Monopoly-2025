@@ -147,15 +147,17 @@ namespace model
 
 
     ///------------------------------------------------------------------------|
-    /// Персонаж.
-    ///----------------------------------------------------------------- Person:
-    struct  Person
-    {       Person(const Config& cfg, std::string_view name)
-                :   cfg (cfg ),
-                    name(name)
+    /// Интерфейс персонажа.
+    ///---------------------------------------------------------------- IPerson:
+    struct      IPerson
+    {           IPerson(const Config& cfg, std::string_view name)
+                    :   cfg  (cfg ),
+                        name (name)
+                {}
+        virtual~IPerson() {};
 
-            {   init();
-            }
+        virtual void input () = 0;
+        virtual void update() = 0;
 
         const Config& cfg;
 
@@ -225,6 +227,28 @@ namespace model
 
             money = cfg.startMoney;
         }
+    };
+
+
+    ///------------------------------------------------------------------------|
+    /// Персонаж Бот.
+    ///----------------------------------------------------------------- Person:
+    struct  PersonBot : IPerson
+    {       PersonBot(const Config& cfg, std::string_view name)
+                      : IPerson    (cfg, name)
+            {
+                init();
+            }
+
+        void input () override
+        {
+
+        }
+
+        void update() override
+        {
+
+        }
 
     private:
         ///------------------------------|
@@ -236,8 +260,48 @@ namespace model
             Config* cfg = const_cast<model::Config*>(&Config::getDefault());
                     cfg->pfield = &field;
 
-            Person  person(Config::getDefault(), "Patison");
-                    person.info();
+            IPerson* person = new PersonBot(*cfg, "bot:gudleifr");
+                     person->info();
+
+            delete   person;
+        }
+    };
+
+
+    ///------------------------------------------------------------------------|
+    /// Персонаж Человек.
+    ///----------------------------------------------------------------- Person:
+    struct  PersonHuman : IPerson
+    {       PersonHuman(const Config& cfg, std::string_view name)
+                        : IPerson    (cfg, name)
+            {
+                init();
+            }
+
+        void input () override
+        {
+
+        }
+
+        void update() override
+        {
+
+        }
+
+    private:
+        ///------------------------------|
+        /// Тест класса.                 |
+        ///------------------------------:
+        TEST
+        {   Field   field(Config::getDefault());
+
+            Config* cfg = const_cast<model::Config*>(&Config::getDefault());
+                    cfg->pfield = &field;
+
+            IPerson* person = new PersonHuman(*cfg, "Slava-rusi11");
+                     person->info();
+
+            delete   person;
         }
     };
 
@@ -255,7 +319,12 @@ namespace model
                 /// Профили игроков.       |
                 ///------------------------:
                 for(const auto& pl : Cfg.players)
-                {   perses.emplace_back(Person(Cfg, pl.name));
+                {   if(pl.isBot)
+                    {   perses.emplace_back(new PersonBot(Cfg, pl.name));
+                    }
+                    else
+                    {   perses.emplace_back(new PersonHuman(Cfg, pl.name));
+                    }
                 }
 
                 ///------------------------|
@@ -280,18 +349,21 @@ namespace model
                 std::cout << '\n';
 
                 for(unsigned i = 0; i < perses.size(); ++i)
-                {   std::cout << perses[order[i]].name << '\n';
+                {   std::cout << perses[order[i]]->name << '\n';
                 }
+            }
+           ~Referee()
+            {   for(auto p : perses) delete p;
             }
 
     protected:
         void info() const
         {   for(unsigned i = 0; i < perses.size(); ++i)
-            {   perses[order[i]].info();
+            {   perses[order[i]]->info();
             }
         }
 
-        std::vector<model::Person> perses;
+        std::vector<model::IPerson*> perses;
 
         model::Field  field;
 
@@ -312,7 +384,7 @@ namespace model
         {
             for(unsigned i = 0; i < perses.size(); ++i)
             {
-                auto& pers = perses[order[i]];
+                auto& pers = *perses[order[i]];
 
                 const unsigned randNumber = rand() % 6 + 1;
                 ///          l(randNumber)

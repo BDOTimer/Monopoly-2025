@@ -2,29 +2,29 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release" />
-	<File name="sources\!m-model.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4411" topLine="348" />
-		</Cursor>
-	</File>
-	<File name="sources\main.cpp" open="1" top="1" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1375" topLine="24" />
-		</Cursor>
-	</File>
-	<File name="sources\field.inc" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1949" topLine="0" />
-		</Cursor>
-	</File>
 	<File name="..\..\task-dev.txt" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1195" topLine="4" />
 		</Cursor>
 	</File>
-	<File name="sources\config-model.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sources\main.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="8584" topLine="249" />
+			<Cursor1 position="2328" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="sources\config-model.h" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="8678" topLine="252" />
+		</Cursor>
+	</File>
+	<File name="sources\!m-model.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="11649" topLine="348" />
+		</Cursor>
+	</File>
+	<File name="sources\field.inc" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1949" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
