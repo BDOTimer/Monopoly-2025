@@ -1,0 +1,5 @@
+res/wallpaper.jpg   0    0  1    1   
+res/house.png       0  400  0.4  0.4
+res/money.png     200  300  1.4  1.4
+res/money.png     300  400  2.0  2.0
+res/money.png     450  450  2.5  2.5
