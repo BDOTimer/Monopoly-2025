@@ -216,17 +216,21 @@ namespace model
         /// Card*     card   = cell.card;
 
         /// auto n = 15 - nn + name.size();
-            std::cout << ">> Имя     : \""               << name     << "\"\n"
-                      << "   Кошелёк = " << std::setw(4) << money    << "\n"
-                      << "   Позиция = " << std::setw(4) << position << "\n"
-                      << "   Статус  = " << std::setw(4)
-                      << cfg.decodeStatus(status)                    << "\n"
-                      << "   Круг    = " << std::setw(4) << circle   << "\n"
-                      << "   Шанс    = " << std::setw(4) << chance   << "\n"
-                      << "   " <<
-                      (cell.amountThings != 0 ? cell.name : "пусто") << "\n"
-                      << "   Цена    = " << std::setw(4) << cell.buy[status]
-                      << "\n\n";
+            std::cout
+                << ">> Имя     : \""               << name     << "\"\n"
+                << "   Кошелёк = " << std::setw(4) << money    << "\n"
+                << "   Позиция = " << std::setw(4) << position << "\n"
+                << "   Статус  = " << std::setw(4)
+                << cfg.decodeStatus(status)                    << "\n"
+                << "   Круг    = " << std::setw(4) << circle   << "\n"
+                << "   Шанс    = " << std::setw(4) << chance   << "\n"
+                << "   Товар   = " <<                 cell.name<< "\n"
+                << "   Кол-во  = "
+                << (cell.amountThings != 0 ?
+                          std::to_string(cell.amountThings) : "пусто") << "\n"
+                << "   Продажа = " << std::setw(4) << cell.buy [status] << "\n"
+                << "   Покупка = " << std::setw(4) << cell.sell[status] << "\n"
+                << "\n\n";
         }
 
         ///------------------------------|
