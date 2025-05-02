@@ -444,11 +444,11 @@ namespace model
             {
                 auto& pers = *perses[order[i]];
 
-                const unsigned randNumber = rand() % 6 + 1;
-                ///          l(randNumber)
+                const unsigned cubicDice = rand() % 6 + 1;
+                             l(cubicDice)
 
                 const auto& [pos, isStart]
-                    = field.add(pers.position, randNumber);
+                    = field.add(pers.position, cubicDice);
 
                 pers.position = pos;
 
