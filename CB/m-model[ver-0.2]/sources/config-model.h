@@ -1,5 +1,6 @@
 ﻿#ifndef CONFIG_MODEL_H
 #define CONFIG_MODEL_H
+const char* const LOGO = "Model::Monopoly-2025[ver::0.2.1]";
 ///----------------------------------------------------------------------------|
 /// "config-model.h"
 /// Дефолтный дизайн для детей! (детский вариант)
@@ -203,12 +204,16 @@ namespace model
         unsigned amountCells      { 30 };
         unsigned amountSatusesCell{ 3  };
 
-        std::vector<std::string> statuses
-        { "123", "231", "312"
+        std::vector<std::string> worldGeometry
+        {   "OOOOOOOOO",
+            "O.......O",
+            "O.......O",
+            "O.......O",
+            "O.......O",
+            "O.......O",
+            "O.......O",
+            "OOOOOOOOO"
         };
-
-        unsigned W{ 9 };
-        unsigned H{ 8 };
 
         ///------------------------------|
         /// Ячейки с шансами.            |
@@ -286,7 +291,15 @@ namespace model
         ///------------------------------:
         bool doValidation() const
         {
-            if (W * 2 + (H - 2) * 2 != amountCells) return false;
+            {   unsigned cnt{};
+                for(    const auto& s : worldGeometry)
+                {   for(const auto  c : s)
+                    {   cnt += c == 'O' ? 1 : 0;
+                    }
+                }
+                if (cnt != amountCells) return false;
+            }
+
 
             /// TODO ...
 
