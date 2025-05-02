@@ -19,12 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\CB\hello\sources\!m-model.h" />
-    <ClInclude Include="..\..\CB\hello\sources\config-model.h" />
-    <ClInclude Include="..\..\CB\hello\sources\myl.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\!m-model.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\config-model.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\myl.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\CB\hello\sources\main.cpp" />
+    <None Include="..\..\CB\m-model[ver-0.2]\sources\field.inc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

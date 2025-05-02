@@ -14,6 +14,7 @@ const char* const LOGO = "Model::Monopoly-2025[ver::0.2.1]";
 #include <string>
 #include <vector>
 #include <format>
+#include <array>
 #include <tuple>
 #include <map>
 
@@ -77,7 +78,7 @@ namespace model
         /// Количество всех событий.         |
         ///----------------------------------:
         unsigned getSize() const
-        {   return eventsInstall.size();
+        {   return unsigned(eventsInstall.size());
         }
 
         ///----------------------------------|
