@@ -67,9 +67,10 @@ namespace model
         unsigned        difference{};
         float              persent{};
 
-        void debug() const
-        {
-        }
+        ///-------------------------|
+        /// Кол-во вещей.           |
+        ///-------------------------:
+        unsigned     amountThings{1};
 
         friend std::ostream& operator<<(std::ostream& o, const Cell& cell);
     };
@@ -194,6 +195,13 @@ namespace model
         ///------------------------------:
         std::map<std::string, unsigned>  specs;
 
+
+        std::string_view decodeDone[3]
+        {   "купить." ,
+            "продать.",
+            "ничего не делать."
+        };
+
         void doEvent()
         {   if(cfg.managerEvents.empty()) return;
 
@@ -232,7 +240,7 @@ namespace model
 
     ///------------------------------------------------------------------------|
     /// Персонаж Бот.
-    ///----------------------------------------------------------------- Person:
+    ///-------------------------------------------------------------- PersonBot:
     struct  PersonBot : IPerson
     {       PersonBot(const Config& cfg, std::string_view name)
                       : IPerson    (cfg, name)
@@ -242,7 +250,57 @@ namespace model
 
         void input () override
         {
+            unsigned r = rand() % 3;
+            std::cout << "Принято решение " << decodeDone[r] << '\n';
 
+            Cell& cell = (*cfg.pfield)[position];
+
+            switch(r)
+            {
+                ///----------------------------------------|
+                /// Купить.                                |
+                ///----------------------------------------:
+                case 0:
+                {   const unsigned price = cell.buy[status];
+
+                    if( money >= price && cell.amountThings > 0)
+                    {   money -= price;
+                      --cell.amountThings;
+
+                        cargo[cell.name] = 1;
+
+                        std::cout << "Товар " << cell.name << " был куплен!\n";
+                    }
+                    else std::cout << "Мало денег / товар отсутсвует ...\n";
+
+                    break;
+                }
+
+                ///----------------------------------------|
+                /// Продать.                               |
+                ///----------------------------------------:
+                case 1:
+                {   const unsigned price = cell.sell[status];
+
+                    if(auto p = cargo.find(cell.name); p != cargo.end())
+                    {
+                        money += price;
+                      ++cell.amountThings;
+
+                        cargo.erase(p);
+
+                        std::cout << "Товар " << cell.name << " был продан!\n";
+                    }
+                    else std::cout << "В инвентаре нет подходящего "
+                                      "товара для продажи...\n";
+                    break;
+                }
+
+                ///----------------------------------------|
+                /// Ничего не делать.                      |
+                ///----------------------------------------:
+                default: return;
+            }
         }
 
         void update() override
@@ -270,7 +328,7 @@ namespace model
 
     ///------------------------------------------------------------------------|
     /// Персонаж Человек.
-    ///----------------------------------------------------------------- Person:
+    ///------------------------------------------------------------ PersonHuman:
     struct  PersonHuman : IPerson
     {       PersonHuman(const Config& cfg, std::string_view name)
                         : IPerson    (cfg, name)
@@ -406,8 +464,9 @@ namespace model
                     ++pers.circle;
                 }
 
+                pers.input  ();
                 pers.doEvent();
-                pers.info();
+                pers.info   ();
 
                 //std::cout << std::endl;
             }

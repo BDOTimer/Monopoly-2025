@@ -260,7 +260,8 @@ namespace model
         std::vector<Players> players
         {   {true , "bot::gudleifr"},
             {true , "bot::aliskda" },
-            {false, "Вася Пупкин"  }
+            {true , "bot::Noname"  }
+        //  {false, "Вася Пупкин"  }
         };
 
         const char* statusNames[4]
