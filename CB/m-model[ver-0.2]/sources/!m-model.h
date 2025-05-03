@@ -62,16 +62,16 @@ namespace model
     ///------------------------------------------------------------------ Cell2:
     struct  Cell
     {
-        unsigned                  id;
-        std::string             type;
-        std::string             name;
-        unsigned              chance;
-        unsigned              status;
-        unsigned           priseBase;
-        std::array<unsigned,3>   buy; /// Банк покупает.
-        std::array<unsigned,3>  sell; /// Банк продаёт.
-        unsigned        difference{};
-        float              persent{};
+        unsigned                     id;
+        std::string                type;
+        std::string                name;
+        unsigned                 chance;
+        unsigned                 status;
+        unsigned              priseBase;
+        std::array<unsigned,3> bankBuy ; /// Банк покупает.
+        std::array<unsigned,3> bankSell; /// Банк продаёт.
+        unsigned           difference{};
+        float                 persent{};
 
         ///-------------------------|
         /// Кол-во вещей.           |
@@ -79,11 +79,11 @@ namespace model
         unsigned     amountThings{1};
 
         unsigned getBestBuy() const
-        {   return std::max(buy[0], std::max(buy[1], buy[2]));
+        {   return std::max(bankBuy[0], std::max(bankBuy[1], bankBuy[2]));
         }
 
         unsigned getBestSell() const
-        {   return std::min(sell[0], std::max(sell[1], sell[2]));
+        {   return std::min(bankSell[0], std::max(bankSell[1], bankSell[2]));
         }
 
         friend std::ostream& operator<<(std::ostream& o, const Cell& cell);
@@ -98,12 +98,12 @@ namespace model
                     << std::setw(4) << e.chance
                     << std::setw(4) << e.status
                     << std::setw(4) << e.priseBase
-                    << std::setw(4) << e.buy [0]
-                    << std::setw(4) << e.buy [1]
-                    << std::setw(4) << e.buy [2]
-                    << std::setw(4) << e.sell[0]
-                    << std::setw(4) << e.sell[1]
-                    << std::setw(4) << e.sell[2]
+                    << std::setw(4) << e.bankBuy [0]
+                    << std::setw(4) << e.bankBuy [1]
+                    << std::setw(4) << e.bankBuy [2]
+                    << std::setw(4) << e.bankSell[0]
+                    << std::setw(4) << e.bankSell[1]
+                    << std::setw(4) << e.bankSell[2]
                     << "  "         << e.name;
     }
 
@@ -172,7 +172,7 @@ namespace model
                     :   cfg  (cfg ),
                         name (name)
                 {}
-        virtual~IPerson() {};
+        virtual~IPerson()  {};
 
         virtual void input () = 0;
         virtual void update() = 0;
@@ -251,7 +251,7 @@ namespace model
         }
 
         void infoName() const
-        {   std::cout << ">> Имя персонажа: \""  << name << "\"\n\n";
+        {   std::cout << ">> Имя персонажа: \""  << name << "\"\n";
         }
 
         void info() const
@@ -272,8 +272,10 @@ namespace model
                 << "   Кол-во  = " << std::setw(4)
                 << (cell.amountThings != 0 ?
                           std::to_string(cell.amountThings) : " пусто") << "\n"
-                << "   Продажа = " << std::setw(4) << cell.buy [status] << "\n"
-                << "   Покупка = " << std::setw(4) << cell.sell[status] << "\n"
+                << "   Банк покупает: " << std::setw(4)
+                                   << cell.bankBuy [status] << "\n"
+                << "   Банк продаёт : " << std::setw(4)
+                                   << cell.bankSell[status] << "\n"
                 << "\n";
         }
 
@@ -323,7 +325,7 @@ namespace model
                 case 0:
                 {
                     const unsigned price   = goodSky ?
-                        cell.getBestSell() : cell.sell[status];
+                        cell.getBestSell() : cell.bankSell[status];
 
                     bool isMoney = money >= price;
                     bool isEmpty = cell.amountThings == 0;
@@ -367,7 +369,7 @@ namespace model
                     Cell& cellSell = (*cfg.pfield)[id];
 
                     const unsigned price  = goodSky ?
-                        cell.getBestBuy() : cell.buy[status];
+                        cell.getBestBuy() : cell.bankBuy[status];
 
                     {
                              money += price;
@@ -455,7 +457,7 @@ namespace model
     /// Арбитер.
     ///---------------------------------------------------------------- Referee:
     struct  Referee
-    {       Referee(const Config& Cfg) :
+    {       Referee  (const Config& Cfg) :
                 field(Cfg),
                 whoFirstPlayer(Cfg.amountPlayers)
             {
@@ -538,8 +540,10 @@ namespace model
 
                 const unsigned cubicDice = rand() % 6 + 1;
 
-                std::cout << "cubicDice  = "
-                          << std::setw(4) << cubicDice << '\n';
+                std::cout <<
+                    "           ▛▀▀▀▜\n"
+                    "           ▌ " << cubicDice << " ▐\n"
+                    "cubicDice: ▙▄▄▄▟\n";
 
                 const auto& [pos, isStart]
                     = field.add(pers.position, cubicDice);
