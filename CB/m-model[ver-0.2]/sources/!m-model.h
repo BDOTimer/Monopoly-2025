@@ -48,6 +48,12 @@ namespace model
             }
 
         unsigned money;
+
+        void info() const
+        {   std::cout << "///----------------------------|\n"
+                      << "/// БАНК-ЛАБЕАН: " << money << "\n"
+                      << "///----------------------------|\n\n";
+        }
     };
 
 
@@ -62,8 +68,8 @@ namespace model
         unsigned              chance;
         unsigned              status;
         unsigned           priseBase;
-        std::array<unsigned,3>   buy;
-        std::array<unsigned,3>  sell;
+        std::array<unsigned,3>   buy; /// Банк покупает.
+        std::array<unsigned,3>  sell; /// Банк продаёт.
         unsigned        difference{};
         float              persent{};
 
@@ -71,6 +77,14 @@ namespace model
         /// Кол-во вещей.           |
         ///-------------------------:
         unsigned     amountThings{1};
+
+        unsigned getBestBuy() const
+        {   return std::max(buy[0], std::max(buy[1], buy[2]));
+        }
+
+        unsigned getBestSell() const
+        {   return std::min(sell[0], std::max(sell[1], sell[2]));
+        }
 
         friend std::ostream& operator<<(std::ostream& o, const Cell& cell);
     };
@@ -80,18 +94,17 @@ namespace model
     /// Вывод Cell в консоль.            |
     ///----------------------------------:
     std::ostream& operator<<(std::ostream& o, const Cell& e)
-    {   o   << std::setw(4) << e.id
-            << std::setw(4) << e.chance
-            << std::setw(4) << e.status
-            << std::setw(4) << e.priseBase
-            << std::setw(4) << e.buy [0]
-            << std::setw(4) << e.buy [1]
-            << std::setw(4) << e.buy [2]
-            << std::setw(4) << e.sell[0]
-            << std::setw(4) << e.sell[1]
-            << std::setw(4) << e.sell[2]
-            << "  "         << e.name;
-        return o;
+    {   return o    << std::setw(4) << e.id
+                    << std::setw(4) << e.chance
+                    << std::setw(4) << e.status
+                    << std::setw(4) << e.priseBase
+                    << std::setw(4) << e.buy [0]
+                    << std::setw(4) << e.buy [1]
+                    << std::setw(4) << e.buy [2]
+                    << std::setw(4) << e.sell[0]
+                    << std::setw(4) << e.sell[1]
+                    << std::setw(4) << e.sell[2]
+                    << "  "         << e.name;
     }
 
 
@@ -103,9 +116,13 @@ namespace model
                                      {
                                         #include "field.inc"
                                      },
-                                     cfg(cfg)
+                                     bank(cfg),
+                                     cfg (cfg)
+
             {
             }
+
+        Bank   bank;
 
         struct PersonQ { unsigned pos; bool isStart{ false }; };
 
@@ -165,7 +182,7 @@ namespace model
         ///------------------------------|
         /// Имя персонажа.               |
         ///------------------------------:
-        std::string name{ "Noname" };
+        std::string name;
 
         ///------------------------------|
         /// Позиция на поле.             |
@@ -180,10 +197,16 @@ namespace model
         ///------------------------------:
         unsigned money   { 0 };
 
+        //-------------------------------|
+        /// Была покупка в этом круге?   |
+        ///------------------------------:
+        bool isActBuy  {false};
+
         ///------------------------------|
         /// Список собственности.        |
         ///------------------------------:
-        std::map<std::string, unsigned>  cargo;
+        std::map<unsigned /*     id */,
+                 unsigned /* amount */>  cargo;
 
         ///------------------------------|
         /// Награды.                     |
@@ -195,12 +218,16 @@ namespace model
         ///------------------------------:
         std::map<std::string, unsigned>  specs;
 
-
         std::string_view decodeDone[3]
         {   "купить." ,
             "продать.",
             "ничего не делать."
         };
+
+        void nextCircle()
+        { ++circle;
+            isActBuy = false;
+        }
 
         void doEvent()
         {   if(cfg.managerEvents.empty()) return;
@@ -209,15 +236,32 @@ namespace model
             const_cast<model::Config*>(&cfg)->managerEvents.make();
         }
 
+        void infoCargo() const
+        {   const Field& field = *(cfg.pfield);
+
+            std::cout << "Инвентарь:\n";
+            for(const auto&[id, n] : cargo)
+            {   std::cout << "    " << std::setw(4) << id
+                          << ",   " << n << " : "   << field[id].name << '\n';
+            }   std::cout << "... ";
+
+            if(cargo.empty())
+            {   std::cout << "пусто ..." ;
+            }   std::cout << "\n";
+        }
+
+        void infoName() const
+        {   std::cout << ">> Имя персонажа: \""  << name << "\"\n\n";
+        }
+
         void info() const
         {
             const auto& cell = (*(cfg.pfield))[position];
             unsigned  chance = cell.chance;
-        /// Card*     card   = cell.card;
+        /// Card*     card   = cell.card  ;
 
         /// auto n = 15 - nn + name.size();
             std::cout
-                << ">> Имя     : \""               << name     << "\"\n"
                 << "   Кошелёк = " << std::setw(4) << money    << "\n"
                 << "   Позиция = " << std::setw(4) << position << "\n"
                 << "   Статус  = " << std::setw(4)
@@ -259,10 +303,16 @@ namespace model
 
         void input () override
         {
+            bool goodSky = cell.status == IPerson::status;
+            if(  goodSky)
+            {   std::cout << "\"ЗВЁЗДЫ СВЕТЯТ МНЕ КРАСИВО!\"\n";
+            }
+
             unsigned r = rand() % 3;
             std::cout << "Принято решение " << decodeDone[r] << '\n';
 
             Cell& cell = (*cfg.pfield)[position];
+            Bank& bank = cfg.pfield->bank;
 
             switch(r)
             {
@@ -270,18 +320,24 @@ namespace model
                 /// Купить.                                |
                 ///----------------------------------------:
                 case 0:
-                {   const unsigned& price = cell.sell[status];
+                {
+                    const unsigned price   = goodSky ?
+                        cell.getBestSell() : cell.sell[status];
 
                     bool isMoney = money >= price;
                     bool isEmpty = cell.amountThings == 0;
 
                     if( isMoney && !isEmpty)
-                    {   money   -=  price;
-                      --cell.amountThings;
+                    {        money -= price;
+                        bank.money += price;
+                      --cell.amountThings  ;
 
-                        cargo[cell.name] = 1;
+                        cargo[position] = 1;
 
-                        std::cout << "Товар " << cell.name << " был куплен!\n";
+                        std::cout << "Товар \"" << cell.name
+                                  << "\" был куплен по цене: " << price << "\n";
+
+                        isActBuy = true;
                     }
                     else if( isEmpty) std::cout << "... нет товара ...\n";
                     else if(!isMoney) std::cout << "... мало денег ...\n";
@@ -293,26 +349,43 @@ namespace model
                 /// Продать.                               |
                 ///----------------------------------------:
                 case 1:
-                {   const unsigned& price = cell.buy[status];
-
-                    if(auto p = cargo.find(cell.name); p != cargo.end())
-                    {
-                        money += price;
-                      ++cell.amountThings;
-
-                        cargo.erase(p);
-
-                        std::cout << "Товар " << cell.name << " был продан!\n";
+                {
+                    if(isActBuy)
+                    {   std::cout << "В этом круге продажа заблокированы...\n";
+                        break;
                     }
-                    else std::cout << "В инвентаре нет подходящего "
-                                      "товара для продажи...\n";
+
+                    IPerson::infoCargo();
+
+                    if(cargo.empty())
+                    {   break;
+                    }
+
+                    const auto&[id, n] = *cargo.begin();
+
+                    Cell& cellSell = (*cfg.pfield)[id];
+
+                    const unsigned price  = goodSky ?
+                        cell.getBestBuy() : cell.buy[status];
+
+                    {
+                             money += price;
+                        bank.money -= price;
+                      ++cellSell.amountThings  ;
+
+                        cargo.erase(cargo.begin());
+
+                        std::cout << "Товар \"" << cellSell.name
+                                  << "\" был продан по цене: " << price << "\n";
+                    }
+
                     break;
                 }
 
                 ///----------------------------------------|
                 /// Ничего не делать.                      |
                 ///----------------------------------------:
-                default: return;
+                default: ;
             }
         }
 
@@ -383,8 +456,7 @@ namespace model
     struct  Referee
     {       Referee(const Config& Cfg) :
                 field(Cfg),
-                whoFirstPlayer(Cfg.amountPlayers),
-                bank (Cfg)
+                whoFirstPlayer(Cfg.amountPlayers)
             {
                 ///------------------------|
                 /// Профили игроков.       |
@@ -430,7 +502,8 @@ namespace model
     protected:
         void info() const
         {   for(unsigned i = 0; i < perses.size(); ++i)
-            {   perses[order[i]]->info();
+            {   perses[order[i]]->infoName();
+                perses[order[i]]->info    ();
             }
         }
 
@@ -446,8 +519,6 @@ namespace model
         myl::WhoFirstPlayer whoFirstPlayer;
         std::vector<unsigned>        order;
 
-        Bank bank;
-
         ///------------------------------|
         /// Все игроки делают по 1 ходу. |
         ///------------------------------:
@@ -455,7 +526,10 @@ namespace model
         {
             for(unsigned i = 0; i < perses.size(); ++i)
             {
+                field.bank.info();
+
                 auto& pers = *perses[order[i]];
+                      pers.infoName();
 
                 const unsigned cubicDice = rand() % 6 + 1;
                              l(cubicDice)
@@ -474,7 +548,7 @@ namespace model
                 {
                     if (++pers.status == 3) pers.status = 0;
 
-                    ++pers.circle;
+                    pers.nextCircle();
                 }
 
                 pers.input  ();

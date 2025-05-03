@@ -40,7 +40,8 @@ struct  TestGame   : model::Referee
             {   std::system("cls");
                 std::cout << "Процесс " << LOGO << "\n\n";
             }
-            else std::cout << "|------------------------------------------\n\n";
+            else std::cout << "...-----------------------------------"
+                              "-------------------------------...\n\n";
 
 
             isDone = step();

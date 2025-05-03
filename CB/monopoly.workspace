@@ -2,9 +2,9 @@
 <CodeBlocks_workspace_file>
 	<Workspace title="Workspace">
 		<Project filename="hello/hello.cbp" />
-		<Project filename="Monopoly/sfml-Monopoly.cbp" />
 		<Project filename="test-01/test-01.cbp" />
-		<Project filename="m-model[ver-0.2]/m-model[ver-0.2].cbp" />
 		<Project filename="cards/cards.cbp" />
+		<Project filename="m-model[ver-0.2]/m-model[ver-0.2].cbp" />
+		<Project filename="Monopoly/sfml-Monopoly.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
