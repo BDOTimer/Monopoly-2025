@@ -520,6 +520,8 @@ namespace model
         myl::WhoFirstPlayer whoFirstPlayer;
         std::vector<unsigned>        order;
 
+        IPerson* persNow{nullptr};
+
         ///------------------------------|
         /// Все игроки делают по 1 ходу. |
         ///------------------------------:
@@ -529,7 +531,9 @@ namespace model
             {
                 field.bank.info();
 
-                auto& pers = *perses[order[i]];
+                persNow = perses[order[i]];
+
+                auto& pers = *persNow;
                       pers.infoName();
 
                 const unsigned cubicDice = rand() % 6 + 1;
@@ -570,8 +574,7 @@ namespace model
         {
             if(unsigned randN = (rand() % 10); randN < 3)
             {
-                unsigned randNChance = rand() % cfg->managerEvents.getSize();
-
+                const unsigned randNChance = cfg->managerEvents.getNRnd();
                 cfg->managerEvents.push(randNChance);
             }
         }
