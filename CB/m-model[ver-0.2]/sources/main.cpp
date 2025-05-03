@@ -28,7 +28,7 @@ struct  TestGame   : model::Referee
 
         for (bool isDone = true; isDone;)
         {
-            std::cout   << "\nПАУЗА::Нажмите ENTER, чтобы сделать "
+            std::cout   << "ПАУЗА::Нажмите ENTER, чтобы сделать "
                         << ++cnt << " шаг ... или '0' для завершения ...\n";
 
             {

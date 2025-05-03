@@ -274,7 +274,7 @@ namespace model
                           std::to_string(cell.amountThings) : " пусто") << "\n"
                 << "   Продажа = " << std::setw(4) << cell.buy [status] << "\n"
                 << "   Покупка = " << std::setw(4) << cell.sell[status] << "\n"
-                << "\n\n";
+                << "\n";
         }
 
         ///------------------------------|
@@ -303,6 +303,8 @@ namespace model
 
         void input () override
         {
+            Cell& cell = (*cfg.pfield)[position];
+
             bool goodSky = cell.status == IPerson::status;
             if(  goodSky)
             {   std::cout << "\"ЗВЁЗДЫ СВЕТЯТ МНЕ КРАСИВО!\"\n";
@@ -311,7 +313,6 @@ namespace model
             unsigned r = rand() % 3;
             std::cout << "Принято решение " << decodeDone[r] << '\n';
 
-            Cell& cell = (*cfg.pfield)[position];
             Bank& bank = cfg.pfield->bank;
 
             switch(r)
@@ -532,7 +533,9 @@ namespace model
                       pers.infoName();
 
                 const unsigned cubicDice = rand() % 6 + 1;
-                             l(cubicDice)
+
+                std::cout << "cubicDice  = "
+                          << std::setw(4) << cubicDice << '\n';
 
                 const auto& [pos, isStart]
                     = field.add(pers.position, cubicDice);
@@ -551,11 +554,11 @@ namespace model
                     pers.nextCircle();
                 }
 
-                pers.input  ();
                 pers.doEvent();
                 pers.info   ();
+                pers.input  ();
 
-                //std::cout << std::endl;
+                std::cout << std::endl;
             }
             return true;
         }
