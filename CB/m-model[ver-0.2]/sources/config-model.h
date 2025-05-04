@@ -48,7 +48,13 @@ void tests();
 
 namespace model
 {
-    using  FooEvent = std::function<std::string()>;
+    struct MessagesFooEvent
+    {   std::string_view messEventWhat;
+        std::string_view messEventAdd;
+    };
+
+
+    using  FooEvent = std::function<MessagesFooEvent()>;
     struct Referee;
 
     ///------------------------------------------------------------------------|
@@ -69,9 +75,16 @@ namespace model
         ///----------------------------------|
         /// Выполнить действие события.      |
         ///----------------------------------:
-        void make()
-        {   for(auto foo : events) foo();
+        [[nodiscard]]
+        const std::string make()
+        {   std::stringstream ss;
+            for(auto foo : events)
+            {   const auto&[mess1, mess2] = foo();
+                ss << mess1;
+                ss << mess2 << "\n\n";
+            }
             events.clear();
+            return ss.str();
         }
 
         ///----------------------------------|
@@ -117,15 +130,14 @@ namespace model
                 ///----------------------------------:
                 [referee]()
                 {
-                    std::cout <<
-                    "  ///--------------------|\n"
-                    "  /// Событие Шанс +50$  |\n"
-                    "  ///--------------------|\n";
                     referee->persNow->money += 50;
 
-                    std::cout << '\n';
-
-                    return "нашли на дороге";
+                    return MessagesFooEvent
+                    {   "  ///--------------------|\n"
+                        "  /// Событие Шанс +50$  |\n"
+                        "  ///--------------------|\n",
+                        "Подарок от жены!"
+                    };
                 },
 
                 ///----------------------------------|
@@ -133,13 +145,13 @@ namespace model
                 ///----------------------------------:
                 [referee]()
                 {
-                    std::cout <<
-                    "  ///--------------------|\n"
-                    "  /// Событие Шанс -30$  |\n"
-                    "  ///--------------------|\n";
                     referee->persNow->money -= 30;
-
-                    return "ремонт компа";
+                    return MessagesFooEvent
+                    {   "  ///--------------------|\n"
+                        "  /// Событие Шанс -30$  |\n"
+                        "  ///--------------------|\n",
+                        "Траты на ремонт компа..."
+                    };
                 },
 
                 ///----------------------------------|
@@ -147,13 +159,13 @@ namespace model
                 ///----------------------------------:
                 [referee]()
                 {
-                    std::cout <<
-                    "  ///--------------------|\n"
-                    "  /// Событие Шанс +200$ |\n"
-                    "  ///--------------------|\n";
                     referee->persNow->money += 200;
-
-                    return "выгрыш в казино";
+                    return MessagesFooEvent
+                    {   "  ///--------------------|\n"
+                        "  /// Событие Шанс +50$  |\n"
+                        "  ///--------------------|\n",
+                        "Ты выиграл в казино!"
+                    };
                 }
 
                 ///----------------------------------|
@@ -298,14 +310,16 @@ namespace model
             return           config;
         }
 
-        void infoValidation() const
-        {   std::cout << "\nmodel::Config::doValidation() ---> "
-                      << (doValidation() ? "SUCCESS!" : "FAIL ...") << "\n\n";
+        [[nodiscard]]
+        const std::string infoValidation() const
+        {   std::stringstream ss;
+            ss << "\nmodel::Config::doValidation() ---> "
+               << (doValidation() ? "SUCCESS!" : "FAIL ...") << "\n\n";
+            return ss.str();
         }
 
         void info() const
-        {
-            infoValidation();
+        {   printf(infoValidation().c_str());
         }
 
         ///------------------------------|

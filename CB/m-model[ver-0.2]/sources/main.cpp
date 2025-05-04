@@ -9,27 +9,32 @@
 ///------------------------------------------------------------------- TestGame:
 struct  TestGame   : model::Referee
 {       TestGame() : model::Referee(model::Config::getDefault())
-        {   model::Config::getDefault().infoValidation();
+        {   printf(model::Config::getDefault().infoValidation().c_str());
         }
 
     void run()
     {
+        std::stringstream ss;
+
         std::string_view bannerStartGame
         {   "///-----------------------------------|\n"
             "///         ИГРА НАЧАЛАСЬ!            |\n"
             "///-----------------------------------:\n"
         };
 
-        std::cout << bannerStartGame << '\n';
+        ss << bannerStartGame << '\n';
+        ss << info();
 
-        info();
+        std::cout << ss.str();
 
         unsigned cnt{ 0 };
 
         for (bool isDone = true; isDone;)
         {
-            std::cout   << "ПАУЗА::Нажмите ENTER, чтобы сделать "
-                        << ++cnt << " шаг ... или '0' для завершения ...\n";
+            ss.str("");
+
+            ss  << "ПАУЗА::Нажмите ENTER, чтобы сделать "
+                << ++cnt << " шаг ... или '0' для завершения ...\n";
 
             {
                 std::string e; std::getline(std::cin, e);
@@ -38,11 +43,12 @@ struct  TestGame   : model::Referee
 
             if(!model::Config::getDefault().isScrollConsole)
             {   std::system("cls");
-                std::cout << "Процесс " << LOGO << "\n\n";
+                ss  << "Процесс " << LOGO << "\n\n";
             }
-            else std::cout << "...-----------------------------------"
-                              "-------------------------------...\n\n";
+            else ss <<  "...-----------------------------------"
+                        "-------------------------------...\n\n";
 
+            std::cout << ss.str();
 
             isDone = step();
         }
@@ -68,7 +74,7 @@ void tests()
     /// TESTCLASS(model::Cell::test  );
     /// TESTCLASS(model::Config::test);
     /// TESTCLASS(model::Field::test );
-    /// TESTCLASS(model::Person::test);
+    /// TESTCLASS(model::PersonBot::test);
 
     ///
     TESTCLASS(TestGame::test);

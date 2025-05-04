@@ -49,10 +49,13 @@ namespace model
 
         unsigned money;
 
-        void info() const
-        {   std::cout << "///----------------------------|\n"
-                      << "/// БАНК-ЛАБЕАН: " << money << "\n"
-                      << "///----------------------------|\n\n";
+        [[nodiscard]]
+        const std::string info() const
+        {   std::stringstream ss;
+            ss  << "///----------------------------|\n"
+                << "/// БАНК-ЛАБЕАН: " << money << "\n"
+                << "///----------------------------|\n\n";
+            return ss.str();
         }
     };
 
@@ -83,10 +86,24 @@ namespace model
         }
 
         unsigned getBestSell() const
-        {   return std::min(bankSell[0], std::max(bankSell[1], bankSell[2]));
+        {   return std::min(bankSell[0], std::min(bankSell[1], bankSell[2]));
         }
 
         friend std::ostream& operator<<(std::ostream& o, const Cell& cell);
+
+        ///------------------------------|
+        /// Тест класса.                 |
+        ///------------------------------:
+        TEST
+        {   Cell cell{  0, "Дети", "Завод воздушных шариков.",
+              0,   1, 120,
+            100, 140, 120,
+            140, 100, 120};
+
+            ln(cell)
+            l( cell.getBestBuy ())
+            l( cell.getBestSell())
+        }
     };
 
 
@@ -174,8 +191,7 @@ namespace model
                 {}
         virtual~IPerson()  {};
 
-        virtual void input () = 0;
-        virtual void update() = 0;
+        virtual const std::string input () = 0;
 
         const Config& cfg;
 
@@ -233,36 +249,49 @@ namespace model
         {   if(cfg.managerEvents.empty()) return;
 
             std::cout << "Событие для " << name << ":\n";
-            const_cast<model::Config*>(&cfg)->managerEvents.make();
+            const auto mess
+                = const_cast<model::Config*>(&cfg)->managerEvents.make();
+
+            printf(mess.c_str());
         }
 
-        void infoCargo() const
+        [[nodiscard]]
+        const std::string infoCargo() const
         {   const Field& field = *(cfg.pfield);
 
-            std::cout << "Инвентарь:\n";
+            std::stringstream ss;
+
+            ss << "Инвентарь:\n";
             for(const auto&[id, n] : cargo)
-            {   std::cout << "    " << std::setw(4) << id
-                          << ",   " << n << " : "   << field[id].name << '\n';
-            }   std::cout << "... ";
+            {   ss  << "    " << std::setw(4) << id
+                    << ",   " << n << " : "   << field[id].name << '\n';
+            }   ss  << "... ";
 
             if(cargo.empty())
-            {   std::cout << "пусто ..." ;
-            }   std::cout << "\n";
+            {   ss << "пусто ..." ;
+            }   ss << "\n";
+
+            return ss.str();
         }
 
-        void infoName() const
-        {   std::cout << ">> Имя персонажа: \""  << name << "\"\n";
+        [[nodiscard]]
+        const std::string infoName() const
+        {   std::stringstream ss;
+                              ss  << ">> Имя персонажа: \"" << name << "\"\n";
+            return            ss.str();
         }
 
-        void info() const
+        [[nodiscard]]
+        const std::string info() const
         {
+            std::stringstream ss;
+
             const auto& cell = (*(cfg.pfield))[position];
             unsigned  chance = cell.chance;
         /// Card*     card   = cell.card  ;
 
         /// auto n = 15 - nn + name.size();
-            std::cout
-                << "   Кошелёк = " << std::setw(4) << money    << "\n"
+            ss  << "   Кошелёк = " << std::setw(4) << money    << "\n"
                 << "   Позиция = " << std::setw(4) << position << "\n"
                 << "   Статус  = " << std::setw(4)
                 << cfg.decodeStatus(status)                    << "\n"
@@ -277,6 +306,8 @@ namespace model
                 << "   Банк продаёт : " << std::setw(4)
                                    << cell.bankSell[status] << "\n"
                 << "\n";
+
+            return ss.str();
         }
 
         ///------------------------------|
@@ -303,17 +334,20 @@ namespace model
                 init();
             }
 
-        void input () override
+        [[nodiscard]]
+        const std::string input () override
         {
+            std::stringstream ss;
+
             Cell& cell = (*cfg.pfield)[position];
 
             bool goodSky = cell.status == IPerson::status;
             if(  goodSky)
-            {   std::cout << "\"ЗВЁЗДЫ СВЕТЯТ МНЕ КРАСИВО!\"\n";
+            {   ss << "\"ЗВЁЗДЫ СВЕТЯТ МНЕ КРАСИВО!\"\n";
             }
 
             unsigned r = rand() % 3;
-            std::cout << "Принято решение " << decodeDone[r] << '\n';
+            ss << "Принято решение " << decodeDone[r] << '\n';
 
             Bank& bank = cfg.pfield->bank;
 
@@ -337,13 +371,13 @@ namespace model
 
                         cargo[position] = 1;
 
-                        std::cout << "Товар \"" << cell.name
-                                  << "\" был куплен по цене: " << price << "\n";
+                        ss  << "Товар \"" << cell.name
+                            << "\" был куплен по цене: " << price << "\n";
 
                         isActBuy = true;
                     }
-                    else if( isEmpty) std::cout << "... нет товара ...\n";
-                    else if(!isMoney) std::cout << "... мало денег ...\n";
+                    else if( isEmpty) ss << "... нет товара ...\n";
+                    else if(!isMoney) ss << "... мало денег ...\n";
 
                     break;
                 }
@@ -354,11 +388,11 @@ namespace model
                 case 1:
                 {
                     if(isActBuy)
-                    {   std::cout << "В этом круге продажа заблокированы...\n";
+                    {   ss << "В этом круге продажа заблокированы...\n";
                         break;
                     }
 
-                    IPerson::infoCargo();
+                    ss << IPerson::infoCargo();
 
                     if(cargo.empty())
                     {   break;
@@ -378,8 +412,8 @@ namespace model
 
                         cargo.erase(cargo.begin());
 
-                        std::cout << "Товар \"" << cellSell.name
-                                  << "\" был продан по цене: " << price << "\n";
+                        ss  << "Товар \"" << cellSell.name
+                            << "\" был продан по цене: " << price << "\n";
                     }
 
                     break;
@@ -390,11 +424,7 @@ namespace model
                 ///----------------------------------------:
                 default: ;
             }
-        }
-
-        void update() override
-        {
-
+            return ss.str();
         }
 
     private:
@@ -408,7 +438,8 @@ namespace model
                     cfg->pfield = &field;
 
             IPerson* person = new PersonBot(*cfg, "bot:gudleifr");
-                     person->info();
+                  ln(person->infoName());
+                  ln(person->info    ());
 
             delete   person;
         }
@@ -425,15 +456,15 @@ namespace model
                 init();
             }
 
-        void input () override
+        const std::string input () override
         {
+            std::stringstream ss;
 
+            /// ...
+
+            return ss.str();
         }
 
-        void update() override
-        {
-
-        }
 
     private:
         ///------------------------------|
@@ -446,7 +477,7 @@ namespace model
                     cfg->pfield = &field;
 
             IPerson* person = new PersonHuman(*cfg, "Slava-rusi11");
-                     person->info();
+                  ln(person->info())
 
             delete   person;
         }
@@ -503,11 +534,14 @@ namespace model
             }
 
     protected:
-        void info() const
-        {   for(unsigned i = 0; i < perses.size(); ++i)
-            {   perses[order[i]]->infoName();
-                perses[order[i]]->info    ();
+        [[nodiscard]]
+        const std::string info() const
+        {   std::stringstream ss;
+            for(unsigned i = 0; i < perses.size(); ++i)
+            {   ss << perses[order[i]]->infoName();
+                ss << perses[order[i]]->info    ();
             }
+            return ss.str();
         }
 
         std::vector<model::IPerson*> perses;
@@ -531,12 +565,12 @@ namespace model
         {
             for(unsigned i = 0; i < perses.size(); ++i)
             {
-                field.bank.info();
+                printf(field.bank.info().c_str());
 
                 persNow = perses[order[i]];
 
                 auto& pers = *persNow;
-                      pers.infoName();
+                std::cout <<  pers.infoName();
 
                 const unsigned cubicDice = rand() % 6 + 1;
 
@@ -563,7 +597,7 @@ namespace model
                 }
 
                 pers.doEvent();
-                pers.info   ();
+                std::cout   << pers.info();
                 pers.input  ();
 
                 std::cout << std::endl;
