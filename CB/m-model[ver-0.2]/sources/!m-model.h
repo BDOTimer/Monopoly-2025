@@ -541,9 +541,9 @@ namespace model
                 const unsigned cubicDice = rand() % 6 + 1;
 
                 std::cout <<
-                    "           ▛▀▀▀▜\n"
-                    "           ▌ " << cubicDice << " ▐\n"
-                    "cubicDice: ▙▄▄▄▟\n";
+                    "           ╔═══╗\n"
+                    "cubicDice:═╣ " << cubicDice << " ║\n"
+                    "           ╚═══╝\n";
 
                 const auto& [pos, isStart]
                     = field.add(pers.position, cubicDice);
