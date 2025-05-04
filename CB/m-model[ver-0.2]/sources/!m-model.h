@@ -462,6 +462,8 @@ namespace model
 
                         ss  << "Товар \"" << cellSell.name
                             << "\" был продан по цене: " << price << "\n";
+
+                        ss << IPerson::infoCargo();
                     }
 
                     break;
