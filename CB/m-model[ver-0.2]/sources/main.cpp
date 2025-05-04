@@ -76,6 +76,7 @@ void tests()
 {
     /// myl::tests();
 
+    /// TESTCLASS(model::Cards::test );
     /// TESTCLASS(model::Cell::test  );
     /// TESTCLASS(model::Config::test);
     /// TESTCLASS(model::Field::test );

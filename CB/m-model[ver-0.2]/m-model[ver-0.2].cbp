@@ -26,6 +26,7 @@
 		</Compiler>
 		<Unit filename="../../task-dev.txt" />
 		<Unit filename="sources/!m-model.h" />
+		<Unit filename="sources/cards.inc" />
 		<Unit filename="sources/config-model.h" />
 		<Unit filename="sources/field.inc" />
 		<Unit filename="sources/main.cpp" />

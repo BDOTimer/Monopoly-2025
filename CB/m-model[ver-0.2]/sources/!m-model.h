@@ -29,14 +29,111 @@ namespace model
     ///------------------------------------------------------------------- Card:
     struct  Card
     {
-        std::string_view type; /// Тип.
-        std::string_view name; /// Название.
-        std::string_view txtr; /// Texture.
+        unsigned              id; /// Идентификатор.
+        unsigned            type; /// Тип.
+        int             money[3]; /// Монеты от статуса.
+        int             steps[2]; /// Ходы.
+        unsigned           count; /// Сила в кол-ве раз действии.
 
-        std::string infoName() const
-        {   return std::format("\"{}\"", name.data());
+        ///------------------------------|
+        /// Получаем имя из type.        |
+        ///------------------------------:
+        std::string_view decodeName() const
+        {   static const char* name[]
+            {   "Сюрприз",
+                "Золотая",
+                "Джокер",
+                "Просроченная"
+            };
+            constexpr unsigned N = sizeof name / sizeof *name;
+            if(type >= N) return name[N - 1];
+            return name[type];
+        }
+
+        std::string infoWhat(unsigned status = 0)
+        {   std::stringstream ss;
+
+            switch(type)
+            {
+                case 0:
+                {
+                }
+                case 1:
+                {
+                    return infoWhat(std::to_string(money[status]));
+                }
+                case 2:
+                {   ss << steps[0] << ", " << steps[1];
+                }
+            }
+
+            return infoWhat(ss.str());
+        }
+
+private:
+        std::string infoWhat(std::string s)
+        {   s.resize(11, ' ');
+            std::stringstream ss;
+            ss << "///--------------------------|\n"
+               << "/// Событие Шанс: " << s << "|\n"
+               << "///--------------------------|\n";
+            return ss.str();
+        }
+
+        friend std::ostream& operator<<(std::ostream& o, const Card& card);
+    };
+
+
+    ///----------------------------------|
+    /// Вывод Card в консоль.            |
+    ///----------------------------------:
+    std::ostream& operator<<(std::ostream& o, const Card& card)
+    {   return o    << std::setw(3) << card.type     << ", "
+                    << std::setw(4) << card.money[0] << ", "
+                    << std::setw(4) << card.money[1] << ", "
+                    << std::setw(3) << card.money[2] << ", "
+                    << std::setw(3) << card.steps[0] << ", "
+                    << std::setw(3) << card.steps[1] << ", "
+                    << card.decodeName();
+    }
+
+
+    ///------------------------------------------------------------------------|
+    /// Коллекция карточек.
+    ///------------------------------------------------------------------- Card:
+    struct  Cards   : std::vector<Card>
+    {       Cards() : std::vector<Card>
+                    {
+                        #include "cards.inc"
+                    }
+            {   reserve(size()); for(Card& e : *this) pcard.push_back(&e);
+            }
+
+    friend std::ostream& operator<<(std::ostream& o, const Cards& card);
+
+    private:
+        std::vector<Card*> pcard;
+
+        ///------------------------------|
+        /// Тест класса.                 |
+        ///------------------------------:
+        TEST
+        {   Cards   cards;
+                 ln(cards)
+                 ln(cards[0 ].infoWhat())
+                 ln(cards[25].infoWhat())
         }
     };
+
+
+    ///----------------------------------|
+    /// Вывод Cards в консоль.           |
+    ///----------------------------------:
+    std::ostream& operator<<(std::ostream& o, const Cards& cards)
+    {   for(const auto& card : cards)
+        {          o << card << '\n';
+        }   return o;
+    }
 
 
     ///------------------------------------------------------------------------|
@@ -248,6 +345,11 @@ namespace model
         /// Особые условия.              |
         ///------------------------------:
         std::map<std::string, unsigned>  specs;
+
+        ///------------------------------|
+        /// Карточка.                    |
+        ///------------------------------:
+        Card* pcard{nullptr};
 
         std::string_view decodeDone[3]
         {   "купить." ,
