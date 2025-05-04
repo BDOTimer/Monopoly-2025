@@ -7,25 +7,25 @@
 			<Cursor1 position="1541" topLine="7" />
 		</Cursor>
 	</File>
+	<File name="sources\config-model.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="9454" topLine="265" />
+		</Cursor>
+	</File>
 	<File name="sources\field.inc" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="319" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="sources\!m-model.h" open="1" top="1" tabpos="2" split="2" active="1" splitpos="961" zoom_1="-3" zoom_2="-8">
+		<Cursor>
+			<Cursor1 position="6433" topLine="175" />
+			<Cursor2 position="2245" topLine="54" />
+		</Cursor>
+	</File>
 	<File name="sources\main.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1955" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="sources\config-model.h" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="9448" topLine="265" />
-		</Cursor>
-	</File>
-	<File name="sources\!m-model.h" open="1" top="0" tabpos="2" split="2" active="1" splitpos="1025" zoom_1="-2" zoom_2="-8">
-		<Cursor>
-			<Cursor1 position="20645" topLine="601" />
-			<Cursor2 position="2282" topLine="59" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

@@ -180,6 +180,15 @@ namespace model
         }   return o;
     }
 
+    /// ERROR ...(не рабочий, почему?)
+    ///----------------------------------|
+    /// Вывод Cell в консоль.            |
+    ///----------------------------------:
+    std::function<bool(unsigned, unsigned)> //, decltype(comparator)
+    comparator{[](const unsigned lhs,
+                  const unsigned rhs)
+    {   return lhs < rhs;
+    }};
 
     ///------------------------------------------------------------------------|
     /// Интерфейс персонажа.
@@ -222,8 +231,8 @@ namespace model
         ///------------------------------|
         /// Список собственности.        |
         ///------------------------------:
-        std::map<unsigned /*     id */,
-                 unsigned /* amount */>  cargo;
+        std::multimap<unsigned,/* status */
+                      unsigned /*     id */>  cargo;
 
         ///------------------------------|
         /// Награды.                     |
@@ -263,9 +272,9 @@ namespace model
             std::stringstream ss;
 
             ss << "Инвентарь:\n";
-            for(const auto&[id, n] : cargo)
+            for(const auto&[sts, id] : cargo)
             {   ss  << "    " << std::setw(4) << id
-                    << ",   " << n << " : "   << field[id].name << '\n';
+                    << ",   " << sts << " : "   << field[id].name << '\n';
             }   ss  << "... ";
 
             if(cargo.empty())
@@ -371,10 +380,13 @@ namespace model
                         bank.money += price;
                       --cell.amountThings  ;
 
-                        cargo[position] = 1;
+                    /// cargo[position] = 1;
+                        cargo.insert(std::pair{cell.status, position});
 
                         ss  << "Товар \"" << cell.name
                             << "\" был куплен по цене: " << price << "\n";
+
+                        ss << IPerson::infoCargo();
 
                         isActBuy = true;
                     }
@@ -400,7 +412,7 @@ namespace model
                     {   break;
                     }
 
-                    const auto&[id, n] = *cargo.begin();
+                    const auto&[sts, id] = *cargo.begin();
 
                     Cell& cellSell = (*cfg.pfield)[id];
 
