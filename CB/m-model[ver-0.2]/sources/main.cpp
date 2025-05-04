@@ -25,16 +25,17 @@ struct  TestGame   : model::Referee
         ss << bannerStartGame << '\n';
         ss << info();
 
-        std::cout << ss.str();
+        std::cout << ss.str(); ss.str("");
 
         unsigned cnt{ 0 };
 
         for (bool isDone = true; isDone;)
         {
-            ss.str("");
 
             ss  << "ПАУЗА::Нажмите ENTER, чтобы сделать "
                 << ++cnt << " шаг ... или '0' для завершения ...\n";
+
+            std::cout << ss.str(); ss.str("");
 
             {
                 std::string e; std::getline(std::cin, e);
@@ -48,7 +49,7 @@ struct  TestGame   : model::Referee
             else ss <<  "...-----------------------------------"
                         "-------------------------------...\n\n";
 
-            std::cout << ss.str();
+            std::cout << ss.str(); ss.str("");
 
             isDone = step();
         }

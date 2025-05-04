@@ -191,6 +191,7 @@ namespace model
                 {}
         virtual~IPerson()  {};
 
+        [[nodiscard]]
         virtual const std::string input () = 0;
 
         const Config& cfg;
@@ -334,7 +335,6 @@ namespace model
                 init();
             }
 
-        [[nodiscard]]
         const std::string input () override
         {
             std::stringstream ss;
