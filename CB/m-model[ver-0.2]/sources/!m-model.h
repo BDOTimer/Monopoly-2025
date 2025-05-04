@@ -47,7 +47,7 @@ namespace model
             {
             }
 
-        unsigned money;
+        int money;
 
         [[nodiscard]]
         const std::string info() const
@@ -211,7 +211,7 @@ namespace model
         ///------------------------------|
         /// Кошелёк.                     |
         ///------------------------------:
-        unsigned money   { 0 };
+        int      money   { 0 };
 
         //-------------------------------|
         /// Была покупка в этом круге?   |
@@ -358,7 +358,7 @@ namespace model
                 ///----------------------------------------:
                 case 0:
                 {
-                    const unsigned price   = goodSky ?
+                    const int price   = goodSky ?
                         cell.getBestSell() : cell.bankSell[status];
 
                     bool isMoney = money >= price;
@@ -402,7 +402,7 @@ namespace model
 
                     Cell& cellSell = (*cfg.pfield)[id];
 
-                    const unsigned price  = goodSky ?
+                    const int price  = goodSky ?
                         cell.getBestBuy() : cell.bankBuy[status];
 
                     {
@@ -597,8 +597,8 @@ namespace model
                 }
 
                 pers.doEvent();
-                std::cout   << pers.info();
-                pers.input  ();
+                std::cout << pers.info ();
+                std::cout << pers.input();
 
                 std::cout << std::endl;
             }
