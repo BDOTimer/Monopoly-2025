@@ -65,16 +65,16 @@ namespace model
     ///------------------------------------------------------------------ Cell2:
     struct  Cell
     {
-        unsigned                     id;
-        std::string                type;
-        std::string                name;
-        unsigned                 chance;
-        unsigned                 status;
-        unsigned              priseBase;
-        std::array<unsigned,3> bankBuy ; /// Банк покупает.
-        std::array<unsigned,3> bankSell; /// Банк продаёт.
-        unsigned           difference{};
-        float                 persent{};
+        unsigned                id;
+        std::string           type;
+        std::string           name;
+        unsigned            chance;
+        unsigned            status;
+        int              priseBase;
+        std::array<int,3> bankBuy ; /// Банк покупает.
+        std::array<int,3> bankSell; /// Банк продаёт.
+        int           difference{};
+        float            persent{};
 
         ///-------------------------|
         /// Кол-во вещей.           |
@@ -304,6 +304,8 @@ namespace model
                           std::to_string(cell.amountThings) : " пусто") << "\n"
                 << "   Банк покупает: " << std::setw(4)
                                    << cell.bankBuy [status] << "\n"
+                << "   Базовая цена : " << std::setw(4)
+                                   << cell.priseBase << "\n"
                 << "   Банк продаёт : " << std::setw(4)
                                    << cell.bankSell[status] << "\n"
                 << "\n";
@@ -610,7 +612,7 @@ namespace model
         ///------------------------------:
         void genChanse()
         {
-            if(unsigned randN = (rand() % 10); randN < 3)
+            if(unsigned randN = (rand() % 100); randN < cfg->percentDoChanse)
             {
                 const unsigned randNChance = cfg->managerEvents.getNRnd();
                 cfg->managerEvents.push(randNChance);
