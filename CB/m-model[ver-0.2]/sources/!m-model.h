@@ -184,7 +184,7 @@ namespace model
     ///----------------------------------|
     /// Вывод Cell в консоль.            |
     ///----------------------------------:
-    std::function<bool(unsigned, unsigned)> //, decltype(comparator)
+    std::function<bool(const unsigned, const unsigned)> //, decltype(comparator)
     comparator{[](const unsigned lhs,
                   const unsigned rhs)
     {   return lhs < rhs;
@@ -506,6 +506,13 @@ namespace model
                 field(Cfg),
                 whoFirstPlayer(Cfg.amountPlayers)
             {
+                unsigned seed = Cfg.isSeed ? Cfg.isSeed : unsigned(time(NULL));
+
+                ///------------------------|
+                /// Инициализация ГПСЧ.    |
+                ///------------------------:
+                srand(seed);
+
                 ///------------------------|
                 /// Профили игроков.       |
                 ///------------------------:
@@ -517,11 +524,6 @@ namespace model
                     {   perses.emplace_back(new PersonHuman(Cfg, pl.name));
                     }
                 }
-
-                ///------------------------|
-                /// Инициализация ГПСЧ.    |
-                ///------------------------:
-                srand(unsigned(time(NULL)));
 
                 ln(field)
 
