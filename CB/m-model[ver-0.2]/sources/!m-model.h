@@ -223,6 +223,11 @@ namespace model
         ///------------------------------:
         int      money   { 0 };
 
+        ///------------------------------|
+        /// Вся собственность в монетах. |
+        ///------------------------------:
+        int     capital  { 0 };
+
         //-------------------------------|
         /// Была покупка в этом круге?   |
         ///------------------------------:
@@ -249,6 +254,24 @@ namespace model
             "продать.",
             "ничего не делать."
         };
+
+        ///------------------------------|
+        /// Добавить Вещь в инвентарь.   |
+        ///------------------------------:
+        void addThing(const Cell& cell)
+        {   cargo.insert(std::pair{cell.status, cell.id});
+            capital += cell.priseBase;
+        }
+
+        ///------------------------------|
+        /// Удалить Вещь из инвентаря.   |
+        ///------------------------------:
+        void deleteThing(std::multimap<unsigned, unsigned>::iterator it)
+        {   const auto&[sts, id] = *it;
+            Cell&       cellSell = (*cfg.pfield)[id];
+            capital -= cellSell.priseBase;
+            cargo.erase(it);
+        }
 
         void nextCircle()
         { ++circle;
@@ -280,6 +303,8 @@ namespace model
             if(cargo.empty())
             {   ss << "пусто ..." ;
             }   ss << "\n";
+
+            ss << "Вся стоимость всей собственности: " << capital << '\n';
 
             return ss.str();
         }
@@ -380,8 +405,12 @@ namespace model
                         bank.money += price;
                       --cell.amountThings  ;
 
+                        ///------------------------------|
+                        /// Добавить Вещь в инвентарь.   |
+                        ///------------------------------:
                     /// cargo[position] = 1;
-                        cargo.insert(std::pair{cell.status, position});
+                    /// cargo.insert(std::pair{cell.status, position});
+                        addThing(cell);
 
                         ss  << "Товар \"" << cell.name
                             << "\" был куплен по цене: " << price << "\n";
@@ -412,7 +441,9 @@ namespace model
                     {   break;
                     }
 
-                    const auto&[sts, id] = *cargo.begin();
+                    auto it = cargo.begin();
+
+                    const auto&[sts, id] = *it;
 
                     Cell& cellSell = (*cfg.pfield)[id];
 
@@ -424,7 +455,10 @@ namespace model
                         bank.money -= price;
                       ++cellSell.amountThings  ;
 
-                        cargo.erase(cargo.begin());
+                        ///------------------------------|
+                        /// Удалить Вещь из инвентаря.   |
+                        ///------------------------------:
+                        deleteThing(it);
 
                         ss  << "Товар \"" << cellSell.name
                             << "\" был продан по цене: " << price << "\n";
