@@ -27,8 +27,12 @@ namespace model
     ///------------------------------------------------------------------------|
     /// Карточка.
     ///------------------------------------------------------------------- Card:
+    struct  IPerson;
     struct  Card
     {
+        ///------------------------------|
+        /// Из "cards.inc"               |
+        ///------------------------------:
         unsigned              id; /// Идентификатор.
         unsigned            type; /// Тип.
         int             money[3]; /// Монеты от статуса.
@@ -36,41 +40,35 @@ namespace model
         unsigned           count; /// Сила в кол-ве раз действии.
 
         ///------------------------------|
+        /// Расшифровки типов.           |
+        ///------------------------------:
+        inline static const char*   name[]
+        {   "Сюрприз",
+            "Золотая",
+            "Джокер" ,
+            "Просроченная"
+        };
+        inline static unsigned N{sizeof name / sizeof *name};
+
+        ///------------------------------|
+        /// Служебная инфа.              |
+        ///------------------------------:
+        int buf[3]{};
+
+        bool empty() const { return 0 == count; }
+
+        ///------------------------------|
         /// Получаем имя из type.        |
         ///------------------------------:
         std::string_view decodeName() const
-        {   static const char* name[]
-            {   "Сюрприз",
-                "Золотая",
-                "Джокер",
-                "Просроченная"
-            };
-            constexpr unsigned N = sizeof name / sizeof *name;
-            if(type >= N) return name[N - 1];
+        {   if(type >= N) return name[N - 1];
             return name[type];
         }
 
-        std::string infoWhat(unsigned status = 0)
-        {   std::stringstream ss;
-
-            switch(type)
-            {
-                case 0:
-                {
-                }
-                case 1:
-                {
-                    return infoWhat(std::to_string(money[status]));
-                }
-                case 2:
-                {   ss << steps[0] << ", " << steps[1];
-                }
-            }
-
-            return infoWhat(ss.str());
-        }
+        std::string doAct(IPerson* pers);
 
 private:
+
         std::string infoWhat(std::string s)
         {   s.resize(11, ' ');
             std::stringstream ss;
@@ -81,6 +79,7 @@ private:
         }
 
         friend std::ostream& operator<<(std::ostream& o, const Card& card);
+        friend struct Cards;
     };
 
 
@@ -106,13 +105,26 @@ private:
                     {
                         #include "cards.inc"
                     }
-            {   reserve(size()); for(Card& e : *this) pcard.push_back(&e);
+            {   init();
             }
 
     friend std::ostream& operator<<(std::ostream& o, const Cards& card);
 
+    Card* getCard()
+    {   Card*  pc = pcards.back();
+        pcards.pop_back();
+        return pc;
+    }
+
     private:
-        std::vector<Card*> pcard;
+        std::vector<Card*> pcards;
+
+        void init()
+        {   pcards.clear();
+            pcards.reserve(size());
+            for(Card& e : *this) pcards.push_back(&e);
+            myl::mixer(pcards);
+        }
 
         ///------------------------------|
         /// Тест класса.                 |
@@ -120,8 +132,8 @@ private:
         TEST
         {   Cards   cards;
                  ln(cards)
-                 ln(cards[0 ].infoWhat())
-                 ln(cards[25].infoWhat())
+                 ln(cards[0 ].infoWhat("-30 "))
+                 ln(cards[25].infoWhat("4, 6"))
         }
     };
 
@@ -237,6 +249,7 @@ private:
             }
 
         Bank   bank;
+        Cards cards;
 
         struct PersonQ { unsigned pos; bool isStart{ false }; };
 
@@ -298,14 +311,15 @@ private:
         virtual~IPerson()  {};
 
         [[nodiscard]]
-        virtual const std::string input () = 0;
+        virtual const std::string input() = 0;
+        virtual void              doAct() = 0;
 
         const Config& cfg;
 
         ///------------------------------|
         /// Имя персонажа.               |
         ///------------------------------:
-        std::string name;
+        std::string  name;
 
         ///------------------------------|
         /// Позиция на поле.             |
@@ -380,16 +394,6 @@ private:
             isActBuy = false;
         }
 
-        void doEvent()
-        {   if(cfg.managerEvents.empty()) return;
-
-            std::cout << "Событие для " << name << ":\n";
-            const auto mess
-                = const_cast<model::Config*>(&cfg)->managerEvents.make();
-
-            printf(mess.c_str());
-        }
-
         [[nodiscard]]
         const std::string infoCargo() const
         {   const Field& field = *(cfg.pfield);
@@ -461,6 +465,42 @@ private:
             money = cfg.startMoney;
         }
     };
+
+
+    ///------------------------------------------------------------------------|
+    /// ВСЕ ПРАВИЛА для карточек ШАНС.
+    ///------------------------------------------------------------ Card::doAct:
+    std::string Card::doAct(IPerson* pers)
+    {
+        if(0 == count)
+        {   return "";
+        }
+
+        count--;
+
+        std::stringstream ss;
+
+        switch(type)
+        {
+            case 0:
+            {
+            }
+            case 1:
+            {
+                const int mn{money[pers->status]};
+                pers->money += mn;
+                return infoWhat(std::to_string(mn));
+            }
+            case 2:
+            {
+                ///ss << steps[0] << ", " << steps[1];
+                ss << "TODO:?";
+                break;
+            }
+        }
+
+        return infoWhat(ss.str());
+    }
 
 
     ///------------------------------------------------------------------------|
@@ -579,6 +619,15 @@ private:
             return ss.str();
         }
 
+        void doAct() override
+        {
+            if(pcard == nullptr) return;
+            if(pcard -> empty()) { pcard = nullptr; return; }
+
+            std::cout << "Событие для " << name << ":\n";
+            printf(pcard->doAct(this).c_str());
+        }
+
     private:
         ///------------------------------|
         /// Тест класса.                 |
@@ -615,6 +664,12 @@ private:
             /// ...
 
             return ss.str();
+        }
+
+        void doAct() override
+        {   if(nullptr == pcard) return;
+            std::cout << "Событие для " << name << ":\n";
+            printf(pcard->doAct(this).c_str());
         }
 
 
@@ -750,7 +805,7 @@ private:
                     pers.nextCircle();
                 }
 
-                pers.doEvent();
+                pers.doAct();
                 std::cout << pers.info ();
                 std::cout << pers.input();
 
@@ -763,11 +818,10 @@ private:
         /// Генератор события.           |
         ///------------------------------:
         void genChanse()
-        {
-            if(unsigned randN = (rand() % 100); randN < cfg->percentDoChanse)
-            {
-                const unsigned randNChance = cfg->managerEvents.getNRnd();
-                cfg->managerEvents.push(randNChance);
+        {   if(unsigned randN = (rand() % 100); randN < cfg->percentDoChanse)
+            {   if(nullptr == persNow->pcard)
+                {   persNow->pcard = field.cards.getCard();
+                }
             }
         }
 

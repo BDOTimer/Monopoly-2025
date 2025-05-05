@@ -1,21 +1,22 @@
 # depslib dependency file v1.0
-1746283836 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\main.cpp
+1746431789 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\main.cpp
 	"!m-model.h"
 
-1746301176 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\!m-model.h
+1746439850 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\!m-model.h
 	"myl.h"
 	<locale>
 	<codecvt>
+	"cards.inc"
 	"field.inc"
 
-1746079598 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\myl.h
+1746437300 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\myl.h
 	"config-model.h"
 	<algorithm>
 	<iostream>
 	<string>
 	<vector>
 
-1746289860 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\config-model.h
+1746431789 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\config-model.h
 	<functional>
 	<iostream>
 	<iomanip>
@@ -29,7 +30,7 @@
 	<map>
 	<windows.h>
 
-1746276594 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\field.inc
+1746301714 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\field.inc
 
 1746394229 source:d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\main.cpp
 	"!m-model.h"
@@ -65,4 +66,6 @@
 1746338244 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\field.inc
 
 1746392282 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\cards.inc
+
+1746431789 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\cards.inc
 
