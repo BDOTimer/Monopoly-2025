@@ -40,17 +40,6 @@ namespace model
         unsigned           count; /// Сила в кол-ве раз действии.
 
         ///------------------------------|
-        /// Расшифровки типов.           |
-        ///------------------------------:
-        inline static const char*   name[]
-        {   "Сюрприз",
-            "Золотая",
-            "Джокер" ,
-            "Просроченная"
-        };
-        inline static unsigned N{sizeof name / sizeof *name};
-
-        ///------------------------------|
         /// Служебная инфа.              |
         ///------------------------------:
         int buf[3]{};
@@ -67,14 +56,24 @@ namespace model
 
         std::string doAct(IPerson* pers);
 
-private:
+    private:
+        ///------------------------------|
+        /// Расшифровки типов.           |
+        ///------------------------------:
+        inline static const char*   name[]
+        {   "Сюрприз",
+            "Золотая",
+            "Джокер" ,
+            "Просроченная"
+        };
+        inline static unsigned N{sizeof name / sizeof *name};
 
         std::string infoWhat(std::string s)
         {   s.resize(11, ' ');
             std::stringstream ss;
             ss << "///--------------------------|\n"
-               << "/// Событие Шанс: " << s << "|\n"
-               << "///--------------------------|\n";
+               << "/// Событие Шанс: " << s << "| <--- " << decodeName() << '\n'
+               << "///--------------------------|\n\n";
             return ss.str();
         }
 
