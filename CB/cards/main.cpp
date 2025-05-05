@@ -22,7 +22,8 @@ namespace myl
             {    e = s.find('\"', b + 1) + 1;
             }
             else if(s[b] == '/')
-            {    e = s.find('\n', b + 1) + 1;
+            {    e = s.find('\n', b + 1);
+                 if(e != NPOS) e++;
                  continue;
             }
             else e = s.find_first_of(x, b);
@@ -60,7 +61,7 @@ namespace myl
     }
 
     void TEST_parseStr()
-    {   TEST_parseStr("{123, 456;789}...///MMM;{123, \"zxc qwe!\";::789}...\n");
+    {   TEST_parseStr("{123, 456;789}...///MMM;{123, \"zxc ///qwe!\";::789}...");
     }
 }
 
