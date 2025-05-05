@@ -489,7 +489,7 @@ private:
             {
                 const int mn{money[pers->status]};
                 pers->money += mn;
-                return infoWhat(std::to_string(mn));
+                return infoWhat(std::to_string(mn) + std::string("$"));
             }
             case 2:
             {
