@@ -10,18 +10,22 @@
 #include <list>
 #include <map>
 
-#define  l(v)  std::cout << #v << " = " << (v) << std::endl;
+#include "debug.h"
 
-struct  Config
-{       Config()
-        {
-        }
+namespace vsl
+{
+    struct  Config
+    {       Config()
+            {
+            }
 
 
 
-private:
+    private:
 
-};
+    };
+}
+
 
 ///----------------------------------------------------------------------------|
 /// Макет пакета данных для одного отображаемого объекта.

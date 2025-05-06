@@ -2,20 +2,9 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release" />
-	<File name="sources\!m-model.h" open="1" top="0" tabpos="2" split="2" active="1" splitpos="1117" zoom_1="-3" zoom_2="-8">
+	<File name="sources\field.inc" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5619" topLine="170" />
-			<Cursor2 position="20993" topLine="573" />
-		</Cursor>
-	</File>
-	<File name="sources\cards.inc" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="295" topLine="18" />
-		</Cursor>
-	</File>
-	<File name="sources\main.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2633" topLine="72" />
+			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="..\..\task-dev.txt" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -28,14 +17,25 @@
 			<Cursor1 position="960" topLine="20" />
 		</Cursor>
 	</File>
-	<File name="sources\field.inc" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sources\!m-model.h" open="0" top="0" tabpos="2" split="2" active="1" splitpos="1117" zoom_1="-3" zoom_2="-8">
 		<Cursor>
-			<Cursor1 position="0" topLine="0" />
+			<Cursor1 position="5619" topLine="170" />
+			<Cursor2 position="20993" topLine="573" />
 		</Cursor>
 	</File>
-	<File name="sources\config-model.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sources\cards.inc" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="295" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="sources\config-model.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="5707" topLine="165" />
+		</Cursor>
+	</File>
+	<File name="sources\main.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2633" topLine="72" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

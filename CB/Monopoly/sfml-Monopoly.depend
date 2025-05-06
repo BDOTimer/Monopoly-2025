@@ -530,3 +530,156 @@
 1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\sleep.hpp
 	<SFML/System/Export.hpp>
 
+1738296496 source:d:\!gforum-2025\projects\monopoly-2025\extlibs\imgui-1.91.8\imgui.cpp
+	"imgui.h"
+	"imgui_internal.h"
+	<stdio.h>
+	<stdint.h>
+	<Windows.h>
+	<windows.h>
+	<TargetConditionals.h>
+	"stb_sprintf.h"
+	<Carbon/Carbon.h>
+	<shellapi.h>
+	<sys/wait.h>
+	<unistd.h>
+	<imm.h>
+	"imgui_user.inl"
+
+1738296496 d:\!gforum-2025\projects\monopoly-2025\extlibs\imgui-1.91.8\imgui.h
+	"imconfig.h"
+	<float.h>
+	<stdarg.h>
+	<stddef.h>
+	<string.h>
+	<assert.h>
+	"imgui_user.h"
+
+1738296496 d:\!gforum-2025\projects\monopoly-2025\extlibs\imgui-1.91.8\imconfig.h
+
+1738296496 d:\!gforum-2025\projects\monopoly-2025\extlibs\imgui-1.91.8\imgui_internal.h
+	"imgui.h"
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<limits.h>
+	<immintrin.h>
+	<nmmintrin.h>
+
+1738296496 source:d:\!gforum-2025\projects\monopoly-2025\extlibs\imgui-1.91.8\imgui_demo.cpp
+	"imgui.h"
+	<ctype.h>
+	<limits.h>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	<inttypes.h>
+	<emscripten/version.h>
+
+1738296496 source:d:\!gforum-2025\projects\monopoly-2025\extlibs\imgui-1.91.8\imgui_draw.cpp
+	"imgui.h"
+	"imgui_internal.h"
+	"misc/freetype/imgui_freetype.h"
+	<stdio.h>
+	"imstb_rectpack.h"
+	"imstb_truetype.h"
+
+1741600532 d:\!gforum-2025\projects\monopoly-2025\extlibs\imgui-1.91.8\misc\freetype\imgui_freetype.h
+	"imgui.h"
+
+1738296496 d:\!gforum-2025\projects\monopoly-2025\extlibs\imgui-1.91.8\imstb_rectpack.h
+	<stdlib.h>
+	<assert.h>
+
+1738296496 d:\!gforum-2025\projects\monopoly-2025\extlibs\imgui-1.91.8\imstb_truetype.h
+	"stb_truetype.h"
+	<stdio.h>
+	"stb_truetype.h"
+	<math.h>
+	<math.h>
+	<math.h>
+	<math.h>
+	<math.h>
+	<stdlib.h>
+	<assert.h>
+	<string.h>
+	<string.h>
+
+1738296496 source:d:\!gforum-2025\projects\monopoly-2025\extlibs\imgui-1.91.8\imgui_tables.cpp
+	"imgui.h"
+	"imgui_internal.h"
+	<stdint.h>
+
+1738296496 source:d:\!gforum-2025\projects\monopoly-2025\extlibs\imgui-1.91.8\imgui_widgets.cpp
+	"imgui.h"
+	"imgui_internal.h"
+	<stdint.h>
+	"imstb_textedit.h"
+	"imstb_textedit.h"
+
+1738296496 d:\!gforum-2025\projects\monopoly-2025\extlibs\imgui-1.91.8\imstb_textedit.h
+	<string.h>
+
+1745529547 source:d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\icon.rc
+
+1746535910 source:d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\main.cpp
+	"render.h"
+
+1746538358 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\render.h
+	"model.h"
+	"ui-imgui.h"
+
+1745529547 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\model.h
+	"player.h"
+
+1745529547 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\player.h
+	"common.h"
+
+1746534150 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\common.h
+	<SFML/Graphics.hpp>
+	<iostream>
+	<fstream>
+	<string>
+	<list>
+	<map>
+	"debug.h"
+
+1746535832 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\debug.h
+	<functional>
+	<filesystem>
+	<algorithm>
+	<iostream>
+	<iterator>
+	<fstream>
+	<sstream>
+	<iomanip>
+	<memory>
+	<format>
+	<vector>
+	<string>
+	<cmath>
+	<list>
+	<map>
+	<set>
+	<SFML/Graphics.hpp>
+
+1735890792 d:\!gforum-2025\projects\monopoly-2025\extlibs\imgui-sfml-3.0\imgui-sfml.h
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/Window/Joystick.hpp>
+	<optional>
+	"imgui-SFML_export.h"
+
+1735890792 d:\!gforum-2025\projects\monopoly-2025\extlibs\imgui-sfml-3.0\imgui-sfml_export.h
+
+1741600532 d:\!gforum-2025\projects\monopoly-2025\extlibs\imgui-1.91.8\misc\cpp\imgui_stdlib.h
+	<string>
+
+1746538769 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\ui-imgui.h
+	"imgui.h"
+	"imgui-SFML.h"
+	"misc/cpp/imgui_stdlib.h"
+

@@ -15,11 +15,15 @@
 				<Option use_console_runner="0" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-std=c++20" />
 					<Add option="-DSFML_STATIC" />
-					<Add directory="$(#sfml30)/include" />
+					<Add directory="../../extLibs/SFML-3.0.0[mingw64-ucrt]/include" />
+					<Add directory="../../extLibs/imgui-sfml-3.0" />
+					<Add directory="../../extLibs/imgui-1.91.8" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="../../extLibs/imgui-sfml-3.0/64/libImGui-SFML.a" />
 					<Add library="sfml-graphics-s" />
 					<Add library="sfml-window-s" />
 					<Add library="sfml-system-s" />
@@ -29,6 +33,7 @@
 					<Add library="libwinmm.a" />
 					<Add library="libopengl32.a" />
 					<Add directory="$(#sfml30)/lib" />
+					<Add directory="../../extLibs/SFML-3.0.0[mingw64-ucrt]/lib" />
 				</Linker>
 			</Target>
 		</Build>
@@ -45,15 +50,27 @@
 			<Add library="dxguid" />
 			<Add directory="$(#sfml30)/lib" />
 		</Linker>
-		<Unit filename="cb.bmp" />
+		<Unit filename="../../extLibs/imgui-1.91.8/imconfig.h" />
+		<Unit filename="../../extLibs/imgui-1.91.8/imgui.cpp" />
+		<Unit filename="../../extLibs/imgui-1.91.8/imgui.h" />
+		<Unit filename="../../extLibs/imgui-1.91.8/imgui_demo.cpp" />
+		<Unit filename="../../extLibs/imgui-1.91.8/imgui_draw.cpp" />
+		<Unit filename="../../extLibs/imgui-1.91.8/imgui_internal.h" />
+		<Unit filename="../../extLibs/imgui-1.91.8/imgui_tables.cpp" />
+		<Unit filename="../../extLibs/imgui-1.91.8/imgui_widgets.cpp" />
+		<Unit filename="../../extLibs/imgui-1.91.8/imstb_rectpack.h" />
+		<Unit filename="../../extLibs/imgui-1.91.8/imstb_textedit.h" />
+		<Unit filename="../../extLibs/imgui-1.91.8/imstb_truetype.h" />
 		<Unit filename="icon.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
 		<Unit filename="sources/common.h" />
+		<Unit filename="sources/debug.h" />
 		<Unit filename="sources/main.cpp" />
 		<Unit filename="sources/model.h" />
 		<Unit filename="sources/player.h" />
 		<Unit filename="sources/render.h" />
+		<Unit filename="sources/ui-imgui.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
