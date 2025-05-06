@@ -6,6 +6,5 @@
 		<Project filename="cards/cards.cbp" />
 		<Project filename="m-model[ver-0.2]/m-model[ver-0.2].cbp" />
 		<Project filename="Monopoly/sfml-Monopoly.cbp" />
-		<Project filename="../../pazzle-384/CodeBlock/pazzle-384[sfml-3.0].cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

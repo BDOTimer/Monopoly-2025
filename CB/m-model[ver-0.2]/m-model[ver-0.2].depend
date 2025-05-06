@@ -32,24 +32,24 @@
 
 1746301714 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\field.inc
 
-1746394229 source:d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\main.cpp
+1746542388 source:d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\main.cpp
 	"!m-model.h"
 
-1746395182 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\!m-model.h
+1746529185 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\!m-model.h
 	"myl.h"
 	<locale>
 	<codecvt>
 	"cards.inc"
 	"field.inc"
 
-1745997860 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\myl.h
+1746513507 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\myl.h
 	"config-model.h"
 	<algorithm>
 	<iostream>
 	<string>
 	<vector>
 
-1746379236 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\config-model.h
+1746513507 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\config-model.h
 	<functional>
 	<iostream>
 	<iomanip>
@@ -63,9 +63,9 @@
 	<map>
 	<windows.h>
 
-1746338244 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\field.inc
+1746529393 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\field.inc
 
-1746392282 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\cards.inc
+1746513507 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\cards.inc
 
 1746461345 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\cards.inc
 

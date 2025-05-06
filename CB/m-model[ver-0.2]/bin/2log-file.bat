@@ -1,1 +1,1 @@
-m-model[ver-02]>log.txt
+m-model[ver-02] 1000 >log.txt

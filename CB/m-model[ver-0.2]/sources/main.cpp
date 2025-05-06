@@ -3,13 +3,17 @@
 ///----------------------------------------------------------------------------:
  #include "!m-model.h"
 
+namespace model
+{
+    model::Config Cfg;
+}
 
 ///----------------------------------------------------------------------------|
 /// Тестовая игровая площадка.
 ///------------------------------------------------------------------- TestGame:
 struct  TestGame   : model::Referee
-{       TestGame() : model::Referee(model::Config::getDefault())
-        {   printf(model::Config::getDefault().infoValidation().c_str());
+{       TestGame() : model::Referee(model::Cfg)
+        {
         }
 
     void run()
@@ -90,12 +94,25 @@ void tests()
 ///----------------------------------------------------------------------------|
 /// Старт программы.
 ///----------------------------------------------------------------------- main:
-int main()
+int main(int argc, char* argv[])
 {
     std::system( "chcp 65001>nul" );
 /// SetConsoleOutputCP(65001);
 
     std::cout << "Старт " << LOGO << "\n\n";
+
+    if(argc > 1)
+    {   try
+        {   unsigned n = std::stoul(argv[1]);
+            l(n)
+        }
+        catch(...)
+        {   std::cout << "ERROR: Аргумент командной строки не число ...\n";
+            return -1;
+        }
+    }
+
+    printf(model::Cfg.infoValidation().c_str());
 
     tests();
 
