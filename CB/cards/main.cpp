@@ -4,17 +4,19 @@
 #include <iomanip>
 #include <vector>
 
+extern const char* test2;
+
 namespace myl
 {
-    using S   = std::string_view;
-    using Vs  = std::vector< S >;
-    using Vvs = std::vector< Vs>;
+    using Sv  = std::string_view;
+    using V1s = std::vector<Sv >;
+    using V2s = std::vector<V1s>;
 
     constexpr size_t NPOS = std::string::npos;
 
-    Vs parseStr(const S s, const S x)
+    V1s parseStr(const Sv s, const Sv x)
     {
-        Vs m; m.reserve(32);
+        V1s m; m.reserve(32);
 
         for(size_t b = 0, e; (b = s.find_first_not_of(x, b)) != NPOS; b = e)
         {
@@ -34,8 +36,8 @@ namespace myl
         return m;
     }
 
-    Vvs parseStr(const S s, const S A, const S B, const S x)
-    {   Vvs m; m.reserve(32);
+    V2s parseStr(const Sv s, const Sv A, const Sv B, const Sv x)
+    {   V2s m; m.reserve(32);
 
         for(size_t b = 0, e; (b = s.find(A, b)) != NPOS; b = e)
         {   b += A.size();
@@ -46,22 +48,22 @@ namespace myl
         return m;
     }
 
-    void TEST_parseStr(S test)
+    void TEST_parseStr(Sv test)
     {
         std::cout << test << "\n\n";
-
         auto m = parseStr(test, "{", "}", " \t\n.,=;:");
 
         for    (const auto& ss :  m)
         {   for(const auto&  s : ss)
-            {
-                std::cout << s << "---" << s.size() << '\n';
-            }   std::cout <<      '\n';
+            {   std::cout << s << /*"---" << s.size() <<*/ '\n';
+            }   std::cout << '\n';
         }
     }
 
+
     void TEST_parseStr()
     {   TEST_parseStr("{123, 456;789}...///MMM;{123, \"zxc ///qwe!\";::789}...");
+        TEST_parseStr(test2);
     }
 }
 
@@ -179,6 +181,8 @@ namespace myl
 
 int main()
 {
+    std::system("chcp 65001");
+
     std::cout << "Hello world!" << std::endl;
 
     //Cards cards;
@@ -186,3 +190,47 @@ int main()
 
     return 0;
 }
+
+
+const char* test2
+{
+  R"(
+        ///------------------------------|
+        /// Количество ячеек на поле.    |
+        ///------------------------------:
+        unsigned amountCells      { 30 };
+
+        std::vector<std::string> worldGeometry
+        {   "OOOOOOOOO",
+            "O.......O",
+            "O.......O",
+            "O.......O",
+            "O.......O",
+            "O.......O",
+            "O.......O",
+            "OOOOOOOOO"
+        };
+
+        ///------------------------------|
+        /// Если 0, то сид от часов.     |
+        ///------------------------------:
+        unsigned isSeed{12345};
+
+        ///------------------------------|
+        /// Денеги у игроков на старте.  |
+        ///------------------------------:
+        unsigned startMoney{300};
+
+        ///------------------------------|
+        /// Денеги Банка.                |
+        ///------------------------------:
+        unsigned moneyBank{3200};
+
+        ///------------------------------|
+        /// Количество игроков.          |
+        ///------------------------------:
+        unsigned amountPlayers{3};
+
+        Field* pfield{nullptr};
+  )"
+};

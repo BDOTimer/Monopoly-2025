@@ -179,8 +179,8 @@ namespace model
         unsigned            chance;
         unsigned            status;
         int              priseBase;
-        std::array<int,3> bankBuy ; /// Банк покупает.
         std::array<int,3> bankSell; /// Банк продаёт.
+        std::array<int,3> bankBuy ; /// Банк покупает.
         int           difference{};
         float            persent{};
 
