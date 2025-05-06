@@ -3,18 +3,18 @@
 ///----------------------------------------------------------------------------:
  #include "!m-model.h"
 
-namespace model
-{
-    model::Config Cfg;
-}
+ unsigned isDump2File = 0;
 
 ///----------------------------------------------------------------------------|
 /// Тестовая игровая площадка.
 ///------------------------------------------------------------------- TestGame:
-struct  TestGame   : model::Referee
-{       TestGame() : model::Referee(model::Cfg)
+struct  TestGame                     : model::Referee
+{       TestGame(model::Config& Cfg) : model::Referee(Cfg)
+                                     , cfg(Cfg)
         {
         }
+
+    model::Config& cfg;
 
     void run()
     {
@@ -33,17 +33,21 @@ struct  TestGame   : model::Referee
 
         unsigned cnt{ 0 };
 
+        unsigned isDump2File = cfg.isDump2File + 1;
+
         for (bool isDone = true; isDone;)
         {
-
             ss  << "ПАУЗА::Нажмите ENTER, чтобы сделать "
-                << ++cnt << " шаг ... или '0' для завершения ...\n";
+                << ++cnt << " шаг ... или '0' для завершения ..." << std::endl;
 
             showMessage(ss);
 
-            {
-                std::string e; std::getline(std::cin, e);
+            if(0 == cfg.isDump2File)
+            {   std::string e; std::getline(std::cin, e);
                 if(e.back() == '0') break;
+            }
+            else
+            {   if(0 == --isDump2File) break;
             }
 
             if(!model::Config::getDefault().isScrollConsole)
@@ -57,6 +61,8 @@ struct  TestGame   : model::Referee
 
             isDone = step();
         }
+
+        std::cout << "ИГРА ЗАКОНЧЕНА!\n" << std::endl;
     }
 
     void showMessage(std::stringstream& ss)
@@ -67,8 +73,15 @@ struct  TestGame   : model::Referee
     /// Тест класса.                 |
     ///------------------------------:
     TEST
-    {   TestGame    testGame;
-                    testGame.run();
+    {   model::Config Cfg;
+          Cfg.isDump2File = isDump2File;
+
+        l(Cfg.isDump2File)
+
+        printf(Cfg.infoValidation().c_str());
+
+        TestGame testGame (Cfg);
+                 testGame.run();
     }
 };
 
@@ -99,12 +112,17 @@ int main(int argc, char* argv[])
     std::system( "chcp 65001>nul" );
 /// SetConsoleOutputCP(65001);
 
-    std::cout << "Старт " << LOGO << "\n\n";
+    std::ofstream log;
 
     if(argc > 1)
     {   try
-        {   unsigned n = std::stoul(argv[1]);
-            l(n)
+        {   isDump2File = std::stoul(argv[1]);
+
+            log.open("logf.txt");
+
+        /// std::streambuf *coutbuf = std::cout.rdbuf(); //save old buf
+        /// std::cout.rdbuf(coutbuf); //reset to standard output again
+            std::cout.rdbuf(log.rdbuf());
         }
         catch(...)
         {   std::cout << "ERROR: Аргумент командной строки не число ...\n";
@@ -112,11 +130,12 @@ int main(int argc, char* argv[])
         }
     }
 
-    printf(model::Cfg.infoValidation().c_str());
+    std::cout   << "Старт " << LOGO  << "\n"
+                << myl::getTimeNow() << "\n";
 
     tests();
 
     std::cout << "Программа закончила работу.\n" << std::endl;
-
+    if(0 == isDump2File) std::cin.get();
     return 0;
 }

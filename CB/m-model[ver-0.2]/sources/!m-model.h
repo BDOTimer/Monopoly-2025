@@ -110,7 +110,8 @@ namespace model
     friend std::ostream& operator<<(std::ostream& o, const Cards& card);
 
     Card* getCard()
-    {   Card*  pc = pcards.back();
+    {   if(pcards.empty()) return nullptr;
+        Card*  pc = pcards.back();
         pcards.pop_back();
         return pc;
     }
@@ -773,7 +774,7 @@ namespace model
         {
             for(unsigned i = 0; i < perses.size(); ++i)
             {
-                printf(field.bank.info().c_str());
+                std::cout << field.bank.info();
 
                 persNow = perses[order[i]];
 

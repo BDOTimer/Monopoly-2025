@@ -6,9 +6,11 @@
 #include "config-model.h"
 
 #include <algorithm>
-#include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
+#include <chrono>
+#include <ctime>
 
 
 template<typename T>
@@ -54,9 +56,9 @@ namespace myl
     ///     -   переиспользоваемый
     ///------------------------------------------------------------------------:
     struct  WhoFirstPlayer
-    {       WhoFirstPlayer(unsigned nPlayers) : gen(nPlayers)
-            {
-            }
+    {   WhoFirstPlayer(unsigned nPlayers) : gen(nPlayers)
+        {
+        }
 
         ///-------------------------|
         /// Данные.                 |
@@ -123,7 +125,7 @@ namespace myl
         ///-------------------------|
         ///  Подвал.                |
         ///-------------------------:
-    private:
+private:
         bool               ready{false};
         std::vector<IdRnd   > gen      ;
 
@@ -136,10 +138,10 @@ namespace myl
 
         bool checkIsReady()
         {   std::sort(gen.begin(), gen.end(),
-                [](const IdRnd &a, const IdRnd &b)
-                {   return a.rnd > b.rnd;
-                }
-            );
+                      [](const IdRnd &a, const IdRnd &b)
+            {   return a.rnd > b.rnd;
+            }
+                     );
 
             for(unsigned i = 1; i < gen.size(); ++i)
             {   if(gen[i].rnd == gen[i-1].rnd) return false;
@@ -155,11 +157,11 @@ namespace myl
         {   srand(2025);
 
             WhoFirstPlayer whoFirstPlayer     (5);
-                           whoFirstPlayer.start();
+            whoFirstPlayer.start();
 
             while(!whoFirstPlayer.isReady())
             {   const auto result = whoFirstPlayer.getOrder();
-                                    whoFirstPlayer.debug   ();
+                whoFirstPlayer.debug   ();
             }
 
             std::cout << "getFastOrder(): " << getFastOrder(5) << '\n';
@@ -167,6 +169,15 @@ namespace myl
 
         friend void tests();
     };
+
+
+    inline std::string getTimeNow()
+    {   auto end = std::chrono::system_clock::now();
+        std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+        std::stringstream ss;
+        ss  << "TIME Run: " << std::ctime(&end_time) << std::endl;
+        return ss.str();
+    }
 
     ///------------------------------------------------------------------------|
     /// myl::tests()
