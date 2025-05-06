@@ -11,6 +11,9 @@
 				<Option object_output="obj/" />
 				<Option type="1" />
 				<Option compiler="gcc-mingw64" />
+				<Linker>
+					<Add option="-static" />
+				</Linker>
 			</Target>
 		</Build>
 		<Unit filename="main.cpp" />

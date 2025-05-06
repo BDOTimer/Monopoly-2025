@@ -23,6 +23,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add option="-static" />
 					<Add library="../../extLibs/imgui-sfml-3.0/64/libImGui-SFML.a" />
 					<Add library="sfml-graphics-s" />
 					<Add library="sfml-window-s" />
