@@ -625,7 +625,7 @@ namespace model
             if(pcard -> empty()) { pcard = nullptr; return; }
 
             std::cout << "Событие для " << name << ":\n";
-            printf(pcard->doAct(this).c_str());
+            std::cout << pcard->doAct(this).c_str();
         }
 
     private:
@@ -669,7 +669,7 @@ namespace model
         void doAct() override
         {   if(nullptr == pcard) return;
             std::cout << "Событие для " << name << ":\n";
-            printf(pcard->doAct(this).c_str());
+            std::cout << pcard->doAct(this);
         }
 
 
