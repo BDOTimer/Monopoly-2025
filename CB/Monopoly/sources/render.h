@@ -7,9 +7,13 @@
 #include "ui-imgui.h"
 
 struct  Render
-{       Render() : window(sf::VideoMode({1344, 768}), L"Монополия-2025")
+{       Render() : window(sf::VideoMode({vsl::cfg.SW, vsl::cfg.SH}),
+                          L"Монополия-2025",
+                          sf::Style::Titlebar | sf::Style::Close)
                  , ui    (window)
-        {   sf::Image      icon("icon.png");
+                 , camFon(sf::FloatRect({0, 0}, {1344, 768}))
+        {
+            sf::Image      icon("icon.png");
             window.setIcon(icon);
         }
 
@@ -19,6 +23,11 @@ struct  Render
     /// Gui.                |
     ///---------------------:
     uii::UITest           ui;
+
+    ///---------------------|
+    /// Камера.             |
+    ///---------------------:
+    sf::View          camFon;
 
     void run()
     {   Object  object(Data4Sprites::get().front());
@@ -58,35 +67,11 @@ private:
 
             /// window.clear   ({0, 30, 60});
 
-            window.draw(objects);
+            window.setView(camFon);
+            window.draw  (objects);
 
             ImGui::SFML::Render(window);
             window.display     (      );
-        }
-    }
-
-    ///--------------------------------------|
-    /// initImgui                            |
-    ///--------------------------------------:
-    void initImgui()
-    {   bool
-        isGood = ImGui::SFML::Init(window);
-        if (!isGood)
-        {   ASSERTM(false, "ImGui::SFML::Init() is failed ...")
-        }
-
-        ImGuiIO& io = ImGui::GetIO();
-
-        io.Fonts->Clear();
-        isGood = io.Fonts->AddFontFromFileTTF("consola.ttf", 18.f, NULL,
-                                              io.Fonts->GetGlyphRangesCyrillic());
-        if (!isGood)
-        {   ASSERTM(false, "io.Fonts->AddFontFromFileTTF() is failed ...")
-        }
-
-        isGood = ImGui::SFML::UpdateFontTexture();
-        if (!isGood)
-        {   ASSERTM(false, "ImGui::SFML::UpdateFontTexture()is failed ...")
         }
     }
 

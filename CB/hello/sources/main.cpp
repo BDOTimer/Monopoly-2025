@@ -9,6 +9,8 @@
 
 struct ConfigTest
 {
+    bool is2Log{true};
+
     /*
         Имя игрока Шанс 300+100
         Имя игрока / текущий статус (цифра)
@@ -31,13 +33,13 @@ struct ConfigTest
         unsigned     priseBuy
     )
     {   std::stringstream ss;
-        std::cout << std::format
+        ss << std::format
         (
             "|--------------------------------------------------------------:\n"
             "Имя:{}, "
         /// "Монеты:{}, "
             "Шанс:{}, "
-            "Статус-игрока:{}, \n"
+            "Статус-игрока:{}, "
             "#-ячейки:{}, "
             "Статус-ячейки:{}, "
             "Цена базовая:{}, "
@@ -55,7 +57,6 @@ struct ConfigTest
 
         std::cout << ss.str() << '\n';
         fileLog   << ss.str() << '\n';
-
     }
 
     ///---------------------------------------|
@@ -63,7 +64,6 @@ struct ConfigTest
     ///---------------------------------------:
 private:
     std::ofstream fileLog;
-    bool is2Log{true};
     void init()
     {
         if(is2Log) fileLog.open("log4rus.txt");

@@ -16,14 +16,25 @@ namespace vsl
 {
     struct  Config
     {       Config()
-            {
+            {   init();
             }
 
+        sf::Vector2u size;
+        unsigned& SW{size.x};
+        unsigned& SH{size.y};
 
+
+        void init()
+        {   sf::VideoMode dm = sf::VideoMode::getDesktopMode();
+            size = dm.size;
+
+            size.x = 0.8f * size.x;
+            size.y = 0.8f * size.y;
+        }
 
     private:
 
-    };
+    }cfg;
 }
 
 
@@ -179,25 +190,5 @@ private:
     }
 };
 
-
-///----------------------------------------------------------------------------|
-/// Окно рендера.
-///----------------------------------------------------------------- showWindow:
-template<typename T> void showWindow_x(T&  objects)
-{
-    sf::RenderWindow window(sf::VideoMode({ 1344, 768 }), "Affected Test");
-
-    while (window.isOpen())
-    {
-        while (const std::optional event = window.pollEvent())
-        {
-            if (event->is<sf::Event::Closed>()) window.close();
-        }
-
-        window.clear      ();
-        window.draw(objects);
-        window.display    ();
-    }
-}
 
 #endif // COMMON_H
