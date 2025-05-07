@@ -432,22 +432,23 @@ namespace model
         /// Card*     card   = cell.card  ;
 
         /// auto n = 15 - nn + name.size();
-            ss  << "   Кошелёк = " << std::setw(4) << money    << "\n"
-                << "   Позиция = " << std::setw(4) << position << "\n"
+            ss  << "   Кошелёк = " << std::setw(4) << money      << "\n"
+                << "   Позиция = " << std::setw(4) << position   << "\n"
                 << "   Статус  = " << std::setw(4)
-                << cfg.decodeStatus(status)                    << "\n"
-                << "   Круг    = " << std::setw(4) << circle   << "\n"
-                << "   Шанс    = " << std::setw(4) << chance   << "\n"
-                << "   Товар   = " <<                 cell.name<< "\n"
+                << cfg.decodeStatus(status)<< ": ["<< status     << "]\n"
+                << "   Круг    = " << std::setw(4) << circle     << "\n"
+                << "   Шанс    = " << std::setw(4) << chance     << "\n"
+                << "   Товар   = " <<                 cell.name
+                << ": Cтатус: ["   <<                 cell.status<< "]\n"
                 << "   Кол-во  = " << std::setw(4)
                 << (cell.amountThings != 0 ?
-                          std::to_string(cell.amountThings) : " пусто") << "\n"
+                    std::to_string(cell.amountThings) : " пусто")<< "\n"
                 << "   Банк покупает: " << std::setw(4)
-                                   << cell.bankBuy [status] << "\n"
+                                        << cell.bankBuy [status] << "\n"
                 << "   Базовая цена : " << std::setw(4)
-                                   << cell.priseBase << "\n"
+                                        << cell.priseBase        << "\n"
                 << "   Банк продаёт : " << std::setw(4)
-                                   << cell.bankSell[status] << "\n"
+                                        << cell.bankSell[status] << "\n"
                 << "\n";
 
             return ss.str();
@@ -519,7 +520,9 @@ namespace model
 
             Cell& cell = (*cfg.pfield)[position];
 
-            bool goodSky = cell.status == IPerson::status;
+            if(cell.status - 1 > 2) std::cout << "ERROR::PersonBot::input\n";
+
+            bool goodSky = cell.status - 1 == IPerson::status;
             if(  goodSky)
             {   ss << "\"ЗВЁЗДЫ СВЕТЯТ МНЕ КРАСИВО!\"\n";
             }
