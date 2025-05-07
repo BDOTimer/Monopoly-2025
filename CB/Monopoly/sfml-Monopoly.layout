@@ -2,14 +2,9 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release" />
-	<File name="sources\main.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sources\common.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="284" topLine="8" />
-		</Cursor>
-	</File>
-	<File name="sources\player.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="335" topLine="3" />
+			<Cursor1 position="2265" topLine="71" />
 		</Cursor>
 	</File>
 	<File name="sources\ui-imgui.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -17,19 +12,14 @@
 			<Cursor1 position="8121" topLine="252" />
 		</Cursor>
 	</File>
-	<File name="sources\common.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sources\main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2265" topLine="71" />
+			<Cursor1 position="492" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="sources\debug.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sources\player.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2170" topLine="62" />
-		</Cursor>
-	</File>
-	<File name="sources\model.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="819" topLine="18" />
+			<Cursor1 position="335" topLine="3" />
 		</Cursor>
 	</File>
 	<File name="icon.rc" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -40,6 +30,16 @@
 	<File name="sources\render.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1212" topLine="33" />
+		</Cursor>
+	</File>
+	<File name="sources\debug.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2170" topLine="62" />
+		</Cursor>
+	</File>
+	<File name="sources\model.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="819" topLine="18" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

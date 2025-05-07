@@ -1,59 +1,67 @@
 ﻿///----------------------------------------------------------------------------|
-/// Модель игры Монополия-2025.
+/// ...
 ///----------------------------------------------------------------------------:
- #include "!m-model.h"
+#include <iostream>
+#include <sstream>
+#include <fstream>
+#include <format>
 
 
-///----------------------------------------------------------------------------|
-/// Тестовая игровая площадка.
-///------------------------------------------------------------------- TestGame:
-struct  TestGame : model::Referee
-{       TestGame() : model::Referee(model::Config::getDefault())
-        {   model::Config::getDefault().infoValidation();
+struct ConfigTest
+{
+    std::ofstream fileLog;
 
-            infoCards();
-        }
+    bool is2Log{true};
 
-    void run()
-    {
-        std::string_view bannerStartGame
-        {   "///-----------------------------------|\n"
-            "///         ИГРА НАЧАЛАСЬ!            |\n"
-            "///-----------------------------------:\n"
-        };
+    /*
+        Имя игрока Шанс 300+100
+        Имя игрока / текущий статус (цифра)
+        Покупка номер ячейки/статус ячейки цифра.
+        (средняя цена)/ цена покупки.
+    */
+    void _2log
+    (   std::string_view  name,
+        unsigned       capital,
+        unsigned        chance,
+        unsigned  statusPerson,
+        unsigned        idCell,
+        unsigned    statusCell,
+        unsigned     priseBase,
+        unsigned     priseBuy
+    )
+    {   std::stringstream ss;
+        std::cout << std::format
+        (   "|--------------------------------------------------------------:\n"
+            "Имя:{}, "
+            "Монеты:{}, "
+            "Шанс:{}, "
+            "Статус-игрока:{}, \n"
+            "#-ячейки:{}, "
+            "Статус-ячейки:{}, "
+            "Цена базовая:{}, "
+            "Цена-покупки:{}.\n",
 
-        std::cout << bannerStartGame << '\n';
+            name        ,
+            capital     ,
+            chance      ,
+            statusPerson,
+            idCell      ,
+            statusCell  ,
+            priseBase   ,
+            priseBuy
+        );
 
-        info();
+        std::cout << ss.str() << '\n';
+        fileLog   << ss.str() << '\n';
 
-        unsigned cnt{ 0 };
-
-        for (bool isDone = true; isDone;)
-        {
-            std::cout   << "\nПАУЗА::Нажмите ENTER, чтобы сделать "
-                        << ++cnt << " шаг ... \n";
-
-            std::cin.get();
-
-            if(!model::Config::getDefault().isScrollConsole)
-            {   std::system("cls");
-                std::cout << "Процесс " << LOGO << "\n\n";
-            }
-            else std::cout << "|------------------------------------------\n\n";
-
-
-            isDone = step();
-        }
     }
 
-    ///------------------------------|
-    /// Тест класса.                 |
-    ///------------------------------:
-    TEST
-    {   TestGame    testGame;
-                    testGame.run();
+    void init()
+    {
+        if(is2Log) fileLog.open("log4rus.txt");
     }
 };
+
 
 
 ///----------------------------------------------------------------------------|
@@ -61,14 +69,10 @@ struct  TestGame : model::Referee
 ///---------------------------------------------------------------------- tests:
 void tests()
 {
-    /// myl::tests();
-
-    /// TESTCLASS(model::Cell::test  );
-    /// TESTCLASS(model::Config::test);
-    /// TESTCLASS(model::Field::test );
-    /// TESTCLASS(model::Person::test);
-
-    TESTCLASS(TestGame::test);
+    ConfigTest  test;
+                test.init();
+                test._2log("Bob" , 300, 1, 2, 12, 0, 120,  90);
+                test._2log("Pete", 400, 0, 0,  4, 1, 100, 110);
 }
 
 
@@ -78,9 +82,8 @@ void tests()
 int main()
 {
     std::system( "chcp 65001>nul" );
-/// SetConsoleOutputCP(65001);
 
-    std::cout << "Старт " << LOGO << "\n\n";
+    std::cout << "Привет, Мир!\n\n" << std::endl;
 
     tests();
 
