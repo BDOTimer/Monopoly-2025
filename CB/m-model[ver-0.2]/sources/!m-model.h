@@ -593,12 +593,12 @@ namespace model
                     Cell& cellSell = (*cfg.pfield)[id];
 
                     const int price  = goodSky ?
-                        cell.getBestBuy() : cell.bankBuy[status];
+                        cellSell.getBestBuy() : cellSell.bankBuy[status];
 
                     {
                              money += price;
                         bank.money -= price;
-                      ++cellSell.amountThings  ;
+                      ++cellSell.amountThings;
 
                         ///------------------------------|
                         /// Удалить Вещь из инвентаря.   |
