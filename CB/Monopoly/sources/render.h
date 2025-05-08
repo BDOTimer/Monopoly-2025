@@ -32,8 +32,12 @@ struct  Render
     void run()
     {   Object  object(Data4Sprites::get().front());
 
-        loop(model );
-        loop(object);
+        std::vector<vsl::IObject*> objects
+        {   &model,
+            &object
+        };
+
+        loop(objects);
     }
 
 private:
@@ -44,15 +48,31 @@ private:
     ///---------------------:
     sf::Clock          clock;
 
-    template<typename T> void loop(T&  objects)
+    ///---------------------|
+    /// Номер сцены.        |
+    ///---------------------:
+    unsigned       nScene{0};
+
+    void loop(std::vector<vsl::IObject*>& scenes)
     {
         ui << "Привет, Монополия-2025!\n";
+
+    /// using Key  = sf::Keyboard::Key ;
+    /// using Scan = sf::Keyboard::Scan;
+
+        #define ISKEYPRESED(a) sf::Keyboard::isKeyPressed(sf::Keyboard::Key::a)
 
         while (window.isOpen())
         {   while (const std::optional event = window.pollEvent())
             {   ImGui::SFML::ProcessEvent(window, *event);
 
                 if (event->is<sf::Event::Closed>()) window.close();
+
+                if (event->is<sf::Event::KeyPressed>())
+                {   if (ISKEYPRESED(Enter))
+                    {   nScene =  (nScene + 1) % scenes.size();
+                    }
+                }
             }
 
             const auto delta  = clock.restart();
@@ -63,16 +83,21 @@ private:
             ImGui::SFML::Update(window, delta);
             /// ...
             /// ImGui::ShowDemoWindow();
-            ui.show();
+
+            switch(nScene)
+            {   case 0:            break;
+                case 1: ui.show(); break;
+            }
 
             /// window.clear   ({0, 30, 60});
 
-            window.setView(camFon);
-            window.draw  (objects);
+            window.setView       (camFon);
+            window.draw (*scenes[nScene]);
 
-            ImGui::SFML::Render(window);
-            window.display     (      );
+            ImGui::SFML::Render  (window);
+            window.display       (      );
         }
+        #undef ISKEYPRESED
     }
 
     ///--------------------------------------|

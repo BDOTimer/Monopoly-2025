@@ -12,17 +12,46 @@
 
 #include "debug.h"
 
+///----------------------------------------------------------------------------|
+/// Интерфейс объектов рендера.
+///----------------------------------------------------------------------------:
+namespace vsl
+{
+    ///-------------------------|
+    /// Интерфейс объекта.      |--------------------------------------------!!!
+    ///-------------------------:
+    struct      IObject : sf::Drawable
+    {   virtual~IObject(){}
+        virtual void update   (                        ) = 0;
+        virtual bool RPControl(std::string_view command,
+                         const std::vector<int>&  args ) = 0;
+        virtual void input(const sf::Event&       event) = 0;
+
+        std::string_view name;
+
+    private:
+    };
+}
+
+#define PLUG_IOBJECT ;\
+    virtual void update   (                        ){}; \
+    virtual bool RPControl(std::string_view command,    \
+                     const std::vector<int>&   args)    \
+                          { return true;             }  \
+    virtual void input(const sf::Event&       event){};
+
 namespace vsl
 {
     struct  Config
-    {       Config()
-            {   init();
+    {       Config  () : font("consola.ttf")
+            {   init() ;
             }
 
         sf::Vector2u size;
         unsigned& SW{size.x};
         unsigned& SH{size.y};
 
+        sf::Font font;
 
         void init()
         {   sf::VideoMode dm = sf::VideoMode::getDesktopMode();
@@ -131,18 +160,21 @@ private:
 ///----------------------------------------------------------------------------|
 /// Отображаемый одиночный объект.
 ///--------------------------------------------------------------------- Object:
-struct  Object : sf::Sprite
+struct  Object : vsl::IObject
 {       Object(const Data& dat)
-            :   sf::Sprite(HolderTexture::get(dat.filename))
-            ,   nameTx    (                   dat.filename)
+            :   sp    (HolderTexture::get(dat.filename))
+            ,   nameTx(                   dat.filename)
         {
-            setPosition(dat.position);
-            setScale   (dat.scale   );
+            sp.setPosition(dat.position);
+            sp.setScale   (dat.scale   );
         }
+
+    PLUG_IOBJECT
 
     ///-----------------------------------|
     /// Имя загруженной текстуры.         |
     ///-----------------------------------:
+    sf::Sprite           sp;
     std::string_view nameTx;
 
     ///-----------------------------------|
@@ -151,8 +183,16 @@ struct  Object : sf::Sprite
     void debug() const
     {
         l(nameTx)
-        l(getTexture().getSize().x)
-        l(getTexture().getSize().y)
+        l(sp.getTexture().getSize().x)
+        l(sp.getTexture().getSize().y)
+    }
+
+    ///------------------------------------|
+    /// На рендер.                         |
+    ///------------------------------------:
+    virtual void draw(sf::RenderTarget& target,
+                      sf::RenderStates  states) const
+    {   target.draw(sp, states);
     }
 };
 
@@ -160,13 +200,22 @@ struct  Object : sf::Sprite
 ///----------------------------------------------------------------------------|
 /// Отображаемое множество графических объектов.
 ///-------------------------------------------------------------------- Objects:
-struct  Objects : private std::vector<Object>, sf::Drawable
-{       Objects()
+struct  Objects : private std::vector<Object>, vsl::IObject
+{       Objects() : tmess1(vsl::cfg.font)
         {
             const auto&         dats = Data4Sprites::get();
             reserve(            dats.size());
             for(const auto& d : dats) emplace_back(Object(d));
+
+            tmess1.setString           (mess1);
+            tmess1.setCharacterSize       (18);
+            tmess1.setFillColor({128, 64, 32});
         }
+
+    PLUG_IOBJECT
+
+    std::string mess1{"PRESS ENTER ..."};
+    sf::Text   tmess1;
 
     ///-----------------------------------|
     /// Дебаг.                            |
@@ -187,6 +236,7 @@ private:
                       sf::RenderStates  states) const
     {
         for(const auto& sp : *this) target.draw(sp, states);
+        target.draw(tmess1, states);
     }
 };
 
