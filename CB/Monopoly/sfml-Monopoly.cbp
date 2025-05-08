@@ -94,6 +94,9 @@
 		<Unit filename="sources/model.h" />
 		<Unit filename="sources/player.h" />
 		<Unit filename="sources/render.h" />
+		<Unit filename="sources/scene-game.h" />
+		<Unit filename="sources/scene-logo.h" />
+		<Unit filename="sources/scene-tune.h" />
 		<Unit filename="sources/ui-imgui.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

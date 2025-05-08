@@ -6,6 +6,10 @@
 #include "model.h"
 #include "ui-imgui.h"
 
+#include "scene-logo.h"
+#include "scene-tune.h"
+#include "scene-game.h"
+
 struct  Render
 {       Render() : window(sf::VideoMode({vsl::cfg.SW, vsl::cfg.SH}),
                           L"Монополия-2025",
@@ -30,18 +34,19 @@ struct  Render
     sf::View          camFon;
 
     void run()
-    {   Object  object(Data4Sprites::get().front());
-
-        std::vector<vsl::IObject*> objects
-        {   &model,
-            &object
+    {   std::vector<vsl::IObject*> objects
+        {   &logo,
+            &tune,
+            &game,
         };
 
         loop(objects);
     }
 
 private:
-    Model model;
+    vsl::SceneLogo logo;
+    vsl::SceneTune tune;
+    vsl::SceneGame game;
 
     ///---------------------|
     /// Часы.               |

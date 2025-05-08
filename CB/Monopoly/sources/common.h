@@ -33,25 +33,45 @@ namespace vsl
     };
 }
 
+namespace uii
+{
+    ///-------------------------|
+    /// Интерфейс Gui.          |--------------------------------------------!!!
+    ///-------------------------:
+    struct      IGui
+    {           IGui(){}
+        virtual~IGui(){}
+
+        virtual void show() = 0;
+
+        std::string_view name;
+
+    private:
+    };
+}
+
 #define PLUG_IOBJECT ;\
     virtual void update   (                        ){}; \
     virtual bool RPControl(std::string_view command,    \
                      const std::vector<int>&   args)    \
-                          { return true;             }  \
+    {   return true;                                 }  \
     virtual void input(const sf::Event&       event){};
 
 namespace vsl
 {
     struct  Config
-    {       Config  () : font("consola.ttf")
-            {   init() ;
+    {       Config  ()
+            {   init();
             }
 
         sf::Vector2u size;
         unsigned& SW{size.x};
         unsigned& SH{size.y};
 
-        sf::Font font;
+        static sf::Font& getFont()
+        {   static sf::Font font("consola.ttf");
+            return font;
+        }
 
         void init()
         {   sf::VideoMode dm = sf::VideoMode::getDesktopMode();
@@ -59,6 +79,8 @@ namespace vsl
 
             size.x = 0.8f * size.x;
             size.y = 0.8f * size.y;
+
+            getFont().setSmooth(true);
         }
 
     private:
@@ -93,10 +115,10 @@ struct  Data4Sprites
 private:
     const std::vector<Data> dats
     {
-        {"res/wallpaper.jpg", {   0,   0 }, { 1   , 1    }},
-        {"res/house.png"    , {  50, 300 }, { 0.4f, 0.4f }},
-        {"res/house.png"    , { 450, 300 }, { 0.4f, 0.4f }},
-        {"res/house.png"    , { 250, 350 }, { 0.4f, 0.4f }}
+        {"res/logo.jpg" , {   0,   0 }, { 1   , 1    }},
+        {"res/house.png", {  50, 300 }, { 0.4f, 0.4f }},
+        {"res/house.png", { 450, 300 }, { 0.4f, 0.4f }},
+        {"res/house.png", { 250, 350 }, { 0.4f, 0.4f }}
     };
 
     ///-----------------------------------|
@@ -200,8 +222,8 @@ struct  Object : vsl::IObject
 ///----------------------------------------------------------------------------|
 /// Отображаемое множество графических объектов.
 ///-------------------------------------------------------------------- Objects:
-struct  Objects : private std::vector<Object>, vsl::IObject
-{       Objects() : tmess1(vsl::cfg.font)
+struct  xObjects   : private std::vector<Object>, vsl::IObject
+{       xObjects() : tmess1(vsl::Config::getFont())
         {
             const auto&         dats = Data4Sprites::get();
             reserve(            dats.size());
@@ -239,6 +261,16 @@ private:
         target.draw(tmess1, states);
     }
 };
+
+namespace vsl
+{
+    struct  TextStyleA    : sf::Text
+    {       TextStyleA()  : sf::Text(Config::getFont())
+            {   setCharacterSize         (24);
+                setFillColor({128, 196, 255});
+            }
+    };
+}
 
 
 #endif // COMMON_H

@@ -5,11 +5,10 @@
 ///----------------------------------------------------------------------------:
 #include "player.h"
 
-struct  Model   : vsl::IObject
-{       Model() : table (Data4Sprites::get().front())
-                , tmess1(vsl::cfg.font)
+struct  xModel   : vsl::IObject
+{       xModel() : table (Data4Sprites::get()[0])
+                , tmess1(vsl::Config::getFont())
         {
-
             for(unsigned i = 1; i < Data4Sprites::get().size(); ++i)
             {   m.emplace_back(Player(Data4Sprites::get()[i]));
             }
