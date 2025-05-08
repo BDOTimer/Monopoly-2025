@@ -241,10 +241,9 @@ namespace model
     {       Field(const Config& cfg) :  std::vector<Cell>
                                      {
                                         #include "field.inc"
-                                     },
-                                     bank(cfg),
-                                     cfg (cfg)
-
+                                     }
+                                     , bank(cfg)
+                                     , cfg (cfg)
             {
             }
 
