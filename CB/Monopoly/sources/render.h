@@ -92,6 +92,7 @@ private:
             switch(nScene)
             {   case 0:            break;
                 case 1: ui.show(); break;
+                case 2:            break;
             }
 
             /// window.clear   ({0, 30, 60});
