@@ -2,14 +2,9 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release" />
-	<File name="sources\scene-logo.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sources\main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="613" topLine="6" />
-		</Cursor>
-	</File>
-	<File name="bin\res\shaders\dice.frag" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3301" topLine="0" />
+			<Cursor1 position="353" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="sources\scene-tune.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -17,19 +12,9 @@
 			<Cursor1 position="1625" topLine="34" />
 		</Cursor>
 	</File>
-	<File name="sources\scene-game.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="bin\res\shaders\dice.frag" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="677" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="sources\shader-dice.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6476" topLine="164" />
-		</Cursor>
-	</File>
-	<File name="sources\model.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="236" topLine="0" />
+			<Cursor1 position="3707" topLine="50" />
 		</Cursor>
 	</File>
 	<File name="icon.rc" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -37,19 +22,29 @@
 			<Cursor1 position="26" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="sources\main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="365" topLine="5" />
-		</Cursor>
-	</File>
 	<File name="sources\ui-imgui.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1668" topLine="62" />
 		</Cursor>
 	</File>
-	<File name="sources\render.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sources\scene-logo.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="805" topLine="12" />
+			<Cursor1 position="613" topLine="6" />
+		</Cursor>
+	</File>
+	<File name="sources\scene-game.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="819" topLine="12" />
+		</Cursor>
+	</File>
+	<File name="sources\player.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="235" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="sources\model.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="236" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="sources\common.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -57,14 +52,19 @@
 			<Cursor1 position="1526" topLine="48" />
 		</Cursor>
 	</File>
-	<File name="sources\debug.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sources\shader-dice.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="681" topLine="26" />
+			<Cursor1 position="7140" topLine="184" />
 		</Cursor>
 	</File>
-	<File name="sources\player.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sources\debug.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="235" topLine="0" />
+			<Cursor1 position="2170" topLine="66" />
+		</Cursor>
+	</File>
+	<File name="sources\render.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="699" topLine="10" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

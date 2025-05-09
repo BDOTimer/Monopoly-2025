@@ -4,6 +4,7 @@
 /// "scene-game.h"
 ///----------------------------------------------------------------------------:
 #include "common.h"
+#include "shader-dice.h"
 
 namespace vsl
 {
@@ -18,6 +19,8 @@ namespace vsl
                 rs.setSize({1344, 768});
 
                 tmess1.setString(L"Игра...");
+
+                dice.init();
             }
 
         PLUG_IOBJECT
@@ -28,6 +31,8 @@ namespace vsl
         std::string    nameTx;
         sf::RectangleShape rs;
         TextStyleA     tmess1;
+
+        ShaderDice  dice;
 
         ///-----------------------------------|
         /// Дебаг.                            |
@@ -45,6 +50,7 @@ namespace vsl
                           sf::RenderStates  states) const
         {   target.draw(rs    , states);
             target.draw(tmess1, states);
+            target.draw(dice  , states);
         }
     };
 }

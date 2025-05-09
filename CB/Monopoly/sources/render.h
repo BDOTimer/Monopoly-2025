@@ -6,8 +6,6 @@
 #include "model.h"
 #include "ui-imgui.h"
 
-#include "shader-dice.h"
-
 #include "scene-logo.h"
 #include "scene-tune.h"
 #include "scene-game.h"

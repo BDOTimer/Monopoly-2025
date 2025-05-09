@@ -12,7 +12,9 @@ namespace vsl
 
     struct  ShaderDice   : vsl::IObject
     {       ShaderDice() : screenRect         ({1344-TN-TN, 768-TN-TN})
-            {   screenRect.setFillColor       ({ 32,  64, 127});
+
+            {
+                screenRect.setFillColor       ({ 32,  64, 127});
                 screenRect.setOutlineColor    ({ 64, 127, 32 });
                 screenRect.setOutlineThickness( TN);
                 screenRect.setPosition        ({TN, TN});
@@ -20,7 +22,7 @@ namespace vsl
 
         PLUG_IOBJECT
 
-        inline static float TN{50.f};
+        inline static float TN{0.f};
 
         using Scan = sf::Keyboard::Scancode;
 
@@ -35,14 +37,13 @@ namespace vsl
         sf::Vector2i lastMousePos;
         bool         mousePressed = false;
 
-        void init(const sf::RenderWindow& window)
+        void init()
         {
             if (!sf::Shader::isAvailable())
                 return throw("!sf::Shader::isAvailable()");
 
             if (!shader.loadFromFile(filename, sf::Shader::Type::Fragment))
                 return throw("shader.loadFromFile(...");
-
         }
 
     private:
@@ -143,7 +144,16 @@ namespace vsl
             sf::RenderWindow window(sf::VideoMode({ 1344, 768 }),
                                    "SFML::Test::2", sf::State::Windowed);
             ShaderDice  dice;
-                        dice.init(window);
+                        dice.init();
+
+            sf::Texture        texture("res/logo.jpg");
+            sf::RectangleShape fon({1344-TN-TN, 768-TN-TN});
+
+                fon.setFillColor       ({ 255, 255, 255 });
+                fon.setOutlineColor    ({  64, 32,  127 });
+                fon.setOutlineThickness( TN);
+                fon.setPosition        ({TN, TN});
+                fon.setTexture         (&texture);
 
             while (window.isOpen())
             {   while (auto event = window.pollEvent())
@@ -151,6 +161,7 @@ namespace vsl
                 }
 
                 window.clear  (    );
+                window.draw   ( fon);
                 window.draw   (dice);
                 window.display(    );
             }
@@ -167,11 +178,17 @@ namespace vsl
             auto p = const_cast<ShaderDice*>(this);
 
             p->shader.setUniform("resolution"  , sf::Glsl::Vec2({1344,768}));
-            p->shader.setUniform("currentAngle", currentAngle);
+            p->shader.setUniform("currentAngle", currentAngle);;
 
             target.draw(screenRect, states.shader = &shader);
 
             p->currentAngle += rotSpeed * 0.1f;
+        }
+
+        static void test()
+        {   if(const auto e = vsl::ShaderDice::test2(); e != "SUCCESS")
+            {   std::cout << "ERROR: Shader-dice fail: " << e << " ...\n";
+            }
         }
 
         friend void ::tests();

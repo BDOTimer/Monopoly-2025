@@ -8,11 +8,9 @@
 
 void tests()
 {
-    //TRY(Render::test())
-
-    if(const auto e = vsl::ShaderDice::test2(); e != "SUCCESS")
-    {   std::cout << "ERROR: Shader-dice fail: " << e << " ...\n";
-    }
+///
+TRY(Render::test())
+/// TRY(vsl::ShaderDice::test())
 }
 
 
@@ -27,7 +25,15 @@ int main(int argc, char* argv[])
 
     std::cout << "Старт " << LOGO_VISUALIZATOR << " ...\n\n";
 
-    tests();
+    try
+    {   tests();
+    }
+    catch(const char* err)
+    {   std::cout << "FATALERROR: " << err << "\n";
+    }
+    catch(...)
+    {   std::cout << "FATALERROR: ???\n";
+    }
 
     std::cout << "Программа закончила работу ...\n";
 
