@@ -14,9 +14,12 @@ namespace vsl
     ///-------------------------------------------------------------- SceneGame:
     struct  SceneGame   : vsl::IObject
     {       SceneGame() : nameTx("res/game.jpg")
+                        , fon (vsl::cfg.szfWin)
+                        , dice(vsl::cfg.szfWin)
             {
-                rs.setTexture(&HolderTexture::get(nameTx));
-                rs.setSize({1344, 768});
+                fon.setTexture(&HolderTexture::get(nameTx));
+
+                vsl::Config::setOrigin(fon);
 
                 tmess1.setString(L"Игра...");
 
@@ -28,19 +31,19 @@ namespace vsl
         ///-----------------------------------|
         /// Имя загруженной текстуры.         |
         ///-----------------------------------:
-        std::string    nameTx;
-        sf::RectangleShape rs;
-        TextStyleA     tmess1;
+        std::string     nameTx;
+        sf::RectangleShape fon;
+        TextStyleA      tmess1;
 
-        ShaderDice  dice;
+        ShaderDice        dice;
 
         ///-----------------------------------|
         /// Дебаг.                            |
         ///-----------------------------------:
         void debug() const
         {   l(nameTx)
-            l(rs.getTexture()->getSize().x)
-            l(rs.getTexture()->getSize().y)
+            l(fon.getTexture()->getSize().x)
+            l(fon.getTexture()->getSize().y)
         }
 
         ///------------------------------------|
@@ -48,9 +51,14 @@ namespace vsl
         ///------------------------------------:
         virtual void draw(sf::RenderTarget& target,
                           sf::RenderStates  states) const
-        {   target.draw(rs    , states);
-            target.draw(tmess1, states);
-            target.draw(dice  , states);
+        {   target.setView(*vsl::cfg.camFon);
+            target.draw   (fon,      states);
+
+            target.setView(*vsl::cfg.camGui);
+            target.draw   (tmess1,   states);
+
+            target.setView(*vsl::cfg.camFon);
+            target.draw   (dice,     states);
         }
     };
 }

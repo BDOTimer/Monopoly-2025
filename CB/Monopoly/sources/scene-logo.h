@@ -35,8 +35,12 @@ namespace vsl
     /// SceneLogo.
     ///-------------------------------------------------------------- SceneLogo:
     struct  SceneLogo   : vsl::IObject
-    {       SceneLogo() : table (Data4Sprites::get()[0])
+    {       SceneLogo() : fon (vsl::cfg.szfWin)
             {
+                vsl::Config::setOrigin(fon);
+
+                fon.setTexture(&HolderTexture::get("res/logo.jpg"));
+
                 for(unsigned i = 1; i < Data4Sprites::get().size(); ++i)
                 {   m.emplace_back(Player(Data4Sprites::get()[i]));
                 }
@@ -47,8 +51,8 @@ namespace vsl
         PLUG_IOBJECT
 
     private:
-        Object          table;
-        std::vector<Player> m;
+        sf::RectangleShape fon;
+        std::vector<Player>  m;
 
         std::wstring mess1{L"Жмакай ENTER ..."};
         TextStyleA  tmess1;
@@ -58,8 +62,11 @@ namespace vsl
         ///------------------------------------:
         virtual void draw(sf::RenderTarget& target,
                           sf::RenderStates  states) const
-        {                           target.draw(table, states);
-            for(const auto& pl : m) target.draw(pl   , states);
+        {                           target.draw(fon, states);
+            target.setView(*vsl::cfg.camFon);
+            for(const auto& pl : m) target.draw(pl , states);
+
+            target.setView(*vsl::cfg.camGui);
             target.draw(tmess1, states);
         }
     };

@@ -64,9 +64,12 @@ namespace vsl
             {   init();
             }
 
-        sf::Vector2u size;
-        unsigned& SW{size.x};
-        unsigned& SH{size.y};
+        sf::Vector2u szuWin  ;
+        sf::Vector2f szfWin  ;
+
+        sf::View* camFon{nullptr};
+        sf::View* camGui{nullptr};
+
 
         static sf::Font& getFont()
         {   static sf::Font font("consola.ttf");
@@ -75,15 +78,20 @@ namespace vsl
 
         void init()
         {   sf::VideoMode dm = sf::VideoMode::getDesktopMode();
-            size = dm.size;
+            szuWin = dm.size;
 
-            size.x = 0.8f * size.x;
-            size.y = 0.8f * size.y;
+            szuWin.x = 0.8f * szuWin.x;
+            szuWin.y = 0.8f * szuWin.y;
+
+            szfWin = {float(szuWin.x), float(szuWin.y)};
 
             getFont().setSmooth(true);
         }
 
-    private:
+        template<typename T>
+        static void setOrigin(T& o)
+        {   o.setOrigin({ o.getSize().x / 2, o.getSize().y / 2 });
+        }
 
     }cfg;
 }
@@ -116,9 +124,9 @@ private:
     const std::vector<Data> dats
     {
         {"res/logo.jpg" , {   0,   0 }, { 1   , 1    }},
-        {"res/house.png", {  50, 300 }, { 0.4f, 0.4f }},
-        {"res/house.png", { 450, 300 }, { 0.4f, 0.4f }},
-        {"res/house.png", { 250, 350 }, { 0.4f, 0.4f }}
+        {"res/house.png", {-200, -200}, { 0.4f, 0.4f }},
+        {"res/house.png", {-100, -100}, { 0.4f, 0.4f }},
+        {"res/house.png", {-100, -250}, { 0.4f, 0.4f }}
     };
 
     ///-----------------------------------|

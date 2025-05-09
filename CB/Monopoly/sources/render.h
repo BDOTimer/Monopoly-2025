@@ -11,15 +11,21 @@
 #include "scene-game.h"
 
 struct  Render
-{       Render() : window(sf::VideoMode({vsl::cfg.SW, vsl::cfg.SH}),
+{       Render() : window(sf::VideoMode(vsl::cfg.szuWin),
                           L"Монополия-2025",
                           sf::Style::Titlebar | sf::Style::Close)
                  , ui    (window)
-                 , camFon(sf::FloatRect({0, 0}, {1344, 768}))
+                 , camFon(window.getDefaultView())
         {
             sf::Image      icon("icon.png");
             window.setIcon(icon);
             window.setFramerateLimit(60);
+
+            camGui = window.getDefaultView();
+            camFon.setCenter({0,0});
+
+            vsl::cfg.camFon = &camFon;
+            vsl::cfg.camGui = &camGui;
         }
 
     sf::RenderWindow window;
@@ -33,6 +39,7 @@ struct  Render
     /// Камера.             |
     ///---------------------:
     sf::View          camFon;
+    sf::View          camGui;
 
     void run()
     {   std::vector<vsl::IObject*> objects
@@ -100,6 +107,8 @@ private:
 
             window.setView       (camFon);
             window.draw (*scenes[nScene]);
+
+            window.setView       (camGui);
 
             ImGui::SFML::Render  (window);
             window.display       (      );

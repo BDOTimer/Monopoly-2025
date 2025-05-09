@@ -10,32 +10,32 @@ void tests();
 namespace vsl
 {
 
-    struct  ShaderDice   : vsl::IObject
-    {       ShaderDice() : screenRect         ({1344-TN-TN, 768-TN-TN})
-
+    struct  ShaderDice : vsl::IObject
+    {       ShaderDice(const sf::Vector2f sz) : scrRect (sz)
             {
-                screenRect.setFillColor       ({ 32,  64, 127});
-                screenRect.setOutlineColor    ({ 64, 127, 32 });
-                screenRect.setOutlineThickness( TN);
-                screenRect.setPosition        ({TN, TN});
+                scrRect.setPosition ({0, 0});
+                scrRect.setFillColor(colFon);
+
+                vsl::Config::setOrigin(scrRect);
             }
 
         PLUG_IOBJECT
-
-        inline static float TN{0.f};
 
         using Scan = sf::Keyboard::Scancode;
 
         inline static const char* filename{"res/shaders/dice.frag"};
 
-        sf::Shader         shader;
-        sf::RectangleShape screenRect;
+        sf::Shader         shader ;
+        sf::RectangleShape scrRect;
 
         float        currentAngle = 0.0f;
         float        rotSpeed     = 1.0f;
         const float  minSpeed     = 0.1f;
         sf::Vector2i lastMousePos;
         bool         mousePressed = false;
+
+        sf::Color colBorder{128, 0,   0, 254};
+        sf::Color colFon   {  0, 0, 128, 254};
 
         void init()
         {
@@ -64,8 +64,8 @@ namespace vsl
             if (!shader.loadFromFile(filename, sf::Shader::Type::Fragment))
                 return "shader.loadFromFile(...";
 
-            sf::RectangleShape screenRect(sf::Vector2f(window.getSize()));
-            screenRect.setPosition ({ 0, 0 });
+            sf::RectangleShape scrRect(sf::Vector2f(window.getSize()));
+                               scrRect.setPosition ({ 0, 0 });
 
             float        currentAngle = 0.0f;
             float        rotSpeed     = 1.0f;
@@ -129,7 +129,7 @@ namespace vsl
                 */
 
                 window.clear  ();
-                window.draw   (screenRect, &shader);
+                window.draw   (scrRect, &shader);
                 window.display();
             }
 
@@ -143,11 +143,17 @@ namespace vsl
         {
             sf::RenderWindow window(sf::VideoMode({ 1344, 768 }),
                                    "SFML::Test::2", sf::State::Windowed);
-            ShaderDice  dice;
+
+            const sf::Vector2f sz{float(window.getSize().x),
+                                  float(window.getSize().y)};
+
+            ShaderDice  dice   (sz);
                         dice.init();
 
+            float TN{5.f};
+
             sf::Texture        texture("res/logo.jpg");
-            sf::RectangleShape fon({1344-TN-TN, 768-TN-TN});
+            sf::RectangleShape fon({sz.x-TN-TN, sz.y-TN-TN});
 
                 fon.setFillColor       ({ 255, 255, 255 });
                 fon.setOutlineColor    ({  64, 32,  127 });
@@ -177,10 +183,12 @@ namespace vsl
         {
             auto p = const_cast<ShaderDice*>(this);
 
-            p->shader.setUniform("resolution"  , sf::Glsl::Vec2({1344,768}));
-            p->shader.setUniform("currentAngle", currentAngle);;
+            const auto& sz{scrRect.getSize()};
 
-            target.draw(screenRect, states.shader = &shader);
+            p->shader.setUniform("resolution"  , sf::Glsl::Vec2(sz));
+            p->shader.setUniform("currentAngle", currentAngle);
+
+            target.draw(scrRect, states.shader = &shader);
 
             p->currentAngle += rotSpeed * 0.1f;
         }

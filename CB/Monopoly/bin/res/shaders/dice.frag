@@ -80,9 +80,10 @@ vec3 norm(vec3 p)
 }
 
 void main()
-{   vec2 uv  = (gl_FragCoord.xy - resolution * 0.5) / resolution.y;
-    vec2 uv2 =  gl_FragCoord.xy / resolution.xy;
-    ///uv2.y = 1.0 - uv2.y;
+{
+    vec2 uv    = (gl_FragCoord.xy - resolution * 0.5) / resolution.y;
+/// vec2 uv2   =  gl_FragCoord.xy / resolution.xy;
+///      uv2.y = 1.0 - uv2.y;
 
     vec3 campos = vec3(
         cos(currentAngle) * 2.0,
@@ -109,8 +110,7 @@ void main()
         t  += d;
     }
 
-/// vec3 col = vec3(0.1);
-    vec3 col = texture2D(texture, gl_TexCoord[0].xy).rgb;
+/// vec3 col = texture2D(texture, gl_TexCoord[0].xy).rgb;
 /// vec3 col = texture2D(texture, uv2).rgb;
 
     if(t < MAX_DIST)
@@ -127,8 +127,8 @@ void main()
             pow(clamp(1.0 + dot(rd, n), 0.0, 1.0), 2.0)
         );
 
-        col = mix(baseCol * (0.5 + 0.5 * dot(n, l)), spec, fresnel);
-        gl_FragColor = vec4(pow(col, vec3(1.0 / 2.2)), 1.0);
+        vec3     col  = mix(baseCol * (0.5 + 0.5 * dot(n, l)), spec, fresnel);
+        gl_FragColor  = vec4(pow(col, vec3(1.0 / 2.2)), 1.0);
     }
-    else gl_FragColor = vec4(vec3(0.0), 0.0);
+    else gl_FragColor = vec4(0.0);
 }

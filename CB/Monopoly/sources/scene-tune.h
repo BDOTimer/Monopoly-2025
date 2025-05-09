@@ -11,29 +11,28 @@ namespace vsl
     /// SceneTune.
     ///-------------------------------------------------------------- SceneTune:
     struct  SceneTune   : vsl::IObject
-    {       SceneTune()
-                        :   nameTx(            "res/tune.jpg")
-                        ,   sp    (HolderTexture::get(nameTx))
+    {       SceneTune() : fon (vsl::cfg.szfWin)
             {
+                fon.setTexture(&HolderTexture::get("res/tune.jpg"));
+                vsl::Config::setOrigin(fon);
+
                 tmess1.setString(L"Настройки...");
             }
 
         PLUG_IOBJECT
 
         ///-----------------------------------|
-        /// Имя загруженной текстуры.         |
+        /// ...                               |
         ///-----------------------------------:
-        std::string nameTx;
-        sf::Sprite      sp;
-        TextStyleA  tmess1;
+        sf::RectangleShape fon;
+        TextStyleA      tmess1;
 
         ///-----------------------------------|
         /// Дебаг.                            |
         ///-----------------------------------:
         void debug() const
-        {   l(nameTx)
-            l(sp.getTexture().getSize().x)
-            l(sp.getTexture().getSize().y)
+        {   l(fon.getTexture()->getSize().x)
+            l(fon.getTexture()->getSize().y)
         }
 
         ///------------------------------------|
@@ -41,8 +40,12 @@ namespace vsl
         ///------------------------------------:
         virtual void draw(sf::RenderTarget& target,
                           sf::RenderStates  states) const
-        {   target.draw(sp    , states);
-            target.draw(tmess1, states);
+        {
+            target.setView(*vsl::cfg.camFon);
+            target.draw   (fon,      states);
+
+            target.setView(*vsl::cfg.camGui);
+            target.draw   (tmess1,   states);
         }
     };
 }
