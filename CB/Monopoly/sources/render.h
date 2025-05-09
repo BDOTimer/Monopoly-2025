@@ -6,6 +6,8 @@
 #include "model.h"
 #include "ui-imgui.h"
 
+#include "shader-dice.h"
+
 #include "scene-logo.h"
 #include "scene-tune.h"
 #include "scene-game.h"
@@ -19,6 +21,7 @@ struct  Render
         {
             sf::Image      icon("icon.png");
             window.setIcon(icon);
+            window.setFramerateLimit(60);
         }
 
     sf::RenderWindow window;

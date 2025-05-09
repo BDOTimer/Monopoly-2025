@@ -262,6 +262,28 @@ private:
     }
 };
 
+
+///----------------------------------------------------------------------------|
+/// Снипетc-процедуры...
+///------------------------------------------------------------------------ Foo:
+struct Foo
+{
+    static void findErrorSymbol(std::string_view fname)
+    {   if(std::ifstream f(fname.data()); f.is_open())
+        {   for(std::string s; std::getline(f, s); )
+            {   for(size_t i = 0; i < s.size(); ++i)
+                {   if(unsigned(s[i]) > 127)
+                    {   std::cout << "findErrorSymbol(): '"
+                                  << s[i]
+                                  << "' position:" << i << '\n';
+                    }
+                }
+            }
+        }
+        else std::cout << "ERROR: \"" << fname << "\" failed ...\n";
+    }
+};
+
 namespace vsl
 {
     struct  TextStyleA    : sf::Text

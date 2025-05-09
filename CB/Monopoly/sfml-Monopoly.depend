@@ -779,20 +779,24 @@
 
 1745581720 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\icon.rc
 
-1746597837 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\main.cpp
+1746778861 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\main.cpp
 	"render.h"
 
-1746642785 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\render.h
+1746772671 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\render.h
 	"model.h"
 	"ui-imgui.h"
+	"shader-dice.h"
+	"scene-logo.h"
+	"scene-tune.h"
+	"scene-game.h"
 
-1745581720 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\model.h
+1746768143 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\model.h
 	"player.h"
 
 1745581720 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\player.h
 	"common.h"
 
-1746642419 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\common.h
+1746773648 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\common.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	<fstream>
@@ -1355,5 +1359,17 @@
 	"common.h"
 
 1746724810 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\scene-game.h
+	"common.h"
+
+1746780173 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\shader-dice.h
+	"common.h"
+
+1746768143 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\scene-logo.h
+	"common.h"
+
+1746768143 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\scene-tune.h
+	"common.h"
+
+1746768143 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\scene-game.h
 	"common.h"
 

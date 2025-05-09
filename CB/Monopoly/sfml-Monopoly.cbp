@@ -85,6 +85,7 @@
 		<Unit filename="../../extLibs/imgui-1.91.8/imstb_truetype.h">
 			<Option virtualFolder="libs/" />
 		</Unit>
+		<Unit filename="bin/res/shaders/dice.frag" />
 		<Unit filename="icon.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
@@ -97,6 +98,7 @@
 		<Unit filename="sources/scene-game.h" />
 		<Unit filename="sources/scene-logo.h" />
 		<Unit filename="sources/scene-tune.h" />
+		<Unit filename="sources/shader-dice.h" />
 		<Unit filename="sources/ui-imgui.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
