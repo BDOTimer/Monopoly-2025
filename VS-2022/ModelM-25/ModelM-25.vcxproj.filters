@@ -17,6 +17,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\CB\m-model[ver-0.2]\sources\field.inc" />
+    <None Include="..\..\CB\m-model[ver-0.2]\sources\cards.inc" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\main.cpp">

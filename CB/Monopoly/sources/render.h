@@ -10,12 +10,15 @@
 #include "scene-tune.h"
 #include "scene-game.h"
 
+
 struct  Render
-{       Render() : window(sf::VideoMode(vsl::cfg.szuWin),
-                          L"Монополия-2025",
-                          sf::Style::Titlebar | sf::Style::Close)
-                 , ui    (window)
-                 , camFon(window.getDefaultView())
+{       Render(vsl::Config& cfg)
+			:	cfg(cfg)
+			,	window(	sf::VideoMode(cfg.szuWin),
+                        L"Монополия-2025",
+                        sf::Style::Titlebar | sf::Style::Close)
+            ,	ui    (window)
+            ,	camFon(window.getDefaultView())
         {
             sf::Image      icon("icon.png");
             window.setIcon(icon);
@@ -24,10 +27,12 @@ struct  Render
             camGui = window.getDefaultView();
             camFon.setCenter({0,0});
 
-            vsl::cfg.camFon = &camFon;
-            vsl::cfg.camGui = &camGui;
+            cfg.camFon = &camFon;
+            cfg.camGui = &camGui;
+			cfg.scenesSwitcher.init(&scenes);
         }
 
+	vsl::Config&        cfg;
     sf::RenderWindow window;
 
     ///---------------------|
@@ -41,39 +46,35 @@ struct  Render
     sf::View          camFon;
     sf::View          camGui;
 
-    void run()
-    {   std::vector<vsl::IObject*> objects
-        {   &logo,
-            &tune,
-            &game,
-        };
+	vsl::ScenesAll scenes
+    {   &logo,
+        &tune,
+        &game,
+    };
 
-        loop(objects);
+    void run()
+    {   loop(scenes);
     }
 
 private:
-    vsl::SceneLogo logo;
-    vsl::SceneTune tune;
-    vsl::SceneGame game;
+    vsl::SceneLogo logo{cfg};
+    vsl::SceneTune tune{cfg};
+    vsl::SceneGame game{cfg};
 
     ///---------------------|
     /// Часы.               |
     ///---------------------:
     sf::Clock          clock;
 
-    ///---------------------|
-    /// Номер сцены.        |
-    ///---------------------:
-    unsigned       nScene{0};
-
-    void loop(std::vector<vsl::IObject*>& scenes)
+    void loop(vsl::ScenesAll& scenes)
     {
         ui << "Привет, Монополия-2025!\n";
 
     /// using Key  = sf::Keyboard::Key ;
     /// using Scan = sf::Keyboard::Scan;
 
-        #define ISKEYPRESED(a) sf::Keyboard::isKeyPressed(sf::Keyboard::Key::a)
+		auto& nScene   = cfg.scenesSwitcher.nScene;
+		auto& nowScene = cfg.scenesSwitcher.nowScene;
 
         while (window.isOpen())
         {   while (const std::optional event = window.pollEvent())
@@ -82,10 +83,12 @@ private:
                 if (event->is<sf::Event::Closed>()) window.close();
 
                 if (event->is<sf::Event::KeyPressed>())
-                {   if (ISKEYPRESED(Enter))
-                    {   nScene =  (nScene + 1) % scenes.size();
+                {   if (ISKEYPRESSED(Enter))
+                    {   /// vsl::cfg.scenesSwitcher.next();
                     }
                 }
+
+				nowScene->input(event);
             }
 
             const auto delta  = clock.restart();
@@ -106,7 +109,7 @@ private:
             /// window.clear   ({0, 30, 60});
 
             window.setView       (camFon);
-            window.draw (*scenes[nScene]);
+            window.draw       (*nowScene);
 
             window.setView       (camGui);
 
@@ -120,7 +123,8 @@ private:
     /// Тест разраба.                        |
     ///--------------------------------------:
     TEST
-    {   Render  render;
+    {   vsl::Config     cfg;
+		Render  render (cfg);
                 render.run();
     }
 };

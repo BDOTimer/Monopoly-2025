@@ -4,6 +4,7 @@
 /// "common.h"
 ///----------------------------------------------------------------------------:
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -12,11 +13,25 @@
 
 #include "debug.h"
 
+#define ISKEYPRESSED(a) sf::Keyboard::isKeyPressed(sf::Keyboard::Key::a)
+
 ///----------------------------------------------------------------------------|
 /// Интерфейс объектов рендера.
 ///----------------------------------------------------------------------------:
 namespace vsl
 {
+	
+	struct	Music : sf::Music
+	{		Music(std::string_view name)
+			{	if (!openFromFile( name.data()))
+				{	std::cout << "ERROR: \"" << name << "\"";
+				}
+			}
+
+		/// "res/snd/Maddix - Acid Soul.mp3"
+		/// "res/snd/Maddix - Receive Life.mp3"
+	};
+
     ///-------------------------|
     /// Интерфейс объекта.      |--------------------------------------------!!!
     ///-------------------------:
@@ -25,7 +40,7 @@ namespace vsl
         virtual void update   (                        ) = 0;
         virtual bool RPControl(std::string_view command,
                          const std::vector<int>&  args ) = 0;
-        virtual void input(const sf::Event&       event) = 0;
+        virtual void input(const std::optional<sf::Event>& event) = 0;
 
         std::string_view name;
 
@@ -55,10 +70,52 @@ namespace uii
     virtual bool RPControl(std::string_view command,    \
                      const std::vector<int>&   args)    \
     {   return true;                                 }  \
-    virtual void input(const sf::Event&       event){};
+    virtual void input(const std::optional<sf::Event>&       event){};
+
+#define PLUG_IOBJECT2 ;\
+    virtual void update   (                        ){}; \
+    virtual bool RPControl(std::string_view command,    \
+                     const std::vector<int>&   args)    \
+    {   return true;                                 }
 
 namespace vsl
 {
+	using ScenesAll = std::array<vsl::IObject*, 3>;
+
+	struct	ScenesSwitcher 
+	{		ScenesSwitcher()
+			{	
+			}
+
+		enum eSCENE 
+		{	E_LOGO,
+			E_TUNE,
+			E_GAME
+		};
+
+		///---------------------|
+		/// Номер сцены.        |
+		///---------------------:
+		unsigned      nScene   {E_LOGO};
+		vsl::IObject* nowScene{nullptr};
+		ScenesAll*    scenes;
+
+		void doSwitcher(eSCENE id = E_TUNE)
+		{	nowScene = (*scenes)[id];
+			nScene   = id;
+		}
+
+		void next()
+		{	nScene =  (nScene + 1) % scenes->size();
+			nowScene = (*scenes)[nScene];
+		}
+
+		void init(ScenesAll* sns)
+		{	scenes = sns;
+			doSwitcher(E_LOGO);
+		}
+	};
+
     struct  Config
     {       Config  ()
             {   init();
@@ -70,9 +127,14 @@ namespace vsl
         sf::View* camFon{nullptr};
         sf::View* camGui{nullptr};
 
+		ScenesSwitcher scenesSwitcher;
 
+		Music musicLogo{"res/snd/Maddix - Receive Life.mp3"};
+		Music musicGame{"res/snd/Maddix - Acid Soul.mp3"   };
+		
         static sf::Font& getFont()
-        {   static sf::Font font("consola.ttf");
+        {///static sf::Font font("consola.ttf");
+			static sf::Font font("res/JetBrainsMono-Regular.ttf");
             return font;
         }
 
@@ -80,8 +142,8 @@ namespace vsl
         {   sf::VideoMode dm = sf::VideoMode::getDesktopMode();
             szuWin = dm.size;
 
-            szuWin.x = 0.8f * szuWin.x;
-            szuWin.y = 0.8f * szuWin.y;
+            szuWin.x = unsigned(0.8f * szuWin.x);
+            szuWin.y = unsigned(0.8f * szuWin.y);
 
             szfWin = {float(szuWin.x), float(szuWin.y)};
 
@@ -93,7 +155,7 @@ namespace vsl
         {   o.setOrigin({ o.getSize().x / 2, o.getSize().y / 2 });
         }
 
-    }cfg;
+    };
 }
 
 
@@ -296,8 +358,8 @@ namespace vsl
 {
     struct  TextStyleA    : sf::Text
     {       TextStyleA()  : sf::Text(Config::getFont())
-            {   setCharacterSize         (24);
-                setFillColor({128, 196, 255});
+            {   setCharacterSize         (18);
+                setFillColor({127, 196, 127});
             }
     };
 }

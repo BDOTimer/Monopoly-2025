@@ -5,12 +5,24 @@
 ///-------------------------------------------------------------- sfml-Monopoly:
 #include "render.h"
 
+namespace win
+{
+#ifndef     __MINGW32__
+    #include <windows.h>
+    #pragma execution_character_set( "utf-8" )
+	const char* const COMPILATOR_NAME{ "VS 2022" };
+#else
+	const char* const COMPILATOR_NAME{"GCC MINGW"};
+#endif  //  __MINGW32__
+}
+
 
 void tests()
 {
+
 ///
 TRY(Render::test())
-/// TRY(vsl::ShaderDice::test())
+/// TRY(vsl::ShaderDice::test(cfg))
 }
 
 
@@ -22,6 +34,8 @@ int main(int argc, char* argv[])
 #ifdef    _WIN32
     std::system("chcp 65001>nul");
 #endif // _WIN32
+
+	std::cout << "Compilator: " << win::COMPILATOR_NAME << '\n';
 
     std::cout << "Старт " << LOGO_VISUALIZATOR << " ...\n\n";
 

@@ -28,12 +28,19 @@
 					<Add library="../../extLibs/imgui-sfml-3.0/64/libImGui-SFML.a" />
 					<Add library="sfml-graphics-s" />
 					<Add library="sfml-window-s" />
-					<Add library="sfml-system-s" />
+					<Add library="libsfml-audio-s.a" />
 					<Add library="libfreetype.a" />
 					<Add library="libsfml-main-s.a" />
 					<Add library="libgdi32.a" />
 					<Add library="libwinmm.a" />
 					<Add library="libopengl32.a" />
+					<Add library="sfml-system-s" />
+					<Add library="libFLAC.a" />
+					<Add library="libvorbisenc.a" />
+					<Add library="libvorbisfile.a" />
+					<Add library="libvorbis.a" />
+					<Add library="libogg.a" />
+					<Add library="libwinmm.a" />
 					<Add directory="$(#sfml30)/lib" />
 					<Add directory="../../extLibs/SFML-3.0.0[mingw64-ucrt]/lib" />
 				</Linker>

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.13.35913.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModelM-25", "ModelM-25\ModelM-25.vcxproj", "{44062416-7822-48A6-A2A5-FCBC7185800C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "myPro-25-04-14", "myPro-25-04-14\myPro-25-04-14.vcxproj", "{A4A92795-401A-4620-9290-6AE342CED496}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Visualizator", "Visualizator\myPro-25-04-14.vcxproj", "{A4A92795-401A-4620-9290-6AE342CED496}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

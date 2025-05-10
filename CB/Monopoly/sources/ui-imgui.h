@@ -120,10 +120,12 @@ namespace uii
             {   ASSERTM(false, "ImGui::SFML::Init() is failed ...")
             }
 
+			const char* fontname = "res/JetBrainsMono-Regular.ttf";
+
             ImGuiIO& io = ImGui::GetIO();
 
             io.Fonts->Clear();
-            isGood = io.Fonts->AddFontFromFileTTF("consola.ttf", 18.f, NULL,
+            isGood = io.Fonts->AddFontFromFileTTF(fontname, 18.f, NULL,
                      io.Fonts->GetGlyphRangesCyrillic());
             if (!isGood)
             {   ASSERTM(false, "io.Fonts->AddFontFromFileTTF() is failed ...")

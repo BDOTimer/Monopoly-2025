@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="extLibs">
+      <UniqueIdentifier>{00d63182-fff3-46b5-a106-d5a538e99ae5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extLibs\imgui">
+      <UniqueIdentifier>{1bcb376b-199f-4bbc-ac76-a5fb727e8db3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sources\common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\render.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\scene-game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\scene-logo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\scene-tune.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\shader-dice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ui-imgui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extLibs\imgui-1.91.8\imconfig.h">
+      <Filter>extLibs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extLibs\imgui-1.91.8\imgui.h">
+      <Filter>extLibs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extLibs\imgui-1.91.8\imgui_internal.h">
+      <Filter>extLibs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extLibs\imgui-1.91.8\imstb_rectpack.h">
+      <Filter>extLibs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extLibs\imgui-1.91.8\imstb_textedit.h">
+      <Filter>extLibs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extLibs\imgui-1.91.8\imstb_truetype.h">
+      <Filter>extLibs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extLibs\imgui-sfml-3.0\imconfig-SFML.h">
+      <Filter>extLibs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extLibs\imgui-sfml-3.0\imgui-SFML.h">
+      <Filter>extLibs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extLibs\imgui-sfml-3.0\imgui-SFML_export.h">
+      <Filter>extLibs\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extLibs\imgui-1.91.8\misc\cpp\imgui_stdlib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sources\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extLibs\imgui-1.91.8\imgui.cpp">
+      <Filter>extLibs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extLibs\imgui-1.91.8\imgui_demo.cpp">
+      <Filter>extLibs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extLibs\imgui-1.91.8\imgui_draw.cpp">
+      <Filter>extLibs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extLibs\imgui-1.91.8\imgui_tables.cpp">
+      <Filter>extLibs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extLibs\imgui-1.91.8\imgui_widgets.cpp">
+      <Filter>extLibs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extLibs\imgui-sfml-3.0\imgui-SFML.cpp">
+      <Filter>extLibs\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\extLibs\imgui-1.91.8\misc\cpp\imgui_stdlib.cpp">
+      <Filter>extLibs\imgui</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

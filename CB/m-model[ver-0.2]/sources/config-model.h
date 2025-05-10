@@ -6,7 +6,9 @@ const char* const LOGO = "Model::Monopoly-2025[ver::0.2.1]";
 /// Дефолтный дизайн для детей! (детский вариант)
 ///----------------------------------------------------------------------------:
 #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 #include <functional>
+#include <algorithm>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
