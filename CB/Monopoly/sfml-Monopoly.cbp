@@ -40,7 +40,7 @@
 					<Add library="libvorbisfile.a" />
 					<Add library="libvorbis.a" />
 					<Add library="libogg.a" />
-					<Add library="libwinmm.a" />
+					<Add library="../../extLibs/SFML-3.0.0[mingw64-ucrt]/lib/libwinmm.a" />
 					<Add directory="$(#sfml30)/lib" />
 					<Add directory="../../extLibs/SFML-3.0.0[mingw64-ucrt]/lib" />
 				</Linker>
