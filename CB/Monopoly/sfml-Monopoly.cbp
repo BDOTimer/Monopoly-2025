@@ -105,6 +105,11 @@
 		<Unit filename="sources/scene-game.h" />
 		<Unit filename="sources/scene-logo.h" />
 		<Unit filename="sources/scene-tune.h" />
+		<Unit filename="sources/sceneGame/markup.h" />
+		<Unit filename="sources/sceneGame/win-down.h" />
+		<Unit filename="sources/sceneGame/win-game.h" />
+		<Unit filename="sources/sceneGame/win-player.h" />
+		<Unit filename="sources/sceneGame/win-up.h" />
 		<Unit filename="sources/shader-dice.h" />
 		<Unit filename="sources/ui-imgui.h" />
 		<Extensions>

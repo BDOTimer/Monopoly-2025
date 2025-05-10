@@ -65,7 +65,7 @@ namespace vsl
 
 			if (auto p = event->getIf<sf::Event::MouseButtonPressed>())
             {   if ( p->button  == sf::Mouse::Button::Left)
-                {   
+                {
 					using E = sf::SoundSource::Status;
 					cfg.musicLogo.getStatus() == E::Playing
 						? cfg.musicLogo.pause()
