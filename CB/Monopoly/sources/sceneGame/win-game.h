@@ -22,11 +22,13 @@ namespace vsl
                 cam.setSize  ({x, y});
                 cam.setCenter({0, 0});
                 fon.setSize  ({x-border2, y-border2});
-                //fon.setPosition({border, border});
+              //fon.setPosition({border, border});
                 vsl::Config::setOrigin(fon);
-                fon.setFillColor({  0, 0, 255,31});
+              //fon.setFillColor({  0, 0, 255,31});
                 fon.setOutlineColor({64,64,128});
                 fon.setOutlineThickness(border);
+
+                fon.setTexture(&HolderTexture::get("res/img/ground_01.jpg"));
             }
 
         vsl::Config& cfg;
