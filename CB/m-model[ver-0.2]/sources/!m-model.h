@@ -174,16 +174,18 @@ namespace model
     ///------------------------------------------------------------------ Cell2:
     struct  Cell
     {
-        unsigned                id;
-        std::string           type;
-        std::string           name;
-        unsigned            chance;
-        unsigned            status;
-        int              priseBase;
-        std::array<int,3> bankSell; /// Банк продаёт.
-        std::array<int,3> bankBuy ; /// Банк покупает.
-        int           difference{};
-        float            persent{};
+        unsigned                     id;
+        std::string                type;
+        std::string                name;
+        unsigned                 chance;
+        unsigned                 status;
+        int                   priseBase;
+        std::array<int     ,3> bankSell; /// Банк продаёт.
+        std::array<int     ,3> bankBuy ; /// Банк покупает.
+        std::array<unsigned,3> rangSell; /// Выгода покупки для персонажа.
+        std::array<unsigned,3> rangBuy ; /// Выгода продажи для персонажа.
+        int                difference{};
+        float                 persent{};
 
         ///-------------------------|
         /// Кол-во вещей.           |
@@ -199,6 +201,34 @@ namespace model
         }
 
         friend std::ostream& operator<<(std::ostream& o, const Cell& cell);
+
+        void init()
+        {
+            {   std::array<std::pair<int, int>, 3> m
+                {   std::pair{bankSell[0], 0},
+                    std::pair{bankSell[1], 1},
+                    std::pair{bankSell[2], 2}
+                };
+                std::sort(m.begin(), m.end());
+
+                rangSell[0] = m[0].second;
+                rangSell[1] = m[1].second;
+                rangSell[2] = m[2].second;
+            }
+            {
+                std::array<std::pair<int, int>, 3> m
+                {   std::pair{bankBuy[0], 0},
+                    std::pair{bankBuy[1], 1},
+                    std::pair{bankBuy[2], 2}
+                };
+                std::sort(m.begin(), m.end());
+
+                rangBuy[0] = m[2].second;
+                rangBuy[1] = m[1].second;
+                rangBuy[2] = m[0].second;
+            }
+        }
+
 
         ///------------------------------|
         /// Тест класса.                 |
@@ -245,6 +275,7 @@ namespace model
                                      , bank(cfg)
                                      , cfg (cfg)
             {
+                for(auto& e : *this) e.init();
             }
 
         Bank   bank;
@@ -303,10 +334,12 @@ namespace model
     /// Интерфейс персонажа.
     ///---------------------------------------------------------------- IPerson:
     struct      IPerson
-    {           IPerson(const Config& cfg, std::string_view name)
-                    :   cfg  (cfg ),
-                        name (name)
-                {}
+    {           IPerson(const Config& cfg, unsigned id)
+                    :   cfg  (cfg )
+                    ,    id  ( id )
+                    ,   name (cfg.getNamePlayer(id))
+                {
+                }
         virtual~IPerson()  {};
 
         [[nodiscard]]
@@ -314,6 +347,11 @@ namespace model
         virtual void              doAct() = 0;
 
         const Config& cfg;
+
+        ///------------------------------|
+        /// Идентификатор.               |
+        ///------------------------------:
+        unsigned id;
 
         ///------------------------------|
         /// Имя персонажа.               |
@@ -507,11 +545,18 @@ namespace model
     /// Персонаж Бот.
     ///-------------------------------------------------------------- PersonBot:
     struct  PersonBot : IPerson
-    {       PersonBot(const Config& cfg, std::string_view name)
-                      : IPerson    (cfg, name)
+    {       PersonBot(const Config& cfg, unsigned id)
+                      : IPerson    (cfg, id)
             {
                 init();
+                botIQ = cfg.getBotIQ(id);
             }
+
+        ///------------------------------|
+        /// Интеллект бота               |
+        ///------------------------------:
+        const BotProfileIQ* botIQ{nullptr};
+
 
         const std::string input () override
         {
@@ -527,7 +572,14 @@ namespace model
             }
 
             unsigned r = rand() % 3;
+
+            bool canBuy  = botIQ->canBuyBot (cell.status);
+            bool canSell = botIQ->canSellBot(cell.status);
+
             ss << "Принято решение " << decodeDone[r] << '\n';
+
+            if(0 == r && !canBuy ) {r = 2; ss << "botIQ::передумал покупать\n";}
+            if(1 == r && !canSell) {r = 2; ss << "botIQ::передумал продавать\n";}
 
             Bank& bank = cfg.pfield->bank;
 
@@ -640,7 +692,7 @@ namespace model
             Config* cfg = const_cast<model::Config*>(&Config::getDefault());
                     cfg->pfield = &field;
 
-            IPerson* person = new PersonBot(*cfg, "bot:gudleifr");
+            IPerson* person = new PersonBot(*cfg, 0);
                   ln(person->infoName());
                   ln(person->info    ());
 
@@ -653,8 +705,8 @@ namespace model
     /// Персонаж Человек.
     ///------------------------------------------------------------ PersonHuman:
     struct  PersonHuman : IPerson
-    {       PersonHuman(const Config& cfg, std::string_view name)
-                        : IPerson    (cfg, name)
+    {       PersonHuman(const Config& cfg, unsigned id)
+                        : IPerson    (cfg, id)
             {
                 init();
             }
@@ -685,7 +737,7 @@ namespace model
             Config* cfg = const_cast<model::Config*>(&Config::getDefault());
                     cfg->pfield = &field;
 
-            IPerson* person = new PersonHuman(*cfg, "Slava-rusi11");
+            IPerson* person = new PersonHuman(*cfg, 3); /// "Slava-rusi11"
                   ln(person->info())
 
             delete   person;
@@ -711,13 +763,15 @@ namespace model
                 ///------------------------|
                 /// Профили игроков.       |
                 ///------------------------:
+                unsigned idBot{0};
                 for(const auto& pl : Cfg.players)
                 {   if(pl.isBot)
-                    {   perses.emplace_back(new PersonBot(Cfg, pl.name));
+                    {   perses.emplace_back(new PersonBot(Cfg, idBot));
                     }
                     else
-                    {   perses.emplace_back(new PersonHuman(Cfg, pl.name));
+                    {   perses.emplace_back(new PersonHuman(Cfg, idBot));
                     }
+                    idBot++;
                 }
 
                 ln(field)

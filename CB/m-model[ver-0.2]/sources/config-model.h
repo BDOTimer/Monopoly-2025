@@ -50,6 +50,36 @@ void tests();
 
 namespace model
 {
+
+    ///------------------------------------------------------------------------|
+    /// Умственные способности бота описываются здесь.
+    ///------------------------------------------------------------------------|
+    constexpr auto NPOS{std::string::npos};
+
+    struct BotProfileIQ
+    {   ///----------------------------------|
+        /// Запрет на продажу                |
+        /// от статуса(0,1,2) товара.        |
+        ///----------------------------------:
+        std::string botSell;
+
+        ///----------------------------------|
+        /// Запрет на покупку от ранга(0,1,2)|
+        /// товара. Чем выше ранг, тем       |
+        /// выгоднее сделка.                 |
+        ///----------------------------------:
+        std::string botBuy;
+
+        bool canSellBot(unsigned priceRang) const
+        {   return botSell.find('0' + priceRang) == NPOS;
+        }
+
+        bool canBuyBot(unsigned priceRang) const
+        {   return botBuy.find('0' + priceRang) == NPOS;
+        }
+    };
+
+
     struct MessagesFooEvent
     {   std::string_view messEventWhat;
         std::string_view messEventAdd;
@@ -240,11 +270,17 @@ namespace model
         /// Состав игроков.              |
         ///------------------------------:
         std::vector<Players> players
-        {   {true , "bot::gudleifr"},
-            {true , "bot::aliskda" },
-            {true , "bot::Noname"  }
+        {   {true , "bot::aliskda" }, /// Срединий
+            {true , "bot::Noname"  }, /// Умный
+            {true , "bot::gudleifr"}, /// Дурак
+            {false, "Slava-rusi11" }
         //  {false, "Вася Пупкин"  }
         };
+
+        std::string_view getNamePlayer(unsigned id) const
+        {   /// TODO: ASSERT(id < players.size())
+            return players[id].name;
+        }
 
         const char* statusNames[4]
         {   "Ребёнок ",
@@ -257,6 +293,26 @@ namespace model
         /// % выпадение Шанс на ячейке.  |
         ///------------------------------:
         unsigned percentDoChanse{100};
+
+        ///------------------------------|
+        /// Интеллект ботов.             |
+        ///------------------------------:
+        enum eSMARTNESS_BOT
+        {    ORDINARY,
+             SMART,
+             FOOL
+        };
+
+        std::array<BotProfileIQ, 3> botsIQ
+        {   BotProfileIQ{"02", "02"}, /// Срединий
+            BotProfileIQ{"01", "01"}, /// Умный
+            BotProfileIQ{"12", "12"}  /// Дурак
+        };
+
+        const BotProfileIQ* getBotIQ(unsigned id) const
+        {   /// TODO: ASSERT(id < botsIQ.size())
+            return &botsIQ[id];
+        }
 
         ///-----------------------------------------------.
 
