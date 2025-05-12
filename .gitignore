@@ -1,5 +1,16 @@
 # my
 --x/
+FileContentIndex/
+ipch/
+v17/
+!VS-2022/.vs/ModelM-25/v17/.suo
+*.db
+Debug/
+Release/
+!VS-2022\x64\Release
+*.pdb
+*.metagen
+
 
 # Prerequisites
 *.d
