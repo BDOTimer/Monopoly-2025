@@ -37,6 +37,11 @@
     <ClInclude Include="sources\scene-game.h" />
     <ClInclude Include="sources\scene-logo.h" />
     <ClInclude Include="sources\scene-tune.h" />
+    <ClInclude Include="sources\sceneGame\markup.h" />
+    <ClInclude Include="sources\sceneGame\win-down.h" />
+    <ClInclude Include="sources\sceneGame\win-game.h" />
+    <ClInclude Include="sources\sceneGame\win-player.h" />
+    <ClInclude Include="sources\sceneGame\win-up.h" />
     <ClInclude Include="sources\shader-dice.h" />
     <ClInclude Include="sources\ui-imgui.h" />
   </ItemGroup>

@@ -14,6 +14,7 @@
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\!m-model.h" />
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\config-model.h" />
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\myl.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\debug.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\CB\m-model[ver-0.2]\sources\field.inc" />

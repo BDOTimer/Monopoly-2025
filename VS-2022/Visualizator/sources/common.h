@@ -3,6 +3,7 @@
 ///----------------------------------------------------------------------------|
 /// "common.h"
 ///----------------------------------------------------------------------------:
+#include <SFML/System/Angle.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
@@ -20,7 +21,7 @@
 ///----------------------------------------------------------------------------:
 namespace vsl
 {
-	
+
 	struct	Music : sf::Music
 	{		Music(std::string_view name)
 			{	if (!openFromFile( name.data()))
@@ -82,12 +83,12 @@ namespace vsl
 {
 	using ScenesAll = std::array<vsl::IObject*, 3>;
 
-	struct	ScenesSwitcher 
+	struct	ScenesSwitcher
 	{		ScenesSwitcher()
-			{	
+			{
 			}
 
-		enum eSCENE 
+		enum eSCENE
 		{	E_LOGO,
 			E_TUNE,
 			E_GAME
@@ -121,6 +122,8 @@ namespace vsl
             {   init();
             }
 
+        sf::RenderWindow* pwin{nullptr};
+
         sf::Vector2u szuWin  ;
         sf::Vector2f szfWin  ;
 
@@ -131,7 +134,7 @@ namespace vsl
 
 		Music musicLogo{"res/snd/Maddix - Receive Life.mp3"};
 		Music musicGame{"res/snd/Maddix - Acid Soul.mp3"   };
-		
+
         static sf::Font& getFont()
         {///static sf::Font font("consola.ttf");
 			static sf::Font font("res/JetBrainsMono-Regular.ttf");
@@ -187,8 +190,8 @@ private:
     {
         {"res/logo.jpg" , {   0,   0 }, { 1   , 1    }},
         {"res/house.png", {-200, -200}, { 0.4f, 0.4f }},
-        {"res/house.png", {-100, -100}, { 0.4f, 0.4f }},
-        {"res/house.png", {-100, -250}, { 0.4f, 0.4f }}
+        {"res/money.png", {-100, -100}, { 0.4f, 0.4f }},
+        {"res/money.png", {-100, -250}, { 0.4f, 0.4f }}
     };
 
     ///-----------------------------------|
@@ -353,6 +356,54 @@ struct Foo
         else std::cout << "ERROR: \"" << fname << "\" failed ...\n";
     }
 };
+
+///----------------------------------------------------------------------------|
+/// Тестовый одиночный объект.
+///--------------------------------------------------------------------- Object:
+struct  ObjectTest : vsl::IObject
+{       ObjectTest(const Data& dat, float  a)
+            :   sp    (HolderTexture::get(dat.filename))
+            ,   nameTx(                   dat.filename)
+            ,   a(a)
+        {
+            sp.setPosition(dat.position);
+            sp.setScale   (dat.scale   );
+        }
+
+    PLUG_IOBJECT
+
+    ///-----------------------------------|
+    /// Имя загруженной текстуры.         |
+    ///-----------------------------------:
+    sf::Sprite           sp;
+    std::string_view nameTx;
+    float                 a;
+
+    ///-----------------------------------|
+    /// Дебаг.                            |
+    ///-----------------------------------:
+    void debug() const
+    {
+        l(nameTx)
+        l(sp.getTexture().getSize().x)
+        l(sp.getTexture().getSize().y)
+    }
+
+    ///------------------------------------|
+    /// На рендер.                         |
+    ///------------------------------------:
+    virtual void draw(sf::RenderTarget& target,
+                      sf::RenderStates  states) const
+    {   auto p = const_cast<ObjectTest*>(this);
+        target.draw(sp, states);
+
+        p->sp.rotate(sf::degrees(a));
+    }
+}
+objectTest1(Data4Sprites::get()[1],  0.5f),
+objectTest2(Data4Sprites::get()[2], -0.4f),
+objectTest3(Data4Sprites::get()[2],  0.6f),
+objectTest4(Data4Sprites::get()[3], -0.3f);
 
 namespace vsl
 {

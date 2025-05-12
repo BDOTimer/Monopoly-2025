@@ -28,11 +28,12 @@ namespace vsl
         sf::Shader         shader ;
         sf::RectangleShape scrRect;
 
-        float        currentAngle = 0.0f;
-        float        rotSpeed     = 1.0f;
-        const float  minSpeed     = 0.1f;
+        float        currentAngle {0.0f};
+        float        rotSpeed     {1.0f};
+        const float  minSpeed     {0.1f};
         sf::Vector2i lastMousePos;
-        bool         mousePressed = false;
+        bool         mousePressed{false};
+        bool         isRot       {false};
 
         sf::Color colBorder{128, 0,   0, 254};
         sf::Color colFon   {  0, 0, 128, 254};
@@ -190,7 +191,7 @@ namespace vsl
 
             target.draw(scrRect, states.shader = &shader);
 
-            p->currentAngle += rotSpeed * 0.1f;
+            if(p->isRot) p->currentAngle += rotSpeed * 0.1f;
         }
 
         static void test()

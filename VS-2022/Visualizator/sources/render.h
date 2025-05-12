@@ -20,6 +20,8 @@ struct  Render
             ,	ui    (window)
             ,	camFon(window.getDefaultView())
         {
+            cfg.pwin = &window;
+
             sf::Image      icon("icon.png");
             window.setIcon(icon);
             window.setFramerateLimit(60);

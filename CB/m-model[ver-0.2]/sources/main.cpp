@@ -99,7 +99,6 @@ void tests()
     /// TESTCLASS(model::Field::test );
     /// TESTCLASS(model::PersonBot::test);
 
-    ///
     TESTCLASS(TestGame::test);
 }
 

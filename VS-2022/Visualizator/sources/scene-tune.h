@@ -30,7 +30,6 @@ namespace vsl
 			if (event->is<sf::Event::KeyPressed>())
             {   if (ISKEYPRESSED(Enter))
                 {   cfg.scenesSwitcher.next();
-					cfg.musicGame.play();
                 }
             }
 		}

@@ -25,6 +25,19 @@
 
 #include <SFML/Graphics.hpp>
 
+
+namespace win
+{
+#ifndef     __MINGW32__
+    #include <windows.h>
+    #pragma execution_character_set( "utf-8" )
+	const char* const COMPILATOR_NAME{ "VS 2022" };
+#else
+	const char* const COMPILATOR_NAME{"GCC MINGW"};
+#endif  //  __MINGW32__
+}
+
+
 namespace fs = std::filesystem;
 void tests();
 
@@ -42,14 +55,14 @@ using Strv = std::string_view;
 ///----------------------------------------------------------------------------|
 /// Начинка для ASSERT.
 ///------------------------------------------------------------------------ Ass:
-constexpr char ERROR  []{ "ASSERT_ERROR--->FILE: \"{}\", LINE: {} - {}\n" };
+constexpr char ERR1   []{ "ASSERT_ERROR--->FILE: \"{}\", LINE: {} - {}\n" };
 constexpr char WARNING[]{ "WARNING--->FILE: \"{}\", LINE: {} - {}\n" };
 
 struct  Ass
 {
     static void error(bool pred, Strv filename, int line, Strv str = "...")
     {   if(!pred)
-        {   std::cout << std::format(ERROR, cutStr(filename), line, str);
+        {   std::cout << std::format(ERR1, cutStr(filename), line, str);
             throw(-1);
         }
     }

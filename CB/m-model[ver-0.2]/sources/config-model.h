@@ -20,6 +20,7 @@ const char* const LOGO = "Model::Monopoly-2025[ver::0.2.1]";
 #include <tuple>
 #include <map>
 
+#include "debug.h"
 
 namespace win
 {
@@ -30,8 +31,12 @@ namespace win
 }
 
 
-#define  l(v)          std::cout << #v << " = " << (v) << std::endl;
-#define ln(v)          std::cout << #v << ":\n" << (v) << std::endl;
+#ifndef l
+	#define  l(v)     std::cout << #v << " = " << (v) << std::endl;
+	#define ln(v)     std::cout << #v << ":\n" << (v) << std::endl;
+#endif
+
+
 #define TESTCLASS(F)   std::cout << "RUN: "#F; std::cout << '\n';\
                   F(); std::cout << '\n';
 
@@ -273,7 +278,7 @@ namespace model
         {   {true , "bot::aliskda" }, /// Срединий
             {true , "bot::Noname"  }, /// Умный
             {true , "bot::gudleifr"}, /// Дурак
-            {false, "Slava-rusi11" }
+        //  {false, "Slava-rusi11" }
         //  {false, "Вася Пупкин"  }
         };
 
@@ -346,9 +351,10 @@ namespace model
                     {   cnt += c == 'O' ? 1 : 0;
                     }
                 }
-                if (cnt != amountCells) return false;
+                ASSERTM(cnt == amountCells, "Число ячеек != геометрии!")
             }
 
+			ASSERTM(3 == players.size(), "Поддерживается только 3 игрока!")
 
             /// TODO ...
 

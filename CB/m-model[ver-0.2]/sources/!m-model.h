@@ -172,6 +172,7 @@ namespace model
     ///------------------------------------------------------------------------|
     /// Описание(класс) ячейки на карте.
     ///------------------------------------------------------------------ Cell2:
+    struct  IPerson;
     struct  Cell
     {
         unsigned                     id;
@@ -187,10 +188,20 @@ namespace model
         int                difference{};
         float                 persent{};
 
-        ///-------------------------|
-        /// Кол-во вещей.           |
-        ///-------------------------:
-        unsigned     amountThings{1};
+        ///----------------------------|
+        /// кол-во вещей.              |
+        ///----------------------------:
+        unsigned        amountThings{1};
+
+        ///----------------------------|
+        /// Чья ячейка?                |
+        ///----------------------------:
+        IPerson*          pers{nullptr};
+
+        ///----------------------------|
+        /// Ячейка занята?             |
+        ///----------------------------:
+        bool isBusy() const { return nullptr != pers; }
 
         unsigned getBestBuy() const
         {   return std::max(bankBuy[0], std::max(bankBuy[1], bankBuy[2]));
@@ -452,6 +463,19 @@ namespace model
             return ss.str();
         }
 
+        ///------------------------------|
+        /// Расчет аренды.               |
+        ///------------------------------:
+        int calcRent(const IPerson* guest)
+        {   
+            /// TODO: ...
+
+            return 0;
+        }
+
+        ///------------------------------|
+        /// Инфа об имени игроке.        |
+        ///------------------------------:
         [[nodiscard]]
         const std::string infoName() const
         {   std::stringstream ss;
@@ -459,6 +483,9 @@ namespace model
             return            ss.str();
         }
 
+        ///------------------------------|
+        /// Инфа об игроке.              |
+        ///------------------------------:
         [[nodiscard]]
         const std::string info() const
         {
@@ -467,6 +494,15 @@ namespace model
             const auto& cell = (*(cfg.pfield))[position];
             unsigned  chance = cell.chance;
         /// Card*     card   = cell.card  ;
+
+        ///------------------------------|
+        /// Чья ячейка?                  |
+        ///------------------------------:
+        cell.pers == nullptr
+            ?   ss  << "Эта ячейка свободна для продажи!\n" 
+            :   ss  << "Эта ячейка принадлежит игроку "
+                    << cell.pers->name << '\n';
+        
 
         /// auto n = 15 - nn + name.size();
             ss  << "   Кошелёк = " << std::setw(4) << money      << "\n"
@@ -573,13 +609,31 @@ namespace model
 
             unsigned r = rand() % 3;
 
-            bool canBuy  = botIQ->canBuyBot (cell.status);
-            bool canSell = botIQ->canSellBot(cell.status);
-
             ss << "Принято решение " << decodeDone[r] << '\n';
 
-            if(0 == r && !canBuy ) {r = 2; ss << "botIQ::передумал покупать\n";}
-            if(1 == r && !canSell) {r = 2; ss << "botIQ::передумал продавать\n";}
+            if(cell.isBusy())
+            {   ss  << "... нет товара ...\n"
+                    << "Стоимость[TODO] аренды ячейки: " 
+                    << cell.pers->calcRent(this) << '\n';
+
+                if( r == 0)
+                {   r =  2;
+                }
+            }
+
+            {   ///----------------------------------------|
+                /// IQ.                                    |
+                ///----------------------------------------:
+                bool canBuy  = botIQ->canBuyBot (cell.status);
+                bool canSell = botIQ->canSellBot(cell.status);
+
+                if(0 == r && !canBuy )
+                {   r = 2; ss << "botIQ::передумал покупать\n";
+                }
+                if(1 == r && !canSell)
+                {   r = 2; ss << "botIQ::передумал продавать\n";
+                }   
+            }
 
             Bank& bank = cfg.pfield->bank;
 
@@ -614,6 +668,8 @@ namespace model
                         ss << IPerson::infoCargo();
 
                         isActBuy = true;
+
+                        cell.pers = this;
                     }
                     else if( isEmpty) ss << "... нет товара ...\n";
                     else if(!isMoney) ss << "... мало денег ...\n";
@@ -660,6 +716,8 @@ namespace model
                             << "\" был продан по цене: " << price << "\n";
 
                         ss << IPerson::infoCargo();
+
+                        cell.pers = nullptr;
                     }
 
                     break;

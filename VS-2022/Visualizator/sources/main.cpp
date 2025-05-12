@@ -1,20 +1,9 @@
-﻿const char* const LOGO_VISUALIZATOR{"VISUALIZATOR::ver::0.0.1"};
+﻿const char* const LOGO_VISUALIZATOR{"VISUALIZATOR::ver::0.0.1+"};
 ///----------------------------------------------------------------------------|
 /// C++20
 /// ...
 ///-------------------------------------------------------------- sfml-Monopoly:
 #include "render.h"
-
-namespace win
-{
-#ifndef     __MINGW32__
-    #include <windows.h>
-    #pragma execution_character_set( "utf-8" )
-	const char* const COMPILATOR_NAME{ "VS 2022" };
-#else
-	const char* const COMPILATOR_NAME{"GCC MINGW"};
-#endif  //  __MINGW32__
-}
 
 
 void tests()
