@@ -296,11 +296,11 @@ namespace model
     std::ostream& operator<<(std::ostream& o, const CellInfoTester& e)
     {   return o
             << "ЯЧЕЙКА: ---------------------------------: " << e.id << '\n'
-            << "   Позиция      :  " << std::setw(4)  << e.id        << '\n'
-            << "   Товар        :  " << e.name                       << '\n'
-            << "   Шанс         :  " << std::setw(4)  << e.chance    << '\n'
-            << "   Статус       :  " << std::setw(4)  << e.status    << '\n'
-            << "   Цена базовая :  " << std::setw(4)  << e.priseBase << '\n'
+            << "   Позиция      :  " << e.id          << '\n'
+            << "   Товар        :  " << e.name        << '\n'
+            << "   Шанс         :  " << e.chance      << '\n'
+            << "   Статус       :  " << e.status      << '\n'
+            << "   Цена базовая :  " << e.priseBase   << '\n'
             << "   Банк покупает: [" << e.bankBuy [0] << ", "
                                      << e.bankBuy [1] << ", "
                                      << e.bankBuy [2] << "]\n"
@@ -489,7 +489,7 @@ namespace model
             for(const auto&[sts, id] : cargo)
             {   ss  << "    " << std::setw(4) << id
                     << ",   " << sts << " : "   << field[id].name << '\n';
-            }   ss  << "... ";
+            }   ss  << "    ... ";
 
             if(cargo.empty())
             {   ss << "пусто ..." ;
@@ -667,16 +667,16 @@ namespace model
 
             bool goodSky = cell.status - 1 == IPerson::status;
             if(  goodSky)
-            {   ss << "\"ЗВЁЗДЫ СВЕТЯТ МНЕ КРАСИВО!\"\n";
+            {   ss << "  \"ЗВЁЗДЫ СВЕТЯТ МНЕ КРАСИВО!\"\n";
             }
 
             unsigned r = rand() % 3;
 
-            ss << "Принято решение " << decodeDone[r] << '\n';
+            ss << "   Принято решение " << decodeDone[r] << '\n';
 
             if(cell.isBusy())
-            {   ss  << "... нет товара ...\n"
-                    << "Стоимость[TODO] аренды ячейки: " 
+            {   ss  << "   ... нет товара ...\n"
+                    << "   Стоимость[TODO] аренды ячейки: " 
                     << cell.pers->calcRent(this) << '\n';
 
                 if( r == 0)
@@ -691,10 +691,10 @@ namespace model
                 bool canSell = botIQ->canSellBot(cell.status);
 
                 if(0 == r && !canBuy )
-                {   r = 2; ss << "botIQ::передумал покупать\n";
+                {   r = 2; ss << "   botIQ::передумал покупать\n";
                 }
                 if(1 == r && !canSell)
-                {   r = 2; ss << "botIQ::передумал продавать\n";
+                {   r = 2; ss << "   botIQ::передумал продавать\n";
                 }   
             }
 
@@ -734,8 +734,8 @@ namespace model
 
                         cell.pers = this;
                     }
-                    else if( isEmpty) ss << "... нет товара ...\n";
-                    else if(!isMoney) ss << "... мало денег ...\n";
+                    else if( isEmpty) ss << "   ... нет товара ...\n";
+                    else if(!isMoney) ss << "   ... мало денег ...\n";
 
                     break;
                 }

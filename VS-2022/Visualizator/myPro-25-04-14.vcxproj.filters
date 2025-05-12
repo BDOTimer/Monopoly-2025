@@ -78,9 +78,6 @@
     <ClInclude Include="..\..\extLibs\imgui-sfml-3.0\imgui-SFML_export.h">
       <Filter>extLibs\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\extLibs\imgui-1.91.8\misc\cpp\imgui_stdlib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="sources\sceneGame\markup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -95,6 +92,9 @@
     </ClInclude>
     <ClInclude Include="sources\sceneGame\win-up.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\extLibs\imgui-1.91.8\misc\cpp\imgui_stdlib.h">
+      <Filter>extLibs\imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

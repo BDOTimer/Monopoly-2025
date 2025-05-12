@@ -23,8 +23,9 @@
 #include <map>
 #include <set>
 
-#include <SFML/Graphics.hpp>
-
+#if __has_include(<SFML/Graphics.hpp>)
+  #include <SFML/Graphics.hpp>
+#endif
 
 namespace win
 {
@@ -36,6 +37,8 @@ namespace win
 	const char* const COMPILATOR_NAME{"GCC MINGW"};
 #endif  //  __MINGW32__
 }
+
+#define SIGNAL(a) std::cout << "\n...---SIGNAL---" << a << "...\n" << std::endl;
 
 
 namespace fs = std::filesystem;
