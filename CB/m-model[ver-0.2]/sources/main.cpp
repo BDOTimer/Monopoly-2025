@@ -98,7 +98,9 @@ void tests()
     /// TESTCLASS(model::Config::test);
     /// TESTCLASS(model::Field::test );
     /// TESTCLASS(model::PersonBot::test);
+    /// TESTCLASS(model::CellInfoTester::test);
 
+    /// 
     TESTCLASS(TestGame::test);
 }
 

@@ -245,10 +245,12 @@ namespace model
         /// Тест класса.                 |
         ///------------------------------:
         TEST
-        {   Cell cell{  0, "Дети", "Завод воздушных шариков.",
-              0,   1, 120,
-            100, 140, 120,
-            140, 100, 120};
+        {   Cell cell
+            {     0, "Дети", "Завод воздушных шариков.",
+                  0,      1, 120,
+                100,    140, 120,
+                140,    100, 120
+            };
 
             ln(cell)
             l( cell.getBestBuy ())
@@ -273,6 +275,41 @@ namespace model
                     << std::setw(4) << e.bankSell[2]
                     << "  "         << e.name;
     }
+
+
+    struct CellInfoTester : Cell
+    {
+        friend std::ostream& operator<<(std::ostream&, const CellInfoTester&);
+
+        TEST
+        {   
+            Cell cell
+            {     0, "Дети", "Завод воздушных шариков.",
+                  0,      1, 120,
+                100,    140, 120,
+                140,    100, 120
+            };
+            std::cout << (CellInfoTester)cell << '\n';
+        }
+    };
+
+    std::ostream& operator<<(std::ostream& o, const CellInfoTester& e)
+    {   return o
+            << "ЯЧЕЙКА: ---------------------------------: " << e.id << '\n'
+            << "   Позиция      :  " << std::setw(4)  << e.id        << '\n'
+            << "   Товар        :  " << e.name                       << '\n'
+            << "   Шанс         :  " << std::setw(4)  << e.chance    << '\n'
+            << "   Статус       :  " << std::setw(4)  << e.status    << '\n'
+            << "   Цена базовая :  " << std::setw(4)  << e.priseBase << '\n'
+            << "   Банк покупает: [" << e.bankBuy [0] << ", "
+                                     << e.bankBuy [1] << ", "
+                                     << e.bankBuy [2] << "]\n"
+            << "   Банк продает : [" << e.bankSell[0] << ", "
+                                     << e.bankSell[1] << ", "
+                                     << e.bankSell[2] << "]\n"
+        ;
+    }
+
 
 
     ///------------------------------------------------------------------------|
@@ -538,7 +575,33 @@ namespace model
 
             money = cfg.startMoney;
         }
+
+        friend std::ostream& operator<<(std::ostream&, const IPerson*);
     };
+
+
+    ///----------------------------------|
+    /// Вывод IPerson в поток.           |
+    ///----------------------------------:
+    std::ostream& operator<<(std::ostream& o, const IPerson* p)
+    {   const Config& cfg{p->cfg};
+        const auto&   cell = (*(cfg.pfield))[p->position];
+
+        o   << "Игрок: ----------------------------------: "  << p->id << '\n'
+            << "   Статус: " << std::setw(4) << p->status + 1 << " ---> "    
+                             << cfg.decodeStatus(p->status)   << "\n"
+            << "   Круг  : " << std::setw(4) << p->circle     << "\n";
+            
+            ///------------------------------|
+            /// Чья ячейка?                  |
+            ///------------------------------:
+            cell.pers == nullptr
+                ?   o << "   Эта ячейка свободна для продажи!\n" 
+                :   o << "   Эта ячейка принадлежит игроку "
+                      << cell.pers->name << '\n';
+        ;
+        return o;
+    }
 
 
     ///------------------------------------------------------------------------|
@@ -920,8 +983,13 @@ namespace model
                 }
 
                 pers.doAct();
-                std::cout << pers.info ();
-                std::cout << pers.input();
+            /// std::cout << pers.info ();
+
+                std::cout << (CellInfoTester)field[pos] << '\n';
+                std::cout << &pers                      << '\n';
+
+                std::cout << "ОПЕРАЦИИ: -------------------------------: \n";
+                std::cout <<  pers.input();
 
                 std::cout << std::endl;
             }
