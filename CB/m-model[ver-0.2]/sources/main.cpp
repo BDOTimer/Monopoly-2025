@@ -1,9 +1,25 @@
 ﻿///----------------------------------------------------------------------------|
 /// Модель игры Монополия-2025.
 ///----------------------------------------------------------------------------:
- #include "!m-model.h"
+ #include "program.h"
+ #include "model/!m-model.h"
 
- unsigned isDump2File = 0;
+
+#if       __has_include(<SFML/Graphics.hpp>)
+    #define THIS_SFML_PROJECT
+#else
+    struct  _$StartProgram
+    {       _$StartProgram()
+            {   std::system( "chcp 65001>nul" );
+                if(bool test = false; test)
+                {   std::string  s;
+                    std::getline(std::cin, s);
+                    std::cout << s << '\n';
+                }
+            }
+    }_$sp;
+#endif // __has_include
+
 
 ///----------------------------------------------------------------------------|
 /// Тестовая игровая площадка.
@@ -33,7 +49,7 @@ struct  TestGame                     : model::Referee
 
         unsigned cnt{ 0 };
 
-        unsigned isDump2File = cfg.isDump2File + 1;
+        unsigned isDump2File = model::Config::isDump2File()+ 1;
 
         for (bool isDone = true; isDone;)
         {
@@ -42,7 +58,7 @@ struct  TestGame                     : model::Referee
 
             showMessage(ss);
 
-            if(0 == cfg.isDump2File)
+            if(0 == model::Config::isDump2File())
             {   std::string e; std::getline(std::cin, e);
                 if(e.back() == '0') break;
             }
@@ -73,10 +89,11 @@ struct  TestGame                     : model::Referee
     /// Тест класса.                 |
     ///------------------------------:
     TEST
-    {   model::Config Cfg;
-          Cfg.isDump2File = isDump2File;
+    {
+        model::Config Cfg;
 
-        l(Cfg.isDump2File)
+        ln(model::Config::getLogo())
+         l(model::Config::isDump2File())
 
         printf(Cfg.infoValidation().c_str());
 
@@ -100,24 +117,24 @@ void tests()
     /// TESTCLASS(model::PersonBot::test);
     /// TESTCLASS(model::CellInfoTester::test);
 
-    /// 
+    ///
     TESTCLASS(TestGame::test);
+
+    /// TESTCLASS(Program::test);
 }
 
 
+#ifndef THIS_SFML_PROJECT
 ///----------------------------------------------------------------------------|
 /// Старт программы.
 ///----------------------------------------------------------------------- main:
 int main(int argc, char* argv[])
 {
-    std::system( "chcp 65001>nul" );
-/// SetConsoleOutputCP(65001);
-
     std::ofstream log;
 
     if(argc > 1)
     {   try
-        {   isDump2File = std::stoul(argv[1]);
+        {   model::Config::isDump2File() = std::stoul(argv[1]);
 
             log.open("logf.txt");
 
@@ -131,12 +148,10 @@ int main(int argc, char* argv[])
         }
     }
 
-    std::cout   << "Старт " << LOGO  << "\n"
-                << myl::getTimeNow() << "\n";
-
     tests();
 
     std::cout << "Программа закончила работу.\n" << std::endl;
-    if(0 == isDump2File) std::cin.get();
+    if(0 == model::Config::isDump2File()) std::cin.get();
     return 0;
 }
+#endif

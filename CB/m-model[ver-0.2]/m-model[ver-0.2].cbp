@@ -27,12 +27,17 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="../../task-dev.txt" />
-		<Unit filename="sources/!m-model.h" />
-		<Unit filename="sources/cards.inc" />
-		<Unit filename="sources/config-model.h" />
-		<Unit filename="sources/field.inc" />
+		<Unit filename="sources/controller/controller.h" />
+		<Unit filename="sources/debug.h" />
 		<Unit filename="sources/main.cpp" />
-		<Unit filename="sources/myl.h" />
+		<Unit filename="sources/model/!m-model.h" />
+		<Unit filename="sources/model/cards.inc" />
+		<Unit filename="sources/model/config-model.h" />
+		<Unit filename="sources/model/field.inc" />
+		<Unit filename="sources/model/myl.h" />
+		<Unit filename="sources/program.h" />
+		<Unit filename="sources/user-model.h" />
+		<Unit filename="sources/vsl/vsl.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

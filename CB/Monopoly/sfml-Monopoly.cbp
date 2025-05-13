@@ -5,7 +5,7 @@
 		<Option title="sfml-Monopoly" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc-14-ucrt-64" />
-		<Option virtualFolders="libs/" />
+		<Option virtualFolders="libs/;model/" />
 		<Build>
 			<Target title="Release">
 				<Option output="bin/sfml-Monopoly" prefix_auto="1" extension_auto="1" />

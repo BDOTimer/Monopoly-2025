@@ -1,1 +1,70 @@
 # depslib dependency file v1.0
+1747140737 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\main.cpp
+	"program.h"
+	"model/!m-model.h"
+
+1747140323 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\program.h
+	"debug.h"
+	"vsl/vsl.h"
+	"model/config-model.h"
+
+1747120692 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\debug.h
+	<functional>
+	<filesystem>
+	<algorithm>
+	<iostream>
+	<iterator>
+	<fstream>
+	<sstream>
+	<iomanip>
+	<memory>
+	<format>
+	<vector>
+	<string>
+	<cmath>
+	<list>
+	<map>
+	<set>
+	<SFML/Graphics.hpp>
+	<windows.h>
+
+1747137745 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\vsl\vsl.h
+	<iostream>
+	"../debug.h"
+
+1747120270 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\!m-model.h
+	"myl.h"
+	<locale>
+	<codecvt>
+	"cards.inc"
+	"field.inc"
+
+1747139823 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\myl.h
+	"config-model.h"
+	<algorithm>
+	<sstream>
+	<string>
+	<vector>
+	<chrono>
+	<ctime>
+
+1747140929 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\config-model.h
+	<functional>
+	<algorithm>
+	<iostream>
+	<iomanip>
+	<fstream>
+	<sstream>
+	<string>
+	<vector>
+	<format>
+	<array>
+	<tuple>
+	<map>
+	"../debug.h"
+	<windows.h>
+
+1746461345 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\cards.inc
+
+1746768143 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\field.inc
+
