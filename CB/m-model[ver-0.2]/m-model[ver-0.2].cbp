@@ -34,6 +34,7 @@
 		<Unit filename="sources/model/cards.inc" />
 		<Unit filename="sources/model/config-model.h" />
 		<Unit filename="sources/model/field.inc" />
+		<Unit filename="sources/model/model.cpp" />
 		<Unit filename="sources/model/myl.h" />
 		<Unit filename="sources/program.h" />
 		<Unit filename="sources/user-model.h" />

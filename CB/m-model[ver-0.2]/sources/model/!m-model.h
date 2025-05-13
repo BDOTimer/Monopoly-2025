@@ -86,7 +86,7 @@ namespace model
     ///----------------------------------|
     /// Вывод Card в консоль.            |
     ///----------------------------------:
-    std::ostream& operator<<(std::ostream& o, const Card& card)
+    inline std::ostream& operator<<(std::ostream& o, const Card& card)
     {   return o    << std::setw(3) << card.type     << ", "
                     << std::setw(4) << card.money[0] << ", "
                     << std::setw(4) << card.money[1] << ", "
@@ -142,7 +142,7 @@ namespace model
     ///----------------------------------|
     /// Вывод Cards в консоль.           |
     ///----------------------------------:
-    std::ostream& operator<<(std::ostream& o, const Cards& cards)
+    inline std::ostream& operator<<(std::ostream& o, const Cards& cards)
     {   for(const auto& card : cards)
         {          o << card << '\n';
         }   return o;
@@ -263,7 +263,7 @@ namespace model
     ///----------------------------------|
     /// Вывод Cell в консоль.            |
     ///----------------------------------:
-    std::ostream& operator<<(std::ostream& o, const Cell& e)
+    inline std::ostream& operator<<(std::ostream& o, const Cell& e)
     {   return o    << std::setw(4) << e.id
                     << std::setw(4) << e.chance
                     << std::setw(4) << e.status
@@ -294,7 +294,7 @@ namespace model
         }
     };
 
-    std::ostream& operator<<(std::ostream& o, const CellInfoTester& e)
+    inline std::ostream& operator<<(std::ostream& o, const CellInfoTester& e)
     {   return o
             << "ЯЧЕЙКА: ---------------------------------: " << e.id << '\n'
             << "   Позиция      :  " << e.id          << '\n'
@@ -310,7 +310,6 @@ namespace model
                                      << e.bankSell[2] << "]\n"
         ;
     }
-
 
 
     ///------------------------------------------------------------------------|
@@ -363,7 +362,7 @@ namespace model
     ///----------------------------------|
     /// Вывод Cell в консоль.            |
     ///----------------------------------:
-    std::ostream& operator<<(std::ostream& o, const Field& field)
+    inline std::ostream& operator<<(std::ostream& o, const Field& field)
     {   for(const auto& cell : field)
         {          o << cell << '\n';
         }   return o;
@@ -373,7 +372,7 @@ namespace model
     ///----------------------------------|
     /// Вывод Cell в консоль.            |
     ///----------------------------------:
-    std::function<bool(const unsigned, const unsigned)> //, decltype(comparator)
+    inline std::function<bool(const unsigned, const unsigned)>
     comparator{[](const unsigned lhs,
                   const unsigned rhs)
     {   return lhs < rhs;
@@ -584,7 +583,7 @@ namespace model
     ///----------------------------------|
     /// Вывод IPerson в поток.           |
     ///----------------------------------:
-    std::ostream& operator<<(std::ostream& o, const IPerson* p)
+    inline std::ostream& operator<<(std::ostream& o, const IPerson* p)
     {   const Config& cfg{p->cfg};
         const auto&   cell = (*(cfg.pfield))[p->position];
 
@@ -608,7 +607,7 @@ namespace model
     ///------------------------------------------------------------------------|
     /// ВСЕ ПРАВИЛА для карточек ШАНС.
     ///------------------------------------------------------------ Card::doAct:
-    std::string Card::doAct(IPerson* pers)
+    inline std::string Card::doAct(IPerson* pers)
     {
         if(0 == count)
         {   return "";
@@ -871,9 +870,9 @@ namespace model
     /// Арбитер.
     ///---------------------------------------------------------------- Referee:
     struct  Referee
-    {       Referee  (const Config& Cfg) :
-                field(Cfg),
-                whoFirstPlayer(Cfg.amountPlayers)
+    {       Referee  (const Config& Cfg)
+                :   field          (Cfg)
+                ,   whoFirstPlayer (Cfg.amountPlayers)
             {
                 unsigned seed = Cfg.isSeed ? Cfg.isSeed : unsigned(time(NULL));
 
@@ -896,8 +895,6 @@ namespace model
                     idBot++;
                 }
 
-                ln(field)
-
                 cfg = const_cast<model::Config*>(&Cfg);
 
                 cfg->pfield = &field;
@@ -906,19 +903,26 @@ namespace model
             //  cfg->managerEvents.make( );
 
                 order = myl::WhoFirstPlayer::getFastOrder(Cfg.amountPlayers);
-
-                std::cout << "Жеребьевка: ";
-                for(const auto n : order) std::cout << (n+1) << " ";
-
-                std::cout << '\n';
-
-                for(unsigned i = 0; i < perses.size(); ++i)
-                {   std::cout << perses[order[i]]->name << '\n';
-                }
             }
            ~Referee()
             {   for(auto p : perses) delete p;
             }
+
+        std::string infoField() const
+        {   std::stringstream  ss;
+                               ss << "Field:\n"   << field << "\n"
+                                  << "Жеребьевка: ";
+
+            for(const auto n : order)
+            {   ss << (n+1) << " ";
+            }   ss << '\n';
+
+            for(unsigned i = 0; i < perses.size(); ++i)
+            {   ss << perses[order[i]]->name << '\n';
+            }
+
+            return ss.str();
+        }
 
     protected:
         [[nodiscard]]

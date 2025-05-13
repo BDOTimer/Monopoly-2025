@@ -1,11 +1,10 @@
 ﻿#ifndef CONTROLLER_H
 #define CONTROLLER_H
 ///----------------------------------------------------------------------------|
-/// "x.h"
+/// "controller.h"
 ///----------------------------------------------------------------------------:
 #include "../debug.h"
 #include "../user-model.h"
-#include "model/user-model.h"
 
 struct  Player
 {       Player(unsigned id) : id(id)

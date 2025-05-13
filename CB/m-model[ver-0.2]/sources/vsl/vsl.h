@@ -21,8 +21,18 @@ namespace visual
             return *this;
         }
 
-        Console& operator <<(std::string_view s)
+        Console& operator<<(std::string_view s)
         {   std::cout << s;
+            return *this;
+        }
+
+        Console& operator<<(char c)
+        {   std::cout << c;
+            return *this;
+        }
+
+        Console& operator<<(unsigned n)
+        {   std::cout << n;
             return *this;
         }
 

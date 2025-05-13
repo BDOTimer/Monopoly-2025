@@ -6,24 +6,21 @@
 #include <string>
 #include <vector>
 
+#include "model/config-model.h"
+
 namespace model
 {
-
     ///---------------------------|
     /// vsl.                      |
     ///---------------------------:
-    std::string  getLogo  () const;
+    const Config getConfig();
 
-    const Config getConfig() const;
-
-    std::string  getCircle() const;
-
-    std::string  getStep(unsigned idPlayer) const;
+    std::string  getLogo(unsigned id);
 
     ///---------------------------|
     /// controller.               |
     ///---------------------------:
-    void doStep(std::string_view command, const std::vector<int>& args);
+    std::string doStep(std::string_view command, const std::vector<int>& args);
 
 }
 

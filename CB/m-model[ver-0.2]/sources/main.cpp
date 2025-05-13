@@ -28,6 +28,7 @@ struct  TestGame                     : model::Referee
 {       TestGame(model::Config& Cfg) : model::Referee(Cfg)
                                      , cfg(Cfg)
         {
+            std::cout << model::Referee::infoField() << '\n';
         }
 
     model::Config& cfg;
