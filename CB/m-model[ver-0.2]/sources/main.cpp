@@ -118,7 +118,8 @@ void tests()
     /// TESTCLASS(model::PersonBot::test);
     /// TESTCLASS(model::CellInfoTester::test);
 
-    /// TESTCLASS(TestGame::test);
+    /// 
+    TESTCLASS(TestGame::test);
 
     /// TESTCLASS(Program::test);
 }
