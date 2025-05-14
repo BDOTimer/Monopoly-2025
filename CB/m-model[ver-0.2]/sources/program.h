@@ -4,8 +4,8 @@
 /// "program.h"
 ///----------------------------------------------------------------------------:
 #include "debug.h"
-#include "vsl/vsl.h"
 #include "user-model.h"
+#include "vsl/vsl.h"
 #include "controller/controller.h"
 
 struct  Program

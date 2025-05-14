@@ -4,6 +4,11 @@
 ///-----------------------------------------------------------------------------
 /// ...
 ///----------------------------------------------------------------------------:
+///--------------------------------------------------|
+/// Прописано в IDE:                                 |
+/// #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS  |
+/// #define _CRT_SECURE_NO_WARNINGS                  |
+///--------------------------------------------------|
 #include <functional>
 #include <filesystem> /// C++17
 #include <algorithm>
@@ -16,10 +21,15 @@
 #include <format>  /// C++20
 #include <vector>
 #include <string>
+#include <chrono>
 #include <cmath>
+#include <array>
+#include <tuple>
+#include <ctime>
 #include <list>
 #include <map>
 #include <set>
+
 
 #if __has_include(<SFML/Graphics.hpp>)
   #include <SFML/Graphics.hpp>
@@ -54,14 +64,14 @@ using Strv = std::string_view;
 ///----------------------------------------------------------------------------|
 /// Начинка для ASSERT.
 ///------------------------------------------------------------------------ Ass:
-constexpr char ERROR  []{ "ASSERT_ERROR--->FILE: \"{}\", LINE: {} - {}\n" };
+constexpr char ERR1  []{ "ASSERT_ERROR--->FILE: \"{}\", LINE: {} - {}\n" };
 constexpr char WARNING[]{ "WARNING--->FILE: \"{}\", LINE: {} - {}\n" };
 
 struct  Ass
 {
     static void error(bool pred, Strv filename, int line, Strv str = "...")
     {   if(!pred)
-        {   std::cout << std::format(ERROR, cutStr(filename), line, str);
+        {   std::cout << std::format(ERR1, cutStr(filename), line, str);
             throw(-1);
         }
     }

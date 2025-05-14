@@ -37,7 +37,7 @@ namespace model
         unsigned/*id*/ create()
         {   auto p = new Config();
             emplace_back(p, new ModelGate(p));
-            return size () - 1;
+            return (unsigned)size() - 1;
         }
 
     }holderGates;

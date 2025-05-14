@@ -5,30 +5,7 @@ const char* const LOGO = "Model::Monopoly-2025[ver::0.2.1]";
 /// "config-model.h"
 /// Дефолтный дизайн для детей! (детский вариант)
 ///----------------------------------------------------------------------------:
-#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
-#define _CRT_SECURE_NO_WARNINGS
-#include <functional>
-#include <algorithm>
-#include <iostream>
-#include <iomanip>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <vector>
-#include <format>
-#include <array>
-#include <tuple>
-#include <map>
-
 #include "../debug.h"
-
-namespace win
-{
-#ifndef     __MINGW32__
-    #include <windows.h>
-    #pragma execution_character_set( "utf-8" )
-#endif  //  __MINGW32__
-}
 
 
 #ifndef l

@@ -19,17 +19,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\!m-model.h" />
-    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\config-model.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\controller\controller.h" />
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\debug.h" />
-    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\myl.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\!m-model.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\config-model.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\myl.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\program.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\user-model.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\vsl\vsl.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\CB\m-model[ver-0.2]\sources\cards.inc" />
-    <None Include="..\..\CB\m-model[ver-0.2]\sources\field.inc" />
+    <None Include="..\..\CB\m-model[ver-0.2]\sources\model\cards.inc" />
+    <None Include="..\..\CB\m-model[ver-0.2]\sources\model\field.inc" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\main.cpp" />
+    <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\model\model.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -121,7 +126,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NOMINMAX;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;NOMINMAX;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -136,7 +141,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NOMINMAX;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;NOMINMAX;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
