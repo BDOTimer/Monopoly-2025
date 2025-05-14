@@ -27,7 +27,7 @@ namespace vsl
 
                 vsl::Config::setOrigin(fon);
 
-                tmess1.setString(L"Игра...\nВыход: ESCAPE");
+                tmess1.setString(L"ИГРА.\nВыход: ESCAPE");
 
                 dice.init();
             }

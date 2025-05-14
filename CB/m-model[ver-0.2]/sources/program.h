@@ -8,8 +8,12 @@
 #include "vsl/vsl.h"
 #include "controller/controller.h"
 
-struct  Program
-{       Program  ()
+
+///----------------------------------------------------------------------------|
+/// Клиентская игра.
+///------------------------------------------------------------------ TestGame2:
+struct  TestGame2
+{       TestGame2  ()
         {   start();
         }
 
@@ -40,20 +44,44 @@ struct  Program
 
         showMessage(ss);
 
+        unsigned cnt{0};
+
+        unsigned isDump2File = model::Config::isDump2File()+ 1;
+
         while(done)
         {
             for(auto& pl : players)
             {
+                
+                vc  << "ПАУЗА::Нажмите ENTER, чтобы сделать "
+                    << ++cnt << " шаг ... или '0' для завершения ...\n"
+                    << "------------------------------------"
+                       "----------------------------------..."
+                    << visual::endl{};
+
+                if(0 == model::Config::isDump2File())
+                {   std::string e; std::getline(std::cin, e);
+                    if(e.back() == '0')
+                    {   goto m;
+                    }
+                }
+                else
+                {   if(0  == --isDump2File)
+                    {   goto m;
+                    }
+                }
+
                 unsigned& idPlayer = pl.id;
+                vc  << model::doStep( "bot", { (int)idGame,
+                                               (int)idPlayer } );
 
-                vc << model::doStep( "id", { (int)idGame,
-                                             (int)idPlayer } );
-
-                ss  << "ПАУЗА::Нажмите ENTER, чтобы сделать шаг ...";
-
-                std::cin.get();
+                if(!model::Config::getDefault().isScrollConsole)
+                {   std::system("cls");
+                    vc  << "Процесс " << LOGO << "\n\n";
+                }
             }
         }
+    m:  ;
     }
 
 private:
@@ -64,10 +92,10 @@ private:
     }
 
     TEST
-    {   Program program;
+    {   TestGame2 program;
 
         program.vc << "Привет, я Program::"
-                   << program.name << "!" << visual::endl{};
+                   << program.name << "!\n" << visual::endl{};
 
         program.loop();
     }

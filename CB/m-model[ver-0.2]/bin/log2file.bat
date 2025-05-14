@@ -1,1 +1,1 @@
-m-model[ver-02] 100
+m-model[ver-02] 300

@@ -10,6 +10,9 @@
 #include "scene-tune.h"
 #include "scene-game.h"
 
+#include "user-model.h"
+#include "model/config-model.h"
+#include "controller/controller.h"
 
 struct  Render
 {       Render(vsl::Config& cfg)
@@ -32,6 +35,8 @@ struct  Render
             cfg.camFon = &camFon;
             cfg.camGui = &camGui;
 			cfg.scenesSwitcher.init(&scenes);
+
+            startModel();
         }
 
 	vsl::Config&        cfg;
@@ -68,15 +73,42 @@ private:
     ///---------------------:
     sf::Clock          clock;
 
+    ////////////////////////////////////////////////////////////////////////////
+    unsigned    idGame;
+    model::Config cfgM;
+
+    std::array<controller::Player, 3> players
+    {          controller::Player (0),
+               controller::Player (1),
+               controller::Player (2)
+    };
+
+    bool done{true};
+
+    void startModel()
+    {   cfgM   = model::getConfig();
+        idGame = cfgM.idGame;
+        ui << model::getLogo(idGame) << "\n";
+    }
+    ////////////////////////////////////////////////////////////////////////////
+
     void loop(vsl::ScenesAll& scenes)
     {
-        ui << "Привет, Монополия-2025!\n";
+    /// ui << "Привет, Монополия-2025!\n";
 
     /// using Key  = sf::Keyboard::Key ;
     /// using Scan = sf::Keyboard::Scan;
 
 		auto& nScene   = cfg.scenesSwitcher.nScene;
 		auto& nowScene = cfg.scenesSwitcher.nowScene;
+
+        unsigned IDPLAYER{0};
+        unsigned cnt     {0};
+        info_01      (++cnt);
+
+        ui << "///-----------------------------------|\n"
+              "///         ИГРА НАЧАЛАСЬ!            |\n"
+              "///-----------------------------------:\n" << '\n';
 
         while (window.isOpen())
         {   while (const std::optional event = window.pollEvent())
@@ -85,11 +117,20 @@ private:
                 if (event->is<sf::Event::Closed>()) window.close();
 
                 if (event->is<sf::Event::KeyPressed>())
-                {   if (ISKEYPRESSED(Enter))
+                {   if (ISKEYPRESSED(Num1))
                     {   /// vsl::cfg.scenesSwitcher.next();
                     }
-                }
 
+                    if (ISKEYPRESSED(Enter))
+                    {   
+                        unsigned& idPlayer = players[IDPLAYER].id;
+                        ui  << model::doStep( "bot", { (int)idGame,
+                                                       (int)idPlayer } );
+                        if(++IDPLAYER == players.size()) IDPLAYER = 0;
+
+                        info_01(++cnt);
+                    }
+                }
 				nowScene->input(event);
             }
 
@@ -119,6 +160,13 @@ private:
             window.display       (      );
         }
         #undef ISKEYPRESED
+    }
+
+    void info_01(unsigned cnt)
+    {   ui  << "ПАУЗА::Нажмите ENTER, чтобы сделать "
+            << cnt << " шаг ...\n"
+            <<  "------------------------------------"
+                "----------------------------------...\n";
     }
 
     ///--------------------------------------|

@@ -47,7 +47,13 @@ namespace vsl
                 {   m.emplace_back(Player(Data4Sprites::get()[i]));
                 }
 
-                tmess1.setString(mess1);
+                std::wstringstream ss;
+
+                ss  << "Compilator: " << win::COMPILATOR_NAME << '\n'
+                    << L"Старт "      << LOGO_VISUALIZATOR    << "\n\n"
+                    << mess1;
+
+                tmess1.setString(ss.str());
             }
 
 		vsl::Config& cfg;
@@ -78,7 +84,7 @@ namespace vsl
         sf::RectangleShape fon;
         std::vector<Player>  m;
 
-        std::wstring mess1{L"ЛОГО\nЖмакай ПРОБЕЛ ..."};
+        std::wstring mess1{L"ЛОГО.\nНастройки: ПРОБЕЛ ..."};
         TextStyleA  tmess1;
 
         ///------------------------------------|

@@ -19,6 +19,12 @@
     <Filter Include="extLibs\imgui">
       <UniqueIdentifier>{1bcb376b-199f-4bbc-ac76-a5fb727e8db3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\model-2025">
+      <UniqueIdentifier>{8f5962fa-19fd-4a4f-9b10-c920c69725a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\model-2025\model">
+      <UniqueIdentifier>{be22bf7a-aa49-4078-bc90-11ab14e18740}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\common.h">
@@ -96,6 +102,27 @@
     <ClInclude Include="..\..\extLibs\imgui-1.91.8\misc\cpp\imgui_stdlib.h">
       <Filter>extLibs\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\debug.h">
+      <Filter>Source Files\model-2025</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\program.h">
+      <Filter>Source Files\model-2025</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\user-model.h">
+      <Filter>Source Files\model-2025</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\!m-model.h">
+      <Filter>Source Files\model-2025\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\config-model.h">
+      <Filter>Source Files\model-2025\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\myl.h">
+      <Filter>Source Files\model-2025\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\controller\controller.h">
+      <Filter>Source Files\model-2025</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -122,5 +149,16 @@
     <ClCompile Include="..\..\extLibs\imgui-1.91.8\misc\cpp\imgui_stdlib.cpp">
       <Filter>extLibs\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\model\model.cpp">
+      <Filter>Source Files\model-2025\model</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\CB\m-model[ver-0.2]\sources\model\cards.inc">
+      <Filter>Source Files\model-2025\model</Filter>
+    </None>
+    <None Include="..\..\CB\m-model[ver-0.2]\sources\model\field.inc">
+      <Filter>Source Files\model-2025\model</Filter>
+    </None>
   </ItemGroup>
 </Project>

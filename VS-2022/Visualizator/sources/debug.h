@@ -4,8 +4,11 @@
 ///-----------------------------------------------------------------------------
 /// ...
 ///----------------------------------------------------------------------------:
-#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
-#define _CRT_SECURE_NO_WARNINGS
+///--------------------------------------------------|
+/// Прописано в IDE:                                 |
+/// #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS  |
+/// #define _CRT_SECURE_NO_WARNINGS                  |
+///--------------------------------------------------|
 #include <functional>
 #include <filesystem> /// C++17
 #include <algorithm>
@@ -18,7 +21,11 @@
 #include <format>  /// C++20
 #include <vector>
 #include <string>
+#include <chrono>
 #include <cmath>
+#include <array>
+#include <tuple>
+#include <ctime>
 #include <list>
 #include <map>
 #include <set>

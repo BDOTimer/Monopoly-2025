@@ -21,6 +21,7 @@
 					<Add directory="../../extLibs/SFML-3.0.0[mingw64-ucrt]/include" />
 					<Add directory="../../extLibs/imgui-sfml-3.0" />
 					<Add directory="../../extLibs/imgui-1.91.8" />
+					<Add directory="model-2025" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -96,6 +97,16 @@
 		<Unit filename="icon.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
+		<Unit filename="model-2025/controller/controller.h" />
+		<Unit filename="model-2025/debug.h" />
+		<Unit filename="model-2025/model/!m-model.h" />
+		<Unit filename="model-2025/model/cards.inc" />
+		<Unit filename="model-2025/model/config-model.h" />
+		<Unit filename="model-2025/model/field.inc" />
+		<Unit filename="model-2025/model/model.cpp" />
+		<Unit filename="model-2025/model/myl.h" />
+		<Unit filename="model-2025/program.h" />
+		<Unit filename="model-2025/user-model.h" />
 		<Unit filename="sources/common.h" />
 		<Unit filename="sources/debug.h" />
 		<Unit filename="sources/main.cpp" />

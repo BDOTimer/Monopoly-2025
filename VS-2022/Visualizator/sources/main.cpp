@@ -1,4 +1,4 @@
-﻿const char* const LOGO_VISUALIZATOR{"VISUALIZATOR::ver::0.0.1+"};
+﻿const char* const LOGO_VISUALIZATOR{"VISUALIZATOR::ver::0.0.2"};
 ///----------------------------------------------------------------------------|
 /// C++20
 /// ...
@@ -24,9 +24,8 @@ int main(int argc, char* argv[])
     std::system("chcp 65001>nul");
 #endif // _WIN32
 
-	std::cout << "Compilator: " << win::COMPILATOR_NAME << '\n';
-
-    std::cout << "Старт " << LOGO_VISUALIZATOR << " ...\n\n";
+	std::cout << "Compilator: " << win::COMPILATOR_NAME << '\n'
+              << "Старт " << LOGO_VISUALIZATOR << " ...\n\n";
 
     try
     {   tests();

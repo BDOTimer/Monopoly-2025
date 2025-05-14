@@ -19,6 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\controller\controller.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\debug.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\!m-model.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\config-model.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\myl.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\program.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\user-model.h" />
     <ClInclude Include="..\..\extLibs\imgui-1.91.8\imconfig.h" />
     <ClInclude Include="..\..\extLibs\imgui-1.91.8\imgui.h" />
     <ClInclude Include="..\..\extLibs\imgui-1.91.8\imgui_internal.h" />
@@ -46,6 +53,7 @@
     <ClInclude Include="sources\ui-imgui.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\model\model.cpp" />
     <ClCompile Include="..\..\extLibs\imgui-1.91.8\imgui.cpp" />
     <ClCompile Include="..\..\extLibs\imgui-1.91.8\imgui_demo.cpp" />
     <ClCompile Include="..\..\extLibs\imgui-1.91.8\imgui_draw.cpp" />
@@ -54,6 +62,10 @@
     <ClCompile Include="..\..\extLibs\imgui-1.91.8\misc\cpp\imgui_stdlib.cpp" />
     <ClCompile Include="..\..\extLibs\imgui-sfml-3.0\imgui-SFML.cpp" />
     <ClCompile Include="sources\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\CB\m-model[ver-0.2]\sources\model\cards.inc" />
+    <None Include="..\..\CB\m-model[ver-0.2]\sources\model\field.inc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -109,11 +121,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)..\extLibs\imgui-sfml-3.0;$(SolutionDir)..\extLibs\imgui-1.91.8;$(SolutionDir)\SFML-3.0.0\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\model-2025;$(SolutionDir)..\extLibs\imgui-sfml-3.0;$(SolutionDir)..\extLibs\imgui-1.91.8;$(SolutionDir)\SFML-3.0.0\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\SFML-3.0.0\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)..\extLibs\imgui-sfml-3.0;$(SolutionDir)..\extLibs\imgui-1.91.8;$(SolutionDir)\SFML-3.0.0\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\model-2025;$(SolutionDir)..\extLibs\imgui-sfml-3.0;$(SolutionDir)..\extLibs\imgui-1.91.8;$(SolutionDir)\SFML-3.0.0\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\SFML-3.0.0\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -148,7 +160,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SFML_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;SFML_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -164,7 +176,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SFML_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;SFML_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>

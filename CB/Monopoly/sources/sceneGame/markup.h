@@ -28,7 +28,7 @@ namespace vsl
         }
 
         inline static const
-        sf::FloatRect winBase  {{0.3f, 0.1f},{0.7f, 0.8}};
+        sf::FloatRect winBase  {{0.3f, 0.1f},{0.7f, 0.8f}};
         sf::FloatRect winUp       ;
         sf::FloatRect winDown     ;
         sf::FloatRect winPlayer[3];

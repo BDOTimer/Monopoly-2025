@@ -80,13 +80,26 @@ namespace uii
             showMain();
         }
 
+        inline static bool autoScroll{false};
+
+        UITest& operator<<(const char c)
+        {   log += std::string(1, c);
+            return *this;
+        }
+
         UITest& operator<<(const int n)
         {   log += std::to_string   (n);
             return *this;
         }
 
+        UITest& operator<<(const unsigned n)
+        {   log += std::to_string        (n);
+            return *this;
+        }
+
         UITest& operator<<(std::string_view s)
         {   log += s;
+            autoScroll = true;
             return *this;
         }
 
@@ -104,7 +117,7 @@ namespace uii
         std::string  str {"...пусто..."};
         std::string  log ;
         std::string  help{"KEYBOARD:\n"
-                          "  W.S,1,2,3,0,C,F,N\n "};
+                          "  ...\n "};
 
         float f{};
 
@@ -142,9 +155,8 @@ namespace uii
         ///--------------------------------------:
         void showMain()
         {
-
         /// ImGui::SetNextWindowSize({500,500});
-            ImGui::Begin ("Hello, Informer!", nullptr, 0
+            ImGui::Begin ("По идее тут должен быть конфиг!", nullptr, 0
                       ///   ImGuiWindowFlags_NoCollapse
                           | ImGuiWindowFlags_HorizontalScrollbar
                           | ImGuiWindowFlags_AlwaysVerticalScrollbar
@@ -152,7 +164,7 @@ namespace uii
                       /// | ImGuiWindowFlags_NoBackground
                       /// | ImGuiWindowFlags_NoResize
                       /// | ImGuiWindowFlags_AlwaysAutoResize
-                         );
+            );
 
             isAnyFocused = ImGui::IsAnyItemActive();
             ///          = ImGui::IsWindowFocused();
@@ -204,8 +216,15 @@ namespace uii
 
             ImGui::DragFloat("float##3a", &f);
 
-            if (ImGui::CollapsingHeader("Log..."))
+            if (ImGui::CollapsingHeader("Лог игры... (СДЕЛАТЬ ХОД: ENTER)",
+                                        ImGuiTreeNodeFlags_DefaultOpen))
             {   ImGui::Text("%s", log .c_str());
+            /// ImGui::SetScrollHereY(1.0f);
+
+                if (autoScroll)
+                {   ImGui::SetScrollHereY(1.0f);
+                    autoScroll = false;
+                }
             }
 
             //ImGui::PushItemWidth(10);

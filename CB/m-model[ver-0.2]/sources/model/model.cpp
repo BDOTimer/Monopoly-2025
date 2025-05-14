@@ -19,6 +19,9 @@ namespace model
 
         Config* cfg;
 
+        std::string doStep(unsigned idPlayer)
+        {   return model::Referee::doStep(idPlayer);
+        }
     };
 
     struct CG { Config* cfg; ModelGate* mdl; };
@@ -38,6 +41,10 @@ namespace model
         {   auto p = new Config();
             emplace_back(p, new ModelGate(p));
             return (unsigned)size() - 1;
+        }
+
+        std::string doStep( unsigned idGame, unsigned idPlayer )
+        {   return holderGates[idGame].mdl->doStep(idPlayer);
         }
 
     }holderGates;
@@ -60,9 +67,12 @@ namespace model
     ///---------------------------|
     /// controller.               |
     ///---------------------------:
-    std::string  doStep(std::string_view command, const std::vector<int>& args)
-    {
-        return "";
+    std::string doStep(std::string_view command, const std::vector<int>& args)
+    {   
+        if(command == "bot")
+        {   return holderGates.doStep(args[0], args[1]);
+        }
+        return "error...\n";
     }
 }
 

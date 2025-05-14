@@ -393,7 +393,7 @@ namespace model
 
         [[nodiscard]]
         virtual const std::string input() = 0;
-        virtual void              doAct() = 0;
+        virtual const std::string doAct() = 0;
 
         const Config& cfg;
 
@@ -795,13 +795,16 @@ namespace model
             return ss.str();
         }
 
-        void doAct() override
+        const std::string doAct() override
         {
-            if(pcard == nullptr) return;
-            if(pcard -> empty()) { pcard = nullptr; return; }
+            if(pcard == nullptr) return "";
+            if(pcard -> empty()) { pcard = nullptr; return ""; }
 
-            std::cout << "Событие для " << name << ":\n";
-            std::cout << pcard->doAct(this).c_str();
+            std::stringstream ss;
+            ss << "Событие для " << name << ":\n";
+            ss << pcard->doAct(this);
+
+            return ss.str();
         }
 
     private:
@@ -842,12 +845,14 @@ namespace model
             return ss.str();
         }
 
-        void doAct() override
-        {   if(nullptr == pcard) return;
-            std::cout << "Событие для " << name << ":\n";
-            std::cout << pcard->doAct(this);
-        }
+        const std::string doAct() override
+        {   if(nullptr == pcard) return "";
 
+            std::stringstream ss;
+            ss << "Событие для " << name << ":\n";
+            ss << pcard->doAct(this);
+            return ss.str();
+        }
 
     private:
         ///------------------------------|
@@ -922,6 +927,8 @@ namespace model
             {   ss << perses[order[i]]->name << '\n';
             }
 
+            ss << '\n' << info();
+
             return ss.str();
         }
 
@@ -940,7 +947,7 @@ namespace model
 
         model::Field  field;
 
-        model::Config* cfg;
+        model::Config*  cfg;
 
         std::vector<model::Card >  cards;
         std::vector<model::Card*> pcards;
@@ -951,55 +958,76 @@ namespace model
         IPerson* persNow{nullptr};
 
         ///------------------------------|
+        /// Проверка конца игры.         |
+        ///------------------------------:
+        bool isGameOver() const
+        {   
+            /// TODO ...
+
+            return false;
+        }
+
+        ///------------------------------|
         /// Все игроки делают по 1 ходу. |
         ///------------------------------:
-        bool  step()
+        [[nodiscard]]
+        std::string  doStep()
+        {   std::stringstream ss;
+            for(unsigned i  = 0;      i < perses.size(); ++i)
+            {            ss << doStep(i);
+            }   return   ss.str();
+        }
+
+        ///------------------------------|
+        /// Все игроки делают по 1 ходу. |
+        ///------------------------------:
+        [[nodiscard]]
+        std::string doStep(unsigned i)
         {
-            for(unsigned i = 0; i < perses.size(); ++i)
+            std::stringstream ss;
+
+            ss << field.bank.info();
+
+            persNow = perses[order[i]];
+
+            auto& pers = *persNow;
+            ss <<  pers.infoName();
+
+            const unsigned cubicDice = rand() % 6 + 1;
+
+            ss <<   "           |----\n"
+                    "cubicDice:-| " << cubicDice << " |\n"
+                    "           ----|\n";
+
+            const auto& [pos, isStart]
+                = field.add(pers.position, cubicDice);
+
+            pers.position = pos;
+
+            ///------------------------------|
+            /// Ячейка с шансом?             |
+            ///------------------------------:
+            if(field[pos].chance > 0) genChanse();
+
+            if (isStart)
             {
-                std::cout << field.bank.info();
+                if (++pers.status == 3) pers.status = 0;
 
-                persNow = perses[order[i]];
+                pers.nextCircle();
+            }
 
-                auto& pers = *persNow;
-                std::cout <<  pers.infoName();
-
-                const unsigned cubicDice = rand() % 6 + 1;
-
-                std::cout <<
-                    "           ╔═══╗\n"
-                    "cubicDice:═╣ " << cubicDice << " ║\n"
-                    "           ╚═══╝\n";
-
-                const auto& [pos, isStart]
-                    = field.add(pers.position, cubicDice);
-
-                pers.position = pos;
-
-                ///------------------------------|
-                /// Ячейка с шансом?             |
-                ///------------------------------:
-                if(field[pos].chance > 0) genChanse();
-
-                if (isStart)
-                {
-                    if (++pers.status == 3) pers.status = 0;
-
-                    pers.nextCircle();
-                }
-
-                pers.doAct();
+            ss << pers.doAct();
             /// std::cout << pers.info ();
 
-                std::cout << (CellInfoTester)field[pos] << '\n';
-                std::cout << &pers                      << '\n';
+            ss << (CellInfoTester)field[pos] << '\n';
+            ss << &pers                      << '\n';
 
-                std::cout << "ОПЕРАЦИИ: -------------------------------: \n";
-                std::cout <<  pers.input();
+            ss << "ОПЕРАЦИИ: -------------------------------: \n";
+            ss <<  pers.input();
 
-                std::cout << std::endl;
-            }
-            return true;
+            ss << std::endl;
+
+            return ss.str();
         }
 
         ///------------------------------|
@@ -1015,6 +1043,7 @@ namespace model
 
         friend struct TestGame;
         friend struct ManagerEvents;
+        friend struct ModelGate;
     };
 
 }   /// namespace model

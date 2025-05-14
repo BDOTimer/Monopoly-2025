@@ -18,7 +18,14 @@ namespace vsl
                 fon.setTexture(&HolderTexture::get("res/tune.jpg"));
                 vsl::Config::setOrigin(fon);
 
-                tmess1.setString(L"Настройки...\nЖми ENTER");
+                tmess1.setString(L"ТЮНИНГ.\nДля игры: ЖМИ \"1\"");
+
+                const auto r = tmess1.getGlobalBounds();
+
+                tmess1.setPosition
+                ({  cfg.szfWin.x - r.size.x - 30, 
+                    r.position.y
+                });
             }
 
 		vsl::Config& cfg;
@@ -28,7 +35,7 @@ namespace vsl
 		void input(const std::optional<sf::Event>&  event) override
 		{
 			if (event->is<sf::Event::KeyPressed>())
-            {   if (ISKEYPRESSED(Enter))
+            {   if (ISKEYPRESSED(Num1))
                 {   cfg.scenesSwitcher.next();
                 }
             }
