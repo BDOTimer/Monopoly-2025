@@ -21,10 +21,10 @@ struct  TestGame2
     unsigned     idGame;
     model::Config   cfg;
 
-    std::array<Player, 3> players
-    {          Player (0),
-               Player (1),
-               Player (2)
+    std::array<controller::Player, 3> players
+    {          controller::Player (0),
+               controller::Player (1),
+               controller::Player (2)
     };
 
     bool done{true};
@@ -52,7 +52,8 @@ struct  TestGame2
         {
             for(auto& pl : players)
             {
-                
+                unsigned& idPlayer = pl.id;
+
                 vc  << "ПАУЗА::Нажмите ENTER, чтобы сделать "
                     << ++cnt << " шаг ... или '0' для завершения ...\n"
                     << "------------------------------------"
@@ -71,7 +72,6 @@ struct  TestGame2
                     }
                 }
 
-                unsigned& idPlayer = pl.id;
                 vc  << model::doStep( "bot", { (int)idGame,
                                                (int)idPlayer } );
 

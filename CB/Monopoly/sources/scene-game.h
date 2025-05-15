@@ -30,11 +30,18 @@ namespace vsl
                 tmess1.setString(L"ИГРА.\nВыход: ESCAPE");
 
                 dice.init();
+
+                cfg.info_01(++cnt);
             }
 
 		vsl::Config&  cfg;
 
         PLUG_IOBJECT2
+
+        unsigned IDPLAYER{0};
+        unsigned cnt     {0};
+
+    /// bool pressEnter{false};
 
 		void input(const std::optional<sf::Event>&  event) override
 		{
@@ -44,6 +51,21 @@ namespace vsl
 					cfg.scenesSwitcher.doSwitcher(E::E_TUNE);
 					cfg.musicGame.stop();
                 }
+            }
+
+
+            if (ISKEYPRESSED(Enter))
+            {
+                unsigned& idPlayer = cfg.players[IDPLAYER].id;
+
+                cfg.uiGameLog << model::doStep
+                (   "bot", { (int)cfg.idGame,
+                             (int)idPlayer }
+                );
+
+                if(++IDPLAYER == cfg.players.size()) IDPLAYER = 0;
+
+                cfg.info_01(++cnt);
             }
 
             if (auto p = event->getIf<sf::Event::MouseButtonPressed>())
@@ -107,6 +129,8 @@ namespace vsl
 
             target.setView(*cfg.camFon );
             target.draw   (dice, states);
+
+            cfg.uiGameLog.show();
         }
     };
 }

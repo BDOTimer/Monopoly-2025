@@ -23,7 +23,7 @@ namespace vsl
                 const auto r = tmess1.getGlobalBounds();
 
                 tmess1.setPosition
-                ({  cfg.szfWin.x - r.size.x - 30, 
+                ({  cfg.szfWin.x - r.size.x - 30,
                     r.position.y
                 });
             }
@@ -66,6 +66,8 @@ namespace vsl
 
             target.setView(*cfg.camGui);
             target.draw   (tmess1,   states);
+
+            cfg.uiTune.show();
         }
     };
 }

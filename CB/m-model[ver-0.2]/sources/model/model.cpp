@@ -44,7 +44,7 @@ namespace model
         }
 
         std::string doStep( unsigned idGame, unsigned idPlayer )
-        {   return holderGates[idGame].mdl->doStep(idPlayer);
+        {   return (*this)[idGame].mdl->doStep(idPlayer);
         }
 
     }holderGates;
@@ -68,7 +68,7 @@ namespace model
     /// controller.               |
     ///---------------------------:
     std::string doStep(std::string_view command, const std::vector<int>& args)
-    {   
+    {
         if(command == "bot")
         {   return holderGates.doStep(args[0], args[1]);
         }

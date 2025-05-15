@@ -116,50 +116,13 @@ namespace vsl
 			doSwitcher(E_LOGO);
 		}
 	};
-
-    struct  Config
-    {       Config  ()
-            {   init();
-            }
-
-        sf::RenderWindow* pwin{nullptr};
-
-        sf::Vector2u szuWin  ;
-        sf::Vector2f szfWin  ;
-
-        sf::View* camFon{nullptr};
-        sf::View* camGui{nullptr};
-
-		ScenesSwitcher scenesSwitcher;
-
-		Music musicLogo{"res/snd/Maddix - Receive Life.mp3"};
-		Music musicGame{"res/snd/Maddix - Acid Soul.mp3"   };
-
-        static sf::Font& getFont()
-        {///static sf::Font font("consola.ttf");
-			static sf::Font font("res/JetBrainsMono-Regular.ttf");
-            return font;
-        }
-
-        void init()
-        {   sf::VideoMode dm = sf::VideoMode::getDesktopMode();
-            szuWin = dm.size;
-
-            szuWin.x = unsigned(0.8f * szuWin.x);
-            szuWin.y = unsigned(0.8f * szuWin.y);
-
-            szfWin = {float(szuWin.x), float(szuWin.y)};
-
-            getFont().setSmooth(true);
-        }
-
-        template<typename T>
-        static void setOrigin(T& o)
-        {   o.setOrigin({ o.getSize().x / 2, o.getSize().y / 2 });
-        }
-
-    };
 }
+
+
+///----------------------------------------------------------------------------|
+/// "config-vsl.h"
+///------------------------------------------------------------- "config-vsl.h":
+#include "config-vsl.h"
 
 
 ///----------------------------------------------------------------------------|

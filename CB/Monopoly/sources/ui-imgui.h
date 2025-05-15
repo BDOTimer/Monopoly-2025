@@ -47,10 +47,12 @@ namespace uii
     ///--------------------------------------------------------------------- UI:
     struct  UITest
     {       UITest() = delete;
-            UITest(sf::RenderWindow& w) : window(w)
-            {   initImgui();
-                log.reserve(0xFFFFFF);
-
+            UITest(sf::RenderWindow& w, std::string_view name)
+                :   window( w)
+                ,   name(name)
+            {
+                initImgui();
+                log      .reserve(0xFFFFFF);
                 callbacks.reserve(10);
             }
 
@@ -111,8 +113,10 @@ namespace uii
         bool isAnyFocused{false};
 
     private:
-        sf::RenderWindow&    window       ;
-        std::list<TextField> textFields   ;
+        sf::RenderWindow& window;
+        std::string_view    name;
+
+        std::list<TextField>  textFields;
 
         std::string  str {"...пусто..."};
         std::string  log ;
@@ -156,7 +160,7 @@ namespace uii
         void showMain()
         {
         /// ImGui::SetNextWindowSize({500,500});
-            ImGui::Begin ("По идее тут должен быть конфиг!", nullptr, 0
+            ImGui::Begin (name.data(), nullptr, 0
                       ///   ImGuiWindowFlags_NoCollapse
                           | ImGuiWindowFlags_HorizontalScrollbar
                           | ImGuiWindowFlags_AlwaysVerticalScrollbar

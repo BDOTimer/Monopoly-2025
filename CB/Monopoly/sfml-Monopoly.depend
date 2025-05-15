@@ -789,13 +789,11 @@
 
 1745581720 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\icon.rc
 
-1746943127 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\main.cpp
+1747288497 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\main.cpp
 	"render.h"
-	<windows.h>
 
-1746943127 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\render.h
+1747308501 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\render.h
 	"model.h"
-	"ui-imgui.h"
 	"scene-logo.h"
 	"scene-tune.h"
 	"scene-game.h"
@@ -806,7 +804,7 @@
 1745581720 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\player.h
 	"common.h"
 
-1746943127 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\common.h
+1747303182 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\common.h
 	<SFML/System/Angle.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
@@ -816,6 +814,7 @@
 	<list>
 	<map>
 	"debug.h"
+	"config-vsl.h"
 
 1733935265 c:\workcb-2024\sfml-3.0\sfml-3.0.0\include\sfml\graphics.hpp
 	<SFML/Graphics/BlendMode.hpp>
@@ -1326,7 +1325,7 @@
 1734196663 c:\workcb-2024\sfml-3.0\sfml-3.0.0\include\sfml\system\sleep.hpp
 	<SFML/System/Export.hpp>
 
-1746597837 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\debug.h
+1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\debug.h
 	<functional>
 	<filesystem>
 	<algorithm>
@@ -1339,13 +1338,18 @@
 	<format>
 	<vector>
 	<string>
+	<chrono>
 	<cmath>
+	<array>
+	<tuple>
+	<ctime>
 	<list>
 	<map>
 	<set>
 	<SFML/Graphics.hpp>
+	<windows.h>
 
-1746943127 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\ui-imgui.h
+1747309021 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\ui-imgui.h
 	"imgui.h"
 	"imgui-SFML.h"
 	"misc/cpp/imgui_stdlib.h"
@@ -1381,13 +1385,13 @@
 1746943127 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\shader-dice.h
 	"common.h"
 
-1746943127 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\scene-logo.h
+1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\scene-logo.h
 	"common.h"
 
-1746943127 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\scene-tune.h
+1747308649 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\scene-tune.h
 	"common.h"
 
-1746943127 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\scene-game.h
+1747307550 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\scene-game.h
 	"common.h"
 	"shader-dice.h"
 	"sceneGame/win-game.h"
@@ -1703,7 +1707,7 @@
 	"../common.h"
 	"markup.h"
 
-1746943127 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\scenegame\markup.h
+1747288498 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\scenegame\markup.h
 	"../common.h"
 
 1746943127 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\scenegame\win-up.h
@@ -1771,6 +1775,69 @@
 1747213239 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\model-2025\model\field.inc
 
 1747233313 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\model-2025\controller\controller.h
+	"../debug.h"
+	"../user-model.h"
+
+1747288497 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\model.cpp
+	"../user-model.h"
+	"config-model.h"
+	"!m-model.h"
+
+1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\user-model.h
+	<string>
+	<vector>
+	"model/config-model.h"
+
+1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\config-model.h
+	"../debug.h"
+
+1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\debug.h
+	<functional>
+	<filesystem>
+	<algorithm>
+	<iostream>
+	<iterator>
+	<fstream>
+	<sstream>
+	<iomanip>
+	<memory>
+	<format>
+	<vector>
+	<string>
+	<chrono>
+	<cmath>
+	<array>
+	<tuple>
+	<ctime>
+	<list>
+	<map>
+	<set>
+	<SFML/Graphics.hpp>
+	<windows.h>
+
+1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\!m-model.h
+	"myl.h"
+	<locale>
+	<codecvt>
+	"cards.inc"
+	"field.inc"
+
+1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\myl.h
+	"../debug.h"
+	"config-model.h"
+
+1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\cards.inc
+
+1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\field.inc
+
+1747309073 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\config-vsl.h
+	"ui-imgui.h"
+	"user-model.h"
+	"model/config-model.h"
+	"controller/controller.h"
+	"debug.h"
+
+1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\controller\controller.h
 	"../debug.h"
 	"../user-model.h"
 

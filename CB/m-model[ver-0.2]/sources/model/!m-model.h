@@ -961,7 +961,7 @@ namespace model
         /// Проверка конца игры.         |
         ///------------------------------:
         bool isGameOver() const
-        {   
+        {
             /// TODO ...
 
             return false;
