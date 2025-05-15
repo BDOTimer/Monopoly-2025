@@ -502,13 +502,20 @@ namespace model
         }
 
         ///------------------------------|
-        /// Расчет аренды.               |
+        /// Транзакция оплаты ренты.     |
         ///------------------------------:
-        int calcRent(const IPerson* guest)
+        int calcRent(IPerson* guest)
         {
             /// TODO: ...
 
-            return 0;
+            Cell& cell = (*(cfg.pfield))[guest->position];
+
+            int prise = cell.bankSell[guest->status];
+
+            guest->capital -= prise;
+                   capital += prise;
+
+            return prise;
         }
 
         ///------------------------------|
@@ -671,13 +678,13 @@ namespace model
             {   ss << "  \"ЗВЁЗДЫ СВЕТЯТ МНЕ КРАСИВО!\"\n";
             }
 
-            unsigned r = rand() % 3;
+            unsigned r = rand() % 2;
 
             ss << "   Принято решение " << decodeDone[r] << '\n';
 
             if(cell.isBusy())
             {   ss  << "   ... нет товара ...\n"
-                    << "   Стоимость[TODO] аренды ячейки: "
+                    << "   Стоимость аренды ячейки: "
                     << cell.pers->calcRent(this) << '\n';
 
                 if( r == 0)

@@ -63,7 +63,7 @@ namespace vsl
             getFont().setSmooth(true);
         }
 
-        inline static constexpr float SCALE_WIN{0.8f};
+        inline static constexpr float SCALE_WIN{0.99f};
 
         static sf::Vector2u initWinSize()
         {   sf::VideoMode           dm = sf::VideoMode::getDesktopMode();
