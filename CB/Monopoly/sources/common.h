@@ -102,12 +102,14 @@ namespace vsl
 		ScenesAll*    scenes;
 
 		void doSwitcher(eSCENE id = E_TUNE)
-		{	nowScene = (*scenes)[id];
+		{	ASSERT(scenes != nullptr)
+		    nowScene = (*scenes)[id];
 			nScene   = id;
 		}
 
 		void next()
-		{	nScene =  (nScene + 1) % scenes->size();
+		{	ASSERT(scenes != nullptr)
+		    nScene =  (nScene + 1) % scenes->size();
 			nowScene = (*scenes)[nScene];
 		}
 
@@ -324,10 +326,10 @@ struct Foo
 /// Тестовый одиночный объект.
 ///--------------------------------------------------------------------- Object:
 struct  ObjectTest : vsl::IObject
-{       ObjectTest(const Data& dat, float  a)
+{       ObjectTest(const Data& dat, float speed)
             :   sp    (HolderTexture::get(dat.filename))
             ,   nameTx(                   dat.filename)
-            ,   a(a)
+            ,   speed (speed)
         {
             sp.setPosition(dat.position);
             sp.setScale   (dat.scale   );
@@ -335,11 +337,16 @@ struct  ObjectTest : vsl::IObject
 
     PLUG_IOBJECT
 
+    void update(float dt)
+    {   a = speed * dt;
+    }
+
     ///-----------------------------------|
     /// Имя загруженной текстуры.         |
     ///-----------------------------------:
     sf::Sprite           sp;
     std::string_view nameTx;
+    float             speed;
     float                 a;
 
     ///-----------------------------------|
@@ -363,10 +370,8 @@ struct  ObjectTest : vsl::IObject
         p->sp.rotate(sf::degrees(a));
     }
 }
-objectTest1(Data4Sprites::get()[1],  0.5f),
-objectTest2(Data4Sprites::get()[2], -0.4f),
-objectTest3(Data4Sprites::get()[2],  0.6f),
-objectTest4(Data4Sprites::get()[3], -0.3f);
+
+objectTest4({"res/money.png", {0, 0}, { 0.9f, 0.9f }}, -60.f);
 
 namespace vsl
 {

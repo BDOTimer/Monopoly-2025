@@ -36,7 +36,9 @@ namespace vsl
 		{
 			if (event->is<sf::Event::KeyPressed>())
             {   if (ISKEYPRESSED(Num1))
-                {   cfg.scenesSwitcher.next();
+                {   SIGNAL(1)
+                    cfg.scenesSwitcher.next();
+                    SIGNAL(2)
                 }
             }
 		}

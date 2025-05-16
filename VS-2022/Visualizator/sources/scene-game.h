@@ -21,7 +21,7 @@ namespace vsl
 				:	cfg    (cfg)
 				,	nameTx ("res/game.jpg")
                 ,	fon    (cfg.szfWin)
-                ,	dice   (cfg.szfWin)
+                ,	dice   (cfg)
             {
                 fon.setTexture(&HolderTexture::get(nameTx));
 
@@ -30,11 +30,35 @@ namespace vsl
                 tmess1.setString(L"ИГРА.\nВыход: ESCAPE");
 
                 dice.init();
+
+                cfg.info_01(++cnt);
+
+                cfg.uiGameLog.fooDice = [this]()
+                {   if(!this->isDiceHide)
+                        this->dice.isRot = !dice.isRot;
+                };
+
+                cfg.uiGameLog.fooMusic = [this]()
+                {   using E = sf::SoundSource::Status;
+					const bool
+                    b{    this->cfg.musicGame.getStatus() == E::Playing };
+                    b   ? this->cfg.musicGame.pause()
+                        : this->cfg.musicGame.play ();
+                };
+
+                cfg.uiGameLog.fooDiceHide = [this]()
+                {   this->isDiceHide = !this->isDiceHide;
+                };
             }
 
 		vsl::Config&  cfg;
 
         PLUG_IOBJECT2
+
+        unsigned IDPLAYER{0};
+        unsigned cnt     {0};
+
+    /// bool pressEnter{false};
 
 		void input(const std::optional<sf::Event>&  event) override
 		{
@@ -46,19 +70,33 @@ namespace vsl
                 }
             }
 
+
+            if (ISKEYPRESSED(Enter))
+            {
+                doStep();
+            }
+
             if (auto p = event->getIf<sf::Event::MouseButtonPressed>())
             {   if ( p->button  == sf::Mouse::Button::Left)
                 {
 
-					using E = sf::SoundSource::Status;
-					const bool b{cfg.musicGame.getStatus() == E::Playing};
-
-					b   ? cfg.musicGame.pause() : cfg.musicGame.play ();
-
-                    dice.isRot = !b;
                 }
 		    }
 		}
+
+        void doStep()
+        {
+            unsigned& idPlayer = cfg.players[IDPLAYER].id;
+
+            cfg.uiGameLog << model::doStep
+            (   "bot", { (int)cfg.idGame,
+                         (int)idPlayer }
+            );
+
+            if(++IDPLAYER == cfg.players.size()) IDPLAYER = 0;
+
+            cfg.info_01(++cnt);
+        }
 
         ///-----------------------------------|
         /// Имя загруженной текстуры.         |
@@ -77,6 +115,8 @@ namespace vsl
             {cfg, 1},
             {cfg, 2}
         };
+
+        bool isDiceHide{false};
 
         ///-----------------------------------|
         /// Дебаг.                            |
@@ -105,8 +145,12 @@ namespace vsl
             target.setView(*cfg.camGui   );
             target.draw   (tmess1, states);
 
-            target.setView(*cfg.camFon );
-            target.draw   (dice, states);
+            if(!isDiceHide)
+            {   target.setView(*cfg.camFon );
+                target.draw   (dice, states);
+            }
+
+            cfg.uiGameLog.show();
         }
     };
 }

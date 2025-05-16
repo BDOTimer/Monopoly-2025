@@ -9,17 +9,20 @@
 #include "scene-tune.h"
 #include "scene-game.h"
 
+#include "fps.h"
+
 struct  Render
 {       Render( vsl::Config& cfg)
 			:	cfg         (cfg)
 			,	window(     *cfg.pwin)
             ,	camFon(   window.getDefaultView() )
+            ,   fps   (      cfg)
         {
             cfg.pwin = &window;
 
-            sf::Image      icon("icon.png");
-            window.setIcon(icon);
-            window.setFramerateLimit(60);
+            sf::Image         icon("icon.png");
+            window.setIcon   (icon);
+            cfg.setFramerateLimit();
 
             camGui = window.getDefaultView();
             camFon.setCenter({0,0});
@@ -39,6 +42,11 @@ struct  Render
     ///---------------------:
     sf::View          camFon;
     sf::View          camGui;
+
+    ///---------------------|
+    /// Fps.                |
+    ///---------------------:
+    vsl::Fps             fps;
 
 	vsl::ScenesAll scenes
     {   &logo,
@@ -103,9 +111,13 @@ private:
 
                     nowScene->input(event);
                 }
+
+                if (/*auto p = */event->getIf<sf::Event::MouseButtonPressed>())
+                {   nowScene->input(event);
+                }
             }
 
-            const auto delta  = clock.restart();
+            const auto& delta  = fps.getDeltaTime();
 
             ///----------------------|
             /// ImGui::SFML.         |
@@ -114,20 +126,13 @@ private:
             /// ...
             /// ImGui::ShowDemoWindow();
 
-            /*
-            switch(nScene)
-            {   case 0:            break;
-                case 1: ui.show(); break;
-                case 2:            break;
-            }
-            */
-
             /// window.clear   ({0, 30, 60});
 
             window.setView       (camFon);
             window.draw       (*nowScene);
 
             window.setView       (camGui);
+            window.draw             (fps);
 
             ImGui::SFML::Render  (window);
             window.display       (      );

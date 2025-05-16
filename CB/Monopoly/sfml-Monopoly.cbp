@@ -111,6 +111,7 @@
 		<Unit filename="sources/common.h" />
 		<Unit filename="sources/config-vsl.h" />
 		<Unit filename="sources/debug.h" />
+		<Unit filename="sources/fps.h" />
 		<Unit filename="sources/main.cpp" />
 		<Unit filename="sources/model.h" />
 		<Unit filename="sources/player.h" />

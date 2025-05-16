@@ -45,6 +45,8 @@ namespace vsl
         virtual void draw(sf::RenderTarget& target,
                           sf::RenderStates  states) const
         {
+            objectTest4.update(cfg.dt());
+
             target.setView(cam);
             target.draw   (fon,         states);
             target.draw   (objectTest4, states);

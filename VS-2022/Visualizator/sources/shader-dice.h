@@ -11,13 +11,17 @@ namespace vsl
 {
 
     struct  ShaderDice : vsl::IObject
-    {       ShaderDice(const sf::Vector2f sz) : scrRect (sz)
+    {       ShaderDice  (vsl::Config& cfg)
+                :   cfg    (cfg)
+                ,   scrRect(cfg.szfWin)
             {
                 scrRect.setPosition ({0, 0});
                 scrRect.setFillColor(colFon);
 
                 vsl::Config::setOrigin(scrRect);
             }
+
+        vsl::Config& cfg;
 
         PLUG_IOBJECT
 
@@ -29,7 +33,8 @@ namespace vsl
         sf::RectangleShape scrRect;
 
         float        currentAngle {0.0f};
-        float        rotSpeed     {1.0f};
+        float        rotSpeed     {0.0f};
+        float        rotSpeedMax  {6.0f};
         const float  minSpeed     {0.1f};
         sf::Vector2i lastMousePos;
         bool         mousePressed{false};
@@ -37,6 +42,18 @@ namespace vsl
 
         sf::Color colBorder{128, 0,   0, 254};
         sf::Color colFon   {  0, 0, 128, 254};
+
+        void upRotSpeed()
+        {   if(!isRot) return;
+            rotSpeed += cfg.dt() * 4;
+            if(rotSpeed > rotSpeedMax) rotSpeed = rotSpeedMax;
+        }
+
+        void downRotSpeed()
+        {   if(isRot) return;
+            rotSpeed -= cfg.dt() * 4;
+            if(rotSpeed < 0.f) rotSpeed = 0.f;
+        }
 
         void init()
         {
@@ -148,7 +165,7 @@ namespace vsl
             const sf::Vector2f sz{float(window.getSize().x),
                                   float(window.getSize().y)};
 
-            ShaderDice  dice   (sz);
+            ShaderDice  dice   (vsl::Config::get());
                         dice.init();
 
             float TN{5.f};
@@ -176,6 +193,8 @@ namespace vsl
             return "SUCCESS";
         }
 
+
+
         ///------------------------------------|
         /// На рендер.                         |
         ///------------------------------------:
@@ -191,7 +210,10 @@ namespace vsl
 
             target.draw(scrRect, states.shader = &shader);
 
-            if(p->isRot) p->currentAngle += rotSpeed * 0.1f;
+            if(p->isRot) p->upRotSpeed();
+            else         p->downRotSpeed();
+
+            p->currentAngle += rotSpeed * cfg.dt();
         }
 
         static void test()

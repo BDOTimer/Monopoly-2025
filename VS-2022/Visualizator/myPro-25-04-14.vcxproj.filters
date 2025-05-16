@@ -5,10 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -19,43 +15,44 @@
     <Filter Include="extLibs\imgui">
       <UniqueIdentifier>{1bcb376b-199f-4bbc-ac76-a5fb727e8db3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\model-2025">
-      <UniqueIdentifier>{8f5962fa-19fd-4a4f-9b10-c920c69725a8}</UniqueIdentifier>
+    <Filter Include="Model-0.2">
+      <UniqueIdentifier>{a30d3e9c-59fe-4599-9e6b-e5b2776e7663}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\model-2025\model">
-      <UniqueIdentifier>{be22bf7a-aa49-4078-bc90-11ab14e18740}</UniqueIdentifier>
+    <Filter Include="Source Files\Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\common.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sources\debug.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sources\model.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sources\player.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sources\render.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sources\scene-game.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sources\scene-logo.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sources\scene-tune.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sources\shader-dice.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sources\ui-imgui.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\extLibs\imgui-1.91.8\imconfig.h">
       <Filter>extLibs\imgui</Filter>
@@ -85,43 +82,52 @@
       <Filter>extLibs\imgui</Filter>
     </ClInclude>
     <ClInclude Include="sources\sceneGame\markup.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sources\sceneGame\win-down.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sources\sceneGame\win-game.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sources\sceneGame\win-player.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sources\sceneGame\win-up.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\extLibs\imgui-1.91.8\misc\cpp\imgui_stdlib.h">
       <Filter>extLibs\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\debug.h">
-      <Filter>Source Files\model-2025</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\program.h">
-      <Filter>Source Files\model-2025</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\user-model.h">
-      <Filter>Source Files\model-2025</Filter>
+    <ClInclude Include="sources\config-vsl.h">
+      <Filter>Source Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\!m-model.h">
-      <Filter>Source Files\model-2025\model</Filter>
+      <Filter>Model-0.2</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\config-model.h">
-      <Filter>Source Files\model-2025\model</Filter>
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\vsl\vsl.h">
+      <Filter>Model-0.2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\user-model.h">
+      <Filter>Model-0.2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\program.h">
+      <Filter>Model-0.2</Filter>
     </ClInclude>
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\myl.h">
-      <Filter>Source Files\model-2025\model</Filter>
+      <Filter>Model-0.2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\debug.h">
+      <Filter>Model-0.2</Filter>
     </ClInclude>
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\controller\controller.h">
-      <Filter>Source Files\model-2025</Filter>
+      <Filter>Model-0.2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\config-model.h">
+      <Filter>Model-0.2</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\fps.h">
+      <Filter>Source Files\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -150,15 +156,15 @@
       <Filter>extLibs\imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\model\model.cpp">
-      <Filter>Source Files\model-2025\model</Filter>
+      <Filter>Model-0.2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\CB\m-model[ver-0.2]\sources\model\cards.inc">
-      <Filter>Source Files\model-2025\model</Filter>
+      <Filter>Model-0.2</Filter>
     </None>
     <None Include="..\..\CB\m-model[ver-0.2]\sources\model\field.inc">
-      <Filter>Source Files\model-2025\model</Filter>
+      <Filter>Model-0.2</Filter>
     </None>
   </ItemGroup>
 </Project>

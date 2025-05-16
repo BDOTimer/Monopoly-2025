@@ -4,7 +4,7 @@
 ///----------------------------------------------------------------------------|
 /// ...
 ///----------------------------------------------------------------------------:
-
+#include <SFML/Audio/Sound.hpp>
 #include "imgui.h"
 #include "imgui-SFML.h"
 #include "misc/cpp/imgui_stdlib.h"
@@ -26,7 +26,7 @@ namespace uii
         bool Log         = false;
     };
 
-    struct  TextField
+    struct TextField
     {   std::string_view name;
         std::string*        s;
 
@@ -152,6 +152,8 @@ namespace uii
             if (!isGood)
             {   ASSERTM(false, "ImGui::SFML::UpdateFontTexture()is failed ...")
             }
+
+            //auto& a = ImGui::GetStyle().WindowMovable;// = false;
         }
 
         ///--------------------------------------|
@@ -337,6 +339,131 @@ namespace uii
             #undef SHOWBUTTON
         }
     };
-};
+
+
+    ///------------------------------------------------------------------------|
+    /// UIBase.
+    ///----------------------------------------------------------------- UIBase:
+    static bool autoScroll{false};
+    struct  UIBase
+    {       UIBase()//(vsl::Config cfg) : cfg(cfg)
+            {
+            }
+
+        //vsl::Config& cfg;
+
+        std::stringstream log;
+
+        UIBase& operator<<(std::string_view s)
+        {   log << s;
+            autoScroll = true;
+            return *this;
+        }
+
+        UIBase& operator<<(const char c)
+        {   log << std::string(1, c);
+            return *this;
+        }
+
+        UIBase& operator<<(const int n)
+        {   log << std::to_string   (n);
+            return *this;
+        }
+
+        UIBase& operator<<(const unsigned n)
+        {   log << std::to_string        (n);
+            return *this;
+        }
+
+        UIBase& operator<<(const Clear)
+        {   log.str("");
+            return *this;
+        }
+
+        void show()
+        {
+        }
+
+    protected:
+        std::string_view name;
+    };
+
+    ///------------------------------------------------------------------------|
+    /// UIGame.
+    ///----------------------------------------------------------------- UIBase:
+    struct  UIGame  : UIBase
+    {       UIGame()//(vsl::Config cfg)
+                    //: UIBase  (cfg)
+                    :   sound(buffer)
+            {
+                name = "ИГРА ...";
+
+                bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
+                ASSERT(ok)
+            }
+
+        sf::SoundBuffer buffer;
+        sf::Sound       sound ;
+
+        Callback fooDice    {[this](){}};
+        Callback fooMusic   {[this](){}};
+        Callback fooDiceHide{[this](){}};
+
+        void show()
+        {
+            auto& color = ImGui::GetStyle().Colors[ImGuiCol_WindowBg];
+                  color = ImColor(35,35,35,190);
+
+            ImGui::Begin (name.data(), nullptr, 0
+                    /// | ImGuiWindowFlags_NoCollapse
+                        | ImGuiWindowFlags_NoMove
+                        | ImGuiWindowFlags_NoTitleBar
+                        | ImGuiWindowFlags_HorizontalScrollbar
+                        | ImGuiWindowFlags_AlwaysVerticalScrollbar
+                    /// | ImGuiWindowFlags_MenuBar
+                    /// | ImGuiWindowFlags_NoBackground
+                        | ImGuiWindowFlags_NoResize
+                    /// | ImGuiWindowFlags_AlwaysAutoResize
+            );
+
+            ///----------------------------------------------------------------|
+            {
+                if (ImGui::CollapsingHeader("Лог игры... (СДЕЛАТЬ ХОД: ENTER)",
+                                             ImGuiTreeNodeFlags_DefaultOpen))
+                {   ImGui::Text("%s", log.str().c_str());
+
+                    if (autoScroll)
+                    {   ImGui::SetScrollHereY(1.0f);
+                        autoScroll = false;
+                    }
+                }
+
+                if(ImGui::Button("КУБИК", {80, 80}))
+                {   fooDice   ();
+                    sound.play();
+                }
+
+                ImGui::SameLine ();
+
+                if(ImGui::Button("Спрятать", {80, 80}))
+                {   fooDiceHide();
+                    sound.play ();
+                }
+
+                ImGui::SameLine ();
+
+                if(ImGui::Button("Музыка", {80, 80}))
+                {   fooMusic  ();
+                    sound.play();
+                }
+            }
+
+            ImGui::End();
+        }
+
+    private:
+
+    };
+}
 
 #endif // UI_IMGUI_H

@@ -17,26 +17,27 @@ namespace vsl
     {       Config (sf::RenderWindow& window)
                 :   pwin            (&window)
                 ,   uiTune           (window, "Настройки ...")
-                ,   uiGameLog        (window, "Игра ...")
             {
                 init();
             }
 
-        sf::RenderWindow* pwin;
+        sf::RenderWindow*        pwin;
 
-        sf::Vector2u szuWin  ;
-        sf::Vector2f szfWin  ;
+        sf::Vector2u         szuWin  ;
+        sf::Vector2f         szfWin  ;
 
-        sf::View* camFon{nullptr};
-        sf::View* camGui{nullptr};
+        sf::View*     camFon{nullptr};
+        sf::View*     camGui{nullptr};
 
 		ScenesSwitcher scenesSwitcher;
+
+        sf::Time            deltaTime;
 
 		Music musicLogo{"res/snd/Maddix - Receive Life.mp3"};
 		Music musicGame{"res/snd/Maddix - Acid Soul.mp3"   };
 
 		uii::UITest uiTune   ;
-		uii::UITest uiGameLog;
+        uii::UIGame uiGameLog;
 
         std::array<controller::Player, 3> players
         {   controller::Player (0),
@@ -63,7 +64,7 @@ namespace vsl
             getFont().setSmooth(true);
         }
 
-        inline static constexpr float SCALE_WIN{0.99f};
+        inline static constexpr float SCALE_WIN{0.9f};
 
         static sf::Vector2u initWinSize()
         {   sf::VideoMode           dm = sf::VideoMode::getDesktopMode();
@@ -80,10 +81,23 @@ namespace vsl
 
         void info_01(unsigned cnt)
         {
-            uiGameLog << "ПАУЗА::Нажмите ENTER, чтобы сделать "
+            uiGameLog << "ПАУЗА::\nНажмите ENTER, чтобы сделать "
                       << cnt << " шаг ...\n"
-                      <<  "------------------------------------"
-                          "----------------------------------...\n";
+                      <<  "------------------------------"
+                          "-------------------------...\n";
+        }
+
+        void      setFramerateLimit(unsigned fps = 10000)
+        {   pwin->setFramerateLimit(fps);
+        }
+
+        const float dt() const { return deltaTime.asSeconds(); }
+
+        static vsl::Config&    get()
+        {   sf::RenderWindow window(sf::VideoMode({ 1344, 768 }),
+                                   "SFML::Test::2", sf::State::Windowed);
+            static vsl::Config cfg (window);
+            return             cfg;
         }
     };
 }

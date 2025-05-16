@@ -26,6 +26,7 @@
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\myl.h" />
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\program.h" />
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\user-model.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\vsl\vsl.h" />
     <ClInclude Include="..\..\extLibs\imgui-1.91.8\imconfig.h" />
     <ClInclude Include="..\..\extLibs\imgui-1.91.8\imgui.h" />
     <ClInclude Include="..\..\extLibs\imgui-1.91.8\imgui_internal.h" />
@@ -37,6 +38,7 @@
     <ClInclude Include="..\..\extLibs\imgui-sfml-3.0\imgui-SFML.h" />
     <ClInclude Include="..\..\extLibs\imgui-sfml-3.0\imgui-SFML_export.h" />
     <ClInclude Include="sources\common.h" />
+    <ClInclude Include="sources\config-vsl.h" />
     <ClInclude Include="sources\debug.h" />
     <ClInclude Include="sources\model.h" />
     <ClInclude Include="sources\player.h" />
@@ -51,6 +53,7 @@
     <ClInclude Include="sources\sceneGame\win-up.h" />
     <ClInclude Include="sources\shader-dice.h" />
     <ClInclude Include="sources\ui-imgui.h" />
+    <ClInclude Include="sources\fps.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\model\model.cpp" />
@@ -121,11 +124,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)\model-2025;$(SolutionDir)..\extLibs\imgui-sfml-3.0;$(SolutionDir)..\extLibs\imgui-1.91.8;$(SolutionDir)\SFML-3.0.0\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\CB\m-model[ver-0.2]\sources;$(SolutionDir)..\extLibs\imgui-sfml-3.0;$(SolutionDir)..\extLibs\imgui-1.91.8;$(SolutionDir)\SFML-3.0.0\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\SFML-3.0.0\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)\model-2025;$(SolutionDir)..\extLibs\imgui-sfml-3.0;$(SolutionDir)..\extLibs\imgui-1.91.8;$(SolutionDir)\SFML-3.0.0\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\CB\m-model[ver-0.2]\sources;$(SolutionDir)..\extLibs\imgui-sfml-3.0;$(SolutionDir)..\extLibs\imgui-1.91.8;$(SolutionDir)\SFML-3.0.0\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\SFML-3.0.0\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

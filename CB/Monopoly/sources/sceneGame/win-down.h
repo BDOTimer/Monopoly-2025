@@ -45,7 +45,7 @@ namespace vsl
         {
             target.setView(cam);
             target.draw   (fon, states);
-            target.draw   (objectTest2, states);
+        /// target.draw   (objectTest2, states);
         }
     };
 }
