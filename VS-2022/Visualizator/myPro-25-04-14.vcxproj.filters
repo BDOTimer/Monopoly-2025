@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -18,42 +14,11 @@
     <Filter Include="Model-0.2">
       <UniqueIdentifier>{a30d3e9c-59fe-4599-9e6b-e5b2776e7663}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{ca033980-e25e-479c-bd82-d81b1c9901de}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sources\common.h">
-      <Filter>Source Files\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\debug.h">
-      <Filter>Source Files\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\model.h">
-      <Filter>Source Files\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\player.h">
-      <Filter>Source Files\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\render.h">
-      <Filter>Source Files\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\scene-game.h">
-      <Filter>Source Files\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\scene-logo.h">
-      <Filter>Source Files\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\scene-tune.h">
-      <Filter>Source Files\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\shader-dice.h">
-      <Filter>Source Files\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\ui-imgui.h">
-      <Filter>Source Files\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\extLibs\imgui-1.91.8\imconfig.h">
       <Filter>extLibs\imgui</Filter>
     </ClInclude>
@@ -81,26 +46,8 @@
     <ClInclude Include="..\..\extLibs\imgui-sfml-3.0\imgui-SFML_export.h">
       <Filter>extLibs\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="sources\sceneGame\markup.h">
-      <Filter>Source Files\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\sceneGame\win-down.h">
-      <Filter>Source Files\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\sceneGame\win-game.h">
-      <Filter>Source Files\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\sceneGame\win-player.h">
-      <Filter>Source Files\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\sceneGame\win-up.h">
-      <Filter>Source Files\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\extLibs\imgui-1.91.8\misc\cpp\imgui_stdlib.h">
       <Filter>extLibs\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\config-vsl.h">
-      <Filter>Source Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\!m-model.h">
       <Filter>Model-0.2</Filter>
@@ -126,14 +73,62 @@
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\config-model.h">
       <Filter>Model-0.2</Filter>
     </ClInclude>
-    <ClInclude Include="sources\fps.h">
-      <Filter>Source Files\Header Files</Filter>
+    <ClInclude Include="..\..\CB\Monopoly\sources\common.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\Monopoly\sources\config-vsl.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\Monopoly\sources\debug.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\Monopoly\sources\fps.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\Monopoly\sources\model.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\Monopoly\sources\player.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\Monopoly\sources\render.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\Monopoly\sources\scene-game.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\Monopoly\sources\scene-logo.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\Monopoly\sources\scene-tune.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\Monopoly\sources\shader-dice.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\Monopoly\sources\ui-imgui.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\Monopoly\sources\sceneGame\fig-field.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\Monopoly\sources\sceneGame\markup.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\Monopoly\sources\sceneGame\win-down.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\Monopoly\sources\sceneGame\win-game.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\Monopoly\sources\sceneGame\win-player.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\Monopoly\sources\sceneGame\win-up.h">
+      <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="sources\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\extLibs\imgui-1.91.8\imgui.cpp">
       <Filter>extLibs\imgui</Filter>
     </ClCompile>
@@ -157,6 +152,9 @@
     </ClCompile>
     <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\model\model.cpp">
       <Filter>Model-0.2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\CB\Monopoly\sources\main.cpp">
+      <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

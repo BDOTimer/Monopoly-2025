@@ -71,11 +71,10 @@ private:
     bool done{true};
 
     ///////////////////////////////////////////////////////////////////////////:
-    model::Config cfgM;
 
     void startModel()
-    {   cfgM   = model::getConfig();
-        cfg.idGame = cfgM.idGame;
+    {   cfg.cfgModel = model::getConfig();
+        cfg.idGame   = cfg.cfgModel.idGame;
         cfg.uiTune << model::getLogo(cfg.idGame) << "\n";
     }
     ///////////////////////////////////////////////////////////////////////////.
@@ -149,6 +148,8 @@ private:
             L"Монополия-2025",
             sf::Style::Titlebar | sf::Style::Close
         );
+
+        window.setPosition({window.getPosition().x, 0});
 
         vsl::Config     cfg(window);
 		Render  render (cfg);

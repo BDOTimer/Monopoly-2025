@@ -10,7 +10,7 @@ namespace vsl
     ///------------------------------------------------------------------------|
     /// SceneTune.
     ///-------------------------------------------------------------- SceneTune:
-    struct  SceneTune   : vsl::IObject
+    struct  SceneTune   :  vsl::IObject
     {       SceneTune     (vsl::Config& cfg)
 				:	cfg   (cfg)
 				,	fon   (cfg.szfWin)
@@ -36,9 +36,7 @@ namespace vsl
 		{
 			if (event->is<sf::Event::KeyPressed>())
             {   if (ISKEYPRESSED(Num1))
-                {   SIGNAL(1)
-                    cfg.scenesSwitcher.next();
-                    SIGNAL(2)
+                {   cfg.scenesSwitcher.next();
                 }
             }
 		}

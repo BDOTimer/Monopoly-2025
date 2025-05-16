@@ -16,6 +16,12 @@
 
 #define ISKEYPRESSED(a) sf::Keyboard::isKeyPressed(sf::Keyboard::Key::a)
 
+template<typename T>
+std::ostream& operator<<(std::ostream& o, const sf::Vector2<T>& a)
+{          o << "{ " << a.x << ", " << a.y << " }";
+    return o;
+}
+
 ///----------------------------------------------------------------------------|
 /// Интерфейс объектов рендера.
 ///----------------------------------------------------------------------------:
@@ -194,7 +200,7 @@ struct  HolderTexture : private std::list<sf::Texture>
     ///-----------------------------------|
     /// Окошко раздачи текстур.           |
     ///-----------------------------------:
-    static const sf::Texture& get(std::string_view filename)
+    static const sf::Texture& get(std::string filename)
     {
         static HolderTexture ht;
 
@@ -213,7 +219,7 @@ struct  HolderTexture : private std::list<sf::Texture>
     }
 
 private:
-    std::map<std::string_view, sf::Texture*> m;
+    std::map<std::string, sf::Texture*> m;
 };
 
 

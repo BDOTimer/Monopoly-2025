@@ -27,6 +27,24 @@
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\program.h" />
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\user-model.h" />
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\vsl\vsl.h" />
+    <ClInclude Include="..\..\CB\Monopoly\sources\common.h" />
+    <ClInclude Include="..\..\CB\Monopoly\sources\config-vsl.h" />
+    <ClInclude Include="..\..\CB\Monopoly\sources\debug.h" />
+    <ClInclude Include="..\..\CB\Monopoly\sources\fps.h" />
+    <ClInclude Include="..\..\CB\Monopoly\sources\model.h" />
+    <ClInclude Include="..\..\CB\Monopoly\sources\player.h" />
+    <ClInclude Include="..\..\CB\Monopoly\sources\render.h" />
+    <ClInclude Include="..\..\CB\Monopoly\sources\scene-game.h" />
+    <ClInclude Include="..\..\CB\Monopoly\sources\scene-logo.h" />
+    <ClInclude Include="..\..\CB\Monopoly\sources\scene-tune.h" />
+    <ClInclude Include="..\..\CB\Monopoly\sources\sceneGame\fig-field.h" />
+    <ClInclude Include="..\..\CB\Monopoly\sources\sceneGame\markup.h" />
+    <ClInclude Include="..\..\CB\Monopoly\sources\sceneGame\win-down.h" />
+    <ClInclude Include="..\..\CB\Monopoly\sources\sceneGame\win-game.h" />
+    <ClInclude Include="..\..\CB\Monopoly\sources\sceneGame\win-player.h" />
+    <ClInclude Include="..\..\CB\Monopoly\sources\sceneGame\win-up.h" />
+    <ClInclude Include="..\..\CB\Monopoly\sources\shader-dice.h" />
+    <ClInclude Include="..\..\CB\Monopoly\sources\ui-imgui.h" />
     <ClInclude Include="..\..\extLibs\imgui-1.91.8\imconfig.h" />
     <ClInclude Include="..\..\extLibs\imgui-1.91.8\imgui.h" />
     <ClInclude Include="..\..\extLibs\imgui-1.91.8\imgui_internal.h" />
@@ -37,26 +55,10 @@
     <ClInclude Include="..\..\extLibs\imgui-sfml-3.0\imconfig-SFML.h" />
     <ClInclude Include="..\..\extLibs\imgui-sfml-3.0\imgui-SFML.h" />
     <ClInclude Include="..\..\extLibs\imgui-sfml-3.0\imgui-SFML_export.h" />
-    <ClInclude Include="sources\common.h" />
-    <ClInclude Include="sources\config-vsl.h" />
-    <ClInclude Include="sources\debug.h" />
-    <ClInclude Include="sources\model.h" />
-    <ClInclude Include="sources\player.h" />
-    <ClInclude Include="sources\render.h" />
-    <ClInclude Include="sources\scene-game.h" />
-    <ClInclude Include="sources\scene-logo.h" />
-    <ClInclude Include="sources\scene-tune.h" />
-    <ClInclude Include="sources\sceneGame\markup.h" />
-    <ClInclude Include="sources\sceneGame\win-down.h" />
-    <ClInclude Include="sources\sceneGame\win-game.h" />
-    <ClInclude Include="sources\sceneGame\win-player.h" />
-    <ClInclude Include="sources\sceneGame\win-up.h" />
-    <ClInclude Include="sources\shader-dice.h" />
-    <ClInclude Include="sources\ui-imgui.h" />
-    <ClInclude Include="sources\fps.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\model\model.cpp" />
+    <ClCompile Include="..\..\CB\Monopoly\sources\main.cpp" />
     <ClCompile Include="..\..\extLibs\imgui-1.91.8\imgui.cpp" />
     <ClCompile Include="..\..\extLibs\imgui-1.91.8\imgui_demo.cpp" />
     <ClCompile Include="..\..\extLibs\imgui-1.91.8\imgui_draw.cpp" />
@@ -64,7 +66,6 @@
     <ClCompile Include="..\..\extLibs\imgui-1.91.8\imgui_widgets.cpp" />
     <ClCompile Include="..\..\extLibs\imgui-1.91.8\misc\cpp\imgui_stdlib.cpp" />
     <ClCompile Include="..\..\extLibs\imgui-sfml-3.0\imgui-SFML.cpp" />
-    <ClCompile Include="sources\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\CB\m-model[ver-0.2]\sources\model\cards.inc" />
@@ -126,6 +127,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)..\CB\m-model[ver-0.2]\sources;$(SolutionDir)..\extLibs\imgui-sfml-3.0;$(SolutionDir)..\extLibs\imgui-1.91.8;$(SolutionDir)\SFML-3.0.0\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\SFML-3.0.0\lib;$(LibraryPath)</LibraryPath>
+    <TargetName>sfml-Monopoly[VS2022]</TargetName>
+    <OutDir>$(SolutionDir)..\CB\Monopoly\bin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)..\CB\m-model[ver-0.2]\sources;$(SolutionDir)..\extLibs\imgui-sfml-3.0;$(SolutionDir)..\extLibs\imgui-1.91.8;$(SolutionDir)\SFML-3.0.0\include;$(IncludePath)</IncludePath>

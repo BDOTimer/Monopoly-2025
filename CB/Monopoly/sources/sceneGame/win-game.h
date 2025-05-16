@@ -5,11 +5,14 @@
 ///----------------------------------------------------------------------------:
 #include "../common.h"
 #include "markup.h"
+#include "fig-field.h"
 
 namespace vsl
 {
     struct  WinGame : vsl::IObject
-    {       WinGame(vsl::Config& cfg) : cfg(cfg)
+    {       WinGame(vsl::Config& cfg)
+                :   cfg         (cfg)
+                ,   figField    (cfg)
             {
                 const auto& rect    = MarkupSceneGame::get(cfg).getWinBase();
                 const auto& border  = MarkupSceneGame::get(cfg).border;
@@ -29,15 +32,54 @@ namespace vsl
                 fon.setOutlineThickness(border);
 
                 fon.setTexture(&HolderTexture::get("res/img/ground_01.jpg"));
+
+                camMove = cam;
+
+                camMove.setCenter({1260, 1100});
+                camMove.setSize  ({3750, 2410});
             }
 
         vsl::Config& cfg;
 
-        PLUG_IOBJECT
+        PLUG_IOBJECT2
+
+        void input(const std::optional<sf::Event>&  event) override
+		{
+			if (event->is<sf::Event::KeyPressed>())
+            {   if (ISKEYPRESSED(W))
+                {   camMove.zoom(0.97f);
+                }
+                if (ISKEYPRESSED(S))
+                {   camMove.zoom(1.03f);
+                }
+
+                sf::Vector2f a{};
+                const float  S{30.f};
+
+                if (ISKEYPRESSED(Up))
+                {   a.y += S;
+                }
+                else if (ISKEYPRESSED(Down))
+                {   a.y -= S;
+                }
+                else if (ISKEYPRESSED(Left))
+                {   a.x += S;
+                }
+                else if (ISKEYPRESSED(Right))
+                {   a.x -= S;
+                }
+
+                camMove.move(a);
+
+            l(camMove.getCenter())
+            }
+        }
 
     private:
         sf::View           cam;
+        sf::View       camMove;
         sf::RectangleShape fon;
+        FigureField   figField;
 
         ///------------------------------------|
         /// На рендер.                         |
@@ -49,6 +91,9 @@ namespace vsl
 
             target.setView(cam);
             target.draw   (fon,         states);
+
+            target.setView(camMove);
+            target.draw   (figField,    states);
             target.draw   (objectTest4, states);
         }
     };

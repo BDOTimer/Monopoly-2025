@@ -68,6 +68,9 @@ namespace vsl
 					cfg.scenesSwitcher.doSwitcher(E::E_TUNE);
 					cfg.musicGame.stop();
                 }
+                else
+                {   winGame.input(event);
+                }
             }
 
 
@@ -116,7 +119,7 @@ namespace vsl
             {cfg, 2}
         };
 
-        bool isDiceHide{false};
+        bool isDiceHide{true};
 
         ///-----------------------------------|
         /// Дебаг.                            |
