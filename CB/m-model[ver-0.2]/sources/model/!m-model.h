@@ -369,6 +369,61 @@ namespace model
         }   return o;
     }
 
+
+    ///------------------------------------------------------------------------|
+    /// Фича: Монопольный Бонус.
+    ///-------------------------------------------------------------- MonoBonus:
+    struct  MonoBonus
+    {       MonoBonus()
+            {
+            }
+
+        void add(unsigned statusCell)
+        {   ASSERT (statusCell < counted.size())
+          ++counted[statusCell];
+            doCalc();
+        }
+        void sub(unsigned statusCell)
+        {   ASSERT (statusCell < counted.size())
+          --counted[statusCell];
+            ASSERT (counted[statusCell] >= 0)
+            doCalc();
+        }
+
+        int getWhatBunus() const { return moneyBonus; }
+
+        std::string    info() const
+        {   std::string log{"MonoBONUS: +"};
+                        log += std::to_string(moneyBonus);
+                        log += " ₽";
+            return      log;
+        }
+
+    private:
+        std::array<int, 3> counted{};
+        int moneyBonus{};
+
+        int getMaxCnt() const
+        {   return  std::max(counted[0],
+                    std::max(counted[1],
+                             counted[2]));
+        }
+
+        void doCalc()
+        {   switch(int maxCnt = getMaxCnt(); maxCnt)
+            {   case  4:
+                case  5: moneyBonus =  5; break;
+                case  6:
+                case  7: moneyBonus = 10; break;
+                case  8: moneyBonus = 15; break;
+                case  9: moneyBonus = 20; break;
+                case 10: moneyBonus = 25; break;
+                default: moneyBonus = 0;
+            }
+        }
+    };
+
+
     /// ERROR ...(не рабочий, почему?)
     ///----------------------------------|
     /// Вывод Cell в консоль.            |
@@ -458,18 +513,27 @@ namespace model
         };
 
         ///------------------------------|
+        /// Монопольный Бонус.           |
+        ///------------------------------:
+        MonoBonus monoBonus;
+
+        ///------------------------------|
         /// Добавить Вещь в инвентарь.   |
         ///------------------------------:
         void addThing(const Cell& cell)
         {   cargo.insert(std::pair{cell.status, cell.id});
             capital += cell.priseBase;
+
+            monoBonus.add(cell.status);
         }
 
         ///------------------------------|
         /// Удалить Вещь из инвентаря.   |
         ///------------------------------:
         void deleteThing(std::multimap<unsigned, unsigned>::iterator it)
-        {   const auto&[sts, id] = *it;
+        {   const   auto&[sts, id] = *it;
+            monoBonus.sub(sts);
+
             Cell&       cellSell = (*cfg.pfield)[id];
             capital -= cellSell.priseBase;
             cargo.erase(it);
