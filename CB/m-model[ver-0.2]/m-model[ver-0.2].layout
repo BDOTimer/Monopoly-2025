@@ -7,34 +7,14 @@
 			<Cursor1 position="505" topLine="9" />
 		</Cursor>
 	</File>
-	<File name="sources\program.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+	<File name="sources\model\myl.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1442" topLine="44" />
+			<Cursor1 position="5780" topLine="144" />
 		</Cursor>
 	</File>
 	<File name="sources\controller\controller.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="277" topLine="6" />
-		</Cursor>
-	</File>
-	<File name="sources\debug.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2841" topLine="78" />
-		</Cursor>
-	</File>
-	<File name="sources\model\field.inc" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="298" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="sources\main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="353" topLine="51" />
-		</Cursor>
-	</File>
-	<File name="sources\model\myl.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5780" topLine="144" />
 		</Cursor>
 	</File>
 	<File name="sources\vsl\vsl.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -47,9 +27,14 @@
 			<Cursor1 position="9623" topLine="222" />
 		</Cursor>
 	</File>
-	<File name="sources\model\!m-model.h" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sources\main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="21001" topLine="569" />
+			<Cursor1 position="353" topLine="51" />
+		</Cursor>
+	</File>
+	<File name="sources\model\!m-model.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="26602" topLine="728" />
 		</Cursor>
 	</File>
 	<File name="..\..\task-dev.txt" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -57,9 +42,24 @@
 			<Cursor1 position="284" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="sources\model\field.inc" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3634" topLine="17" />
+		</Cursor>
+	</File>
 	<File name="sources\model\model.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1880" topLine="52" />
+		</Cursor>
+	</File>
+	<File name="sources\debug.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2841" topLine="78" />
+		</Cursor>
+	</File>
+	<File name="sources\program.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1442" topLine="44" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

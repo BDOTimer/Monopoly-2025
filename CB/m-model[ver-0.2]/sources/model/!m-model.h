@@ -734,8 +734,8 @@ namespace model
                     /// cargo.insert(std::pair{cell.status, position});
                         addThing(cell);
 
-                        ss  << "Товар \"" << cell.name
-                            << "\" был куплен по цене: " << price << "\n";
+                        ss  << "\"" << cell.name
+                            << "\" куплен, цена: " << price << " ₽\n";
 
                         ss << IPerson::infoCargo();
 
