@@ -71,7 +71,7 @@ namespace vsl
 
                 camMove.move(a);
 
-            l(camMove.getCenter())
+            /// l(camMove.getCenter())
             }
         }
 

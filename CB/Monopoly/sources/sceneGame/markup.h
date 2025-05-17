@@ -16,7 +16,7 @@ namespace vsl
 
         const vsl::Config& cfg;
 
-        float border{4.f};
+        float border{2.f};
 
         static const MarkupSceneGame& get(const vsl::Config& cfg)
         {   static   MarkupSceneGame  m  (cfg);

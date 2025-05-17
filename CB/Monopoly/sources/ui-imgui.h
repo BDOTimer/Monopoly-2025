@@ -344,13 +344,18 @@ namespace uii
     ///------------------------------------------------------------------------|
     /// UIBase.
     ///----------------------------------------------------------------- UIBase:
-    static bool autoScroll{false};
+    ///static bool autoScroll{false};
     struct  UIBase
-    {       UIBase()//(vsl::Config cfg) : cfg(cfg)
+    {       UIBase() //(vsl::Config cfg) : cfg(cfg)
             {
             }
 
-        //vsl::Config& cfg;
+    // vsl::Config& cfg;
+
+        ImVec2 size    {200,200};
+        ImVec2 position{  0,  0};
+
+        bool autoScroll{false};
 
         std::stringstream log;
 
@@ -391,9 +396,9 @@ namespace uii
     ///------------------------------------------------------------------------|
     /// UIGame.
     ///----------------------------------------------------------------- UIBase:
-    struct  UIGame  : UIBase
-    {       UIGame()//(vsl::Config cfg)
-                    //: UIBase  (cfg)
+    struct  UIGame  :   UIBase
+    {       UIGame()//(vsl::Config  cfg)
+                    //:   UIBase  (cfg)
                     :   sound(buffer)
             {
                 name = "ИГРА ...";
@@ -414,6 +419,17 @@ namespace uii
             auto& color = ImGui::GetStyle().Colors[ImGuiCol_WindowBg];
                   color = ImColor(35,35,35,190);
 
+            ///---------------------------------------|
+            /// Позиция и размер окна.                |
+            ///---------------------------------------:
+            /// TODO: Окно на разных компах должно соответствовать ....
+
+        /// ImGui::SetNextWindowSize(size);
+        /// ImGui::SetNextWindowPos (position);
+
+            ///---------------------------------------|
+            /// Окно <name>.                          |
+            ///---------------------------------------:
             ImGui::Begin (name.data(), nullptr, 0
                     /// | ImGuiWindowFlags_NoCollapse
                         | ImGuiWindowFlags_NoMove
@@ -467,3 +483,15 @@ namespace uii
 }
 
 #endif // UI_IMGUI_H
+
+/*//////////////////////////////////////////////////////////////////////////////
+
+Центрирование окна:
+    ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+    ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+Если окно уже создано:
+    ImGui::SetWindowPos("My Window", ImVec2(x, y));
+    ImGui::SetWindowSize("My Window", ImVec2(w, h));
+
+//////////////////////////////////////////////////////////////////////////////*/
