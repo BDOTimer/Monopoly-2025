@@ -10,12 +10,13 @@ namespace vsl
     template<typename    T>
     struct  PrimFigure : T
     {       PrimFigure(const sf::Texture& t) : T(t) {}
+            PrimFigure(){}
 
         std::string nameTxtr;
         unsigned          id;
     };
 
-    using PFS = PrimFigure<sf::Sprite>;
+    using PFS = PrimFigure<sf::RectangleShape>;
 
     struct  FigureField : vsl::IObject
     {       FigureField(vsl::Config&  cfg)
@@ -31,20 +32,37 @@ namespace vsl
                     {
                         if(const int& ID = m[y][x]; ID >= 0)
                         {
-                            std::string name{"res/img/field/"};
+                            std::string name  { "res/img/field/" };
                                         name += std::to_string(ID);
                                         name += ".jpeg";
 
                             sps.emplace_back
-                            (   PrimFigure    <sf::Sprite>
-                                (   HolderTexture::get(name)
-                                )
+                            (   PFS()
                             );
+
+                            sps.back().setTexture(&HolderTexture::get(name));
 
                             sps.back().nameTxtr = name;
                             sps.back().id       = ID;
-
+                            sps.back().setSize({255, 255});
                             sps.back().setPosition({x * szCell, y * szCell});
+                            sps.back().setOutlineThickness(12.f);
+
+                            switch(ID % 3)
+                            {
+                                case 0:
+                                {   sps.back().setOutlineColor({0,224,0});
+                                    break;
+                                }
+                                case 1:
+                                {   sps.back().setOutlineColor({224,0,0});
+                                    break;
+                                }
+                                case 2:
+                                {   sps.back().setOutlineColor({224,224,0});
+                                    break;
+                                }
+                            }
 
                             psp.push_back(&sps.back());
                         }
@@ -62,13 +80,19 @@ namespace vsl
         vsl  ::Config& cfg;
         model::Config& cfgModel;
 
-        float szCell{280};
+        float szCell{300};
 
         PLUG_IOBJECT
 
+        sf::Vector2f getCenter() const
+        {   const auto& m{cfgModel.worldGeometry};
+            return { szCell * m[0].size() / 2,
+                     szCell * m   .size() / 2 };
+        }
+
     private:
-        std::vector<PrimFigure<sf::Sprite> > sps;
-        std::vector<PrimFigure<sf::Sprite>*> psp;
+        std::vector<PFS > sps;
+        std::vector<PFS*> psp;
 
         ///------------------------------------|
         ///  На рендер.                         |

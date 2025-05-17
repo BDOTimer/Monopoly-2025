@@ -35,8 +35,9 @@ namespace vsl
 
                 camMove = cam;
 
-                camMove.setCenter({1260, 1100});
+            /// camMove.setCenter({1260, 1100});
                 camMove.setSize  ({3750, 2410});
+                camMove.setCenter(figField.getCenter());
             }
 
         vsl::Config& cfg;
