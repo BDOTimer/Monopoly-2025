@@ -595,10 +595,11 @@ namespace model
     {   const Config& cfg{p->cfg};
         const auto&   cell = (*(cfg.pfield))[p->position];
 
-        o   << "Игрок: ----------------------------------: "  << p->id << '\n'
-            << "   Статус: " << std::setw(4) << p->status + 1 << " ---> "
-                             << cfg.decodeStatus(p->status)   << "\n"
-            << "   Круг  : " << std::setw(4) << p->circle     << "\n";
+        o   << "Игрок: ----------------------------------: "    << p->id << '\n'
+            << "   Кошелёк: " << std::setw(4) <<  p->money      << "\n"
+            << "   Статус : " << std::setw(4) <<  p->status + 1 << " ---> "
+                              << cfg.decodeStatus(p->status)    << "\n"
+            << "   Круг   : " << std::setw(4) <<  p->circle     << "\n";
 
             ///------------------------------|
             /// Чья ячейка?                  |
