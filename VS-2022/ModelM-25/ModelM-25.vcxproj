@@ -36,6 +36,9 @@
     <None Include="..\..\CB\m-model[ver-0.2]\sources\model\cards.inc" />
     <None Include="..\..\CB\m-model[ver-0.2]\sources\model\field.inc" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\task-dev.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

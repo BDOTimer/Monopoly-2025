@@ -245,6 +245,7 @@ namespace model
             }
         }
 
+        std::string getOwner() const;
 
         ///------------------------------|
         /// Тест класса.                 |
@@ -312,6 +313,7 @@ namespace model
             << "   Банк продает : [" << e.bankSell[0] << ", "
                                      << e.bankSell[1] << ", "
                                      << e.bankSell[2] << "]\n"
+            << "   "                 << e.getOwner()  << '\n'
         ;
     }
 
@@ -427,7 +429,7 @@ namespace model
 
         void doCalc()
         {   switch(int maxCnt = getMaxCnt(); maxCnt)
-            {   
+            {
                 case  4:
                 case  5: doMessEvent( 5); break;
                 case  6:
@@ -546,16 +548,16 @@ namespace model
 
         void toPay(IPerson* persGuest)
         {   if(const auto& m = monoBonus.getBonus(); m != 0)
-            {   
+            {
                             capital += monoBonus.getBonus();
                 persGuest-> capital -= monoBonus.getBonus();
 
-                letters  << " --> Получен Бонус: +"     << m 
+                letters  << " --> Получен Бонус: +"     << m
                          << " ₽ от " << persGuest->name << '\n';
 
                 persGuest->whatDone << " --> Оплата Бонуса: -" << m
                                     << " ₽ для " << name       << '\n';
-            } 
+            }
         }
 
         std::string getLetters()
@@ -734,7 +736,7 @@ namespace model
     ///----------------------------------:
     inline std::ostream& operator<<(std::ostream& o, const IPerson* p)
     {   const Config& cfg{p->cfg};
-        const auto&   cell = (*(cfg.pfield))[p->position];
+    /// const auto&   cell = (*(cfg.pfield))[p->position];
 
         o   << "Игрок: ----------------------------------: " << p->id << '\n'
             << "   Кошелёк  : " << std::setw(4) <<  p->money      << '\n'
@@ -744,13 +746,8 @@ namespace model
             << p->monoBonus.getMessStatistic()
             << "   МоноБонус: " << p->monoBonus.info()            << '\n';
 
-            ///------------------------------|
-            /// Чья ячейка?                  |
-            ///------------------------------:
-            cell.pers == nullptr
-                ?   o << "   Эта ячейка свободна для продажи!\n"
-                :   o << "   Эта ячейка принадлежит игроку "
-                      << cell.pers->name << '\n';
+
+
         ;
         return o;
     }

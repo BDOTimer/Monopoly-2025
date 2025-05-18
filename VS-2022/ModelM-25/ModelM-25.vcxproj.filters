@@ -52,4 +52,7 @@
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\task-dev.txt" />
+  </ItemGroup>
 </Project>
