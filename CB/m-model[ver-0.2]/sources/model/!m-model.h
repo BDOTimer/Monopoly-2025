@@ -395,7 +395,7 @@ namespace model
             doCalc();
         }
 
-        int getBunus() const { return moneyBonus; }
+        int getBonus() const { return moneyBonus; }
 
         std::string    info() const
         {   std::string log;
@@ -427,7 +427,8 @@ namespace model
 
         void doCalc()
         {   switch(int maxCnt = getMaxCnt(); maxCnt)
-            {   case  4:
+            {   
+                case  4:
                 case  5: doMessEvent( 5); break;
                 case  6:
                 case  7: doMessEvent(10); break;
@@ -472,6 +473,8 @@ namespace model
                     ,    id  ( id )
                     ,   name (cfg.getNamePlayer(id))
                 {
+                    getLetters ();
+                    getWhatDone();
                 }
         virtual~IPerson()  {};
 
@@ -541,10 +544,54 @@ namespace model
             "ничего не делать."
         };
 
+        void toPay(IPerson* persGuest)
+        {   if(const auto& m = monoBonus.getBonus(); m != 0)
+            {   
+                            capital += monoBonus.getBonus();
+                persGuest-> capital -= monoBonus.getBonus();
+
+                letters  << " --> Получен Бонус: +"     << m 
+                         << " ₽ от " << persGuest->name << '\n';
+
+                persGuest->whatDone << " --> Оплата Бонуса: -" << m
+                                    << " ₽ для " << name       << '\n';
+            } 
+        }
+
+        std::string getLetters()
+        {   std::string_view a{"\nПИСЬМА:\n"};
+            if(letters.str().size() == a.size()) return "";
+            letters << '\n';
+            std::string  s{letters.str()};
+            letters.str("");
+            letters <<   a;
+            return       s;
+        }
+
+        std::string getWhatDone()
+        {   std::string_view a{"\nСДЕЛАНО:\n"};
+            if(whatDone.str().size() == a.size()) return "";
+            whatDone << '\n';
+            std::string   s{whatDone.str()};
+            whatDone.str("");
+            whatDone <<   a;
+            return        s;
+        }
+
         ///------------------------------|
         /// Монопольный Бонус.           |
         ///------------------------------:
-        MonoBonus monoBonus;
+        MonoBonus               monoBonus;
+
+        ///------------------------------|
+        /// Письма.                      |
+        ///------------------------------:
+        std::stringstream         letters;
+
+        ///------------------------------|
+        /// Что сделано сейчас?          |
+        ///------------------------------:
+        std::stringstream        whatDone;
 
         ///------------------------------|
         /// Добавить Вещь в инвентарь.   |
@@ -633,34 +680,35 @@ namespace model
             unsigned  chance = cell.chance;
         /// Card*     card   = cell.card  ;
 
+        const char E{'\n'};
+
         ///------------------------------|
         /// Чья ячейка?                  |
         ///------------------------------:
         cell.pers == nullptr
             ?   ss  << "Эта ячейка свободна для продажи!\n"
             :   ss  << "Эта ячейка принадлежит игроку "
-                    << cell.pers->name << '\n';
-
+                    << cell.pers->name << E;
 
         /// auto n = 15 - nn + name.size();
-            ss  << "   Кошелёк = " << std::setw(4) << money      << "\n"
-                << "   Позиция = " << std::setw(4) << position   << "\n"
+            ss  << "   Кошелёк = " << std::setw(4) << money      << E
+                << "   Позиция = " << std::setw(4) << position   << E
                 << "   Статус  = " << std::setw(4)
                 << cfg.decodeStatus(status)<< ": ["<< status + 1 << "]\n"
-                << "   Круг    = " << std::setw(4) << circle     << "\n"
-                << "   Шанс    = " << std::setw(4) << chance     << "\n"
+                << "   Круг    = " << std::setw(4) << circle     << E
+                << "   Шанс    = " << std::setw(4) << chance     << E
                 << "   Товар   = " <<                 cell.name
                 << ": Cтатус: ["   <<             1 + cell.status<< "]\n"
                 << "   Кол-во  = " << std::setw(4)
                 << (cell.amountThings != 0 ?
-                    std::to_string(cell.amountThings) : " пусто")<< "\n"
+                    std::to_string(cell.amountThings) : " пусто")<< E
                 << "   Банк покупает: " << std::setw(4)
-                                        << cell.bankBuy [status] << "\n"
+                                        << cell.bankBuy [status] << E
                 << "   Базовая цена : " << std::setw(4)
-                                        << cell.priseBase        << "\n"
+                                        << cell.priseBase        << E
                 << "   Банк продаёт : " << std::setw(4)
-                                        << cell.bankSell[status] << "\n"
-                << "\n";
+                                        << cell.bankSell[status] << E
+                << E;
 
             return ss.str();
         }
@@ -688,7 +736,7 @@ namespace model
     {   const Config& cfg{p->cfg};
         const auto&   cell = (*(cfg.pfield))[p->position];
 
-        o   << "Игрок: ------------------------------: " << p->id << '\n'
+        o   << "Игрок: ----------------------------------: " << p->id << '\n'
             << "   Кошелёк  : " << std::setw(4) <<  p->money      << '\n'
             << "   Статус   : " << std::setw(4) <<  p->status + 1 << " ---> "
                                  << cfg.decodeStatus(p->status)   << '\n'
@@ -767,9 +815,10 @@ namespace model
 
             Cell& cell = (*cfg.pfield)[position];
 
-            if(cell.status - 1 > 2) std::cout << "ERROR::PersonBot::input\n";
+            ASSERT(cell.status < 3)
+            ASSERT(     status < 3)
 
-            bool goodSky = cell.status - 1 == IPerson::status;
+            bool goodSky = cell.status == IPerson::status;
             if(  goodSky)
             {   ss << "  \"ЗВЁЗДЫ СВЕТЯТ МНЕ КРАСИВО!\"\n";
             }
@@ -1096,6 +1145,11 @@ namespace model
             auto& pers = *persNow;
             ss <<  pers.infoName();
 
+            ///------------------------------|
+            /// Получить письма.             |
+            ///------------------------------:
+            ss << pers.getLetters();
+
             const unsigned cubicDice = rand() % 6 + 1;
 
             ss <<   "           |----\n"
@@ -1106,6 +1160,8 @@ namespace model
                 = field.add(pers.position, cubicDice);
 
             pers.position = pos;
+
+            Cell& cell = field[pos];
 
             ///------------------------------|
             /// Ячейка с шансом?             |
@@ -1119,6 +1175,13 @@ namespace model
                 pers.nextCircle();
             }
 
+            ///------------------------------|
+            /// Ячейка кому принадлежит?     |
+            ///------------------------------:
+            if(auto owner = cell.pers; owner != nullptr)
+            {   owner->toPay(persNow);
+            }
+
             ss << pers.doAct();
             /// std::cout << pers.info ();
 
@@ -1127,6 +1190,11 @@ namespace model
 
             ss << "ОПЕРАЦИИ: -------------------------------: \n";
             ss <<  pers.input();
+
+            ///------------------------------|
+            /// Что ещё произошло?           |
+            ///------------------------------:
+            ss << pers.getWhatDone();
 
             ss << std::endl;
 
