@@ -217,6 +217,9 @@ namespace model
 
         void init()
         {
+            status       -= 1;
+            ASSERT(status < 3)
+
             {   std::array<std::pair<int, int>, 3> m
                 {   std::pair{bankSell[0], 0},
                     std::pair{bankSell[1], 1},
@@ -267,7 +270,7 @@ namespace model
     inline std::ostream& operator<<(std::ostream& o, const Cell& e)
     {   return o    << std::setw(4) << e.id
                     << std::setw(4) << e.chance
-                    << std::setw(4) << e.status
+                    << std::setw(4) << e.status + 1
                     << std::setw(4) << e.priseBase
                     << std::setw(4) << e.bankBuy [0]
                     << std::setw(4) << e.bankBuy [1]
@@ -301,7 +304,7 @@ namespace model
             << "   Позиция      :  " << e.id          << '\n'
             << "   Товар        :  " << e.name        << '\n'
             << "   Шанс         :  " << e.chance      << '\n'
-            << "   Статус       :  " << e.status      << '\n'
+            << "   Статус       :  " << e.status + 1  << '\n'
             << "   Цена базовая :  " << e.priseBase   << '\n'
             << "   Банк покупает: [" << e.bankBuy [0] << ", "
                                      << e.bankBuy [1] << ", "
@@ -379,10 +382,12 @@ namespace model
             }
 
         void add(unsigned statusCell)
-        {   ASSERT (statusCell < counted.size())
+        {   l(statusCell)
+            ASSERT (statusCell < counted.size())
           ++counted[statusCell];
             doCalc();
         }
+
         void sub(unsigned statusCell)
         {   ASSERT (statusCell < counted.size())
           --counted[statusCell];
@@ -390,18 +395,29 @@ namespace model
             doCalc();
         }
 
-        int getWhatBunus() const { return moneyBonus; }
+        int getBunus() const { return moneyBonus; }
 
         std::string    info() const
-        {   std::string log{"MonoBONUS: +"};
-                        log += std::to_string(moneyBonus);
+        {   std::string log;
+                        log += messEvent;
                         log += " ₽";
             return      log;
         }
 
+        std::string getMessStatistic() const
+        {   std::stringstream ss;
+            ss << "   Инвентарь: Статус, Кол-во\n"
+               << "                   1, " << std::setw(6) << counted[0] << '\n'
+               << "                   2, " << std::setw(6) << counted[1] << '\n'
+               << "                   3, " << std::setw(6) << counted[2] << '\n';
+            return ss.str();
+        }
+
     private:
         std::array<int, 3> counted{};
-        int moneyBonus{};
+        int             moneyBonus{};
+
+        std::string messEvent{"0"};
 
         int getMaxCnt() const
         {   return  std::max(counted[0],
@@ -412,14 +428,27 @@ namespace model
         void doCalc()
         {   switch(int maxCnt = getMaxCnt(); maxCnt)
             {   case  4:
-                case  5: moneyBonus =  5; break;
+                case  5: doMessEvent( 5); break;
                 case  6:
-                case  7: moneyBonus = 10; break;
-                case  8: moneyBonus = 15; break;
-                case  9: moneyBonus = 20; break;
-                case 10: moneyBonus = 25; break;
-                default: moneyBonus = 0;
+                case  7: doMessEvent(10); break;
+                case  8: doMessEvent(15); break;
+                case  9: doMessEvent(20); break;
+                case 10: doMessEvent(25); break;
+                default: doMessEvent( 0);
             }
+        }
+
+        void doMessEvent(const int moneyBonusNow)
+        {   std::stringstream ss;
+            if(moneyBonusNow  > moneyBonus)
+            {    ss << " повысился до: " << moneyBonusNow;
+            }
+            if(moneyBonusNow  < moneyBonus)
+            {    ss << " понизился до: " << moneyBonusNow;
+            }
+            else ss << " "               << moneyBonusNow;
+            moneyBonus = moneyBonusNow;
+            messEvent  = ss.str();
         }
     };
 
@@ -659,11 +688,13 @@ namespace model
     {   const Config& cfg{p->cfg};
         const auto&   cell = (*(cfg.pfield))[p->position];
 
-        o   << "Игрок: ----------------------------------: "    << p->id << '\n'
-            << "   Кошелёк: " << std::setw(4) <<  p->money      << "\n"
-            << "   Статус : " << std::setw(4) <<  p->status + 1 << " ---> "
-                              << cfg.decodeStatus(p->status)    << "\n"
-            << "   Круг   : " << std::setw(4) <<  p->circle     << "\n";
+        o   << "Игрок: ------------------------------: " << p->id << '\n'
+            << "   Кошелёк  : " << std::setw(4) <<  p->money      << '\n'
+            << "   Статус   : " << std::setw(4) <<  p->status + 1 << " ---> "
+                                 << cfg.decodeStatus(p->status)   << '\n'
+            << "   Круг     : " << std::setw(4) <<  p->circle     << '\n'
+            << p->monoBonus.getMessStatistic()
+            << "   МоноБонус: " << p->monoBonus.info()            << '\n';
 
             ///------------------------------|
             /// Чья ячейка?                  |

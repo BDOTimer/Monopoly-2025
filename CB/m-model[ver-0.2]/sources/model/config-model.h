@@ -331,8 +331,10 @@ namespace model
         /// Расшифровка статуса.         |
         ///------------------------------:
         std::string_view decodeStatus(unsigned status) const
-        {   constexpr unsigned N = sizeof statusNames / sizeof *statusNames ;
-            return statusNames[status >= N ? N - 1 : status];
+        {   ASSERT(status < 3)
+        /// constexpr unsigned N = sizeof statusNames / sizeof *statusNames ;
+        /// return statusNames[status >= N ? N - 1 : status];
+            return statusNames[status];
         }
 
         ///------------------------------|

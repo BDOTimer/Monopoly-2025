@@ -1,15 +1,15 @@
 # depslib dependency file v1.0
-1747161712 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\main.cpp
+1747529140 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\main.cpp
 	"program.h"
 	"model/!m-model.h"
 
-1747165099 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\program.h
+1747529453 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\program.h
 	"debug.h"
-	"vsl/vsl.h"
 	"user-model.h"
+	"vsl/vsl.h"
 	"controller/controller.h"
 
-1747120692 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\debug.h
+1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\debug.h
 	<functional>
 	<filesystem>
 	<algorithm>
@@ -22,64 +22,50 @@
 	<format>
 	<vector>
 	<string>
+	<chrono>
 	<cmath>
+	<array>
+	<tuple>
+	<ctime>
 	<list>
 	<map>
 	<set>
 	<SFML/Graphics.hpp>
 	<windows.h>
 
-1747163953 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\vsl\vsl.h
+1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\vsl\vsl.h
 	<iostream>
 	"../debug.h"
 
-1747164104 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\!m-model.h
+1747532953 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\!m-model.h
 	"myl.h"
 	<locale>
 	<codecvt>
 	"cards.inc"
 	"field.inc"
 
-1747139823 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\myl.h
-	"config-model.h"
-	<algorithm>
-	<sstream>
-	<string>
-	<vector>
-	<chrono>
-	<ctime>
-
-1747159263 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\config-model.h
-	<functional>
-	<algorithm>
-	<iostream>
-	<iomanip>
-	<fstream>
-	<sstream>
-	<string>
-	<vector>
-	<format>
-	<array>
-	<tuple>
-	<map>
+1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\myl.h
 	"../debug.h"
-	<windows.h>
+	"config-model.h"
 
-1746461345 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\cards.inc
+1747530280 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\config-model.h
+	"../debug.h"
 
-1746768143 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\field.inc
+1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\cards.inc
 
-1747164238 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\user-model.h
+1747529696 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\field.inc
+
+1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\user-model.h
 	<string>
 	<vector>
 	"model/config-model.h"
 
-1747164143 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\model.cpp
+1747288497 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\model.cpp
 	"../user-model.h"
 	"config-model.h"
 	"!m-model.h"
 
-1747162811 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\controller\controller.h
+1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\controller\controller.h
 	"../debug.h"
 	"../user-model.h"
 

@@ -48,16 +48,19 @@ struct  TestGame2
 
         unsigned isDump2File = model::Config::isDump2File()+ 1;
 
+        l(isDump2File)
+
         while(done)
         {
             for(auto& pl : players)
             {
                 unsigned& idPlayer = pl.id;
 
+                std::stringstream ss; ss << std::setw(4) << ++cnt;
+
                 vc  << "ПАУЗА::Нажмите ENTER, чтобы сделать "
-                    << ++cnt << " шаг ... или '0' для завершения ...\n"
-                    << "------------------------------------"
-                       "----------------------------------..."
+                    << ss.str() << " шаг ...\n"
+                    << "---------------------------------------------..."
                     << visual::endl{};
 
                 if(0 == model::Config::isDump2File())

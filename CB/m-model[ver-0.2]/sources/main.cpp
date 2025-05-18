@@ -77,7 +77,7 @@ struct  TestGame1                     : model::Referee
             showMessage(ss);
 
             isDone = !isGameOver();
-                
+
             std::cout << doStep();
         }
 
@@ -121,7 +121,7 @@ void tests()
     /// TESTCLASS(model::CellInfoTester::test);
 
     /// TESTCLASS(TestGame1::test);
-    /// 
+    ///
     TESTCLASS(TestGame2::test);
 }
 
@@ -137,6 +137,8 @@ int main(int argc, char* argv[])
     if(argc > 1)
     {   try
         {   model::Config::isDump2File() = std::stoul(argv[1]);
+
+            l(model::Config::isDump2File())
 
             log.open("logf.txt");
 
