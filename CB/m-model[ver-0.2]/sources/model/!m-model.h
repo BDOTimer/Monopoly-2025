@@ -646,11 +646,11 @@ namespace model
             ss  << "   Кошелёк = " << std::setw(4) << money      << "\n"
                 << "   Позиция = " << std::setw(4) << position   << "\n"
                 << "   Статус  = " << std::setw(4)
-                << cfg.decodeStatus(status)<< ": ["<< status+1   << "]\n"
+                << cfg.decodeStatus(status)<< ": ["<< status + 1 << "]\n"
                 << "   Круг    = " << std::setw(4) << circle     << "\n"
                 << "   Шанс    = " << std::setw(4) << chance     << "\n"
                 << "   Товар   = " <<                 cell.name
-                << ": Cтатус: ["   <<                 cell.status<< "]\n"
+                << ": Cтатус: ["   <<             1 + cell.status<< "]\n"
                 << "   Кол-во  = " << std::setw(4)
                 << (cell.amountThings != 0 ?
                     std::to_string(cell.amountThings) : " пусто")<< "\n"
