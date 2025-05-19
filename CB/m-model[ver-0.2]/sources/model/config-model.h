@@ -32,7 +32,14 @@ void tests();
 
 namespace model
 {
+    struct Cell;
 
+    const char* const currencySymbol{
+    "///---------------------------------------------------|\n"
+    "/// https://ru.wikipedia.org/wiki/Список_знаков_валют |\n"
+    "///     ₽,$,¥,€,£(эскудо),ƒ,₿,Ξ,Ł,ℕ,§,Au,฿,؋, ...     |\n"
+    "///---------------------------------------------------|\n"
+    };
     const std::string_view $S{ "£"};
     const std::string_view $s{" £"};
 
@@ -394,6 +401,9 @@ namespace model
             ss  << "TIME Run: " << std::ctime(&end_time);
             return ss.str();
         }
+
+        const Cell& getCell(const unsigned position) const;
+              Cell& getCell(const unsigned position);
 
         ///------------------------------|
         /// Тест класса.                 |

@@ -152,6 +152,8 @@ int main(int argc, char* argv[])
         }
     }
 
+    std::cout << '\n' << model::currencySymbol << '\n';
+
     tests();
 
     std::cout << "Программа закончила работу.\n" << std::endl;

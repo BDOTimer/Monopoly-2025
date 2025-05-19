@@ -162,11 +162,14 @@ namespace model
 
         [[nodiscard]]
         const std::string info() const
-        {   std::stringstream ss;
-            ss  << "///----------------------------|\n"
-                << "/// БАНК-ЛАБЕАН: " << money << "\n"
-                << "///----------------------------|\n\n";
+        {
+            #define A std::setw(6) << money << $s << std::setw(17) << "|\n"
+            std::stringstream ss;
+            ss  << "///-----------------------------------------|\n"
+                << "///     БАНК-ЛАБЕАН: " << A
+                << "///-----------------------------------------|\n";
             return ss.str();
+            #undef A
         }
     };
 
@@ -384,8 +387,7 @@ namespace model
             }
 
         void add(unsigned statusCell)
-        {   l(statusCell)
-            ASSERT (statusCell < counted.size())
+        {   ASSERT (statusCell < counted.size())
           ++counted[statusCell];
             doCalc();
         }
@@ -399,10 +401,12 @@ namespace model
 
         int getBonus() const { return moneyBonus; }
 
-        std::string info(unsigned w) const
-        {   std::stringstream ss;
-                              ss << std::setw(w) << messEvent;
-            return            ss.str();
+        std::string info(const unsigned w) const
+        {   auto p = const_cast<MonoBonus*>(this);
+            std::stringstream
+            ss;    ss << std::setw(w) << getBonus() << $s << messEvent;
+            p->messEvent.clear();
+            return ss.str();
         }
 
         std::string getMessStatistic() const
@@ -414,11 +418,15 @@ namespace model
             return ss.str();
         }
 
-    private:
-        std::array<int, 3> counted{};
-        int             moneyBonus{};
+        void debug() const
+        {   l(messEvent)
+        }
 
-        std::string messEvent{"0"};
+    private:
+        std::array<int, 3>   counted{};
+        int               moneyBonus{};
+
+        std::string        messEvent;
 
         int getMaxCnt() const
         {   return  std::max(counted[0],
@@ -436,21 +444,19 @@ namespace model
                 case  8: doMessEvent(15); break;
                 case  9: doMessEvent(20); break;
                 case 10: doMessEvent(25); break;
-                default: doMessEvent( 0);
+                default: if(maxCnt  < 4)  doMessEvent(0);
             }
         }
 
         void doMessEvent(const int moneyBonusNow)
-        {   std::stringstream ss;
-            if(moneyBonusNow  > moneyBonus)
-            {    ss << " повысился до: " << moneyBonusNow;
+        {   if(moneyBonusNow  > moneyBonus)
+            {    messEvent = " (повысился)";
             }
-            if(moneyBonusNow  < moneyBonus)
-            {    ss << " понизился до: " << moneyBonusNow;
+            else if(moneyBonusNow  < moneyBonus)
+            {    messEvent = " (понизился)";
             }
-            else ss << " "               << moneyBonusNow;
+            else messEvent = "";
             moneyBonus = moneyBonusNow;
-            messEvent  = ss.str();
         }
     };
 
@@ -472,8 +478,10 @@ namespace model
     {           IPerson(const Config& cfg, unsigned id)
                     :   cfg  (cfg )
                     ,    id  ( id )
-                    ,   name (cfg.getNamePlayer(id))
                 {
+                    name += cfg.getNamePlayer(id);
+                    name.push_back('\"');
+
                     getLetters ();
                     getWhatDone();
                 }
@@ -493,7 +501,7 @@ namespace model
         ///------------------------------|
         /// Имя персонажа.               |
         ///------------------------------:
-        std::string  name;
+        std::string  name{'\"'};
 
         ///------------------------------|
         /// Позиция на поле.             |
@@ -545,17 +553,17 @@ namespace model
             "ничего не делать."
         };
 
-        void toPay(IPerson* persGuest)
+        void toPayBonus(IPerson* persGuest)
         {   if(const auto& m = monoBonus.getBonus(); m != 0)
             {
                             capital += monoBonus.getBonus();
                 persGuest-> capital -= monoBonus.getBonus();
 
-                letters  << " --> Получен Бонус: +"     << m
-                         << " ₽ от " << persGuest->name << '\n';
+                letters  << " --> Получен Бонус: +"    << m
+                         << $s << " от " << persGuest->name << '\n';
 
                 persGuest->whatDone << " --> Оплата Бонуса: -" << m
-                                    << " ₽ для " << name       << '\n';
+                                    << $s << " для " << name   << '\n';
             }
         }
 
@@ -665,7 +673,7 @@ namespace model
         [[nodiscard]]
         const std::string infoName() const
         {   std::stringstream ss;
-                              ss  << ">> Имя персонажа: \"" << name << "\"\n";
+                              ss  << ">> ИГРОК: " << name << "\n";
             return            ss.str();
         }
 
@@ -726,6 +734,10 @@ namespace model
             money = cfg.startMoney;
         }
 
+        void debug() const
+        {   monoBonus.debug();
+        }
+
         friend std::ostream& operator<<(std::ostream&, const IPerson*);
     };
 
@@ -742,9 +754,8 @@ namespace model
             << "   Статус   : " << std::setw(4) <<  p->status + 1 << " ---> "
                                  << cfg.decodeStatus(p->status)       << '\n'
             << "   Круг     : " << std::setw(4) <<  p->circle         << '\n'
-            << "   МоноБонус: " << p->monoBonus.info(4) << $s         << '\n'
+            << "   МоноБонус: " << p->monoBonus.info(4)               << '\n'
             << p->monoBonus.getMessStatistic()
-
         ;
         return o;
     }
@@ -946,11 +957,7 @@ namespace model
             if(pcard == nullptr) return "";
             if(pcard -> empty()) { pcard = nullptr; return ""; }
 
-            std::stringstream ss;
-            ss << "Событие для " << name << ":\n";
-            ss << pcard->doAct(this);
-
-            return ss.str();
+            return pcard->doAct(this);
         }
 
     private:
@@ -1132,7 +1139,10 @@ namespace model
         {
             std::stringstream ss;
 
-            ss << field.bank.info();
+            ///------------------------------|
+            /// Банк.                        |
+            ///------------------------------:
+            ss << field.bank.info() << '\n';
 
             persNow = perses[order[i]];
 
@@ -1170,20 +1180,26 @@ namespace model
             }
 
             ///------------------------------|
-            /// Ячейка кому принадлежит?     |
+            /// Оплата МоноБонуса?           |
             ///------------------------------:
-            if(auto owner = cell.pers; owner != nullptr)
-            {   owner->toPay(persNow);
+            if(auto owner = cell.pers; owner   != nullptr &&
+                                       persNow != cell.pers)
+            {
+                owner->toPayBonus(persNow);
             }
 
             ss << pers.doAct();
-            /// std::cout << pers.info ();
 
+            std::string input = pers.input();
+
+            ///------------------------------|
+            /// Поле + Игрок.                |
+            ///------------------------------:
             ss << (CellInfoTester)field[pos] << '\n';
             ss << &pers                      << '\n';
 
             ss << "ОПЕРАЦИИ: -------------------------------: \n";
-            ss <<  pers.input();
+            ss << input;
 
             ///------------------------------|
             /// Что ещё произошло?           |

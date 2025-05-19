@@ -13,9 +13,8 @@ namespace model
     std::string Cell::getOwner() const
     {   std::stringstream ss;
         pers == nullptr
-            ?   ss  << "Эта ячейка свободна для продажи!\n"
-            :   ss  << "Эта ячейка принадлежит "
-                    << pers->name << '\n';
+            ?   ss  << "Эта ячейка свободна для продажи!"
+            :   ss  << "Эта ячейка принадлежит " << pers->name;
         return  ss.str();
     }
 
@@ -71,7 +70,7 @@ namespace model
         return *holderGates[id].cfg;
     }
 
-    std::string  getLogo(unsigned id)
+    std::string   getLogo(unsigned id)
     {   return holderGates[id].cfg->getLogo  ()
              + holderGates[id].mdl->infoField();
     }
@@ -85,6 +84,14 @@ namespace model
         {   return holderGates.doStep(args[0], args[1]);
         }
         return "error...\n";
+    }
+
+    const Cell& Config::getCell(const unsigned position) const
+    {   return (*pfield)[position];
+    }
+
+    Cell& Config::getCell(const unsigned position)
+    {   return (*pfield)[position];
     }
 }
 
