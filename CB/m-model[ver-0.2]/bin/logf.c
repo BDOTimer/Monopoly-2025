@@ -6,7 +6,7 @@
 
 RUN: TestGame2::test
 /// Старт Model::Monopoly-2025[ver::0.2.1]
-/// TIME Run: Mon May 19 15:20:10 2025
+/// TIME Run: Mon May 19 15:26:52 2025
 /// Compilator::GCC MINGW
 
 Field:
