@@ -1,3 +1,3 @@
-m-model[ver-02] 1000
+m-model[ver-02] 100
 
 pause
