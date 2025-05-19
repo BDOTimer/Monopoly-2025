@@ -134,14 +134,18 @@ int main(int argc, char* argv[])
 {
     std::ofstream log;
 
-    if(argc > 1)
+    if(argc == 3)
     {   try
         {   model::Config::isDump2File() = std::stoul(argv[1]);
 
             l(model::Config::isDump2File())
 
-            log.open("logf.txt.cpp");
+            log.open(argv[2]);  /// logf.txt.py
 
+            if(!log.is_open())
+            {   std::cerr << "ERROR CMD: !log.is_open() ...\n";
+                return -1;
+            }
         /// std::streambuf *coutbuf = std::cout.rdbuf(); //save old buf
         /// std::cout.rdbuf(coutbuf); //reset to standard output again
             std::cout.rdbuf(log.rdbuf());
