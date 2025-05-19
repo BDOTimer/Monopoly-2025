@@ -140,7 +140,7 @@ int main(int argc, char* argv[])
 
             l(model::Config::isDump2File())
 
-            log.open("logf.txt");
+            log.open("logf.txt.cpp");
 
         /// std::streambuf *coutbuf = std::cout.rdbuf(); //save old buf
         /// std::cout.rdbuf(coutbuf); //reset to standard output again
