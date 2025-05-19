@@ -399,11 +399,10 @@ namespace model
 
         int getBonus() const { return moneyBonus; }
 
-        std::string    info() const
-        {   std::string log;
-                        log += messEvent;
-                        log += " ₽";
-            return      log;
+        std::string info(unsigned w) const
+        {   std::stringstream ss;
+                              ss << std::setw(w) << messEvent;
+            return            ss.str();
         }
 
         std::string getMessStatistic() const
@@ -739,14 +738,12 @@ namespace model
     /// const auto&   cell = (*(cfg.pfield))[p->position];
 
         o   << "Игрок: ----------------------------------: " << p->id << '\n'
-            << "   Кошелёк  : " << std::setw(4) <<  p->money      << '\n'
+            << "   Кошелёк  : " << std::setw(4) <<  p->money << $s    << '\n'
             << "   Статус   : " << std::setw(4) <<  p->status + 1 << " ---> "
-                                 << cfg.decodeStatus(p->status)   << '\n'
-            << "   Круг     : " << std::setw(4) <<  p->circle     << '\n'
+                                 << cfg.decodeStatus(p->status)       << '\n'
+            << "   Круг     : " << std::setw(4) <<  p->circle         << '\n'
+            << "   МоноБонус: " << p->monoBonus.info(4) << $s         << '\n'
             << p->monoBonus.getMessStatistic()
-            << "   МоноБонус: " << p->monoBonus.info()            << '\n';
-
-
 
         ;
         return o;

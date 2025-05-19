@@ -37,7 +37,7 @@
 	<iostream>
 	"../debug.h"
 
-1747532953 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\!m-model.h
+1747634772 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\!m-model.h
 	"myl.h"
 	<locale>
 	<codecvt>
@@ -48,7 +48,7 @@
 	"../debug.h"
 	"config-model.h"
 
-1747530280 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\config-model.h
+1747634262 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\config-model.h
 	"../debug.h"
 
 1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\cards.inc
@@ -60,7 +60,7 @@
 	<vector>
 	"model/config-model.h"
 
-1747288497 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\model.cpp
+1747632711 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\model.cpp
 	"../user-model.h"
 	"config-model.h"
 	"!m-model.h"
