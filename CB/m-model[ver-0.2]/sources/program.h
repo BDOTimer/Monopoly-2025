@@ -50,6 +50,8 @@ struct  TestGame2
 
         l(isDump2File)
 
+        const char* const LINE{"////////////////////////////////////////////|"};
+
         while(done)
         {
             for(auto& pl : players)
@@ -58,10 +60,10 @@ struct  TestGame2
 
                 std::stringstream ss; ss << std::setw(4) << ++cnt;
 
-                vc  << "ПАУЗА::Нажмите ENTER, чтобы сделать "
+                vc  << "ПАУЗА::Нажмите ENTER, чтобы сделать:"
                     << ss.str() << " шаг -->\n"
                 /// << "---------------------------------------------..."
-                    << "////////////////////////////////////////////|";
+                    << LINE << (cfg.isDump2File() == 0 ? "" : LINE);
 
                 if(0 == model::Config::isDump2File())
                 {   std::string e; std::getline(std::cin, e);

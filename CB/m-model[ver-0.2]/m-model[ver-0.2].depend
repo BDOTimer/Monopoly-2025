@@ -3,7 +3,7 @@
 	"program.h"
 	"model/!m-model.h"
 
-1747640944 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\program.h
+1747656371 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\program.h
 	"debug.h"
 	"user-model.h"
 	"vsl/vsl.h"
@@ -37,7 +37,7 @@
 	<iostream>
 	"../debug.h"
 
-1747653253 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\!m-model.h
+1747656642 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\!m-model.h
 	"myl.h"
 	<locale>
 	<codecvt>
@@ -48,7 +48,7 @@
 	"../debug.h"
 	"config-model.h"
 
-1747637380 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\config-model.h
+1747653822 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\config-model.h
 	"../debug.h"
 
 1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\cards.inc
@@ -60,7 +60,7 @@
 	<vector>
 	"model/config-model.h"
 
-1747640064 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\model.cpp
+1747653985 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\model.cpp
 	"../user-model.h"
 	"config-model.h"
 	"!m-model.h"

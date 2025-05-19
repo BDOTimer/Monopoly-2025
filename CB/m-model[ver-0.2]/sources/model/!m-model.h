@@ -1190,16 +1190,16 @@ namespace model
 
             ss << pers.doAct();
 
-            std::string input = pers.input();
+            std::string inputStr = pers.input();
 
             ///------------------------------|
             /// Поле + Игрок.                |
             ///------------------------------:
             ss << (CellInfoTester)field[pos] << '\n';
-            ss << &pers                      << '\n';
+            ss << &pers; ///                 << '\n';
 
             ss << "ОПЕРАЦИИ: -------------------------------: \n";
-            ss << input;
+            ss << inputStr;
 
             ///------------------------------|
             /// Что ещё произошло?           |
