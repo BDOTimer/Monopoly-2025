@@ -9,6 +9,8 @@
 #include "model/config-model.h"
 #include "controller/controller.h"
 
+#include "sceneGame/markup.h"
+
 #include "debug.h"
 
 namespace vsl
@@ -18,10 +20,13 @@ namespace vsl
                 :   pwin            (&window)
                 ,   uiTune           (window, "Настройки ...")
             {
-                init();
+                init           ();
+                resizeFormImgui();
             }
 
         sf::RenderWindow*        pwin;
+
+        MarkupSceneGame      markupSG;
 
         sf::Vector2u         szuWin  ;
         sf::Vector2f         szfWin  ;
@@ -68,12 +73,15 @@ namespace vsl
 
         inline static constexpr float SCALE_WIN{0.9f};
 
-        static sf::Vector2u initWinSize()
-        {   sf::VideoMode           dm = sf::VideoMode::getDesktopMode();
-            sf::Vector2u szuWin   = dm.size;
-                         szuWin.x = unsigned(SCALE_WIN * szuWin.x);
-                         szuWin.y = unsigned(SCALE_WIN * szuWin.y);
-            return       szuWin;
+        static sf::Vector2u initWinSize(sf::Vector2u szuWin = {0,0})
+        {
+            if(szuWin.x == 0)
+            {   sf::VideoMode  dm = sf::VideoMode::getDesktopMode();
+                    szuWin   = dm.size;
+                    szuWin.x = unsigned(SCALE_WIN * szuWin.x);
+                    szuWin.y = unsigned(SCALE_WIN * szuWin.y);
+            }
+            return  szuWin;
         }
 
         template<typename T>
@@ -100,6 +108,21 @@ namespace vsl
                                    "SFML::Test::2", sf::State::Windowed);
             static vsl::Config cfg (window);
             return             cfg;
+        }
+
+        void resizeFormImgui()
+        {
+            ///-------------------|
+            /// uiGameLog         |
+            ///-------------------:
+            {   const auto  px = 0;
+                const auto& py = markupSG.winUp.size.y;
+                const auto& sx = markupSG.winPlayer[0].size.x;
+                const auto& sy = markupSG.getWinBase().size.y;
+
+                uiGameLog.position = {px           , py * szfWin.y};
+                uiGameLog.size     = {sx * szfWin.x, sy * szfWin.y};
+            }
         }
     };
 }

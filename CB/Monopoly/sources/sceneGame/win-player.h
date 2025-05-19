@@ -4,15 +4,14 @@
 /// "win-player.h"
 ///----------------------------------------------------------------------------:
 #include "../common.h"
-#include "markup.h"
 
 namespace vsl
 {
     struct  WinPlayer : vsl::IObject
     {       WinPlayer(vsl::Config& cfg, unsigned id) : cfg(cfg)
             {
-                const auto& rect    = MarkupSceneGame::get(cfg).winPlayer[id];
-                const auto& border  = MarkupSceneGame::get(cfg).border;
+                const auto& rect    = cfg.markupSG.winPlayer[id];
+                const auto& border  = cfg.markupSG.border;
                 const auto& border2 = border + border;
 
                 const float x = rect.size.x * cfg.szfWin.x;

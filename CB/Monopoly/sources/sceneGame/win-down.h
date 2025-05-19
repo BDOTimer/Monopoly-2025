@@ -4,15 +4,15 @@
 /// "win-down.h"
 ///----------------------------------------------------------------------------:
 #include "../common.h"
-#include "markup.h"
+
 
 namespace vsl
 {
     struct  WinDown : vsl::IObject
     {       WinDown(vsl::Config& cfg) : cfg(cfg)
             {
-                const auto& rect    = MarkupSceneGame::get(cfg).winDown;
-                const auto& border  = MarkupSceneGame::get(cfg).border;
+                const auto& rect    = cfg.markupSG.winDown;
+                const auto& border  = cfg.markupSG.border ;
                 const auto& border2 = border + border;
 
                 const float x = rect.size.x * cfg.szfWin.x;

@@ -424,8 +424,10 @@ namespace uii
             ///---------------------------------------:
             /// TODO: Окно на разных компах должно соответствовать ....
 
-        /// ImGui::SetNextWindowSize(size);
-        /// ImGui::SetNextWindowPos (position);
+        ///
+        ImGui::SetNextWindowSize(size);
+        ///
+        ImGui::SetNextWindowPos (position);
 
             ///---------------------------------------|
             /// Окно <name>.                          |

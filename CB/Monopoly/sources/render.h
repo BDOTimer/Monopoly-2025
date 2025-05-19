@@ -144,7 +144,7 @@ private:
     ///--------------------------------------:
     TEST
     {   sf::RenderWindow window
-        (	sf::VideoMode(vsl::Config::initWinSize()),
+        (   sf::VideoMode(vsl::Config::initWinSize()),
             L"Монополия-2025",
             sf::Style::Titlebar | sf::Style::Close
         );

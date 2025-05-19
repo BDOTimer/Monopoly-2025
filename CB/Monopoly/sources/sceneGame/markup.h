@@ -9,25 +9,17 @@ namespace vsl
 {
 
     struct  MarkupSceneGame
-    {       MarkupSceneGame(const vsl::Config& cfg) : cfg(cfg)
+    {       MarkupSceneGame()
             {
                 calc();
             }
 
-        const vsl::Config& cfg;
-
         float border{2.f};
-
-        static const MarkupSceneGame& get(const vsl::Config& cfg)
-        {   static   MarkupSceneGame  m  (cfg);
-            return   m;
-        }
 
         const sf::FloatRect& getWinBase() const
         {   return winBase;
         }
 
-        inline static const
         sf::FloatRect winBase  {{0.3f, 0.1f},{0.7f, 0.8f}};
         sf::FloatRect winUp       ;
         sf::FloatRect winDown     ;
@@ -46,8 +38,8 @@ namespace vsl
                     s.x = 1.0f;
                     s.y = PY;
             }
-            {   auto& p   = winDown.position;
-                auto& s   = winDown.size;
+            {   auto& p = winDown.position;
+                auto& s = winDown.size;
                 p.x = 0.0f;
                 p.y = SY + PY;
                 s.x = 1.0f;

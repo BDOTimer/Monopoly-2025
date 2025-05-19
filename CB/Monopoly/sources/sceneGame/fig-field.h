@@ -48,18 +48,20 @@ namespace vsl
                             sps.back().setPosition({x * szCell, y * szCell});
                             sps.back().setOutlineThickness(12.f);
 
+                            sps.back().setFillColor({180,180,180});
+
                             switch(ID % 3)
                             {
                                 case 0:
-                                {   sps.back().setOutlineColor({0,224,0});
+                                {   sps.back().setOutlineColor({0,128,0});
                                     break;
                                 }
                                 case 1:
-                                {   sps.back().setOutlineColor({224,0,0});
+                                {   sps.back().setOutlineColor({128,0,0});
                                     break;
                                 }
                                 case 2:
-                                {   sps.back().setOutlineColor({224,224,0});
+                                {   sps.back().setOutlineColor({128,128,0});
                                     break;
                                 }
                             }

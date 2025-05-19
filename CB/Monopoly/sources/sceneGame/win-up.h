@@ -4,15 +4,14 @@
 /// "win-up.h"
 ///----------------------------------------------------------------------------:
 #include "../common.h"
-#include "markup.h"
 
 namespace vsl
 {
     struct  WinUp : vsl::IObject
     {       WinUp(vsl::Config& cfg) : cfg(cfg)
             {
-                const auto& rect    = MarkupSceneGame::get(cfg).winUp;
-                const auto& border  = MarkupSceneGame::get(cfg).border;
+                const auto& rect    = cfg.markupSG.winUp;
+                const auto& border  = cfg.markupSG.border;
                 const auto& border2 = border + border;
 
                 const float x = rect.size.x * cfg.szfWin.x;

@@ -4,7 +4,6 @@
 /// "win-game.h"
 ///----------------------------------------------------------------------------:
 #include "../common.h"
-#include "markup.h"
 #include "fig-field.h"
 
 namespace vsl
@@ -14,8 +13,8 @@ namespace vsl
                 :   cfg         (cfg)
                 ,   figField    (cfg)
             {
-                const auto& rect    = MarkupSceneGame::get(cfg).getWinBase();
-                const auto& border  = MarkupSceneGame::get(cfg).border;
+                const auto& rect    = cfg.markupSG.getWinBase();
+                const auto& border  = cfg.markupSG.border;
                 const auto& border2 = border + border;
 
                 const float x = rect.size.x * cfg.szfWin.x;
@@ -91,7 +90,7 @@ namespace vsl
             objectTest4.update(cfg.dt());
 
             target.setView(cam);
-            target.draw   (fon,         states);
+        /// target.draw   (fon,         states);
 
             target.setView(camMove);
             target.draw   (figField,    states);
