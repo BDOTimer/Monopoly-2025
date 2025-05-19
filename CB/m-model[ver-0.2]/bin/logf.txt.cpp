@@ -1,4 +1,3 @@
-```python
 
 ///---------------------------------------------------|
 /// https://ru.wikipedia.org/wiki/Список_знаков_валют |
@@ -7,7 +6,7 @@
 
 RUN: TestGame2::test
 /// Старт Model::Monopoly-2025[ver::0.2.1]
-/// TIME Run: Mon May 19 15:33:56 2025
+/// TIME Run: Mon May 19 15:57:41 2025
 /// Compilator::GCC MINGW
 
 Field:
@@ -35655,4 +35654,3 @@ cubicDice:-| 5 |
 
 Программа закончила работу.
 
-```
