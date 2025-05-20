@@ -6,6 +6,9 @@
 #include "../debug.h"
 #include "config-model.h"
 
+#include <locale>
+#include <codecvt>
+
 
 template<typename T>
 std::ostream& operator<<(std::ostream& o, const std::vector<T>& m)
@@ -13,11 +16,31 @@ std::ostream& operator<<(std::ostream& o, const std::vector<T>& m)
     return o;
 }
 
+
+inline std::string WstrToUtf8(const std::wstring& str)
+{   std::wstring_convert<std::codecvt_utf8<wchar_t> > strCnv;
+    return strCnv.to_bytes(str);
+}
+
+inline std::wstring utf8ToWstr(const std::string& str)
+{   std::wstring_convert< std::codecvt_utf8<wchar_t> > strCnv;
+    return strCnv.from_bytes(str);
+}
+
 ///---------|
 /// my lib  |
 ///---------:
 namespace myl
 {
+
+    ///------------------------------------------------------------------------|
+    /// Получение строки utf8 заданой длины.
+    ///------------------------------------------------------------------------:
+    inline std::string& setwUtf8(const unsigned n, std::string& s)
+    {   s.resize (n + s.size() - utf8ToWstr(s).size(), ' ');
+        return s;
+    }
+
     ///------------------------------------------------------------------------|
     /// Рандомный перемешиватель массива.
     ///------------------------------------------------------------------------:

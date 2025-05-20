@@ -100,7 +100,7 @@ struct  TestGame1                     : model::Referee
     {
         model::Config Cfg;
 
-        ln(model::Config::getLogo())
+        ln(model::Config::getLogo    ())
          l(model::Config::isDump2File())
 
         printf(Cfg.infoValidation().c_str());

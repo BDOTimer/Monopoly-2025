@@ -1,6 +1,6 @@
 ﻿#ifndef CONFIG_MODEL_H
 #define CONFIG_MODEL_H
-const char* const LOGO = "Model::Monopoly-2025[ver::0.2.1]";
+const char* const LOGO = "Model::Monopoly-2025[ver::0.2.2]";
 ///----------------------------------------------------------------------------|
 /// "config-model.h"
 /// Дефолтный дизайн для детей! (детский вариант)

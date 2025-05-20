@@ -8,20 +8,6 @@
 
 #include "myl.h"
 
-#include <locale>
-#include <codecvt>
-
-
-inline std::string WstrToUtf8(const std::wstring& str)
-{   std::wstring_convert<std::codecvt_utf8<wchar_t> > strCnv;
-    return strCnv.to_bytes(str);
-}
-
-inline std::wstring utf8ToWstr(const std::string& str)
-{   std::wstring_convert< std::codecvt_utf8<wchar_t> > strCnv;
-    return strCnv.from_bytes(str);
-}
-
 
 namespace model
 {
@@ -71,7 +57,8 @@ namespace model
         inline static unsigned N{sizeof name / sizeof *name};
 
         std::string infoWhat(std::string s)
-        {   s.resize(12, ' ');
+        {   myl::setwUtf8(11, s);
+
             std::stringstream ss;
             ss << "///--------------------------|\n"
                << "/// Событие Шанс: " << s << "| <--- " << decodeName() << '\n'
@@ -134,8 +121,10 @@ namespace model
         TEST
         {   Cards   cards;
                  ln(cards)
-                 ln(cards[0 ].infoWhat("-30 "))
+                 ln(cards[0 ].infoWhat("-1"))
                  ln(cards[25].infoWhat("4, 6"))
+                 ln(cards[25].infoWhat("TODO::?"))
+                 ln(cards[25].infoWhat(std::to_string(1000) + $s.data()))
         }
     };
 
