@@ -30,7 +30,7 @@ namespace vsl
                 fon.setOutlineColor({64,64,128});
                 fon.setOutlineThickness(border);
 
-                fon.setTexture(&HolderTexture::get(pathFon[0]));
+                fon.setTexture(&HolderTexture::get(buttonFon.get()));
 
                 camMove = cam;
 
@@ -77,24 +77,24 @@ namespace vsl
             }
         }
 
-
         ///-------------------------------|
         /// Переключение фонов winGame.   |
         ///-------------------------------:
-        unsigned pathFonN  {0};
-        std::array<const char*, 3> pathFon
+        myl::SwitcherData<const char*, 4> buttonFon
         {   "res/img/ground_01.jpg",
             "res/img/ground_02.jpg",
-            "res/img/ground_03.jpg"
+            "res/img/ground_03.jpg",
+            ""
         };
 
         bool isFon{true};
+
         void fooFon() /// <--- вешается на кнопку "Фон" в winGame.
         {   
-            pathFonN = ++pathFonN %( pathFon.size() + 1);
+            buttonFon.next();
 
-            if(isFon = pathFonN != pathFon.size())
-            {   fon.setTexture(&HolderTexture::get(pathFon[pathFonN]), true);
+            if(isFon = buttonFon.n != buttonFon.m.size() - 1, isFon)
+            {   fon.setTexture(&HolderTexture::get(buttonFon.get()), true);
             }
         }
 

@@ -307,7 +307,8 @@ namespace model
             << "ЯЧЕЙКА: ---------------------------------: " << e.id << '\n'
             << "   Позиция      :  " << e.id          << '\n'
             << "   Товар        :  " << e.name        << '\n'
-            << "   Шанс         :  " << e.chance      << '\n'
+            << "   Шанс         :  " 
+            <<     (e.chance != 0 ? "Да" : "Нет")     << '\n'
             << "   Статус       :  " << e.status + 1  << '\n'
             << "   Цена базовая :  " << e.priseBase   << '\n'
             << "   Банк покупает: [" << e.bankBuy [0] << ", "
@@ -783,7 +784,7 @@ namespace model
             {
                 const int mn{money[pers->status]};
                 pers->money += mn;
-                return infoWhat(std::to_string(mn) + std::string("$"));
+                return infoWhat(std::to_string(mn) + $s.data());
             }
             case 2:
             {

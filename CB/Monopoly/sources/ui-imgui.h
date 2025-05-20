@@ -9,7 +9,8 @@
 #include "imgui-SFML.h"
 #include "misc/cpp/imgui_stdlib.h"
 
-//#include "myl.h"
+#include "common.h"
+
 
 ///---------|
 /// ImGui   |
@@ -466,11 +467,11 @@ namespace uii
 
                 ImGui::SameLine ();
 
-                if(ImGui::Button(buttonShowCubic[buttonShowCubicN], WH))
+                if(ImGui::Button(buttonShowCubic.get(), WH))
                 {   fooDiceHide();
                     sound.play ();
 
-                    buttonShowCubicN = ++buttonShowCubicN % 2;
+                    buttonShowCubic.next();
                 }
 
                 ImGui::SameLine ();
@@ -492,8 +493,7 @@ namespace uii
         }
 
     private:
-        unsigned    buttonShowCubicN{0};
-        const char* buttonShowCubic [2]
+        myl::SwitcherData<const char*, 2> buttonShowCubic
         {   "Показать", "Спрятать"
         };
     };
