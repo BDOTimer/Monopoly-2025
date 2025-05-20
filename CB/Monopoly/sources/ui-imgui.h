@@ -410,6 +410,7 @@ namespace uii
         sf::SoundBuffer buffer;
         sf::Sound       sound ;
 
+        Callback fooFon     {[this](){}};
         Callback fooDice    {[this](){}};
         Callback fooMusic   {[this](){}};
         Callback fooDiceHide{[this](){}};
@@ -456,22 +457,33 @@ namespace uii
                     }
                 }
 
-                if(ImGui::Button("КУБИК", {80, 80}))
+                const ImVec2 WH{80, 50};
+
+                if(ImGui::Button("КУБИК", WH))
                 {   fooDice   ();
                     sound.play();
                 }
 
                 ImGui::SameLine ();
 
-                if(ImGui::Button("Спрятать", {80, 80}))
+                if(ImGui::Button(buttonShowCubic[buttonShowCubicN], WH))
                 {   fooDiceHide();
                     sound.play ();
+
+                    buttonShowCubicN = ++buttonShowCubicN % 2;
                 }
 
                 ImGui::SameLine ();
 
-                if(ImGui::Button("Музыка", {80, 80}))
+                if(ImGui::Button("Музыка", WH))
                 {   fooMusic  ();
+                    sound.play();
+                }
+                
+                ImGui::SameLine ();
+
+                if(ImGui::Button("Фон", WH))
+                {   fooFon    ();
                     sound.play();
                 }
             }
@@ -480,7 +492,10 @@ namespace uii
         }
 
     private:
-
+        unsigned    buttonShowCubicN{0};
+        const char* buttonShowCubic [2]
+        {   "Показать", "Спрятать"
+        };
     };
 }
 
