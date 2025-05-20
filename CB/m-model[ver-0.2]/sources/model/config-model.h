@@ -6,6 +6,7 @@ const char* const LOGO = "Model::Monopoly-2025[ver::0.2.1]";
 /// Дефолтный дизайн для детей! (детский вариант)
 ///----------------------------------------------------------------------------:
 #include "../debug.h"
+#include "implants/bot-iq.h"
 
 
 #ifndef l
@@ -42,34 +43,6 @@ namespace model
     };
     const std::string_view $S{ "₽"};
     const std::string_view $s{" ₽"};
-
-    ///------------------------------------------------------------------------|
-    /// Умственные способности бота описываются здесь.
-    ///------------------------------------------------------------------------|
-    constexpr auto NPOS{std::string::npos};
-
-    struct BotProfileIQ
-    {   ///----------------------------------|
-        /// Запрет на продажу                |
-        /// от статуса(0,1,2) товара.        |
-        ///----------------------------------:
-        std::string botSell;
-
-        ///----------------------------------|
-        /// Запрет на покупку от ранга(0,1,2)|
-        /// товара. Чем выше ранг, тем       |
-        /// выгоднее сделка.                 |
-        ///----------------------------------:
-        std::string botBuy;
-
-        bool canSellBot(unsigned priceRang) const
-        {   return botSell.find('0' + priceRang) == NPOS;
-        }
-
-        bool canBuyBot(unsigned priceRang) const
-        {   return botBuy.find('0' + priceRang) == NPOS;
-        }
-    };
 
 
     struct MessagesFooEvent
@@ -303,15 +276,16 @@ namespace model
              FOOL
         };
 
-        std::array<BotProfileIQ, 3> botsIQ
-        {   BotProfileIQ{"02", "02"}, /// Срединий
-            BotProfileIQ{"01", "01"}, /// Умный
-            BotProfileIQ{"12", "12"}  /// Дурак
+        implants::TuneIQs tuneIQs
+        {   implants::TuneIQ{ "02", "02"}, /// Срединий
+            implants::TuneIQ{ "01", "01"}, /// Умный
+            implants::TuneIQ{ "12", "12"}  /// Дурак
         };
 
-        const BotProfileIQ* getBotIQ(unsigned id) const
-        {   /// TODO: ASSERT(id < botsIQ.size())
-            return &botsIQ[id];
+        implants::HolderTuneIQ _holderTuneIQ{tuneIQs};
+
+        const implants::TuneIQ* getTuneIQs(unsigned id) const
+        {   return _holderTuneIQ.get(id);
         }
 
         ///-----------------------------------------------.

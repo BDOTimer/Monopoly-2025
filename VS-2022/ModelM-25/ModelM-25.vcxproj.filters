@@ -18,6 +18,9 @@
     <Filter Include="Source Files\controller">
       <UniqueIdentifier>{558e42ac-6eb8-4f95-b2d5-68f807b29fba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\model\implants">
+      <UniqueIdentifier>{8e4ae266-dbb2-4a70-87a9-f62489bceb3f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\main.cpp">
@@ -25,6 +28,9 @@
     </ClCompile>
     <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\model\model.cpp">
       <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\model\implants\bot-iq.cpp">
+      <Filter>Source Files\model\implants</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +57,9 @@
     </ClInclude>
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\controller\controller.h">
       <Filter>Source Files\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\implants\bot-iq.h">
+      <Filter>Source Files\model\implants</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

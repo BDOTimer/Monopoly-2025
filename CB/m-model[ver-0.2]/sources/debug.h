@@ -105,4 +105,6 @@ inline std::string methodName(const std::string& prettyFunction)
 
 #define __METHOD_NAME__ methodName(__PRETTY_FUNCTION__)
 
+constexpr auto NPOS{std::string::npos};
+
 #endif // DEBUG_H

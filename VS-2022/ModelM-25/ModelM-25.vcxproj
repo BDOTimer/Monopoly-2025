@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\main.cpp" />
+    <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\model\implants\bot-iq.cpp" />
     <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\model\model.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -27,6 +28,7 @@
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\debug.h" />
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\!m-model.h" />
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\config-model.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\implants\bot-iq.h" />
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\myl.h" />
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\program.h" />
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\user-model.h" />

@@ -5,6 +5,11 @@
 #include "model/!m-model.h"
 
 
+namespace implants
+{   void  tests();
+}
+
+
 #if       __has_include(<SFML/Graphics.hpp>)
     #define THIS_SFML_PROJECT
 #else
@@ -112,6 +117,8 @@ struct  TestGame1                     : model::Referee
 void tests()
 {
     /// myl::tests();
+
+    implants::tests();
 
     /// TESTCLASS(model::Cards::test );
     /// TESTCLASS(model::Cell::test  );

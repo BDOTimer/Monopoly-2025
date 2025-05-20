@@ -636,10 +636,13 @@ namespace model
 
             std::stringstream ss;
 
+            int n{0};
+
             ss << "Инвентарь:\n";
             for(const auto&[sts, id] : cargo)
-            {   ss  << "    " << std::setw(4) << id
-                    << ",   " << sts << " : "   << field[id].name << '\n';
+            {   ss  << "    " << std::setw(3) << ++n <<':'
+                              << std::setw(3) << id
+                    << ", " << sts << ", "   << field[id].name << '\n';
             }   ss  << "    ... ";
 
             if(cargo.empty())
@@ -806,13 +809,13 @@ namespace model
                       : IPerson    (cfg, id)
             {
                 init();
-                botIQ = cfg.getBotIQ(id);
+                botIQ = cfg.getTuneIQs(id);
             }
 
         ///------------------------------|
         /// Интеллект бота               |
         ///------------------------------:
-        const BotProfileIQ* botIQ{nullptr};
+        const implants::TuneIQ* botIQ{nullptr};
 
 
         const std::string input () override
