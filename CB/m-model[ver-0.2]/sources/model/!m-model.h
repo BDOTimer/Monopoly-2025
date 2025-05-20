@@ -71,7 +71,7 @@ namespace model
         inline static unsigned N{sizeof name / sizeof *name};
 
         std::string infoWhat(std::string s)
-        {   s.resize(11, ' ');
+        {   s.resize(12, ' ');
             std::stringstream ss;
             ss << "///--------------------------|\n"
                << "/// Событие Шанс: " << s << "| <--- " << decodeName() << '\n'
