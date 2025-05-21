@@ -99,6 +99,8 @@
 		<Unit filename="../m-model[ver-0.2]/sources/model/cards.inc" />
 		<Unit filename="../m-model[ver-0.2]/sources/model/config-model.h" />
 		<Unit filename="../m-model[ver-0.2]/sources/model/field.inc" />
+		<Unit filename="../m-model[ver-0.2]/sources/model/implants/bot-iq.cpp" />
+		<Unit filename="../m-model[ver-0.2]/sources/model/implants/bot-iq.h" />
 		<Unit filename="../m-model[ver-0.2]/sources/model/model.cpp" />
 		<Unit filename="../m-model[ver-0.2]/sources/model/myl.h" />
 		<Unit filename="../m-model[ver-0.2]/sources/program.h" />

@@ -21,10 +21,10 @@ namespace myl
 {
     template<typename T, unsigned N>
     struct SwitcherData
-    {   
-        const T& get () const { return m[n];           }
-        const T& next()       { return m[n = ++n % N]; }
-        const T& back()       { return m[n = --n % N]; }
+    {
+        const T& get () const { return m[n]; }
+        const T& next()       { return m[n = (n +  1) %  N               ]; }
+        const T& back()       { return m[n = (n == 0) ? (N - 1) : (n - 1)]; }
 
         std::array<T, N> m;
         unsigned         n{};

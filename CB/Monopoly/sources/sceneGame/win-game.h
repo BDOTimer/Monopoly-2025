@@ -90,7 +90,7 @@ namespace vsl
         bool isFon{true};
 
         void fooFon() /// <--- вешается на кнопку "Фон" в winGame.
-        {   
+        {
             buttonFon.next();
 
             if(isFon = buttonFon.n != buttonFon.m.size() - 1, isFon)
@@ -113,7 +113,7 @@ namespace vsl
             objectTest4.update(cfg.dt());
 
             target.setView(cam);
-  if(isFon) target.draw   (fon,         states);
+if(isFon) { target.draw   (fon,         states); }
 
             target.setView(camMove);
             target.draw   (figField,    states);
