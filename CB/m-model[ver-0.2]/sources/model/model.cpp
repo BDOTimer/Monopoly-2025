@@ -64,10 +64,10 @@ namespace model
     ///------------------------------------------------------------------------|
     /// Интерфейс модели.
     ///------------------------------------------------------------------------:
-    const Config getConfig()
+    Config* getConfig()
     {   unsigned id = holderGates.create();
         holderGates[id].cfg->idGame = id;
-        return *holderGates[id].cfg;
+        return holderGates[id].cfg;
     }
 
     std::string   getLogo(unsigned id)

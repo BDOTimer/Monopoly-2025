@@ -277,14 +277,14 @@ namespace model
         };
 
         implants::TuneIQs tuneIQs
-        {   implants::TuneIQ{ "02", "02"}, /// Срединий
-            implants::TuneIQ{ "01", "01"}, /// Умный
-            implants::TuneIQ{ "12", "12"}  /// Дурак
+        {   implants::TuneIQ{ "Срединий", "02", "02"},
+            implants::TuneIQ{ "Умный"   , "01", "01"},
+            implants::TuneIQ{ "Дурак"   , "12", "12"}
         };
 
         implants::HolderTuneIQ _holderTuneIQ{tuneIQs};
 
-        const implants::TuneIQ* getTuneIQs(unsigned id) const
+        const implants::IBotIQ* getIBotIQ(unsigned id) const
         {   return _holderTuneIQ.get(id);
         }
 
@@ -371,13 +371,14 @@ namespace model
         static std::string getTimeNow()
         {   auto end = std::chrono::system_clock::now();
             std::time_t end_time = std::chrono::system_clock::to_time_t(end);
-            std::stringstream ss;
+            std::stringstream ss ;
             ss  << "TIME Run: " << std::ctime(&end_time);
             return ss.str();
         }
 
         const Cell& getCell(const unsigned position) const;
               Cell& getCell(const unsigned position);
+
 
         ///------------------------------|
         /// Тест класса.                 |

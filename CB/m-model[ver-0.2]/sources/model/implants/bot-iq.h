@@ -19,7 +19,10 @@ namespace implants
     /// Умственные способности бота описываются здесь.
     ///----------------------------------------------------------------- TuneIQ:
     struct TuneIQ
-    {   ///----------------------------------|
+    {
+        std::string name;
+
+        ///----------------------------------|
         /// Запрет на продажу                |
         /// от статуса(0,1,2) товара.        |
         ///----------------------------------:
@@ -41,16 +44,31 @@ namespace implants
         }
     };
 
+    enum eWHATDO
+    {    E_BUY ,
+         E_SELL,
+         E_NONE
+    };
 
     ///-------------------------|
     /// Интерфейс объекта.      |--------------------------------------------!!!
     ///-------------------------:
     struct      IBotIQ
-    {   virtual~IBotIQ(){}
-        virtual unsigned whatDo(model::IPerson*) = 0;
-        virtual const TuneIQ* get() const = 0;
+    {           IBotIQ(const TuneIQ* tuneIQ) : tuneIQ(tuneIQ){}
+        virtual~IBotIQ(){}
+        virtual eWHATDO whatDo(model::IPerson*) = 0;
+        virtual const TuneIQ* getTuneIQ() const = 0;
 
-        std::string_view name;
+        std::string name{"<IBotIQ>"};
+
+        const TuneIQ*     tuneIQ{nullptr};
+
+        void debug() const
+        {   ASSERT(nullptr != tuneIQ)
+            l(tuneIQ->name)
+        }
+
+        std::stringstream message;
 
     private:
     };
@@ -65,7 +83,10 @@ namespace implants
             }
            ~HolderTuneIQ(){ for(auto p : m) delete p; }
 
-        virtual const implants::TuneIQ* get(unsigned id) const;
+        const implants::TuneIQ* getTuneIQ(unsigned id) const;
+        const implants::IBotIQ* get      (unsigned id) const;
+
+        void debug() const;
 
     private:
         std::vector<IBotIQ*> m;

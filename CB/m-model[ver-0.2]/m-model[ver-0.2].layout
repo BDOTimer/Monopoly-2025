@@ -2,34 +2,14 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release" />
-	<File name="sources\model\implants\bot-iq.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sources\main.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="0" />
+			<Cursor1 position="3853" topLine="118" />
 		</Cursor>
 	</File>
-	<File name="sources\model\model.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sources\model\model.cpp" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1285" topLine="35" />
-		</Cursor>
-	</File>
-	<File name="sources\model\implants\bot-iq.h" open="1" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\..\task-dev.txt" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="715" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="sources\user-model.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="505" topLine="9" />
-		</Cursor>
-	</File>
-	<File name="sources\model\!m-model.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="41503" topLine="1202" />
+			<Cursor1 position="1725" topLine="68" />
 		</Cursor>
 	</File>
 	<File name="sources\model\field.inc" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -37,19 +17,34 @@
 			<Cursor1 position="579" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="sources\program.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+	<File name="..\..\task-dev.txt" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1816" topLine="53" />
+			<Cursor1 position="715" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="sources\model\myl.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sources\model\myl.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="5780" topLine="144" />
 		</Cursor>
 	</File>
-	<File name="sources\debug.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sources\model\!m-model.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2841" topLine="78" />
+			<Cursor1 position="29309" topLine="829" />
+		</Cursor>
+	</File>
+	<File name="sources\model\config-model.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="9711" topLine="377" />
+		</Cursor>
+	</File>
+	<File name="sources\program.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="935" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="sources\model\implants\bot-iq.cpp" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="799" topLine="17" />
 		</Cursor>
 	</File>
 	<File name="sources\vsl\vsl.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -57,19 +52,24 @@
 			<Cursor1 position="711" topLine="2" />
 		</Cursor>
 	</File>
-	<File name="sources\main.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4441" topLine="130" />
-		</Cursor>
-	</File>
-	<File name="sources\model\config-model.h" open="1" top="1" tabpos="4" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="9598" topLine="265" />
-		</Cursor>
-	</File>
 	<File name="sources\controller\controller.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="277" topLine="6" />
+		</Cursor>
+	</File>
+	<File name="sources\model\implants\bot-iq.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1392" topLine="29" />
+		</Cursor>
+	</File>
+	<File name="sources\debug.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1548" topLine="54" />
+		</Cursor>
+	</File>
+	<File name="sources\user-model.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="358" topLine="3" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

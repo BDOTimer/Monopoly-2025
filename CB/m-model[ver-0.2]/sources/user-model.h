@@ -13,7 +13,7 @@ namespace model
     ///---------------------------|
     /// vsl.                      |
     ///---------------------------:
-    const Config getConfig();
+    Config* getConfig();
 
     std::string  getLogo(unsigned id);
 

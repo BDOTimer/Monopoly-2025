@@ -13,13 +13,13 @@
 /// Клиентская игра.
 ///------------------------------------------------------------------ TestGame2:
 struct  TestGame2
-{       TestGame2  ()
+{       TestGame2()
         {   start();
         }
 
     visual:: Console vc;
     unsigned     idGame;
-    model::Config   cfg;
+    model::Config*  cfg;
 
     std::array<controller::Player, 3> players
     {          controller::Player (0),
@@ -31,7 +31,7 @@ struct  TestGame2
 
     void start()
     {   cfg    = model::getConfig();
-        idGame = cfg.idGame;
+        idGame = cfg->idGame;
         vc << model::getLogo(idGame) << "\n";
     }
 
@@ -63,7 +63,7 @@ struct  TestGame2
                 vc  << "ПАУЗА::Нажмите ENTER, чтобы сделать:"
                     << ss.str() << " шаг -->\n"
                 /// << "---------------------------------------------..."
-                    << LINE << (cfg.isDump2File() == 0 ? "" : LINE);
+                    << LINE << (cfg->isDump2File() == 0 ? "" : LINE);
 
                 if(0 == model::Config::isDump2File())
                 {   std::string e; std::getline(std::cin, e);

@@ -192,6 +192,14 @@ namespace model
         ///----------------------------:
         IPerson*          pers{nullptr};
 
+        unsigned getRangSell(unsigned persStatus) const
+        {      return  rangSell[persStatus];
+        }
+
+        unsigned getRangBuy(unsigned persStatus) const
+        {       return  bankBuy[persStatus];
+        }
+
         ///----------------------------|
         /// Ячейка занята?             |
         ///----------------------------:
@@ -296,7 +304,7 @@ namespace model
             << "ЯЧЕЙКА: ---------------------------------: " << e.id << '\n'
             << "   Позиция      :  " << e.id          << '\n'
             << "   Товар        :  " << e.name        << '\n'
-            << "   Шанс         :  " 
+            << "   Шанс         :  "
             <<     (e.chance != 0 ? "Да" : "Нет")     << '\n'
             << "   Статус       :  " << e.status + 1  << '\n'
             << "   Цена базовая :  " << e.priseBase   << '\n'
@@ -798,13 +806,15 @@ namespace model
                       : IPerson    (cfg, id)
             {
                 init();
-                botIQ = cfg.getTuneIQs(id);
+                botIQ = const_cast<implants::IBotIQ*>(cfg.getIBotIQ(id));
+
+            /// cfg._holderTuneIQ.debug();
             }
 
         ///------------------------------|
         /// Интеллект бота               |
         ///------------------------------:
-        const implants::TuneIQ* botIQ{nullptr};
+        implants::IBotIQ* botIQ{nullptr};
 
 
         const std::string input () override
@@ -821,32 +831,24 @@ namespace model
             {   ss << "  \"ЗВЁЗДЫ СВЕТЯТ МНЕ КРАСИВО!\"\n";
             }
 
-            unsigned r = rand() % 2;
+            implants::eWHATDO r = botIQ->whatDo(this);
 
-            ss << "   Принято решение " << decodeDone[r] << '\n';
+            ss << botIQ->message.str(  ); botIQ->message.str("");
 
             if(cell.isBusy())
             {   ss  << "   ... нет товара ...\n"
                     << "   Стоимость аренды ячейки: "
                     << cell.pers->calcRent(this) << '\n';
 
-                if( r == 0)
-                {   r =  2;
+                if( r == implants::E_BUY)
+                {   r =  implants::E_NONE;
                 }
             }
 
             {   ///----------------------------------------|
                 /// IQ.                                    |
                 ///----------------------------------------:
-                bool canBuy  = botIQ->canBuyBot (cell.status);
-                bool canSell = botIQ->canSellBot(cell.status);
 
-                if(0 == r && !canBuy )
-                {   r = 2; ss << "   botIQ::передумал покупать\n";
-                }
-                if(1 == r && !canSell)
-                {   r = 2; ss << "   botIQ::передумал продавать\n";
-                }
             }
 
             Bank& bank = cfg.pfield->bank;
@@ -856,7 +858,7 @@ namespace model
                 ///----------------------------------------|
                 /// Купить.                                |
                 ///----------------------------------------:
-                case 0:
+                case implants::E_BUY:
                 {
                     const int price   = goodSky ?
                         cell.getBestSell() : cell.bankSell[status];
@@ -894,7 +896,7 @@ namespace model
                 ///----------------------------------------|
                 /// Продать.                               |
                 ///----------------------------------------:
-                case 1:
+                case implants::E_SELL:
                 {
                     if(isActBuy)
                     {   ss << "В этом круге продажа заблокированы...\n";

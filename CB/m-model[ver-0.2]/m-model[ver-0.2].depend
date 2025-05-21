@@ -1,15 +1,15 @@
 # depslib dependency file v1.0
-1747637230 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\main.cpp
+1747822685 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\main.cpp
 	"program.h"
 	"model/!m-model.h"
 
-1747656371 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\program.h
+1747828333 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\program.h
 	"debug.h"
 	"user-model.h"
 	"vsl/vsl.h"
 	"controller/controller.h"
 
-1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\debug.h
+1747806883 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\debug.h
 	<functional>
 	<filesystem>
 	<algorithm>
@@ -37,30 +37,31 @@
 	<iostream>
 	"../debug.h"
 
-1747656642 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\!m-model.h
+1747829371 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\!m-model.h
 	"myl.h"
-	<locale>
-	<codecvt>
 	"cards.inc"
 	"field.inc"
 
-1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\myl.h
+1747806883 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\myl.h
 	"../debug.h"
 	"config-model.h"
+	<locale>
+	<codecvt>
 
-1747653822 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\config-model.h
+1747815900 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\config-model.h
 	"../debug.h"
+	"implants/bot-iq.h"
 
 1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\cards.inc
 
 1747529696 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\field.inc
 
-1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\user-model.h
+1747825315 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\user-model.h
 	<string>
 	<vector>
 	"model/config-model.h"
 
-1747653985 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\model.cpp
+1747825315 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\model.cpp
 	"../user-model.h"
 	"config-model.h"
 	"!m-model.h"
@@ -68,4 +69,11 @@
 1747288497 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\controller\controller.h
 	"../debug.h"
 	"../user-model.h"
+
+1747828387 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\implants\bot-iq.h
+	"../../debug.h"
+
+1747828279 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\implants\bot-iq.cpp
+	"bot-iq.h"
+	"../!m-model.h"
 
