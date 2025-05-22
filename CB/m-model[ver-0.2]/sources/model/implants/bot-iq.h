@@ -22,7 +22,7 @@ namespace implants
          E_NONE
     };
 
-    struct AnswerIQ{ eWHATDO E{E_NONE}; Titer titer{nullptr}; };
+    struct AnswerIQ{ eWHATDO E{E_NONE}; Titer titer{}; };
 
     using TuneIQs = std::array<implants::TuneIQ, 3>;
 

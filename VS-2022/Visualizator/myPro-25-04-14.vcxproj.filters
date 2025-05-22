@@ -127,6 +127,9 @@
     <ClInclude Include="..\..\CB\Monopoly\sources\sceneGame\win-up.h">
       <Filter>Sources</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\implants\bot-iq.h">
+      <Filter>Model-0.2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\extLibs\imgui-1.91.8\imgui.cpp">
@@ -156,6 +159,9 @@
     <ClCompile Include="..\..\CB\Monopoly\sources\main.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\model\implants\bot-iq.cpp">
+      <Filter>Model-0.2</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\CB\m-model[ver-0.2]\sources\model\cards.inc">
@@ -164,5 +170,10 @@
     <None Include="..\..\CB\m-model[ver-0.2]\sources\model\field.inc">
       <Filter>Model-0.2</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\CB\m-model[ver-0.2]\sources\model\implants\doc-iq.txt">
+      <Filter>Model-0.2</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -73,7 +73,7 @@ private:
     ///////////////////////////////////////////////////////////////////////////:
 
     void startModel()
-    {   cfg.cfgModel = model::getConfig();
+    {   cfg.cfgModel = *model::getConfig ();
         cfg.idGame   = cfg.cfgModel.idGame;
         cfg.uiTune << model::getLogo(cfg.idGame) << "\n";
     }

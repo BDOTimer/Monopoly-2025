@@ -23,6 +23,7 @@
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\debug.h" />
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\!m-model.h" />
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\config-model.h" />
+    <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\implants\bot-iq.h" />
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\model\myl.h" />
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\program.h" />
     <ClInclude Include="..\..\CB\m-model[ver-0.2]\sources\user-model.h" />
@@ -57,6 +58,7 @@
     <ClInclude Include="..\..\extLibs\imgui-sfml-3.0\imgui-SFML_export.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\model\implants\bot-iq.cpp" />
     <ClCompile Include="..\..\CB\m-model[ver-0.2]\sources\model\model.cpp" />
     <ClCompile Include="..\..\CB\Monopoly\sources\main.cpp" />
     <ClCompile Include="..\..\extLibs\imgui-1.91.8\imgui.cpp" />
@@ -70,6 +72,9 @@
   <ItemGroup>
     <None Include="..\..\CB\m-model[ver-0.2]\sources\model\cards.inc" />
     <None Include="..\..\CB\m-model[ver-0.2]\sources\model\field.inc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\CB\m-model[ver-0.2]\sources\model\implants\doc-iq.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
