@@ -192,6 +192,14 @@ namespace model
         ///----------------------------:
         IPerson*          pers{nullptr};
 
+        int getPriseSell(unsigned persStatus) const
+        {   return bankSell[persStatus];
+        }
+
+        int getPriseBuy(unsigned persStatus) const
+        {   return bankBuy[persStatus];
+        }
+
         unsigned getRangSell(unsigned persStatus) const
         {      return  rangSell[persStatus];
         }
@@ -646,7 +654,7 @@ namespace model
             {   ss << "пусто ..." ;
             }   ss << "\n";
 
-            ss << "Вся стоимость всей собственности: " << capital << '\n';
+            ss << "Cтоимость всей собственности: " << capital << $s << '\n';
 
             return ss.str();
         }
@@ -831,7 +839,10 @@ namespace model
             {   ss << "  \"ЗВЁЗДЫ СВЕТЯТ МНЕ КРАСИВО!\"\n";
             }
 
-            implants::eWHATDO r = botIQ->whatDo(this);
+            ///----------------------------------------|
+            /// IQ.                                    |
+            ///----------------------------------------:
+            const auto&[OPER, TITER] = botIQ->whatDo(this);
 
             ss << botIQ->message.str(  ); botIQ->message.str("");
 
@@ -839,21 +850,11 @@ namespace model
             {   ss  << "   ... нет товара ...\n"
                     << "   Стоимость аренды ячейки: "
                     << cell.pers->calcRent(this) << '\n';
-
-                if( r == implants::E_BUY)
-                {   r =  implants::E_NONE;
-                }
-            }
-
-            {   ///----------------------------------------|
-                /// IQ.                                    |
-                ///----------------------------------------:
-
             }
 
             Bank& bank = cfg.pfield->bank;
 
-            switch(r)
+            switch(OPER)
             {
                 ///----------------------------------------|
                 /// Купить.                                |
@@ -898,10 +899,6 @@ namespace model
                 ///----------------------------------------:
                 case implants::E_SELL:
                 {
-                    if(isActBuy)
-                    {   ss << "В этом круге продажа заблокированы...\n";
-                        break;
-                    }
 
                     ss << IPerson::infoCargo();
 
@@ -913,9 +910,12 @@ namespace model
 
                     const auto&[sts, id] = *it;
 
-                    Cell& cellSell = (*cfg.pfield)[id];
+                /// if(TITER == nullptr) break;
 
-                    const int price  = goodSky ?
+                    Cell& cellSell = (*cfg.pfield)[id];
+                /// Cell& cellSell = (*cfg.pfield)[TITER->second];
+
+                    const int price = goodSky ?
                         cellSell.getBestBuy() : cellSell.bankBuy[status];
 
                     {
@@ -938,11 +938,14 @@ namespace model
 
                     break;
                 }
-
                 ///----------------------------------------|
                 /// Ничего не делать.                      |
                 ///----------------------------------------:
                 default: ;
+            }
+
+            if( isActBuy )
+            {   ss << "В этом круге продажа заблокированы...\n";
             }
             return ss.str();
         }

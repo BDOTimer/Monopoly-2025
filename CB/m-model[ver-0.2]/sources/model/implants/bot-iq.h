@@ -9,9 +9,20 @@ namespace model
 {   struct IPerson;
 }
 
+using Titer = std::multimap<unsigned/* status */,
+                            unsigned/* id     */>::const_iterator;
+
 namespace implants
 {
     struct TuneIQ;
+
+    enum eWHATDO
+    {    E_BUY ,
+         E_SELL,
+         E_NONE
+    };
+
+    struct AnswerIQ{ eWHATDO E{E_NONE}; Titer titer{nullptr}; };
 
     using TuneIQs = std::array<implants::TuneIQ, 3>;
 
@@ -44,19 +55,13 @@ namespace implants
         }
     };
 
-    enum eWHATDO
-    {    E_BUY ,
-         E_SELL,
-         E_NONE
-    };
-
     ///-------------------------|
     /// Интерфейс объекта.      |--------------------------------------------!!!
     ///-------------------------:
     struct      IBotIQ
     {           IBotIQ(const TuneIQ* tuneIQ) : tuneIQ(tuneIQ){}
         virtual~IBotIQ(){}
-        virtual eWHATDO whatDo(model::IPerson*) = 0;
+        virtual AnswerIQ whatDo(model::IPerson*) = 0;
         virtual const TuneIQ* getTuneIQ() const = 0;
 
         std::string name{"<IBotIQ>"};

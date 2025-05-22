@@ -12,32 +12,104 @@ namespace implants
             {
             }
 
-        eWHATDO whatDo(model::IPerson* pers) override
+        AnswerIQ whatDo(model::IPerson* pers) override
         {
-            model::Cell& cell = (*(pers->cfg.pfield))[pers->position];
+            AnswerIQ answerIQ;
 
-            bool canBuy  = getTuneIQ()->canBuyBot (cell.status);
-            bool canSell = getTuneIQ()->canSellBot(cell.status);
+            model::Field& field = *(pers->cfg.pfield);
+            model::Cell&  cell  = field[pers->position];
 
-            if(!cell.isBusy() && canBuy )
+            ///------------------------------------------------|
+            /// "ЗВЁЗДЫ СВЕТЯТ МНЕ КРАСИВО!"                   |
+            ///------------------------------------------------:
+            bool goodSky = cell.status == pers->status;
+
+            ///------------------------------------------------|
+            /// Получить инфу о возможности сделки.            |
+            ///------------------------------------------------:
+            bool mayBuy  = !cell.isBusy();
+            bool maySell = !pers->cargo.empty() && !pers->isActBuy;
+
+            ///------------------------------------------------|
+            /// Узнаём цену покупки ячеки.                     |
+            ///------------------------------------------------:
+            int priseBuy  = cell.getPriseBuy (pers->status);
+
+            ///------------------------------------------------|
+            /// Есть ли в кошельке деньги на покупку?          |
+            ///------------------------------------------------:
+            mayBuy = mayBuy && (pers->money >= priseBuy);
+
+            ///------------------------------------------------|
+            /// Получить разрешение на покупку и продажу.      |
+            ///------------------------------------------------:
+            bool canBuy  = getTuneIQ()->canBuyBot (cell.status) || goodSky;
+            bool canSell = getTuneIQ()->canSellBot(cell.status) || goodSky;
+
+            mayBuy  = mayBuy  && canBuy;
+            maySell = maySell && canSell;
+
+            if(mayBuy)
             {   message << "   botIQ::Есть желание КУПИТЬ!\n";
-                return E_BUY;
+
+                       answerIQ.E = E_BUY;
+                return answerIQ;
             }
-            if(canSell)
+            if(maySell)
             {   message << "   botIQ::Есть желание ПРОДАТЬ!\n";
-                return E_SELL;
+                answerIQ.titer = getIterGoods4Sell(pers);
+
+                if(answerIQ.titer != pers->cargo.cend())
+                {   message << "   IQ::Рекомендованно продать: "
+                            << answerIQ.titer->second << ", "
+                            << field[answerIQ.titer->second/*id*/].name << "\n";
+                }
+                else message << "   IQ::Рекомендаций на продажу нет!\n";
+
+                       answerIQ.E = E_SELL;
+                return answerIQ;
             }
 
             message << "   botIQ::Пойду лучше на диване полежу ...\n";
-            return E_NONE;
+
+                   answerIQ.E = E_NONE;
+            return answerIQ;
         }
 
         const TuneIQ* getTuneIQ() const override
         {   return IBotIQ::tuneIQ;
         }
 
-    //private:
+    private:
+        Titer getIterGoods4Sell(model::IPerson* pers) const
+        {
+            if(pers->cargo.empty()) return pers->cargo.cend();
 
+            std::array<std::list<Titer>, 3> stat
+            {   std::list<Titer>(),
+                std::list<Titer>(),
+                std::list<Titer>()
+            };
+
+            for(auto e  = pers->cargo.cbegin();
+                     e != pers->cargo.cend  (); ++e)
+            {
+                const auto&[status, id]    = *e ;
+                stat       [status].push_back(e);
+            }
+
+            std::map<size_t, unsigned> a;
+
+            for(size_t   i = 0;    i < stat.size();    ++i)
+            {   if(!stat[i].empty()) a[stat[i].size()] = i;
+            }
+
+            if(!a.empty())
+            {   return stat[a.begin()->second].front();
+            }
+
+            return pers->cargo.cend();
+        }
 
         TEST
         {   TuneIQ        tuneIQ{ "...xxx8=8xxx...", "02", "02"};
@@ -45,7 +117,7 @@ namespace implants
 
             model::IPerson* p{nullptr};
 
-            l(botIQ.whatDo(p))
+            l(botIQ.whatDo(p).E)
             l(botIQ.getTuneIQ()->name)
         }
 
