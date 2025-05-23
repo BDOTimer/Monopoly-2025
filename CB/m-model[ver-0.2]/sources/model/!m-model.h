@@ -562,6 +562,11 @@ namespace model
         std::map<std::string, unsigned>  specs;
 
         ///------------------------------|
+        /// Премия, если встал на своё.  |
+        ///------------------------------:
+        int prizeMyCell{5};
+
+        ///------------------------------|
         /// Карточка.                    |
         ///------------------------------:
         Card* pcard{nullptr};
@@ -681,15 +686,15 @@ namespace model
 
             Cell& cell = (*(cfg.pfield))[host->position];
 
-            int prise = cell.bankSell[host->status];
+            int price = cell.bankSell[host->status];
 
-            host->money += prise;
-                  money -= prise;
+            host->money += price;
+                  money -= price;
 
             host->letters << " --> Плата за аренду: +"
-                          << std::setw(4) << prise << $s
+                          << std::setw(4) << price << $s
                           << " от " << name << '\n';
-            return prise;
+            return price;
         }
 
         ///------------------------------|
@@ -863,14 +868,14 @@ namespace model
             if(cell.isBusy())
             {
                 if(this == cell.pers)
-                {   ss  << "   ... это моя ячейка ...\n";
+                {   ss  << "   ... это моя ячейка: +" << prizeMyCell << $sn;
                 }
                 else
                 {   ss  << "   ... ячейка занята ...\n"
-                        << "   Кошелёк до   : " << money << $s << '\n'
+                        << "   Кошелёк до   : " << money << $sn
                         << "   Стоимость аренды ячейки: -"
-                        << this->payRent(cell.pers) << $s << '\n'
-                        << "   Кошелёк после: " << money << $s << '\n';
+                        << this->payRent(cell.pers)      << $sn
+                        << "   Кошелёк после: " << money << $sn;
                 }
             }
 

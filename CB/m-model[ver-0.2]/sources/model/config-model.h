@@ -41,8 +41,9 @@ namespace model
     "///     ₽,$,¥,€,£(эскудо),ƒ,₿,Ξ,Ł,ℕ,§,Au,฿,؋, ...     |\n"
     "///---------------------------------------------------|\n"
     };
-    const std::string_view $S{ "£"};
-    const std::string_view $s{" £"};
+    constexpr std::string_view $S { "£"  };
+    constexpr std::string_view $s {" £"  };
+    constexpr std::string_view $sn{" £\n"};
 
 
     struct MessagesFooEvent

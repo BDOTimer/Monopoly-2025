@@ -2,9 +2,59 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release" />
+	<File name="sources\sceneGame\win-down.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="489" topLine="3" />
+		</Cursor>
+	</File>
+	<File name="sources\main.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="982" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="sources\config-vsl.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="2434" topLine="70" />
+		</Cursor>
+	</File>
+	<File name="sources\scene-tune.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1331" topLine="28" />
+		</Cursor>
+	</File>
+	<File name="sources\sceneGame\fig-field.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1948" topLine="39" />
+		</Cursor>
+	</File>
+	<File name="sources\player.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="335" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="sources\shader-dice.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6749" topLine="180" />
+		</Cursor>
+	</File>
+	<File name="sources\sceneGame\win-game.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1987" topLine="7" />
+		</Cursor>
+	</File>
+	<File name="sources\fps.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1678" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="bin\res\shaders\dice.frag" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3877" topLine="11" />
+		</Cursor>
+	</File>
+	<File name="sources\sceneGame\win-up.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="466" topLine="6" />
 		</Cursor>
 	</File>
 	<File name="..\m-model[ver-0.2]\sources\model\implants\bot-iq.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -17,9 +67,14 @@
 			<Cursor1 position="4280" topLine="119" />
 		</Cursor>
 	</File>
-	<File name="sources\model.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sources\common.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="236" topLine="0" />
+			<Cursor1 position="792" topLine="17" />
+		</Cursor>
+	</File>
+	<File name="sources\scene-logo.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2117" topLine="67" />
 		</Cursor>
 	</File>
 	<File name="sources\ui-imgui.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -27,9 +82,29 @@
 			<Cursor1 position="14907" topLine="427" />
 		</Cursor>
 	</File>
-	<File name="sources\common.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sources\model.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="792" topLine="17" />
+			<Cursor1 position="236" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\m-model[ver-0.2]\sources\model\config-model.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6887" topLine="195" />
+		</Cursor>
+	</File>
+	<File name="sources\sceneGame\markup.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="485" topLine="12" />
+		</Cursor>
+	</File>
+	<File name="sources\debug.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2723" topLine="74" />
+		</Cursor>
+	</File>
+	<File name="sources\sceneGame\win-player.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="571" topLine="3" />
 		</Cursor>
 	</File>
 	<File name="sources\render.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
@@ -40,81 +115,6 @@
 	<File name="icon.rc" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="26" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="sources\sceneGame\fig-field.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1948" topLine="39" />
-		</Cursor>
-	</File>
-	<File name="sources\sceneGame\win-player.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="571" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="sources\sceneGame\win-game.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1987" topLine="7" />
-		</Cursor>
-	</File>
-	<File name="sources\debug.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2723" topLine="74" />
-		</Cursor>
-	</File>
-	<File name="sources\scene-tune.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1331" topLine="28" />
-		</Cursor>
-	</File>
-	<File name="sources\sceneGame\win-up.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="466" topLine="6" />
-		</Cursor>
-	</File>
-	<File name="sources\player.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="335" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="sources\sceneGame\win-down.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="489" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="sources\main.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="982" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="sources\scene-logo.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2117" topLine="67" />
-		</Cursor>
-	</File>
-	<File name="sources\fps.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1678" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="sources\shader-dice.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6749" topLine="180" />
-		</Cursor>
-	</File>
-	<File name="sources\sceneGame\markup.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="485" topLine="12" />
-		</Cursor>
-	</File>
-	<File name="..\m-model[ver-0.2]\sources\model\config-model.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6887" topLine="195" />
-		</Cursor>
-	</File>
-	<File name="bin\res\shaders\dice.frag" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3877" topLine="11" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
