@@ -76,6 +76,8 @@ namespace vsl
 					cfg.musicLogo.getStatus() == E::Playing
 						? cfg.musicLogo.pause()
                         : cfg.musicLogo.play ();
+
+                /// isRot = !isRot;
                 }
 		    }
 		}
@@ -83,6 +85,8 @@ namespace vsl
     private:
         sf::RectangleShape fon;
         std::vector<Player>  m;
+
+        bool isRot{false};
 
         std::wstring mess1{L"ЛОГО.\nНастройки: ПРОБЕЛ ..."};
         TextStyleA  tmess1;
@@ -94,7 +98,15 @@ namespace vsl
                           sf::RenderStates  states) const
         {                           target.draw(fon, states);
             target.setView(*cfg.camFon);
-            for(const auto& pl : m) target.draw(pl , states);
+
+            if(isRot)
+            {   auto p = const_cast<Player*>(&m[2]);
+                     p->sp.rotate(sf::degrees(1.f));
+            }
+
+            for(const auto& pl : m)
+            {   target.draw(pl , states);
+            }
 
             target.setView(*cfg.camGui);
             target.draw(tmess1, states);
