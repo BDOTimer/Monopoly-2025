@@ -84,7 +84,7 @@ namespace implants
             l(tuneIQ->name)
         }
 
-        std::stringstream message;
+        std::stringstream messageX;
 
     private:
     };

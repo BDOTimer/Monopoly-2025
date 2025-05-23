@@ -57,28 +57,30 @@ namespace implants
             mayBuy  = mayBuy  && canBuy;
             maySell = maySell && canSell;
 
+            auto& mE = pers->messEvents;
+
             if(mayBuy)
-            {   message << "   botIQ::Есть желание КУПИТЬ!\n";
+            {   mE << "   botIQ::Есть желание КУПИТЬ!\n";
 
                        answerIQ.E = E_BUY;
                 return answerIQ;
             }
             if(maySell)
-            {   message << "   botIQ::Есть желание ПРОДАТЬ!\n";
+            {   mE << "   botIQ::Есть желание ПРОДАТЬ!\n";
                 answerIQ.titer = getIterGoods4Sell(pers);
 
                 if(answerIQ.titer != pers->cargo.cend())
-                {   message << "   IQ::Рекомендованно продать: "
-                            << answerIQ.titer->second << ", "
-                            << field[answerIQ.titer->second/*id*/].name << "\n";
+                {   mE << "   IQ::Рекомендованно продать: "
+                       << answerIQ.titer->second << ", "
+                       << field[answerIQ.titer->second/*id*/].name << "\n";
                 }
-                else message << "   IQ::Рекомендаций на продажу нет!\n";
+                else mE << "   IQ::Рекомендаций на продажу нет!\n";
 
                        answerIQ.E = E_SELL;
                 return answerIQ;
             }
 
-            message << "   botIQ::Пойду лучше на диване полежу ...\n";
+            mE << "   botIQ::Пойду лучше на диване полежу ...\n";
 
                    answerIQ.E = E_NONE;
             return answerIQ;
@@ -193,30 +195,32 @@ namespace implants
             mayBuy  = mayBuy  && canBuy;
             maySell = maySell && canSell;
 
+            auto& mE = pers->messEvents;
+
             if(mayBuy)
-            {   message << "   botIQ::Есть желание КУПИТЬ!\n";
+            {   mE << "   botIQ::Есть желание КУПИТЬ!\n";
 
                        answerIQ.E = E_BUY;
                 return answerIQ;
             }
             if(maySell)
-            {   message << "   botIQ::Есть желание ПРОДАТЬ!\n";
+            {   mE << "   botIQ::Есть желание ПРОДАТЬ!\n";
                 answerIQ.titer = BotIQSmart::getIterGoods4Sell(pers);
 
                 if(answerIQ.titer        != pers->cargo.cend() &&
                    answerIQ.titer->first != (unsigned)vetoStatus)
                 {
-                    message << "   IQ::Рекомендованно продать: "
+                    mE << "   IQ::Рекомендованно продать: "
                             << answerIQ.titer->second << ", "
                             << field[answerIQ.titer->second/*id*/].name << "\n";
                 }
-                else message << "   IQ::Рекомендаций на продажу нет!\n";
+                else mE << "   IQ::Рекомендаций на продажу нет!\n";
 
                        answerIQ.E = E_SELL;
                 return answerIQ;
             }
 
-            message << "   botIQ::Пойду лучше на диване полежу ...\n";
+            mE << "   botIQ::Пойду лучше на диване полежу ...\n";
 
                    answerIQ.E = E_NONE;
             return answerIQ;
@@ -305,28 +309,30 @@ namespace implants
             mayBuy  = mayBuy  && canBuy;
             maySell = maySell && canSell;
 
+            auto& mE = pers->messEvents;
+
             if(mayBuy)
-            {   message << "   botIQ::Есть желание КУПИТЬ!\n";
+            {   mE << "   botIQ::Есть желание КУПИТЬ!\n";
 
                        answerIQ.E = E_BUY;
                 return answerIQ;
             }
             if(maySell)
-            {   message << "   botIQ::Есть желание ПРОДАТЬ!\n";
+            {   mE << "   botIQ::Есть желание ПРОДАТЬ!\n";
                 answerIQ.titer = BotIQSmart::getIterGoods4Sell(pers);
 
                 if(answerIQ.titer != pers->cargo.cend())
-                {   message << "   IQ::Рекомендованно продать: "
-                            << answerIQ.titer->second << ", "
-                            << field[answerIQ.titer->second/*id*/].name << "\n";
+                {   mE  << "   IQ::Рекомендованно продать: "
+                        << answerIQ.titer->second << ", "
+                        << field[answerIQ.titer->second/*id*/].name << "\n";
                 }
-                else message << "   IQ::Рекомендаций на продажу нет!\n";
+                else mE << "   IQ::Рекомендаций на продажу нет!\n";
 
                        answerIQ.E = E_SELL;
                 return answerIQ;
             }
 
-            message << "   botIQ::Пойду лучше на диване полежу ...\n";
+            mE << "   botIQ::Пойду лучше на диване полежу ...\n";
 
                    answerIQ.E = E_NONE;
             return answerIQ;

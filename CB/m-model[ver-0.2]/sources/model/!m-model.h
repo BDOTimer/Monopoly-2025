@@ -60,9 +60,9 @@ namespace model
         {   myl::setwUtf8(11, s);
 
             std::stringstream ss;
-            ss << "///--------------------------|\n"
-               << "/// Событие Шанс: " << s << "| <--- " << decodeName() << '\n'
-               << "///--------------------------|\n\n";
+            ss << "   ///--------------------------|\n"
+               << "   /// Событие Шанс: " << s << "| <--- "<<decodeName()<<'\n'
+               << "   ///--------------------------|\n";
             return ss.str();
         }
 
@@ -497,13 +497,11 @@ namespace model
                     name.push_back('\"');
 
                     getLetters ();
-                    getWhatDone();
                 }
         virtual~IPerson()  {};
 
-        [[nodiscard]]
-        virtual const std::string input() = 0;
-        virtual const std::string doAct() = 0;
+        virtual void input() = 0;
+        virtual void doAct() = 0;
 
         const Config& cfg;
 
@@ -571,6 +569,20 @@ namespace model
         ///------------------------------:
         Card* pcard{nullptr};
 
+        ///------------------------------|
+        /// - Письма.                    |
+        /// - События.                   |
+        /// - Операции.                  |
+        ///------------------------------:
+        std::stringstream     messLetters;
+        std::stringstream     messEvents ;
+        std::stringstream     messOper   ;
+
+        void clearMess    (  )
+        {   messEvents.str("");
+            messOper  .str("");
+        }
+
         std::string_view decodeDone[3]
         {   "купить." ,
             "продать.",
@@ -583,48 +595,28 @@ namespace model
                             capital += monoBonus.getBonus();
                 persGuest-> capital -= monoBonus.getBonus();
 
-                letters  << " --> Получен Бонус  : +" << std::setw(4) << m
-                         << $s << " от " << persGuest->name << '\n';
+                messLetters << " --> Получен Бонус  : +" << std::setw(4) << m
+                            << $s << " от " << persGuest->name << '\n';
 
-                persGuest->whatDone << " --> Оплата Бонуса: -" << m
+                persGuest->messOper << " --> Оплата Бонуса: -" << m
                                     << $s << " для " << name   << '\n';
             }
         }
 
         std::string getLetters()
         {   std::string_view a{"\nПИСЬМА:\n"};
-            if(letters.str().size() == a.size()) return "";
-            letters << '\n';
-            std::string  s{letters.str()};
-            letters.str("");
-            letters <<   a;
+            if(messLetters.str().size() == a.size()) return "";
+            messLetters << '\n';
+            std::string  s{messLetters.str()};
+            messLetters.str("");
+            messLetters <<   a;
             return       s;
-        }
-
-        std::string getWhatDone()
-        {   std::string_view a{"\nСДЕЛАНО:\n"};
-            if(whatDone.str().size() == a.size()) return "";
-            whatDone << '\n';
-            std::string   s{whatDone.str()};
-            whatDone.str("");
-            whatDone <<   a;
-            return        s;
         }
 
         ///------------------------------|
         /// Монопольный Бонус.           |
         ///------------------------------:
         MonoBonus               monoBonus;
-
-        ///------------------------------|
-        /// Письма.                      |
-        ///------------------------------:
-        std::stringstream         letters;
-
-        ///------------------------------|
-        /// Что сделано сейчас?          |
-        ///------------------------------:
-        std::stringstream        whatDone;
 
         ///------------------------------|
         /// Добавить Вещь в инвентарь.   |
@@ -661,7 +653,7 @@ namespace model
 
             int n{0};
 
-            ss << "Инвентарь:\n";
+            ss << "   Инвентарь:\n";
             for(const auto&[sts, id] : cargo)
             {   ss  << "    " << std::setw(3) << ++n <<':'
                               << std::setw(3) << id
@@ -672,7 +664,7 @@ namespace model
             {   ss << "пусто ..." ;
             }   ss << "\n";
 
-            ss << "Cтоимость всей собственности: " << capital << $s << '\n';
+            ss << "   Вся собственность: " << capital << $s << '\n';
 
             return ss.str();
         }
@@ -682,8 +674,6 @@ namespace model
         ///------------------------------:
         int payRent(IPerson* host)
         {
-            /// TODO: ...
-
             Cell& cell = (*(cfg.pfield))[host->position];
 
             int price = cell.bankSell[host->status];
@@ -691,8 +681,8 @@ namespace model
             host->money += price;
                   money -= price;
 
-            host->letters << " --> Плата за аренду: +"
-                          << std::setw(4) << price << $s
+            host->messLetters << " --> Плата за аренду: +"
+                              << std::setw(4) << price << $s
                           << " от " << name << '\n';
             return price;
         }
@@ -841,10 +831,8 @@ namespace model
             /// cfg._holderTuneIQ.debug();
             }
 
-        const std::string input () override
+        void input () override
         {
-            std::stringstream ss;
-
             Cell& cell = (*cfg.pfield)[position];
 
             ASSERT(cell.status < 3)
@@ -852,7 +840,7 @@ namespace model
 
             bool goodSky = cell.status == IPerson::status;
             if(  goodSky)
-            {   ss << "  \"ЗВЁЗДЫ СВЕТЯТ МНЕ КРАСИВО!\"\n";
+            {   messEvents << "   \"ЗВЁЗДЫ СВЕТЯТ МНЕ КРАСИВО!\"\n";
             }
 
             ///----------------------------------------|
@@ -860,22 +848,21 @@ namespace model
             ///----------------------------------------:
             const auto&[OPER, TITER] = botIQ->whatDo(this);
 
-            ss << botIQ->message.str(  ); botIQ->message.str("");
-
             ///----------------------------------------|
             /// Ячейка уже занята!                     |
             ///----------------------------------------:
             if(cell.isBusy())
             {
                 if(this == cell.pers)
-                {   ss  << "   ... это моя ячейка: +" << prizeMyCell << $sn;
+                {   messOper << "   ... это моя ячейка: +"
+                             << prizeMyCell << $sn;
                 }
                 else
-                {   ss  << "   ... ячейка занята ...\n"
-                        << "   Кошелёк до   : " << money << $sn
-                        << "   Стоимость аренды ячейки: -"
-                        << this->payRent(cell.pers)      << $sn
-                        << "   Кошелёк после: " << money << $sn;
+                {   messEvents << "   ... ячейка занята ...\n";
+                    messOper   << "   Кошелёк до   : " << money << $sn
+                               << "   Стоимость аренды ячейки: -"
+                               << this->payRent(cell.pers)      << $sn
+                               << "   Кошелёк после: " << money << $sn;
                 }
             }
 
@@ -906,17 +893,16 @@ namespace model
                     /// cargo.insert(std::pair{cell.status, position});
                         addThing(cell);
 
-                        ss  << "\"" << cell.name
-                            << "\" куплен, цена: " << price << $s << '\n';
+                        messOper << "   \"" << cell.name
+                                 << "\" куплен за " << price << $sn;
 
-                        ss << IPerson::infoCargo();
+                        messOper << IPerson::infoCargo();
 
-                        isActBuy = true;
-
+                        isActBuy  = true;
                         cell.pers = this;
                     }
-                    else if( isEmpty) ss << "   ... нет товара ...\n";
-                    else if(!isMoney) ss << "   ... мало денег ...\n";
+                    else if( isEmpty) messEvents << "   ... нет товара ...\n";
+                    else if(!isMoney) messEvents << "   ... мало денег ...\n";
 
                     break;
                 }
@@ -927,7 +913,7 @@ namespace model
                 case implants::E_SELL:
                 {
 
-                    ss << IPerson::infoCargo();
+                    messOper << IPerson::infoCargo();
 
                     if(cargo.empty())
                     {   break;
@@ -955,10 +941,10 @@ namespace model
                         ///------------------------------:
                         deleteThing(it);
 
-                        ss  << "Товар \"" << cellSell.name
-                            << "\" продан, цена: " << price << $s << '\n';
+                        messOper << "Товар \"" << cellSell.name
+                                 << "\" продан, цена: " << price << $s << '\n';
 
-                        ss << IPerson::infoCargo();
+                        messOper << IPerson::infoCargo();
 
                         cell.pers = nullptr;
                     }
@@ -972,17 +958,16 @@ namespace model
             }
 
             if( isActBuy )
-            {   ss << "В этом круге продажа заблокированы...\n";
+            {   messEvents << "   В этом круге блок на продажу!\n";
             }
-            return ss.str();
         }
 
-        const std::string doAct() override
+        void doAct() override
         {
-            if(pcard == nullptr) return "";
-            if(pcard -> empty()) { pcard = nullptr; return ""; }
+            if(pcard == nullptr) return;
+            if(pcard -> empty()) { pcard = nullptr; return; }
 
-            return pcard->doAct(this);
+            messEvents << pcard->doAct(this);
         }
 
     private:
@@ -1014,22 +999,14 @@ namespace model
                 init();
             }
 
-        const std::string input () override
+        void input () override
         {
-            std::stringstream ss;
-
             /// ...
-
-            return ss.str();
         }
 
-        const std::string doAct() override
-        {   if(nullptr == pcard) return "";
-
-            std::stringstream ss;
-            ss << "Событие для " << name << ":\n";
-            ss << pcard->doAct(this);
-            return ss.str();
+        void doAct() override
+        {   if(nullptr == pcard) return;
+            messEvents << pcard->doAct(this);
         }
 
     private:
@@ -1174,6 +1151,8 @@ namespace model
             auto& pers = *persNow;
             ss <<  pers.infoName();
 
+            pers.clearMess();
+
             ///------------------------------|
             /// Получить письма.             |
             ///------------------------------:
@@ -1213,9 +1192,9 @@ namespace model
                 owner->toPayBonus(persNow);
             }
 
-            ss << pers.doAct();
+            pers.doAct();
 
-            std::string inputStr = pers.input();
+            pers.input();
 
             ///------------------------------|
             /// Поле + Игрок.                |
@@ -1223,15 +1202,15 @@ namespace model
             ss << (CellInfoTester)field[pos] << '\n';
             ss << &pers; ///                 << '\n';
 
-            ss << "ОПЕРАЦИИ: -------------------------------: \n";
-            ss << inputStr;
+            if(!pers.messEvents.str().empty())
+            {   ss << "CОБЫТИЯ: --------------------------------: \n";
+                ss << pers.messEvents.str() << std::endl;
+            }
 
-            ///------------------------------|
-            /// Что ещё произошло?           |
-            ///------------------------------:
-            ss << pers.getWhatDone();
-
-            ss << std::endl;
+            if(!pers.messOper.str().empty())
+            {   ss << "ОПЕРАЦИИ: -------------------------------: \n";
+                ss << pers.messOper.str() << std::endl;
+            }
 
             return ss.str();
         }
