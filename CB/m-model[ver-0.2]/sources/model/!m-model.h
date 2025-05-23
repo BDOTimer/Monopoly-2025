@@ -880,7 +880,7 @@ namespace model
                         addThing(cell);
 
                         ss  << "\"" << cell.name
-                            << "\" куплен, цена: " << price << " ₽\n";
+                            << "\" куплен, цена: " << price << $s << '\n';
 
                         ss << IPerson::infoCargo();
 
@@ -929,7 +929,7 @@ namespace model
                         deleteThing(it);
 
                         ss  << "Товар \"" << cellSell.name
-                            << "\" был продан по цене: " << price << "\n";
+                            << "\" продан, цена: " << price << $s << '\n';
 
                         ss << IPerson::infoCargo();
 

@@ -41,6 +41,11 @@ namespace implants
             mayBuy = mayBuy && (pers->money >= priseBuy);
 
             ///------------------------------------------------|
+            /// Если денег много не фик продоавтать!           |
+            ///------------------------------------------------:
+            maySell = maySell && (pers->money < 200);
+
+            ///------------------------------------------------|
             /// Получить разрешение на покупку и продажу.      |
             ///------------------------------------------------:
             bool canBuy  = getTuneIQ()->canBuyBot (cell.status) || goodSky;
@@ -100,8 +105,8 @@ namespace implants
 
             std::map<size_t, unsigned> a;
 
-            for(size_t   i = 0;    i < stat.size();    ++i)
-            {   if(!stat[i].empty()) a[stat[i].size()] = i;
+            for(size_t   i = 0;    i < stat.size();             ++i)
+            {   if(!stat[i].empty()) a[stat[i].size()] = unsigned(i);
             }
 
             if(!a.empty())
