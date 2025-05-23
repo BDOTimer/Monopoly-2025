@@ -1,3 +1,3 @@
-m-model[ver-02] 3000 "logf.txt.py"
+m-model[ver-02] 300 "logf.txt.py"
 
 pause
