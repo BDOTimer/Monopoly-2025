@@ -37,7 +37,7 @@
 	<iostream>
 	"../debug.h"
 
-1747901762 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\!m-model.h
+1748001676 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\!m-model.h
 	"myl.h"
 	"cards.inc"
 	"field.inc"
@@ -48,7 +48,7 @@
 	<locale>
 	<codecvt>
 
-1747815900 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\config-model.h
+1748002970 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\config-model.h
 	"../debug.h"
 	"implants/bot-iq.h"
 
@@ -70,10 +70,10 @@
 	"../debug.h"
 	"../user-model.h"
 
-1747901541 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\implants\bot-iq.h
+1747991660 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\implants\bot-iq.h
 	"../../debug.h"
 
-1747901711 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\implants\bot-iq.cpp
+1748001382 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\implants\bot-iq.cpp
 	"bot-iq.h"
 	"../!m-model.h"
 

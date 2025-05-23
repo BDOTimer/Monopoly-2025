@@ -307,22 +307,26 @@ namespace model
         }
     };
 
+    inline std::ostream& operator<<(std::ostream& o, const std::array<int,3>& e)
+    {   return o << '['
+                 << std::setw(3) << e[0] << ", "
+                 << std::setw(3) << e[1] << ", "
+                 << std::setw(3) << e[2]
+                 << ']' << $s;
+    }
+
     inline std::ostream& operator<<(std::ostream& o, const CellInfoTester& e)
     {   return o
             << "ЯЧЕЙКА: ---------------------------------: " << e.id << '\n'
-            << "   Позиция      :  " << e.id          << '\n'
-            << "   Товар        :  " << e.name        << '\n'
-            << "   Шанс         :  "
-            <<     (e.chance != 0 ? "Да" : "Нет")     << '\n'
-            << "   Статус       :  " << e.status + 1  << '\n'
-            << "   Цена базовая :  " << e.priseBase   << '\n'
-            << "   Банк покупает: [" << e.bankBuy [0] << ", "
-                                     << e.bankBuy [1] << ", "
-                                     << e.bankBuy [2] << "]\n"
-            << "   Банк продает : [" << e.bankSell[0] << ", "
-                                     << e.bankSell[1] << ", "
-                                     << e.bankSell[2] << "]\n"
-            << "   "                 << e.getOwner()  << '\n'
+            << "   Позиция      : " << e.id          << '\n'
+            << "   Товар        : " << e.name        << '\n'
+            << "   Шанс         : "
+            <<     (e.chance != 0 ? "Да" : "Нет")    << '\n'
+            << "   Статус       : " << e.status + 1  << '\n'
+            << "   Цена базовая : " << e.priseBase   << '\n'
+            << "   Банк покупает: " << e.bankBuy     << '\n'
+            << "   Банк продает : " << e.bankSell    << '\n'
+            << "   "                << e.getOwner()  << '\n'
         ;
     }
 
@@ -428,6 +432,10 @@ namespace model
         {   l(messEvent)
         }
 
+        const std::array<int, 3>& getStatistic() const
+        {   return counted;
+        }
+
     private:
         std::array<int, 3>   counted{};
         int               moneyBonus{};
@@ -500,6 +508,11 @@ namespace model
         const Config& cfg;
 
         ///------------------------------|
+        /// Интеллект бота               |
+        ///------------------------------:
+        implants::IBotIQ* botIQ{nullptr};
+
+        ///------------------------------|
         /// Идентификатор.               |
         ///------------------------------:
         unsigned id;
@@ -565,7 +578,7 @@ namespace model
                             capital += monoBonus.getBonus();
                 persGuest-> capital -= monoBonus.getBonus();
 
-                letters  << " --> Получен Бонус: +"    << m
+                letters  << " --> Получен Бонус  : +" << std::setw(4) << m
                          << $s << " от " << persGuest->name << '\n';
 
                 persGuest->whatDone << " --> Оплата Бонуса: -" << m
@@ -625,7 +638,7 @@ namespace model
         {   const   auto&[sts, id] = *it;
             monoBonus.sub(sts);
 
-            Cell&       cellSell = (*cfg.pfield)[id];
+            Cell&      cellSell = (*cfg.pfield)[id];
             capital -= cellSell.priseBase;
             cargo.erase(it);
         }
@@ -662,17 +675,20 @@ namespace model
         ///------------------------------|
         /// Транзакция оплаты ренты.     |
         ///------------------------------:
-        int calcRent(IPerson* guest)
+        int payRent(IPerson* host)
         {
             /// TODO: ...
 
-            Cell& cell = (*(cfg.pfield))[guest->position];
+            Cell& cell = (*(cfg.pfield))[host->position];
 
-            int prise = cell.bankSell[guest->status];
+            int prise = cell.bankSell[host->status];
 
-            guest->capital -= prise;
-                   capital += prise;
+            host->money += prise;
+                  money -= prise;
 
+            host->letters << " --> Плата за аренду: +"
+                          << std::setw(4) << prise << $s
+                          << " от " << name << '\n';
             return prise;
         }
 
@@ -682,7 +698,8 @@ namespace model
         [[nodiscard]]
         const std::string infoName() const
         {   std::stringstream ss;
-                              ss  << ">> ИГРОК: " << name << "\n";
+                              ss  << ">> ИГРОК: "
+                                  << name << " --> " << botIQ->name << '\n';
             return            ss.str();
         }
 
@@ -819,12 +836,6 @@ namespace model
             /// cfg._holderTuneIQ.debug();
             }
 
-        ///------------------------------|
-        /// Интеллект бота               |
-        ///------------------------------:
-        implants::IBotIQ* botIQ{nullptr};
-
-
         const std::string input () override
         {
             std::stringstream ss;
@@ -846,10 +857,21 @@ namespace model
 
             ss << botIQ->message.str(  ); botIQ->message.str("");
 
+            ///----------------------------------------|
+            /// Ячейка уже занята!                     |
+            ///----------------------------------------:
             if(cell.isBusy())
-            {   ss  << "   ... нет товара ...\n"
-                    << "   Стоимость аренды ячейки: "
-                    << cell.pers->calcRent(this) << '\n';
+            {
+                if(this == cell.pers)
+                {   ss  << "   ... это моя ячейка ...\n";
+                }
+                else
+                {   ss  << "   ... ячейка занята ...\n"
+                        << "   Кошелёк до   : " << money << $s << '\n'
+                        << "   Стоимость аренды ячейки: -"
+                        << this->payRent(cell.pers) << $s << '\n'
+                        << "   Кошелёк после: " << money << $s << '\n';
+                }
             }
 
             Bank& bank = cfg.pfield->bank;

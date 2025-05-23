@@ -87,7 +87,7 @@ namespace vsl
             ""
         };
 
-        bool isFon{true};
+        bool isFon{false};
 
         void fooFon() /// <--- вешается на кнопку "Фон" в winGame.
         {

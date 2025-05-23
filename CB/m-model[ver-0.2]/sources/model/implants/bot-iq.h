@@ -16,6 +16,15 @@ namespace implants
 {
     struct TuneIQ;
 
+    ///------------------------------|
+    /// Интеллект ботов.             |
+    ///------------------------------:
+    enum eSMARTNESS_BOT
+    {    SMART   ,
+         ORDINARY,
+         FOOL
+    };
+
     enum eWHATDO
     {    E_BUY ,
          E_SELL,
@@ -67,6 +76,8 @@ namespace implants
         std::string name{"<IBotIQ>"};
 
         const TuneIQ*     tuneIQ{nullptr};
+
+        static IBotIQ* fabric(const eSMARTNESS_BOT type, const TuneIQ* tune);
 
         void debug() const
         {   ASSERT(nullptr != tuneIQ)

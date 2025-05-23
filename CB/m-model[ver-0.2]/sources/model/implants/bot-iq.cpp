@@ -7,9 +7,12 @@
 namespace implants
 {
 
-    struct  BotIQ : IBotIQ
-    {       BotIQ(const TuneIQ* tuneIQ) : IBotIQ(tuneIQ)
-            {
+    ///------------------------------------------------------------------------|
+    /// Стратегия типа самого умного...
+    ///------------------------------------------------------------- BotIQSmart:
+    struct  BotIQSmart : IBotIQ
+    {       BotIQSmart(const TuneIQ* tuneIQ) : IBotIQ(tuneIQ)
+            {   IBotIQ::name = "IQ::Smart";
             }
 
         AnswerIQ whatDo(model::IPerson* pers) override
@@ -85,8 +88,8 @@ namespace implants
         {   return IBotIQ::tuneIQ;
         }
 
-    private:
-        Titer getIterGoods4Sell(model::IPerson* pers) const
+    protected:
+        static Titer getIterGoods4Sell(model::IPerson* pers)
         {
             if(pers->cargo.empty()) return pers->cargo.cend();
 
@@ -117,8 +120,227 @@ namespace implants
         }
 
         TEST
-        {   TuneIQ        tuneIQ{ "...xxx8=8xxx...", "02", "02"};
-            BotIQ  botIQ(&tuneIQ);
+        {   TuneIQ            tuneIQ{ "...xxx8=8xxx...", "02", "02"};
+            BotIQSmart botIQ(&tuneIQ);
+
+            model::IPerson* p{nullptr};
+
+            l(botIQ.whatDo(p).E)
+            l(botIQ.getTuneIQ()->name)
+        }
+
+        friend void tests();
+    };
+
+
+    ///------------------------------------------------------------------------|
+    /// Стратегия охотника за монобонусом.
+    ///--------------------------------------------------------- BotIQMonoBonus:
+    struct  BotIQMonoBonus : BotIQSmart
+    {       BotIQMonoBonus(const TuneIQ* tuneIQ) : BotIQSmart(tuneIQ)
+            {
+                IBotIQ::name = "IQ::MonoBonus";
+            }
+
+        ///------------------------------------------------|
+        /// Запрет продажи товара с данным статусом.       |
+        ///------------------------------------------------:
+        int vetoStatus{-1};
+
+        AnswerIQ whatDo(model::IPerson* pers) override
+        {
+            AnswerIQ answerIQ;
+
+            if(vetoStatus == -1)
+            {   vetoStatus = getVetoStatus(pers);
+            }
+
+            model::Field& field = *(pers->cfg.pfield);
+            model::Cell&  cell  = field[pers->position];
+
+            ///------------------------------------------------|
+            /// "ЗВЁЗДЫ СВЕТЯТ МНЕ КРАСИВО!"                   |
+            ///------------------------------------------------:
+            bool goodSky = cell.status == pers->status;
+
+            ///------------------------------------------------|
+            /// Получить инфу о возможности сделки.            |
+            ///------------------------------------------------:
+            bool mayBuy  = !cell.isBusy();
+            bool maySell = !pers->cargo.empty() && !pers->isActBuy;
+
+            ///------------------------------------------------|
+            /// Узнаём цену покупки ячеки.                     |
+            ///------------------------------------------------:
+            int priseBuy  = cell.getPriseBuy (pers->status);
+
+            ///------------------------------------------------|
+            /// Есть ли в кошельке деньги на покупку?          |
+            ///------------------------------------------------:
+            mayBuy = mayBuy && (pers->money >= priseBuy);
+
+            ///------------------------------------------------|
+            /// Если денег много не фик продоавтать!           |
+            ///------------------------------------------------:
+            maySell = maySell && (pers->money < 200);
+
+            ///------------------------------------------------|
+            /// Получить разрешение на покупку и продажу.      |
+            ///------------------------------------------------:
+            bool canBuy  = getTuneIQ()->canBuyBot (cell.status) || goodSky;
+            bool canSell = getTuneIQ()->canSellBot(cell.status) || goodSky;
+
+            mayBuy  = mayBuy  && canBuy;
+            maySell = maySell && canSell;
+
+            if(mayBuy)
+            {   message << "   botIQ::Есть желание КУПИТЬ!\n";
+
+                       answerIQ.E = E_BUY;
+                return answerIQ;
+            }
+            if(maySell)
+            {   message << "   botIQ::Есть желание ПРОДАТЬ!\n";
+                answerIQ.titer = BotIQSmart::getIterGoods4Sell(pers);
+
+                if(answerIQ.titer        != pers->cargo.cend() &&
+                   answerIQ.titer->first != (unsigned)vetoStatus)
+                {
+                    message << "   IQ::Рекомендованно продать: "
+                            << answerIQ.titer->second << ", "
+                            << field[answerIQ.titer->second/*id*/].name << "\n";
+                }
+                else message << "   IQ::Рекомендаций на продажу нет!\n";
+
+                       answerIQ.E = E_SELL;
+                return answerIQ;
+            }
+
+            message << "   botIQ::Пойду лучше на диване полежу ...\n";
+
+                   answerIQ.E = E_NONE;
+            return answerIQ;
+        }
+
+        const TuneIQ* getTuneIQ() const override
+        {   return IBotIQ::tuneIQ;
+        }
+
+    private:
+
+        int getVetoStatus(model::IPerson* pers) const
+        {   const auto& arr = pers->monoBonus.getStatistic();
+            /// TODO ...
+            std::map<unsigned, unsigned> m
+            {   {arr[0], 0},
+                {arr[1], 1},
+                {arr[2], 2}
+            };
+            const auto it = --m.end();
+            return     it-> first   > 6 ? it->second : -1;
+        }
+
+        TEST
+        {   TuneIQ                 tuneIQ{ "...xxx8=8xxx...", "02", "02"};
+            BotIQMonoBonus  botIQ(&tuneIQ);
+
+            model::IPerson* p{nullptr};
+
+            l(botIQ.whatDo(p).E)
+            l(botIQ.getTuneIQ()->name)
+        }
+
+        friend void tests();
+    };
+
+
+    ///------------------------------------------------------------------------|
+    /// Стратегия дурака.
+    ///-------------------------------------------------------------- BotIQFool:
+    struct  BotIQFool : BotIQSmart
+    {       BotIQFool(const TuneIQ* tuneIQ) : BotIQSmart(tuneIQ)
+            {
+                IBotIQ::name = "IQ::Fool";
+            }
+
+        AnswerIQ whatDo(model::IPerson* pers) override
+        {
+            AnswerIQ answerIQ;
+
+            model::Field& field = *(pers->cfg.pfield);
+            model::Cell&  cell  = field[pers->position];
+
+            ///------------------------------------------------|
+            /// "ЗВЁЗДЫ СВЕТЯТ МНЕ КРАСИВО!"                   |
+            ///------------------------------------------------:
+            bool goodSky = cell.status == pers->status;
+
+            ///------------------------------------------------|
+            /// Получить инфу о возможности сделки.            |
+            ///------------------------------------------------:
+            bool mayBuy  = !cell.isBusy();
+            bool maySell = !pers->cargo.empty() && !pers->isActBuy;
+
+            ///------------------------------------------------|
+            /// Узнаём цену покупки ячеки.                     |
+            ///------------------------------------------------:
+            int priseBuy  = cell.getPriseBuy (pers->status);
+
+            ///------------------------------------------------|
+            /// Есть ли в кошельке деньги на покупку?          |
+            ///------------------------------------------------:
+            mayBuy = mayBuy && (pers->money >= priseBuy);
+
+            ///------------------------------------------------|
+            /// Если денег много не фик продоавтать!           |
+            ///------------------------------------------------:
+            maySell = maySell && (pers->money < 200);
+
+            ///------------------------------------------------|
+            /// Получить разрешение на покупку и продажу.      |
+            ///------------------------------------------------:
+            bool canBuy  = getTuneIQ()->canBuyBot (cell.status) || !goodSky;
+            bool canSell = getTuneIQ()->canSellBot(cell.status) || !goodSky;
+
+            mayBuy  = mayBuy  && canBuy;
+            maySell = maySell && canSell;
+
+            if(mayBuy)
+            {   message << "   botIQ::Есть желание КУПИТЬ!\n";
+
+                       answerIQ.E = E_BUY;
+                return answerIQ;
+            }
+            if(maySell)
+            {   message << "   botIQ::Есть желание ПРОДАТЬ!\n";
+                answerIQ.titer = BotIQSmart::getIterGoods4Sell(pers);
+
+                if(answerIQ.titer != pers->cargo.cend())
+                {   message << "   IQ::Рекомендованно продать: "
+                            << answerIQ.titer->second << ", "
+                            << field[answerIQ.titer->second/*id*/].name << "\n";
+                }
+                else message << "   IQ::Рекомендаций на продажу нет!\n";
+
+                       answerIQ.E = E_SELL;
+                return answerIQ;
+            }
+
+            message << "   botIQ::Пойду лучше на диване полежу ...\n";
+
+                   answerIQ.E = E_NONE;
+            return answerIQ;
+        }
+
+        const TuneIQ* getTuneIQ() const override
+        {   return IBotIQ::tuneIQ;
+        }
+
+    private:
+
+        TEST
+        {   TuneIQ                 tuneIQ{ "...xxx8=8xxx...", "02", "02"};
+            BotIQMonoBonus  botIQ(&tuneIQ);
 
             model::IPerson* p{nullptr};
 
@@ -132,9 +354,10 @@ namespace implants
 
     void HolderTuneIQ::init(const TuneIQs& tunes)
     {   m.reserve(tunes.size());
-        for(const auto& t : tunes)
-        {   m.push_back(new BotIQ(&t));
-        }
+        ASSERT(tunes.size() == 3)
+        m.push_back(IBotIQ::fabric(eSMARTNESS_BOT::SMART   , &tunes[0]));
+        m.push_back(IBotIQ::fabric(eSMARTNESS_BOT::ORDINARY, &tunes[1]));
+        m.push_back(IBotIQ::fabric(eSMARTNESS_BOT::FOOL    , &tunes[2]));
     }
 
     const implants::TuneIQ* HolderTuneIQ::getTuneIQ(unsigned id) const
@@ -156,9 +379,18 @@ namespace implants
         SIGNAL("End HolderTuneIQ::debug() ...")
     }
 
+    IBotIQ* IBotIQ::fabric(const eSMARTNESS_BOT type,
+                           const TuneIQ*      tuneIQ)
+    {   switch(type)
+        {   case eSMARTNESS_BOT::SMART   : return new BotIQSmart    (tuneIQ);
+            case eSMARTNESS_BOT::ORDINARY: return new BotIQMonoBonus(tuneIQ);
+            case eSMARTNESS_BOT::FOOL    : return new BotIQFool     (tuneIQ);
+        }   return nullptr;
+    }
+
 
     void tests()
-    {   BotIQ::test();
+    {   BotIQSmart::test();
 
         std::cin.get();
     }
