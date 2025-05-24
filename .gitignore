@@ -7,7 +7,7 @@ v17/
 *.db
 Debug/
 Release/
-!logf.txt.py
+!VS-2022/x64/Release/logf.txt.py
 *.pdb
 *.metagen
 
