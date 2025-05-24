@@ -623,10 +623,10 @@
 
 1745529547 source:d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\icon.rc
 
-1747381157 source:d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\main.cpp
+1747421961 source:d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\main.cpp
 	"render.h"
 
-1747419756 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\render.h
+1747925784 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\render.h
 	"model.h"
 	"scene-logo.h"
 	"scene-tune.h"
@@ -639,7 +639,7 @@
 1745529547 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\player.h
 	"common.h"
 
-1747419484 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\common.h
+1747925070 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\common.h
 	<SFML/System/Angle.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
@@ -689,11 +689,12 @@
 1741600532 d:\!gforum-2025\projects\monopoly-2025\extlibs\imgui-1.91.8\misc\cpp\imgui_stdlib.h
 	<string>
 
-1747405648 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\ui-imgui.h
+1747761675 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\ui-imgui.h
 	<SFML/Audio/Sound.hpp>
 	"imgui.h"
 	"imgui-SFML.h"
 	"misc/cpp/imgui_stdlib.h"
+	"common.h"
 
 1746597840 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\extlibs\imgui-1.91.8\imgui.cpp
 	"imgui.h"
@@ -1370,7 +1371,7 @@
 1746597841 c:\workcb-2024\!projects\ggghub\monopoly-2025\extlibs\imgui-1.91.8\misc\cpp\imgui_stdlib.h
 	<string>
 
-1747238762 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\scene-logo.h
+1748068229 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\scene-logo.h
 	"common.h"
 
 1747408483 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\scene-tune.h
@@ -1545,25 +1546,21 @@
 1747397043 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\shader-dice.h
 	"common.h"
 
-1747420685 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\scenegame\win-game.h
+1748068229 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\scenegame\win-game.h
 	"../common.h"
-	"markup.h"
 	"fig-field.h"
 
-1747044969 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\scenegame\markup.h
+1747720479 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\scenegame\markup.h
 	"../common.h"
 
-1747392228 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\scenegame\win-up.h
+1747731503 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\scenegame\win-up.h
 	"../common.h"
-	"markup.h"
 
-1747397091 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\scenegame\win-down.h
+1747731538 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\scenegame\win-down.h
 	"../common.h"
-	"markup.h"
 
-1747392141 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\scenegame\win-player.h
+1747720479 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\scenegame\win-player.h
 	"../common.h"
-	"markup.h"
 
 1733935265 c:\workcb-2024\sfml-3.0\sfml-3.0.0\include\sfml\audio.hpp
 	<SFML/Audio/InputSoundFile.hpp>
@@ -1848,15 +1845,16 @@
 	"config-model.h"
 	"!m-model.h"
 
-1747213239 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\user-model.h
+1748099946 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\user-model.h
 	<string>
 	<vector>
 	"model/config-model.h"
 
-1747411127 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\model\config-model.h
+1748103668 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\model\config-model.h
 	"../debug.h"
+	"implants/bot-iq.h"
 
-1747216108 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\debug.h
+1747772193 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\debug.h
 	<functional>
 	<filesystem>
 	<algorithm>
@@ -1895,21 +1893,22 @@
 
 1747213239 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\model\field.inc
 
-1747408708 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\config-vsl.h
+1747925702 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\config-vsl.h
 	"ui-imgui.h"
 	"user-model.h"
 	"model/config-model.h"
 	"controller/controller.h"
+	"sceneGame/markup.h"
 	"debug.h"
 
 1747381157 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\controller\controller.h
 	"../debug.h"
 	"../user-model.h"
 
-1747401010 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\fps.h
+1747547449 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\fps.h
 	"common.h"
 
-1747420297 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\scenegame\fig-field.h
+1747720479 d:\!gforum-2025\projects\monopoly-2025\cb\monopoly\sources\scenegame\fig-field.h
 	"../common.h"
 
 1747673278 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\monopoly\sources\scenegame\fig-field.h
@@ -1923,5 +1922,8 @@
 	"../!m-model.h"
 
 1748026706 c:\workcb-2024\!projects\ggghub\monopoly-2025\cb\m-model[ver-0.2]\sources\model\implants\bot-iq.h
+	"../../debug.h"
+
+1748068229 d:\!gforum-2025\projects\monopoly-2025\cb\m-model[ver-0.2]\sources\model\implants\bot-iq.h
 	"../../debug.h"
 

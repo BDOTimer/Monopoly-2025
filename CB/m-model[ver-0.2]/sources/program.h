@@ -50,7 +50,7 @@ struct  TestGame2
 
         l(isDump2File)
 
-        const char* const LINE{"////////////////////////////////////////////|"};
+        const char* const LINE{"/////////////////////////////////////////|"};
 
         for(; whoVictor == NPOS; whoVictor = model::whoVictor(idGame))
         {
@@ -60,7 +60,7 @@ struct  TestGame2
 
                 std::stringstream ss; ss << std::setw(4) << ++cnt;
 
-                vc  << "ПАУЗА::Нажмите ENTER, чтобы сделать:"
+                vc  << "ПАУЗА::\nНажмите ENTER, чтобы сделать:"
                     << ss.str() << " шаг -->\n"
                 /// << "---------------------------------------------..."
                     << LINE << (cfg->isDump2File() == 0 ? "" : LINE);

@@ -152,11 +152,11 @@ namespace model
         [[nodiscard]]
         const std::string info() const
         {
-            #define A std::setw(6) << money << $s << std::setw(17) << "|\n"
+            #define A std::setw(6) << money << $s << std::setw(14) << "|\n"
             std::stringstream ss;
-            ss  << "///-----------------------------------------|\n"
+            ss  << "///--------------------------------------|\n"
                 << "///     БАНК-ЛАБЕАН: " << A
-                << "///-----------------------------------------|\n";
+                << "///--------------------------------------|\n";
             return ss.str();
             #undef A
         }
@@ -730,8 +730,8 @@ namespace model
         /// Чья ячейка?                  |
         ///------------------------------:
         cell.pers == nullptr
-            ?   ss  << "Эта ячейка свободна для продажи!\n"
-            :   ss  << "Эта ячейка принадлежит игроку "
+            ?   ss  << "   Эта ячейка свободна для продажи!\n"
+            :   ss  << "   Эта ячейка игрока: "
                     << cell.pers->name << E;
 
         /// auto n = 15 - nn + name.size();
@@ -741,8 +741,7 @@ namespace model
                 << cfg.decodeStatus(status)<< ": ["<< status + 1 << "]\n"
                 << "   Круг    = " << std::setw(4) << circle     << E
                 << "   Шанс    = " << std::setw(4) << chance     << E
-                << "   Товар   = " <<                 cell.name
-                << ": Cтатус: ["   <<             1 + cell.status<< "]\n"
+                << "   Товар   = " <<                 cell.name  << E
                 << "   Кол-во  = " << std::setw(4)
                 << (cell.amountThings != 0 ?
                     std::to_string(cell.amountThings) : " пусто")<< E
@@ -955,8 +954,8 @@ namespace model
                         ///------------------------------:
                         deleteThing(it);
 
-                        messOper << "Товар \"" << cellSell.name
-                                 << "\" продан, цена: " << price << $s << '\n';
+                        messOper << "   \"" << cellSell.name
+                                 << "\" продан за " << price << $s << '\n';
 
                         messOper << IPerson::infoCargo();
 
@@ -1210,15 +1209,14 @@ namespace model
                 owner->toPayBonus(persNow);
             }
 
-            pers.doAct();
-
-            pers.input();
-
             ///------------------------------|
             /// Поле + Игрок.                |
             ///------------------------------:
             ss << (CellInfoTester)field[pos] << '\n';
             ss << &pers; ///                 << '\n';
+
+            pers.doAct();
+            pers.input();
 
             if(!pers.messEvents.str().empty())
             {   ss << "CОБЫТИЯ: --------------------------------: \n";

@@ -60,13 +60,13 @@ namespace implants
             auto& mE = pers->messEvents;
 
             if(mayBuy)
-            {   mE << "   botIQ::Есть желание КУПИТЬ!\n";
+            {   mE << "   IQ::Есть желание КУПИТЬ!\n";
 
                        answerIQ.E = E_BUY;
                 return answerIQ;
             }
             if(maySell)
-            {   mE << "   botIQ::Есть желание ПРОДАТЬ!\n";
+            {   mE << "   IQ::Есть желание ПРОДАТЬ!\n";
                 answerIQ.titer = getIterGoods4Sell(pers);
 
                 if(answerIQ.titer != pers->cargo.cend())
@@ -80,7 +80,7 @@ namespace implants
                 return answerIQ;
             }
 
-            mE << "   botIQ::Пойду лучше на диване полежу ...\n";
+            mE << "   IQ::Пойду лучше на диване полежу ...\n";
 
                    answerIQ.E = E_NONE;
             return answerIQ;
@@ -198,13 +198,13 @@ namespace implants
             auto& mE = pers->messEvents;
 
             if(mayBuy)
-            {   mE << "   botIQ::Есть желание КУПИТЬ!\n";
+            {   mE << "   IQ::Есть желание КУПИТЬ!\n";
 
                        answerIQ.E = E_BUY;
                 return answerIQ;
             }
             if(maySell)
-            {   mE << "   botIQ::Есть желание ПРОДАТЬ!\n";
+            {   mE << "   IQ::Есть желание ПРОДАТЬ!\n";
                 answerIQ.titer = BotIQSmart::getIterGoods4Sell(pers);
 
                 if(answerIQ.titer        != pers->cargo.cend() &&
@@ -220,7 +220,7 @@ namespace implants
                 return answerIQ;
             }
 
-            mE << "   botIQ::Пойду лучше на диване полежу ...\n";
+            mE << "   IQ::Пойду лучше на диване полежу ...\n";
 
                    answerIQ.E = E_NONE;
             return answerIQ;
@@ -312,13 +312,13 @@ namespace implants
             auto& mE = pers->messEvents;
 
             if(mayBuy)
-            {   mE << "   botIQ::Есть желание КУПИТЬ!\n";
+            {   mE << "   IQ::Есть желание КУПИТЬ!\n";
 
                        answerIQ.E = E_BUY;
                 return answerIQ;
             }
             if(maySell)
-            {   mE << "   botIQ::Есть желание ПРОДАТЬ!\n";
+            {   mE << "   IQ::Есть желание ПРОДАТЬ!\n";
                 answerIQ.titer = BotIQSmart::getIterGoods4Sell(pers);
 
                 if(answerIQ.titer != pers->cargo.cend())
@@ -332,7 +332,7 @@ namespace implants
                 return answerIQ;
             }
 
-            mE << "   botIQ::Пойду лучше на диване полежу ...\n";
+            mE << "   IQ::Пойду лучше на диване полежу ...\n";
 
                    answerIQ.E = E_NONE;
             return answerIQ;
