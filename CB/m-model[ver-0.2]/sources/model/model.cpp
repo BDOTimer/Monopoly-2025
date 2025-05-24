@@ -33,6 +33,10 @@ namespace model
         std::string doStep(unsigned idPlayer)
         {   return model::Referee::doStep(idPlayer);
         }
+
+        size_t whoVictor() const
+        {  return model::Referee::whoVictor();
+        }
     };
 
     struct CG { Config* cfg; ModelGate* mdl; };
@@ -56,6 +60,10 @@ namespace model
 
         std::string doStep( unsigned idGame, unsigned idPlayer )
         {   return (*this)[idGame].mdl->doStep(idPlayer);
+        }
+
+        size_t whoVictor(unsigned idGame) const
+        {   return (*this)[idGame].mdl->whoVictor();
         }
 
     }holderGates;
@@ -92,6 +100,10 @@ namespace model
 
     Cell& Config::getCell(const unsigned position)
     {   return (*pfield)[position];
+    }
+
+    size_t whoVictor(unsigned idGame)
+    {   return holderGates.whoVictor(idGame);
     }
 }
 

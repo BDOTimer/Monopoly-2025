@@ -27,7 +27,7 @@ struct  TestGame2
                controller::Player (2)
     };
 
-    bool done{true};
+    size_t whoVictor{NPOS};
 
     void start()
     {   cfg    = model::getConfig();
@@ -52,7 +52,7 @@ struct  TestGame2
 
         const char* const LINE{"////////////////////////////////////////////|"};
 
-        while(done)
+        for(; whoVictor == NPOS; whoVictor = model::whoVictor(idGame))
         {
             for(auto& pl : players)
             {
@@ -87,7 +87,9 @@ struct  TestGame2
                 }
             }
         }
+
     m:  ;
+
     }
 
 private:

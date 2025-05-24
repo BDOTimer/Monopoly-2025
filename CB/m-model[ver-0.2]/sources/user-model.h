@@ -22,6 +22,11 @@ namespace model
     ///---------------------------:
     std::string doStep(std::string_view command, const std::vector<int>& args);
 
+    ///---------------------------|
+    /// Кто Победитель.           |
+    ///---------------------------:
+    size_t whoVictor(unsigned idGame);
+
 }
 
 #endif // USER_MODEL_H

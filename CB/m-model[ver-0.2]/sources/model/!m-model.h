@@ -342,7 +342,11 @@ namespace model
                                      , bank(cfg)
                                      , cfg (cfg)
             {
-                for(auto& e : *this) e.init();
+                for(auto& e : *this)
+                {   e.init();
+                    statist.capitalAll += e.priseBase;
+                }
+                statist.priceAvarege = statist.capitalAll / (int)size();
             }
 
         Bank   bank;
@@ -361,6 +365,11 @@ namespace model
             if (res >= size()) res += size();
             return (unsigned)res;
         }
+
+        struct 
+        {   int capitalAll{};
+            int priceAvarege;
+        }statist;
 
     friend  std::ostream& operator<<(std::ostream& o, const Field& field);
 
@@ -638,6 +647,11 @@ namespace model
             Cell&      cellSell = (*cfg.pfield)[id];
             capital -= cellSell.priseBase;
             cargo.erase(it);
+        }
+
+
+        int getCapitalMoney() const
+        {   return capital + money;
         }
 
         void nextCircle()
@@ -1133,12 +1147,16 @@ namespace model
             }   return   ss.str();
         }
 
+        unsigned steps{};
+
         ///------------------------------|
         /// Все игроки делают по 1 ходу. |
         ///------------------------------:
         [[nodiscard]]
         std::string doStep(unsigned i)
         {
+            ++steps;
+
             std::stringstream ss;
 
             ///------------------------------|
@@ -1212,6 +1230,14 @@ namespace model
                 ss << pers.messOper.str() << std::endl;
             }
 
+            ///------------------------------|
+            /// В конце раунда ...           |
+            ///------------------------------:
+            if(0 == steps % perses.size())
+            {   whoVictor();
+                ss << conditionVictorStr.str();
+            }
+
             return ss.str();
         }
 
@@ -1224,6 +1250,41 @@ namespace model
                 {   persNow->pcard = field.cards.getCard();
                 }
             }
+        }
+
+        std::stringstream conditionVictorStr;
+
+        size_t whoVictor() const
+        {   
+            int capitalAll = field.statist.capitalAll;
+
+            std::array<int, 3> cap;
+
+            unsigned i{};
+
+            for(const auto&   p : perses)
+            {   capitalAll += p-> money ;
+                cap[i++]    = p-> getCapitalMoney();
+            }
+
+            int capitalAll$cv = capitalAll 
+                              * cfg->victoryCondition.percentCapital / 100;
+
+            for(unsigned i = 0; i < cap.size(); ++i)
+            {   
+                if(cap[i] >= capitalAll$cv)
+                {
+                    const_cast<Referee*>(this)->conditionVictorStr
+                        << "   |-------------------------------------|\n"
+                        << "   |                                     |\n"
+                        << "   | Победитель игры: " << perses[i]->name << '\n'
+                        << "   |                                     |\n"
+                        << "   |-------------------------------------|\n\n";
+                    return i;
+                }
+            }
+
+            return NPOS;
         }
 
         friend struct TestGame;
