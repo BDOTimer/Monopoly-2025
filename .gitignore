@@ -5,9 +5,9 @@ ipch/
 v17/
 !VS-2022/.vs/ModelM-25/v17/.suo
 *.db
+!VS-2022/x64/Release/logf.txt.py
 Debug/
 Release/
-!VS-2022/x64/Release/logf.txt.py
 *.pdb
 *.metagen
 
