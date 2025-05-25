@@ -38,6 +38,15 @@ namespace vsl
                         this->dice.isRot = !dice.isRot;
                 };
 
+                for(auto&   e : cfg.uiPlayers)
+                {   e.fooDice = [this]()
+                    {   this->dice.isRot = !dice.isRot;
+                        this->isDiceHide = !this->isDiceHide;
+
+                        this->dice.resetDice();
+                    };
+                }
+
                 cfg.uiGameLog.fooMusic = [this]()
                 {   using E = sf::SoundSource::Status;
 					const bool
@@ -87,11 +96,19 @@ namespace vsl
 		    }
 		}
 
+		unsigned nStep{};
+
         void doStep()
         {
-            unsigned& idPlayer = cfg.players[IDPLAYER].id;
 
+            unsigned& idPlayer = cfg.players[IDPLAYER].id;
+/*
             cfg.uiGameLog << model::doStep
+            (   "bot", { (int)cfg.idGame,
+                         (int)idPlayer }
+            );
+*/
+            cfg.uiPlayers[idPlayer] << uii::Clear() << model::doStep
             (   "bot", { (int)cfg.idGame,
                          (int)idPlayer }
             );
@@ -153,7 +170,7 @@ namespace vsl
                 target.draw   (dice, states);
             }
 
-            cfg.uiGameLog.show();
+        /// cfg.uiGameLog.show();
         }
     };
 }

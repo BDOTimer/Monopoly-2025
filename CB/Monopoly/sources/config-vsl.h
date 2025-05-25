@@ -44,6 +44,12 @@ namespace vsl
 		uii::UITest uiTune   ;
         uii::UIGame uiGameLog;
 
+        std::array<uii::UIScnGamePlayer, 3> uiPlayers
+        {   uii::UIScnGamePlayer("Игрок-1", 0),
+            uii::UIScnGamePlayer("Игрок-2", 1),
+            uii::UIScnGamePlayer("Игрок-3", 2)
+        };
+
         std::array<controller::Player, 3> players
         {   controller::Player (0),
             controller::Player (1),
@@ -93,8 +99,8 @@ namespace vsl
         {
             uiGameLog << "ПАУЗА::\nНажмите ENTER, чтобы сделать "
                       << cnt << " шаг ...\n"
-                      <<  "------------------------------"
-                          "-------------------------...\n";
+                      << "------------------------------"
+                        "-------------------------...\n";
         }
 
         void      setFramerateLimit(unsigned fps = 10000)
@@ -120,8 +126,21 @@ namespace vsl
                 const auto& sx = markupSG.winPlayer[0].size.x;
                 const auto& sy = markupSG.getWinBase().size.y;
 
-                uiGameLog.position = {px           , py * szfWin.y};
-                uiGameLog.size     = {sx * szfWin.x, sy * szfWin.y};
+                uiGameLog.setGeometry( {sx * szfWin.x, sy * szfWin.y},
+                                       {px           , py * szfWin.y}
+                );
+            }
+
+            const auto& G = markupSG.winPlayer;
+
+            for(size_t i{}; i < uiPlayers.size(); ++i)
+            {
+                const float szX = G[i].size    .x * szfWin.x;
+                const float szY = G[i].size    .y * szfWin.y;
+                const float psX = G[i].position.x * szfWin.x;
+                const float psY = G[i].position.y * szfWin.y;
+
+                uiPlayers[i].setGeometry({szX, szY}, {psX, psY});
             }
         }
     };

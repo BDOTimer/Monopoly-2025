@@ -55,6 +55,11 @@ namespace vsl
             if(rotSpeed < 0.f) rotSpeed = 0.f;
         }
 
+        void resetDice()
+        {    rotSpeed     = 0;
+             currentAngle = 0;
+        }
+
         void init()
         {
             if (!sf::Shader::isAvailable())

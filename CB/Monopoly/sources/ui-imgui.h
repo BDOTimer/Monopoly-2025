@@ -353,9 +353,6 @@ namespace uii
 
     // vsl::Config& cfg;
 
-        ImVec2 size    {200,200};
-        ImVec2 position{  0,  0};
-
         bool autoScroll{false};
 
         std::stringstream log;
@@ -390,8 +387,16 @@ namespace uii
         {
         }
 
+        void setGeometry(ImVec2 sz, ImVec2 ps)
+        {   size     = sz;
+            position = ps;
+        }
+
     protected:
         std::string_view name;
+
+        ImVec2 size    {200,200};
+        ImVec2 position{  0,  0};
     };
 
     ///------------------------------------------------------------------------|
@@ -480,7 +485,7 @@ namespace uii
                 {   fooMusic  ();
                     sound.play();
                 }
-                
+
                 ImGui::SameLine ();
 
                 if(ImGui::Button("Фон", WH))
@@ -496,6 +501,84 @@ namespace uii
         myl::SwitcherData<const char*, 2> buttonShowCubic
         {   "Показать", "Спрятать"
         };
+    };
+
+
+    ///------------------------------------------------------------------------|
+    /// UI для игрока ...
+    ///-------------------------------------------------------- UIScnGamePlayer:
+    struct  UIScnGamePlayer  :   UIBase
+    {       UIScnGamePlayer(std::string_view _name, unsigned id)
+                    //(vsl::Config  cfg)
+                    //:   UIBase  (cfg)
+                    :   id   (id    )
+                    ,   sound(buffer)
+            {
+                name = _name;
+
+                bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
+                ASSERT(ok)
+            }
+
+        unsigned id;
+
+        sf::SoundBuffer       buffer;
+        sf::Sound             sound ;
+
+        Callback fooDice{[this](){}};
+
+        void show()
+        {
+            auto& color = ImGui::GetStyle().Colors[ImGuiCol_WindowBg];
+                  color = ImColor(35,35,35,190);
+
+            ///---------------------------------------|
+            /// Позиция и размер окна.                |
+            ///---------------------------------------:
+            /// TODO: Окно на разных компах должно соответствовать ....
+
+            ///
+            ImGui::SetNextWindowSize(size);
+            ///
+            ImGui::SetNextWindowPos (position);
+
+            ///---------------------------------------|
+            /// Окно <name>.                          |
+            ///---------------------------------------:
+            ImGui::Begin (name.data(), nullptr, 0
+                    /// | ImGuiWindowFlags_NoCollapse
+                        | ImGuiWindowFlags_NoMove
+                        | ImGuiWindowFlags_NoTitleBar
+                        | ImGuiWindowFlags_HorizontalScrollbar
+                        | ImGuiWindowFlags_AlwaysVerticalScrollbar
+                    /// | ImGuiWindowFlags_MenuBar
+                    /// | ImGuiWindowFlags_NoBackground
+                        | ImGuiWindowFlags_NoResize
+                    /// | ImGuiWindowFlags_AlwaysAutoResize
+            );
+
+            const ImVec2 WH{80, 50};
+
+            if(ImGui::Button("КУБИК", WH))
+            {   fooDice   ();
+                sound.play();
+            }
+
+            ///----------------------------------------------------------------|
+            {
+                if (ImGui::CollapsingHeader(name.data(),
+                                             ImGuiTreeNodeFlags_DefaultOpen))
+                {   ImGui::Text("%s", log.str().c_str());
+
+                    if (autoScroll)
+                    {   ImGui::SetScrollHereY(1.0f);
+                        autoScroll = false;
+                    }
+                }
+            }
+
+            ImGui::End();
+        }
     };
 }
 

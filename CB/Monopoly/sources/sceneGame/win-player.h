@@ -8,7 +8,7 @@
 namespace vsl
 {
     struct  WinPlayer : vsl::IObject
-    {       WinPlayer(vsl::Config& cfg, unsigned id) : cfg(cfg)
+    {       WinPlayer(vsl::Config& cfg, unsigned id) : cfg(cfg), id(id)
             {
                 const auto& rect    = cfg.markupSG.winPlayer[id];
                 const auto& border  = cfg.markupSG.border;
@@ -23,12 +23,13 @@ namespace vsl
                 fon.setSize  ({x-border2, y-border2});
                 //fon.setPosition({border, border});
                 vsl::Config::setOrigin(fon);
-                fon.setFillColor({  255, 0,  0, 31});
-                fon.setOutlineColor({64,64,128});
+                fon.setFillColor   ({255,  0,  0, 31});
+                fon.setOutlineColor({ 64, 64,128    });
                 fon.setOutlineThickness(border);
             }
 
         vsl::Config& cfg;
+        unsigned      id;
 
         PLUG_IOBJECT
 
@@ -44,6 +45,8 @@ namespace vsl
         {
             target.setView(cam);
             target.draw   (fon, states);
+
+            cfg.uiPlayers[id].show();
         }
     };
 }
