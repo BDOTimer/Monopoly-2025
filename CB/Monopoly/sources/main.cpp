@@ -1,4 +1,4 @@
-﻿const char* const LOGO_VISUALIZATOR{"VISUALIZATOR::ver::0.0.2.2"};
+﻿const char* const LOGO_VISUALIZATOR{"VISUALIZATOR::ver::0.0.2.3"};
 ///----------------------------------------------------------------------------|
 /// C++20
 /// ...

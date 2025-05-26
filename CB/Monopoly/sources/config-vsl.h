@@ -38,6 +38,8 @@ namespace vsl
 
         sf::Time            deltaTime;
 
+        model::StateGame    stateGame;
+
 		Music musicLogo{"res/snd/Maddix - Receive Life.mp3"};
 		Music musicGame{"res/snd/Maddix - Acid Soul.mp3"   };
 

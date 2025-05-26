@@ -27,6 +27,11 @@ namespace model
     ///---------------------------:
     size_t whoVictor(unsigned idGame);
 
+    ///---------------------------|
+    /// Что должен знать игрок.   |
+    ///---------------------------:
+    const StateGame getStateGame(std::string_view command, 
+                                  const std::vector<int>& args);
 }
 
 #endif // USER_MODEL_H

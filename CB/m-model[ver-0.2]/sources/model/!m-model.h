@@ -1050,6 +1050,9 @@ namespace model
             {
                 unsigned seed = Cfg.isSeed ? Cfg.isSeed : unsigned(time(NULL));
 
+                stateGame.resize(4);
+                stateGame[0] = (int)stateGame.size();
+
                 ///------------------------|
                 /// Инициализация ГПСЧ.    |
                 ///------------------------:
@@ -1132,7 +1135,7 @@ namespace model
         {
             /// TODO ...
 
-            return false;
+            return _isGameOver;
         }
 
         ///------------------------------|
@@ -1154,6 +1157,12 @@ namespace model
         [[nodiscard]]
         std::string doStep(unsigned i)
         {
+            if(_isGameOver) return 
+            {   "   |----------------------------|\n"
+                "   |      ИГРА ЗАКОНЧЕНА!       |\n"
+                "   |----------------------------|\n"
+            };
+
             ++steps;
 
             std::stringstream ss;
@@ -1162,6 +1171,8 @@ namespace model
             /// Банк.                        |
             ///------------------------------:
             ss << field.bank.info() << '\n';
+
+            stateGame[StateGame::E_IDPLAYER] = order[i];
 
             persNow = perses[order[i]];
 
@@ -1175,7 +1186,9 @@ namespace model
             ///------------------------------:
             ss << pers.getLetters();
 
-            const unsigned cubicDice = rand() % 6 + 1;
+            stateGame[StateGame::E_NDICE] = rand() % 6 + 1;
+
+            const unsigned& cubicDice = stateGame[StateGame::E_NDICE];
 
             ss <<   "           |----\n"
                     "cubicDice:-| " << cubicDice << " |\n"
@@ -1185,6 +1198,7 @@ namespace model
                 = field.add(pers.position, cubicDice);
 
             pers.position = pos;
+            stateGame [StateGame::E_POSITION] = pos;
 
             Cell& cell = field[pos];
 
@@ -1251,6 +1265,7 @@ namespace model
         }
 
         std::stringstream conditionVictorStr;
+        bool              _isGameOver{false};
 
         size_t whoVictor() const
         {   
@@ -1272,6 +1287,7 @@ namespace model
             {   
                 if(cap[i] >= capitalAll$cv)
                 {
+                    const_cast<Referee*>(this)->_isGameOver = true;
                     const_cast<Referee*>(this)->conditionVictorStr
                         << "   |-------------------------------------|\n"
                         << "   |                                     |\n"
@@ -1283,6 +1299,16 @@ namespace model
             }
 
             return NPOS;
+        }
+
+        StateGame stateGame;
+        ///------------------------------|
+        /// Что должен знать игрок.      |
+        ///------------------------------:
+        const StateGame getStateGame(unsigned idPlayer)
+        {     
+            /// TODO ...
+            return stateGame;
         }
 
         friend struct TestGame;

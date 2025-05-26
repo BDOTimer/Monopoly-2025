@@ -113,6 +113,10 @@ namespace vsl
                          (int)idPlayer }
             );
 
+            cfg.stateGame = model::getStateGame
+            (   "get", {(int)cfg.idGame, (int)idPlayer} 
+            );
+
             if(++IDPLAYER == cfg.players.size()) IDPLAYER = 0;
 
             cfg.info_01(++cnt);

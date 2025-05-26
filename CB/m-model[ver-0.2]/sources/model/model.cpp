@@ -37,6 +37,10 @@ namespace model
         size_t whoVictor() const
         {  return model::Referee::whoVictor();
         }
+
+        const StateGame getStateGame(unsigned idPlayer)
+        {   return model::Referee::getStateGame(idPlayer);
+        }
     };
 
     struct CG { Config* cfg; ModelGate* mdl; };
@@ -64,6 +68,10 @@ namespace model
 
         size_t whoVictor(unsigned idGame) const
         {   return (*this)[idGame].mdl->whoVictor();
+        }
+
+        const StateGame getStateGame( unsigned idGame, unsigned idPlayer)
+        {   return (*this)[idGame].mdl->getStateGame(idPlayer);
         }
 
     }holderGates;
@@ -104,6 +112,14 @@ namespace model
 
     size_t whoVictor(unsigned idGame)
     {   return holderGates.whoVictor(idGame);
+    }
+
+    const StateGame getStateGame(std::string_view command, 
+                                  const std::vector<int>& args)
+    {   if(command == "get")
+        {   return holderGates.getStateGame(args[0], args[1]);
+        }
+    return {{999}};
     }
 }
 

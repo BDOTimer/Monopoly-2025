@@ -1,11 +1,12 @@
 ﻿#ifndef CONFIG_MODEL_H
 #define CONFIG_MODEL_H
-const char* const LOGO = "Model::Monopoly-2025[ver::0.2.2]";
+const char* const LOGO = "Model::Monopoly-2025[ver::0.2.3]";
 ///----------------------------------------------------------------------------|
 /// "config-model.h"
 /// Дефолтный дизайн для детей! (детский вариант)
 ///----------------------------------------------------------------------------:
 #include "../debug.h"
+
 #include "implants/bot-iq.h"
 
 
@@ -34,6 +35,19 @@ void tests();
 namespace model
 {
     struct Cell;
+
+    ///---------------------------|
+    /// Стейт визуализатора игры. |
+    ///---------------------------:
+    struct StateGame : std::vector<int>
+    {
+        enum eSTATE
+        {    E_SIZE    ,
+             E_IDPLAYER,
+             E_NDICE   ,
+             E_POSITION
+        };
+    };
 
     const char* const currencySymbol{
     "///---------------------------------------------------|\n"
