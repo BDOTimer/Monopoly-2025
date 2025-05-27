@@ -22,9 +22,9 @@ struct  TestGame2
     model::Config*  cfg;
 
     std::array<controller::Player, 3> players
-    {          controller::Player (0),
-               controller::Player (1),
-               controller::Player (2)
+    {          controller::Player (true, 0, "Игрок-1"),
+               controller::Player (true, 1, "Игрок-2"),
+               controller::Player (true, 2, "Игрок-3")
     };
 
     size_t whoVictor{NPOS};

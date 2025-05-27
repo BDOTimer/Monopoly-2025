@@ -8,16 +8,37 @@
 
 namespace controller
 {
+    ///------------------------------------------------------------------------|
+    /// Игрок и его стейт.
+    ///----------------------------------------------------------------- Player:
     struct  Player
-    {       Player(unsigned id) : id(id)
+    {       Player( bool  isBot, unsigned id, std::string_view name)
+                :   isBot(isBot)
+                ,   id      (id)
+                ,   name  (name)
             {
             }
 
-        unsigned id;
+        bool       isBot;
+        unsigned      id;
+        std::string name;
+
+        ///---------------------------|
+        /// Что должен знать игрок.   |
+        ///---------------------------:
+        model::StateGame     stateGame;
 
         std::string input()
         {   std::string s; std::getline(std::cin, s); return s;
         }
+    };
+
+    ///------------------------------------------------------------------------|
+    /// Все игроки игры.
+    ///----------------------------------------------------------------- Players:
+    struct  Players : std::vector<Player>
+    {
+
     };
 }
 

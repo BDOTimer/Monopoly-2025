@@ -112,7 +112,6 @@
 		</Unit>
 		<Unit filename="sources/common.h" />
 		<Unit filename="sources/config-vsl.h" />
-		<Unit filename="sources/debug.h" />
 		<Unit filename="sources/fps.h" />
 		<Unit filename="sources/main.cpp" />
 		<Unit filename="sources/model.h" />
@@ -121,6 +120,7 @@
 		<Unit filename="sources/scene-game.h" />
 		<Unit filename="sources/scene-logo.h" />
 		<Unit filename="sources/scene-tune.h" />
+		<Unit filename="sources/sceneGame/fig-chips.h" />
 		<Unit filename="sources/sceneGame/fig-field.h" />
 		<Unit filename="sources/sceneGame/markup.h" />
 		<Unit filename="sources/sceneGame/win-down.h" />

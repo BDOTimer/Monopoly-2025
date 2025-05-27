@@ -5,6 +5,7 @@
 ///----------------------------------------------------------------------------:
 #include "../common.h"
 #include "fig-field.h"
+#include "fig-chips.h"
 
 namespace vsl
 {
@@ -39,11 +40,14 @@ namespace vsl
                 camMove.setCenter(figField.getCenter());
 
                 cfg.uiGameLog.fooFon = [this](){fooFon();};
+
+                for(unsigned id = 0; id < 3; ++id) setPositionChip(id, 0);
             }
 
         vsl::Config& cfg;
 
         PLUG_IOBJECT2
+
 
         void input(const std::optional<sf::Event>&  event) override
 		{
@@ -98,11 +102,16 @@ namespace vsl
             }
         }
 
+        void setPositionChip(unsigned idPlayer, unsigned idCell)
+        {   figureChips.setPosition(idPlayer, figField[idCell].getPosition());
+        }
+
     private:
-        sf::View           cam;
-        sf::View       camMove;
-        sf::RectangleShape fon;
-        FigureField   figField;
+        sf::View            cam;
+        sf::View        camMove;
+        sf::RectangleShape  fon;
+        FigureField    figField;
+        FigureChips figureChips;
 
         ///------------------------------------|
         /// На рендер.                         |
@@ -118,7 +127,11 @@ if(isFon) { target.draw   (fon,         states); }
             target.setView(camMove);
             target.draw   (figField,    states);
             target.draw   (objectTest4, states);
+
+            target.draw   (figureChips, states);
         }
+
+        friend struct SceneGame;
     };
 }
 

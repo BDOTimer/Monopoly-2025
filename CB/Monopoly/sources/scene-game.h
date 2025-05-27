@@ -100,22 +100,38 @@ namespace vsl
 
         void doStep()
         {
-
             unsigned& idPlayer = cfg.players[IDPLAYER].id;
-/*
+
+/* ЛОГ В ОДНО ОКНО:
             cfg.uiGameLog << model::doStep
             (   "bot", { (int)cfg.idGame,
                          (int)idPlayer }
             );
+
 */
-            cfg.uiPlayers[idPlayer] << uii::Clear() << model::doStep
+            ///////////////////////////////////////////////////
+        /// cfg.uiPlayers[idPlayer] << uii::Clear() <<
+            model::doStep
             (   "bot", { (int)cfg.idGame,
-                         (int)idPlayer }
+                         (int)idPlayer  }
             );
 
-            cfg.stateGame = model::getStateGame
-            (   "get", {(int)cfg.idGame, (int)idPlayer} 
+            const model::StateGame sg = model::getStateGame
+            (   "get", {(int)cfg.idGame, (int)idPlayer}
             );
+
+            ASSERT((unsigned)sg[model::StateGame::E_SIZE == sg.size()])
+
+            const auto&   ID = (unsigned)sg[model::StateGame::E_IDPLAYER];
+
+            cfg.players  [ID].stateGame = sg;
+
+            cfg.uiPlayers[ID] << uii::Clear()
+                << "DICE    : " << sg[model::StateGame::E_NDICE   ] << '\n'
+                << "POSITION: " << sg[model::StateGame::E_POSITION] << '\n';
+
+            winGame.setPositionChip(ID, sg[model::StateGame::E_POSITION]);
+            ///////////////////////////////////////////////////
 
             if(++IDPLAYER == cfg.players.size()) IDPLAYER = 0;
 

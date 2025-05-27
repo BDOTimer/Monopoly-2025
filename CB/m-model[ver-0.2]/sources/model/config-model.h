@@ -245,17 +245,9 @@ namespace model
         ManagerEvents managerEvents;
 
         ///------------------------------|
-        /// Профиль игрока.              |
-        ///------------------------------:
-        struct Players
-        {   bool       isBot;
-            std::string name;
-        };
-
-        ///------------------------------|
         /// Условие победы.              |
         ///------------------------------:
-        struct 
+        struct
         {   int        percentCapital{51};
 
             int             minus2x{-100};
@@ -263,6 +255,14 @@ namespace model
             int        cellsOccupied1{10};
             int         cellsOccupied2{2};
         }victoryCondition;
+
+        ///------------------------------|
+        /// Профиль игрока.              |
+        ///------------------------------:
+        struct Players
+        {   bool       isBot;
+            std::string name;
+        };
 
         ///------------------------------|
         /// Состав игроков.              |

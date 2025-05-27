@@ -366,7 +366,7 @@ namespace model
             return (unsigned)res;
         }
 
-        struct 
+        struct
         {   int capitalAll{};
             int priceAvarege;
         }statist;
@@ -1157,7 +1157,7 @@ namespace model
         [[nodiscard]]
         std::string doStep(unsigned i)
         {
-            if(_isGameOver) return 
+            if(_isGameOver) return
             {   "   |----------------------------|\n"
                 "   |      ИГРА ЗАКОНЧЕНА!       |\n"
                 "   |----------------------------|\n"
@@ -1268,7 +1268,7 @@ namespace model
         bool              _isGameOver{false};
 
         size_t whoVictor() const
-        {   
+        {
             int capitalAll = field.statist.capitalAll;
 
             std::array<int, 3> cap;
@@ -1280,11 +1280,11 @@ namespace model
                 cap[i++]    = p-> getCapitalMoney();
             }
 
-            int capitalAll$cv = capitalAll 
+            int capitalAll$cv = capitalAll
                               * cfg->victoryCondition.percentCapital / 100;
 
             for(unsigned i = 0; i < cap.size(); ++i)
-            {   
+            {
                 if(cap[i] >= capitalAll$cv)
                 {
                     const_cast<Referee*>(this)->_isGameOver = true;
@@ -1306,7 +1306,7 @@ namespace model
         /// Что должен знать игрок.      |
         ///------------------------------:
         const StateGame getStateGame(unsigned idPlayer)
-        {     
+        {
             /// TODO ...
             return stateGame;
         }

@@ -70,13 +70,12 @@ namespace vsl
                         }
                     }
                 }
-/*
+
                 std::sort(psp.begin(), psp.end(),
                     [](const PFS* a, const PFS* b)
                     {   return    a->id < b->id;
                     }
                 );
-*/
             }
 
         vsl  ::Config& cfg;
@@ -90,6 +89,10 @@ namespace vsl
         {   const auto& m{cfgModel.worldGeometry};
             return { szCell * m[0].size() / 2,
                      szCell * m   .size() / 2 };
+        }
+
+        const PFS& operator[](unsigned i) const
+        {   return *psp[i];
         }
 
     private:

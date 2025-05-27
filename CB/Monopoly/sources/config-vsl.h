@@ -3,15 +3,14 @@
 ///----------------------------------------------------------------------------|
 /// "config-vsl.h"
 ///----------------------------------------------------------------------------:
-#include "ui-imgui.h"
+#include "debug.h"
 
+#include "controller/controller.h"
+#include "ui-imgui.h"
 #include "user-model.h"
 #include "model/config-model.h"
-#include "controller/controller.h"
-
 #include "sceneGame/markup.h"
 
-#include "debug.h"
 
 namespace vsl
 {
@@ -38,24 +37,22 @@ namespace vsl
 
         sf::Time            deltaTime;
 
-        model::StateGame    stateGame;
-
 		Music musicLogo{"res/snd/Maddix - Receive Life.mp3"};
 		Music musicGame{"res/snd/Maddix - Acid Soul.mp3"   };
+
+        controller::Players players
+        {{  { true , 0, "bot::Игрок-1" },
+            { true , 1, "bot::Игрок-2" },
+            { true , 2, "bot::Игрок-3" }
+        }};
 
 		uii::UITest uiTune   ;
         uii::UIGame uiGameLog;
 
         std::array<uii::UIScnGamePlayer, 3> uiPlayers
-        {   uii::UIScnGamePlayer("Игрок-1", 0),
-            uii::UIScnGamePlayer("Игрок-2", 1),
-            uii::UIScnGamePlayer("Игрок-3", 2)
-        };
-
-        std::array<controller::Player, 3> players
-        {   controller::Player (0),
-            controller::Player (1),
-            controller::Player (2)
+        {   uii::UIScnGamePlayer(players[0]),
+            uii::UIScnGamePlayer(players[1]),
+            uii::UIScnGamePlayer(players[2])
         };
 
         model::Config cfgModel;
