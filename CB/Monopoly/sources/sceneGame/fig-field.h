@@ -48,7 +48,7 @@ namespace vsl
                             sps.back().setPosition({x * szCell, y * szCell});
                             sps.back().setOutlineThickness(12.f);
 
-                            sps.back().setFillColor({180,180,180});
+                            sps.back().setFillColor(color[0]);
 
                             Config::setOrigin(sps.back());
 
@@ -83,14 +83,24 @@ namespace vsl
         vsl  ::Config& cfg;
         model::Config& cfgModel;
 
-        float szCell{300};
+        float szCell{350};
+
+        std::array<sf::Color, 2> color
+        {   sf::Color{180,180,180},
+            sf::Color{255,255,255}
+        };
+
+        void setColor(unsigned idCell, unsigned idColor)
+        {   psp[idCell]->setFillColor    (color[idColor]);;
+        }
 
         PLUG_IOBJECT
 
         sf::Vector2f getCenter() const
         {   const auto& m{cfgModel.worldGeometry};
-            return { szCell * m[0].size() / 2,
-                     szCell * m   .size() / 2 };
+            const auto szCell2 = szCell / 2;
+            return { szCell * m[0].size() / 2 - szCell2 ,
+                     szCell * m   .size() / 2 - szCell2 };
         }
 
         const PFS& operator[](unsigned i) const

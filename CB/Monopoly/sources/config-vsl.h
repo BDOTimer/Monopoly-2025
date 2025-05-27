@@ -83,7 +83,7 @@ namespace vsl
             if(szuWin.x == 0)
             {   sf::VideoMode  dm = sf::VideoMode::getDesktopMode();
                     szuWin   = dm.size;
-                    szuWin.x = unsigned(SCALE_WIN * szuWin.x);
+                    szuWin.x = unsigned(            szuWin.x);
                     szuWin.y = unsigned(SCALE_WIN * szuWin.y);
             }
             return  szuWin;
