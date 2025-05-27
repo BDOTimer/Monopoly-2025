@@ -44,7 +44,7 @@ namespace vsl
 
                             sps.back().nameTxtr = name;
                             sps.back().id       = ID;
-                            sps.back().setSize({255, 255});
+                            sps.back().setSize    ({255, 255});
                             sps.back().setPosition({x * szCell, y * szCell});
                             sps.back().setOutlineThickness(12.f);
 

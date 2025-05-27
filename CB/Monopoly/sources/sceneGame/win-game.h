@@ -41,7 +41,7 @@ namespace vsl
 
                 cfg.uiGameLog.fooFon = [this](){fooFon();};
 
-                for(unsigned id = 0; id < 3; ++id) setPositionChip(id, 0);
+                for(unsigned id = 0; id < 3; ++id) setPositionChip(id, 0, false);
             }
 
         vsl::Config& cfg;
@@ -102,8 +102,13 @@ namespace vsl
             }
         }
 
-        void setPositionChip(unsigned idPlayer, unsigned idCell)
-        {   figureChips.setPosition(idPlayer, figField[idCell].getPosition());
+        void setPositionChip(unsigned idPlayer,
+                             unsigned idCell,
+                             bool     isSnd = true)
+        {
+            figureChips.setPosition(
+                idPlayer, figField[idCell].getPosition(), isSnd
+            );
         }
 
     private:
