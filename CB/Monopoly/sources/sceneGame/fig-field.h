@@ -50,6 +50,8 @@ namespace vsl
 
                             sps.back().setFillColor({180,180,180});
 
+                            Config::setOrigin(sps.back());
+
                             switch(ID % 3)
                             {
                                 case 0:

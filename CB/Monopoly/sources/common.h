@@ -45,6 +45,20 @@ std::ostream& operator<<(std::ostream& o, const sf::Vector2<T>& a)
 namespace vsl
 {
 
+    struct  Sound
+    {       Sound(std::string_view fn) : snd(buf)
+            {   bool   ok = buf.loadFromFile(fn.data());
+                ASSERT(ok)
+            }
+
+        void play(){ snd.play(); }
+
+    private:
+        sf::SoundBuffer buf;
+        sf::Sound       snd;
+    };
+
+
 	struct	Music : sf::Music
 	{		Music(std::string_view name)
 			{	if (!openFromFile( name.data()))

@@ -7,18 +7,6 @@
 
 namespace vsl
 {
-    struct  Sound
-    {       Sound(std::string_view fn) : snd(buf)
-            {   bool   ok = buf.loadFromFile(fn.data());
-                ASSERT(ok)
-            }
-
-        void play(){ snd.play(); }
-
-    private:
-        sf::SoundBuffer buf;
-        sf::Sound       snd;
-    };
 
     struct ConfigFigureChip
     {
@@ -52,6 +40,8 @@ namespace vsl
                 snd = std::make_unique<vsl::Sound>(
                     ConfigFigureChip::filenameSound[id]
                 );
+
+                Config::setOrigin(*this);
             }
 
         unsigned id;
@@ -70,8 +60,11 @@ namespace vsl
 
         void setPosition(unsigned id, sf::Vector2f pos, bool isSnd = true)
         {   const auto& SZ = ConfigFigureChip::get().Size;
+
+            const auto D{SZ.y / 4};
+
             auto& o = (*this)[id];
-                  o.setPosition( { pos.x, pos.y + o.id * SZ.y / 5 } );
+                  o.setPosition( { pos.x, pos.y + D * o.id - D } );
 
             if(isSnd) o.snd->play();
         }
