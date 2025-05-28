@@ -12,4 +12,4 @@
 
  
  :sparkles:
- <img src="CB/Monopoly/bin/res/logo.jpg"/>
+ <img src="bin/Visualizator/res/logo.jpg"/>
