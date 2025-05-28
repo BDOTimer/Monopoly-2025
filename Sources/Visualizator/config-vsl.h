@@ -46,8 +46,8 @@ namespace vsl
             { true , 2, "bot::Игрок-3" }
         }};
 
+        uii::UITest        uiTune       ;
         uii::UIUpLog       uiUpLog      ;
-		uii::UITest        uiTune       ;
         uii::UIGame        uiGameLog    ;
         uii::UIDownMessage uiDownMessage;
 

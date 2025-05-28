@@ -50,6 +50,10 @@ namespace vsl
                         : this->cfg.musicGame.play ();
                 };
 
+                cfg.uiUpLog.fooLog = [this]()
+                {   this->isLog = !this->isLog;
+                };
+
                 cfg.uiDownMessage << uii::Clear() << "Ход ИГРОКА: " 
                                   << (IDPLAYER + 1);
             }
@@ -96,19 +100,19 @@ namespace vsl
         {
             unsigned& idPlayer = cfg.players[IDPLAYER].id;
 
-/* ЛОГ В ОДНО ОКНО:
             cfg.uiGameLog << model::doStep
             (   "bot", { (int)cfg.idGame,
                          (int)idPlayer }
             );
 
-*/
+/*
             ///////////////////////////////////////////////////
-        //cfg.uiPlayers[idPlayer] << uii::Clear() <<
+            cfg.uiPlayers[idPlayer] << uii::Clear() <<
             model::doStep
             (   "bot", { (int)cfg.idGame,
                          (int)idPlayer  }
             );
+*/
 
             const model::StateGame sg = model::getStateGame
             (   "get", {(int)cfg.idGame, (int)idPlayer}
@@ -152,7 +156,8 @@ namespace vsl
             {cfg, 2}
         };
 
-        bool isDiceHide{true};
+        bool isDiceHide{true };
+        bool isLog     {false};
 
         ///-----------------------------------|
         /// Дебаг.                            |
@@ -171,9 +176,12 @@ namespace vsl
         {   target.setView(*cfg.camFon);
             target.draw   (fon, states);
 
-            target.draw   (winPlayers[0], states);
-            target.draw   (winPlayers[1], states);
-            target.draw   (winPlayers[2], states);
+            if(!isLog)
+            {   target.draw   (winPlayers[0], states);
+                target.draw   (winPlayers[1], states);
+                target.draw   (winPlayers[2], states);
+            }
+
             target.draw   (winDown  , states);
             target.draw   (winUp    , states);
             target.draw   (winGame  , states);
@@ -185,7 +193,8 @@ namespace vsl
                 target.draw   (dice, states);
             }
 
-        /// cfg.uiGameLog.show();
+            if(isLog)   cfg.uiGameLog.show();
+
         }
 
         ///------------------------------------|

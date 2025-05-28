@@ -559,9 +559,13 @@ namespace uii
 
                 bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
                 ASSERT(ok)
+
+                ImGuiStyle&      style = ImGui::GetStyle();
+                ColorBLog.m[0] = style.Colors[ImGuiCol_Button]; 
             }
 
-        unsigned id;
+
+        //ImVec4 buttonColor;
 
         Callback fooLog     {[this](){}};
         Callback fooMusic   {[this](){}};
@@ -603,10 +607,13 @@ namespace uii
                     /// | ImGuiWindowFlags_AlwaysAutoResize
             );
 
+                ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
                 if(ImGui::Button("Лог", WH))
                 {   fooLog    ();
                     sound.play();
+                    ColorBLog.next();
                 }
+                ImGui::PopStyleColor();
 
             ImGui::SameLine();
 
@@ -656,6 +663,12 @@ namespace uii
             WH   = {sz.x / 5.6f, sz.y / 2.5f}; 
             WHx2 = {WH.x + WH.x, WH.y};
         }
+
+        myl::SwitcherData<ImVec4, 2> ColorBLog
+        {   ImVec4{0.2f, 0.7f, 0.2f, 1.0f},
+            ImVec4{0.7f, 0.2f, 0.2f, 1.0f}
+        };
+        
 
     private:
     };
