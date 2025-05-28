@@ -44,6 +44,8 @@ namespace vsl
         {
             target.setView(cam);
             target.draw   (fon, states);
+
+            cfg.uiUpLog.show();
         }
     };
 }

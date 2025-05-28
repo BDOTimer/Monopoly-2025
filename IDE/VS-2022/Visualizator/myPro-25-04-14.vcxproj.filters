@@ -148,6 +148,9 @@
     <ClInclude Include="..\..\..\Sources\Model-25\vsl\vsl.h">
       <Filter>Model-25\vsl</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\win-up.h">
+      <Filter>Vsl\sceneGame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\extLibs\imgui-1.91.8\imgui.cpp">

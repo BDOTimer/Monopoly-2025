@@ -348,10 +348,15 @@ namespace uii
     ///static bool autoScroll{false};
     struct  UIBase
     {       UIBase() //(vsl::Config cfg) : cfg(cfg)
+                :   sound(buffer)
             {
+                
             }
 
     // vsl::Config& cfg;
+
+        sf::SoundBuffer buffer;
+        sf::Sound       sound ;
 
         bool autoScroll{false};
 
@@ -405,21 +410,12 @@ namespace uii
     struct  UIGame  :   UIBase
     {       UIGame()//(vsl::Config  cfg)
                     //:   UIBase  (cfg)
-                    :   sound(buffer)
             {
                 name = "ИГРА ...";
 
                 bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
                 ASSERT(ok)
             }
-
-        sf::SoundBuffer buffer;
-        sf::Sound       sound ;
-
-        Callback fooFon     {[this](){}};
-        Callback fooDice    {[this](){}};
-        Callback fooMusic   {[this](){}};
-        Callback fooDiceHide{[this](){}};
 
         void show()
         {
@@ -463,44 +459,15 @@ namespace uii
                     }
                 }
 
-                const ImVec2 WH{80, 50};
+            /// const ImVec2 WH{80, 50};
 
-                if(ImGui::Button("КУБИК", WH))
-                {   fooDice   ();
-                    sound.play();
-                }
 
-                ImGui::SameLine ();
-
-                if(ImGui::Button(buttonShowCubic.get(), WH))
-                {   fooDiceHide();
-                    sound.play ();
-
-                    buttonShowCubic.next();
-                }
-
-                ImGui::SameLine ();
-
-                if(ImGui::Button("Музыка", WH))
-                {   fooMusic  ();
-                    sound.play();
-                }
-
-                ImGui::SameLine ();
-
-                if(ImGui::Button("Фон", WH))
-                {   fooFon    ();
-                    sound.play();
-                }
             }
 
             ImGui::End();
         }
 
     private:
-        myl::SwitcherData<const char*, 2> buttonShowCubic
-        {   "Показать", "Спрятать"
-        };
     };
 
 
@@ -513,7 +480,6 @@ namespace uii
                     //:   UIBase  (cfg)
                     :   id   (pl.id  )
             ///     ,   name (pl.name)
-                    ,   sound(buffer )
             {
                 name = pl.name;
 
@@ -522,11 +488,6 @@ namespace uii
             }
 
         unsigned id;
-
-        sf::SoundBuffer       buffer;
-        sf::Sound             sound ;
-
-        Callback fooDice{[this](){}};
 
         void show()
         {
@@ -558,12 +519,192 @@ namespace uii
                     /// | ImGuiWindowFlags_AlwaysAutoResize
             );
 
+/*
             const ImVec2 WH{80, 50};
 
-            if(ImGui::Button("КУБИК", WH))
-            {   fooDice   ();
-                sound.play();
+            if(ImGui::Button("xxx", WH))
+            {   fooDicexxx  ();
+                sound.play  ();
             }
+*/
+
+            ///----------------------------------------------------------------|
+            {
+                if (ImGui::CollapsingHeader(name.data(),
+                                             ImGuiTreeNodeFlags_DefaultOpen))
+                {   ImGui::Text("%s", log.str().c_str());
+
+                    if (autoScroll)
+                    {   ImGui::SetScrollHereY(1.0f);
+                        autoScroll = false;
+                    }
+                }
+            }
+
+            ImGui::End();
+        }
+    };
+
+
+    ///------------------------------------------------------------------------|
+    /// UIUpLog для панели сверху ...
+    ///---------------------------------------------------------------- UIUpLog:
+    struct  UIUpLog  :   UIBase
+    {       UIUpLog()
+                    //(vsl::Config  cfg)
+                    //:   UIBase  (cfg)
+            ///     ,   name (pl.name)
+            {
+                name = "UIUpLog";
+
+                bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
+                ASSERT(ok)
+            }
+
+        unsigned id;
+
+        Callback fooLog     {[this](){}};
+        Callback fooMusic   {[this](){}};
+        Callback fooFon     {[this](){}};
+        
+        Callback fooDice2   {[this](){}};
+
+        ImVec2 WH  {70, 30};
+        ImVec2 WHx2;
+
+        void show()
+        {
+            auto& color = ImGui::GetStyle().Colors[ImGuiCol_WindowBg];
+                  color = ImColor(35,35,35,190);
+
+            ///---------------------------------------|
+            /// Позиция и размер окна.                |
+            ///---------------------------------------:
+            /// TODO: Окно на разных компах должно соответствовать ....
+
+            ///
+            ImGui::SetNextWindowSize(size);
+            ///
+            ImGui::SetNextWindowPos (position);
+
+            ///---------------------------------------|
+            /// Окно <name>.                          |
+            ///---------------------------------------:
+            ImGui::Begin (name.data(), nullptr, 0
+                    /// | ImGuiWindowFlags_NoCollapse
+                        | ImGuiWindowFlags_NoMove
+                        | ImGuiWindowFlags_NoTitleBar
+                    /// | ImGuiWindowFlags_HorizontalScrollbar
+                    /// | ImGuiWindowFlags_AlwaysVerticalScrollbar
+                        | ImGuiWindowFlags_NoScrollbar
+                    /// | ImGuiWindowFlags_MenuBar
+                    /// | ImGuiWindowFlags_NoBackground
+                        | ImGuiWindowFlags_NoResize
+                    /// | ImGuiWindowFlags_AlwaysAutoResize
+            );
+
+                if(ImGui::Button("Лог", WH))
+                {   fooLog    ();
+                    sound.play();
+                }
+
+            ImGui::SameLine();
+
+                if(ImGui::Button("Музыка", WH))
+                {   fooMusic  ();
+                    sound.play();
+                }
+
+            ImGui::SameLine();
+
+                if(ImGui::Button("Фон", WH))
+                {   fooFon    ();
+                    sound.play();
+                }
+
+            ImGui::SameLine();
+
+            if(ImGui::Button("КУБИК", WHx2))
+                {   fooDice2  ();
+                    sound.play();
+                }
+
+                if(ImGui::Button("..1", WH))
+                {   //foo    ();
+                    sound.play();
+                }
+
+            ImGui::SameLine();
+
+                if(ImGui::Button("..2", WH))
+                {   //foo    ();
+                    sound.play();
+                }
+
+            ImGui::SameLine();
+
+                if(ImGui::Button("..3", WH))
+                {   //foo    ();
+                    sound.play();
+                }
+
+            ImGui::End();
+        }
+
+        void setGeometry(ImVec2 sz, ImVec2 ps)
+        {   UIBase::setGeometry(sz,        ps);
+            WH   = {sz.x / 5.6f, sz.y / 2.5f}; 
+            WHx2 = {WH.x + WH.x, WH.y};
+        }
+
+    private:
+    };
+
+
+    ///------------------------------------------------------------------------|
+    /// UIDownMessage для игрока ...
+    ///---------------------------------------------------------- UIDownMessage:
+    struct  UIDownMessage  :   UIBase
+    {       UIDownMessage()
+                    //(vsl::Config  cfg)
+                    //:   UIBase  (cfg)
+            ///     ,   name (pl.name)
+            {
+                name = "ГОЛОС СУДЬИ:";
+
+                bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
+                ASSERT(ok)
+            }
+
+        void show()
+        {
+            auto& color = ImGui::GetStyle().Colors[ImGuiCol_WindowBg];
+                  color = ImColor(35,35,35,190);
+
+            ///---------------------------------------|
+            /// Позиция и размер окна.                |
+            ///---------------------------------------:
+            /// TODO: Окно на разных компах должно соответствовать ....
+
+            ///
+            ImGui::SetNextWindowSize(size);
+            ///
+            ImGui::SetNextWindowPos (position);
+
+            ///---------------------------------------|
+            /// Окно <name>.                          |
+            ///---------------------------------------:
+            ImGui::Begin (name.data(), nullptr, 0
+                    /// | ImGuiWindowFlags_NoCollapse
+                        | ImGuiWindowFlags_NoMove
+                        | ImGuiWindowFlags_NoTitleBar
+                        | ImGuiWindowFlags_HorizontalScrollbar
+                        | ImGuiWindowFlags_AlwaysVerticalScrollbar
+                    /// | ImGuiWindowFlags_MenuBar
+                    /// | ImGuiWindowFlags_NoBackground
+                        | ImGuiWindowFlags_NoResize
+                    /// | ImGuiWindowFlags_AlwaysAutoResize
+            );
 
             ///----------------------------------------------------------------|
             {

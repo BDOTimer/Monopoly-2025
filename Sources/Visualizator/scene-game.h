@@ -27,27 +27,22 @@ namespace vsl
 
                 vsl::Config::setOrigin(fon);
 
-                tmess1.setString(L"ИГРА.\nВыход: ESCAPE");
-
                 dice.init();
 
                 cfg.info_01(++cnt);
 
-                cfg.uiGameLog.fooDice = [this]()
-                {   if(!this->isDiceHide)
-                        this->dice.isRot = !dice.isRot;
+                cfg.uiUpLog.fooDice2 = [this]()
+                {   this->dice.isRot = !this->dice.isRot;
+                    this->isDiceHide = !this->isDiceHide;
+
+                    this->dice.resetDice();
+
+                    if(!this->dice.isRot)
+                    {   this->doStep();
+                    }
                 };
 
-                for(auto&   e : cfg.uiPlayers)
-                {   e.fooDice = [this]()
-                    {   this->dice.isRot = !dice.isRot;
-                        this->isDiceHide = !this->isDiceHide;
-
-                        this->dice.resetDice();
-                    };
-                }
-
-                cfg.uiGameLog.fooMusic = [this]()
+                cfg.uiUpLog.fooMusic = [this]()
                 {   using E = sf::SoundSource::Status;
 					const bool
                     b{    this->cfg.musicGame.getStatus() == E::Playing };
@@ -55,9 +50,8 @@ namespace vsl
                         : this->cfg.musicGame.play ();
                 };
 
-                cfg.uiGameLog.fooDiceHide = [this]()
-                {   this->isDiceHide = !this->isDiceHide;
-                };
+                cfg.uiDownMessage << uii::Clear() << "Ход ИГРОКА: " 
+                                  << (IDPLAYER + 1);
             }
 
 		vsl::Config&  cfg;
@@ -110,7 +104,7 @@ namespace vsl
 
 */
             ///////////////////////////////////////////////////
-        /// cfg.uiPlayers[idPlayer] << uii::Clear() <<
+        //cfg.uiPlayers[idPlayer] << uii::Clear() <<
             model::doStep
             (   "bot", { (int)cfg.idGame,
                          (int)idPlayer  }
@@ -136,6 +130,9 @@ namespace vsl
             if(++IDPLAYER == cfg.players.size()) IDPLAYER = 0;
 
             cfg.info_01(++cnt);
+
+            cfg.uiDownMessage << uii::Clear() << "Ход ИГРОКА: " 
+                              << IDPLAYER+1   << mess[rand()%mess.size()];
         }
 
         ///-----------------------------------|
@@ -143,7 +140,6 @@ namespace vsl
         ///-----------------------------------:
         std::string     nameTx;
         sf::RectangleShape fon;
-        TextStyleA      tmess1;
 
         ShaderDice        dice;
         WinGame        winGame{cfg};
@@ -182,8 +178,7 @@ namespace vsl
             target.draw   (winUp    , states);
             target.draw   (winGame  , states);
 
-            target.setView(*cfg.camGui   );
-            target.draw   (tmess1, states);
+            target.setView(*cfg.camGui);
 
             if(!isDiceHide)
             {   target.setView(*cfg.camFon );
@@ -192,6 +187,18 @@ namespace vsl
 
         /// cfg.uiGameLog.show();
         }
+
+        ///------------------------------------|
+        /// 🔥
+        ///------------------------------------:
+        std::array<const char* const, 6> mess
+        {   " Эй, не спи! Пора делать ход!",
+            " Эй, проснись! Твой ход ждёт!",
+            " Сон подождёт - сейчас твой черёд!",
+            " Встряхнись! Игра не закончится без тебя!",
+            " Хватит мечтать! Пора делать ход!",
+            " Время идёт, а ты всё ещё не сделал ход!"
+        };
     };
 }
 

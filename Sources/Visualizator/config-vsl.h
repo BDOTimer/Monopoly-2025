@@ -46,8 +46,10 @@ namespace vsl
             { true , 2, "bot::Игрок-3" }
         }};
 
-		uii::UITest uiTune   ;
-        uii::UIGame uiGameLog;
+        uii::UIUpLog       uiUpLog      ;
+		uii::UITest        uiTune       ;
+        uii::UIGame        uiGameLog    ;
+        uii::UIDownMessage uiDownMessage;
 
         std::array<uii::UIScnGamePlayer, 3> uiPlayers
         {   uii::UIScnGamePlayer(players[0]),
@@ -141,6 +143,37 @@ namespace vsl
 
                 uiPlayers[i].setGeometry({szX, szY}, {psX, psY});
             }
+
+            const float Y = 6.0f;
+            const float Y2 = Y+Y;
+
+            ///-------------------|
+            /// uiUpLog           |
+            ///-------------------:
+            {   const auto& H = markupSG.winUp;
+                const float Y = 6.0f;
+                
+                const float szX = G[0].size .x * szfWin.x - Y2;
+                const float szY = H.size    .y * szfWin.y - Y2;
+                const float psX = H.position.x * szfWin.x + Y;
+                const float psY = H.position.y * szfWin.y + Y;
+
+                uiUpLog.setGeometry({szX, szY}, {psX, psY});
+            }
+
+            ///-------------------|
+            /// uiDownMessage     |
+            ///-------------------:
+            {   const auto& H = markupSG.winDown;
+                const float szX =(H.size    .x - G[0].size .x) * szfWin.x - Y2;
+                const float szY = H.size    .y * szfWin.y - Y2;
+                const float psX = G[0].size .x * szfWin.x + Y;
+                const float psY = H.position.y * szfWin.y + Y;
+
+                uiDownMessage.setGeometry({szX, szY}, {psX, psY});
+            }
+
+        //  uiPlayersLog = uiPlayers;
         }
     };
 }

@@ -20,13 +20,18 @@ namespace vsl
 
                 cam.setViewport(rect);
                 cam.setSize  ({x, y});
-                cam.setCenter({0, 0});
+                cam.setCenter({0, 0});  camUI = cam;
+
+                camUI.setCenter({x / 2, y / 2}); 
+
                 fon.setSize  ({x-border2, y-border2});
               //fon.setPosition({border, border});
                 vsl::Config::setOrigin(fon);
                 fon.setFillColor({  0,200,0,20});
                 fon.setOutlineColor({64,64,128});
                 fon.setOutlineThickness (border);
+
+                tmess1.setString(L"ИГРА.\nВыход: ESCAPE");
             }
 
         vsl::Config& cfg;
@@ -34,8 +39,10 @@ namespace vsl
         PLUG_IOBJECT
 
     private:
+        sf::View         camUI;
         sf::View           cam;
         sf::RectangleShape fon;
+        TextStyleA      tmess1;
 
         ///------------------------------------|
         /// На рендер.                         |
@@ -46,6 +53,11 @@ namespace vsl
             target.setView(cam);
             target.draw   (fon, states);
         /// target.draw   (objectTest2, states);
+
+            target.setView(camUI);
+            target.draw   (tmess1, states);
+
+            cfg.uiDownMessage.show();
         }
     };
 }

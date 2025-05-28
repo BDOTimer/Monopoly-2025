@@ -53,6 +53,7 @@
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\win-down.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\win-game.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\win-player.h" />
+    <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\win-up.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\shader-dice.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\ui-imgui.h" />
   </ItemGroup>

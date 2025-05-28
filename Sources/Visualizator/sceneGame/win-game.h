@@ -39,7 +39,7 @@ namespace vsl
                 camMove.setSize  ({3750, 2410});
                 camMove.setCenter(figField.getCenter());
 
-                cfg.uiGameLog.fooFon = [this](){fooFon();};
+                cfg.uiUpLog.fooFon = [this](){fooFon();};
 
                 for(unsigned id = 0; id < 3; ++id) setPositionChip(id, 0, false);
             }

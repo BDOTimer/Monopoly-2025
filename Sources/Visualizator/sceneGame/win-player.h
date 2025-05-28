@@ -37,6 +37,8 @@ namespace vsl
         sf::View           cam;
         sf::RectangleShape fon;
 
+        unsigned    typeLog{1}; /// not use.
+
         ///------------------------------------|
         /// На рендер.                         |
         ///------------------------------------:
