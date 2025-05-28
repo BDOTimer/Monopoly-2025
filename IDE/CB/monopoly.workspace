@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="Workspace">
+		<Project filename="hello/hello.cbp" />
+		<Project filename="cards/cards.cbp" />
+		<Project filename="Model-25/Model-25.cbp" />
+		<Project filename="Visualizator-sfml/Visualizator-sfml.cbp" />
+	</Workspace>
+</CodeBlocks_workspace_file>

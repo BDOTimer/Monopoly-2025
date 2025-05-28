@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Model-25" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc-mingw64" />
+		<Option virtualFolders="model/;vsl/;controller/;model/implants/" />
+		<Build>
+			<Target title="Release">
+				<Option output="../../../bin/Model-25/Model-25[mingw]" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../../bin/Model-25/" />
+				<Option object_output="obj/" />
+				<Option type="1" />
+				<Option compiler="gcc-mingw64" />
+				<Compiler>
+					<Add option="-std=c++20" />
+				</Compiler>
+				<Linker>
+					<Add option="-static" />
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Unit filename="../../../Sources/Model-25/controller/controller.h">
+			<Option virtualFolder="controller/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/debug.h" />
+		<Unit filename="../../../Sources/Model-25/main.cpp" />
+		<Unit filename="../../../Sources/Model-25/model/!m-model.h">
+			<Option virtualFolder="model/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/model/cards.inc">
+			<Option virtualFolder="model/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/model/config-model.h">
+			<Option virtualFolder="model/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/model/field.inc">
+			<Option virtualFolder="model/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/model/implants/bot-iq.cpp">
+			<Option virtualFolder="model/implants/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/model/implants/bot-iq.h">
+			<Option virtualFolder="model/implants/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/model/implants/doc-iq.txt">
+			<Option virtualFolder="model/implants/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/model/model.cpp">
+			<Option virtualFolder="model/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/model/myl.h">
+			<Option virtualFolder="model/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/program.h" />
+		<Unit filename="../../../Sources/Model-25/user-model.h" />
+		<Unit filename="../../../Sources/Model-25/vsl/vsl.h">
+			<Option virtualFolder="vsl/" />
+		</Unit>
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

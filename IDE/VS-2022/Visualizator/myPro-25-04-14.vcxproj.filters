@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="extLibs">
+      <UniqueIdentifier>{00d63182-fff3-46b5-a106-d5a538e99ae5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vsl">
+      <UniqueIdentifier>{adc03447-1937-4d69-b7c1-ea0212b5d5b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model-25">
+      <UniqueIdentifier>{05ca00ff-f452-46a0-969d-6307ed367cdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vsl\sceneGame">
+      <UniqueIdentifier>{729f6dc3-3015-449e-8359-b5d7afec6c17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model-25\model">
+      <UniqueIdentifier>{5591398b-924a-41ee-b262-57f06d0c3766}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model-25\vsl">
+      <UniqueIdentifier>{1160ef2e-66ba-41da-9a3e-f2574475a2ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model-25\controller">
+      <UniqueIdentifier>{690a1c9c-7e30-4355-af38-4cd22e2a3329}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model-25\model\implants">
+      <UniqueIdentifier>{b0b27c60-a45e-4a84-b2af-9c7021fbcab4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Res">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="extLibs\Imgui">
+      <UniqueIdentifier>{df6b4b8a-990a-4170-841a-d8c3b05f1cbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extLibs\Imgui-sfml">
+      <UniqueIdentifier>{90ac0230-b6f7-475f-bfe2-926adac83492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extLibs\Imgui\misc">
+      <UniqueIdentifier>{8871fd4d-4269-4c8a-a676-a64ca07cc41f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\extLibs\imgui-1.91.8\imconfig.h">
+      <Filter>extLibs\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\extLibs\imgui-1.91.8\imgui.h">
+      <Filter>extLibs\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\extLibs\imgui-1.91.8\imgui_internal.h">
+      <Filter>extLibs\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\extLibs\imgui-1.91.8\imstb_rectpack.h">
+      <Filter>extLibs\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\extLibs\imgui-1.91.8\imstb_textedit.h">
+      <Filter>extLibs\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\extLibs\imgui-1.91.8\imstb_truetype.h">
+      <Filter>extLibs\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\extLibs\imgui-1.91.8\misc\cpp\imgui_stdlib.h">
+      <Filter>extLibs\Imgui\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\extLibs\imgui-sfml-3.0\imconfig-SFML.h">
+      <Filter>extLibs\Imgui-sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\extLibs\imgui-sfml-3.0\imgui-SFML.h">
+      <Filter>extLibs\Imgui-sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\extLibs\imgui-sfml-3.0\imgui-SFML_export.h">
+      <Filter>extLibs\Imgui-sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\common.h">
+      <Filter>Vsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\config-vsl.h">
+      <Filter>Vsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\fps.h">
+      <Filter>Vsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\model.h">
+      <Filter>Vsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\player.h">
+      <Filter>Vsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\render.h">
+      <Filter>Vsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\scene-game.h">
+      <Filter>Vsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\scene-logo.h">
+      <Filter>Vsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\scene-tune.h">
+      <Filter>Vsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\shader-dice.h">
+      <Filter>Vsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\ui-imgui.h">
+      <Filter>Vsl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\fig-chips.h">
+      <Filter>Vsl\sceneGame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\fig-field.h">
+      <Filter>Vsl\sceneGame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\markup.h">
+      <Filter>Vsl\sceneGame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\win-down.h">
+      <Filter>Vsl\sceneGame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\win-game.h">
+      <Filter>Vsl\sceneGame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\win-player.h">
+      <Filter>Vsl\sceneGame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Model-25\debug.h">
+      <Filter>Model-25</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Model-25\program.h">
+      <Filter>Model-25</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Model-25\user-model.h">
+      <Filter>Model-25</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Model-25\model\!m-model.h">
+      <Filter>Model-25\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Model-25\model\config-model.h">
+      <Filter>Model-25\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Model-25\model\myl.h">
+      <Filter>Model-25\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Model-25\model\implants\bot-iq.h">
+      <Filter>Model-25\model\implants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Model-25\controller\controller.h">
+      <Filter>Model-25\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Model-25\vsl\vsl.h">
+      <Filter>Model-25\vsl</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\extLibs\imgui-1.91.8\imgui.cpp">
+      <Filter>extLibs\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\extLibs\imgui-1.91.8\imgui_demo.cpp">
+      <Filter>extLibs\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\extLibs\imgui-1.91.8\imgui_draw.cpp">
+      <Filter>extLibs\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\extLibs\imgui-1.91.8\imgui_tables.cpp">
+      <Filter>extLibs\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\extLibs\imgui-1.91.8\imgui_widgets.cpp">
+      <Filter>extLibs\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\extLibs\imgui-1.91.8\misc\cpp\imgui_stdlib.cpp">
+      <Filter>extLibs\Imgui\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\extLibs\imgui-sfml-3.0\imgui-SFML.cpp">
+      <Filter>extLibs\Imgui-sfml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Visualizator\main.cpp">
+      <Filter>Vsl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Model-25\model\model.cpp">
+      <Filter>Model-25\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Model-25\model\implants\bot-iq.cpp">
+      <Filter>Model-25\model\implants</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\extLibs\imgui-1.91.8\misc\cpp\README.txt">
+      <Filter>extLibs\Imgui\misc</Filter>
+    </Text>
+    <Text Include="..\..\..\Sources\Model-25\model\implants\doc-iq.txt">
+      <Filter>Model-25\model\implants</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Sources\Model-25\model\cards.inc">
+      <Filter>Model-25\model</Filter>
+    </None>
+    <None Include="..\..\..\Sources\Model-25\model\field.inc">
+      <Filter>Model-25\model</Filter>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Res">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="model">
+      <UniqueIdentifier>{a875e201-7aaf-4fe8-afad-d22a3d26f91c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="model\implants">
+      <UniqueIdentifier>{19725c10-58bb-4ced-8b2a-5694963670cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vsl">
+      <UniqueIdentifier>{372e33cf-008e-4344-a954-e2f01a194663}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="controller">
+      <UniqueIdentifier>{6d1d0f5f-08e4-4a93-8cce-ba5051d6a3dd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Sources\Model-25\user-model.h" />
+    <ClInclude Include="..\..\..\Sources\Model-25\program.h" />
+    <ClInclude Include="..\..\..\Sources\Model-25\debug.h" />
+    <ClInclude Include="..\..\..\Sources\Model-25\model\!m-model.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Model-25\model\config-model.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Model-25\model\myl.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Model-25\model\implants\bot-iq.h">
+      <Filter>model\implants</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Model-25\controller\controller.h">
+      <Filter>controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Model-25\vsl\vsl.h">
+      <Filter>vsl</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Sources\Model-25\main.cpp" />
+    <ClCompile Include="..\..\..\Sources\Model-25\model\model.cpp">
+      <Filter>model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Sources\Model-25\model\implants\bot-iq.cpp">
+      <Filter>model\implants</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Sources\Model-25\model\cards.inc">
+      <Filter>model</Filter>
+    </None>
+    <None Include="..\..\..\Sources\Model-25\model\field.inc">
+      <Filter>model</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\Sources\Model-25\model\implants\doc-iq.txt">
+      <Filter>model\implants</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

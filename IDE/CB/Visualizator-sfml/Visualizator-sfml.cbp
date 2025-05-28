@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Visualizator-sfml" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc-14-ucrt-64" />
+		<Option virtualFolders="vsl/;vsl/sceneGame/;model-25/;model-25/controller/;model-25/model/;model-25/vsl/;model-25/model/implants/;imgui/;imgui/sfml/;res/" />
+		<Build>
+			<Target title="Release">
+				<Option output="../../../bin/Visualizator/sfml-Visualizator[mingw]" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../../bin/Visualizator" />
+				<Option object_output="obj/" />
+				<Option type="1" />
+				<Option compiler="gcc-mingw64" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-std=c++20" />
+					<Add option="-DSFML_STATIC" />
+					<Add directory="../../../extLibs/SFML-3.0.0[mingw64-ucrt]/include" />
+					<Add directory="../../../extLibs/imgui-sfml-3.0" />
+					<Add directory="../../../extLibs/imgui-1.91.8" />
+					<Add directory="../../../Sources/Model-25" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-static" />
+					<Add library="../../../extLibs/imgui-sfml-3.0/64/libImGui-SFML.a" />
+					<Add library="sfml-graphics-s" />
+					<Add library="sfml-window-s" />
+					<Add library="libsfml-audio-s.a" />
+					<Add library="libfreetype.a" />
+					<Add library="libsfml-main-s.a" />
+					<Add library="libgdi32.a" />
+					<Add library="libwinmm.a" />
+					<Add library="libopengl32.a" />
+					<Add library="sfml-system-s" />
+					<Add library="libFLAC.a" />
+					<Add library="libvorbisenc.a" />
+					<Add library="libvorbisfile.a" />
+					<Add library="libvorbis.a" />
+					<Add library="libogg.a" />
+					<Add library="../../../extLibs/SFML-3.0.0[mingw64-ucrt]/lib/libwinmm.a" />
+					<Add directory="../../../extLibs/SFML-3.0.0[mingw64-ucrt]/lib" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-DSFML_STATIC" />
+			<Add directory="$(#sfml30)/include" />
+		</Compiler>
+		<Linker>
+			<Add library="mingw32" />
+			<Add library="user32" />
+			<Add library="gdi32" />
+			<Add library="winmm" />
+			<Add library="dxguid" />
+			<Add directory="$(#sfml30)/lib" />
+		</Linker>
+		<Unit filename="../../../Sources/Model-25/controller/controller.h">
+			<Option virtualFolder="model-25/controller/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/debug.h">
+			<Option virtualFolder="model-25/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/model/!m-model.h">
+			<Option virtualFolder="model-25/model/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/model/cards.inc">
+			<Option virtualFolder="model-25/model/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/model/config-model.h">
+			<Option virtualFolder="model-25/model/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/model/field.inc">
+			<Option virtualFolder="model-25/model/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/model/implants/bot-iq.cpp">
+			<Option virtualFolder="model-25/model/implants/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/model/implants/bot-iq.h">
+			<Option virtualFolder="model-25/model/implants/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/model/implants/doc-iq.txt">
+			<Option virtualFolder="model-25/model/implants/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/model/model.cpp">
+			<Option virtualFolder="model-25/model/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/model/myl.h">
+			<Option virtualFolder="model-25/model/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/program.h">
+			<Option virtualFolder="model-25/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/user-model.h">
+			<Option virtualFolder="model-25/" />
+		</Unit>
+		<Unit filename="../../../Sources/Model-25/vsl/vsl.h">
+			<Option virtualFolder="model-25/vsl/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/common.h">
+			<Option virtualFolder="vsl/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/config-vsl.h">
+			<Option virtualFolder="vsl/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/fps.h">
+			<Option virtualFolder="vsl/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/main.cpp">
+			<Option virtualFolder="vsl/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/model.h">
+			<Option virtualFolder="vsl/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/player.h">
+			<Option virtualFolder="vsl/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/render.h">
+			<Option virtualFolder="vsl/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/scene-game.h">
+			<Option virtualFolder="vsl/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/scene-logo.h">
+			<Option virtualFolder="vsl/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/scene-tune.h">
+			<Option virtualFolder="vsl/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/sceneGame/fig-chips.h">
+			<Option virtualFolder="vsl/sceneGame/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/sceneGame/fig-field.h">
+			<Option virtualFolder="vsl/sceneGame/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/sceneGame/markup.h">
+			<Option virtualFolder="vsl/sceneGame/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/sceneGame/win-down.h">
+			<Option virtualFolder="vsl/sceneGame/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/sceneGame/win-game.h">
+			<Option virtualFolder="vsl/sceneGame/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/sceneGame/win-player.h">
+			<Option virtualFolder="vsl/sceneGame/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/sceneGame/win-up.h">
+			<Option virtualFolder="vsl/sceneGame/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/shader-dice.h">
+			<Option virtualFolder="vsl/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/ui-imgui.h">
+			<Option virtualFolder="vsl/" />
+		</Unit>
+		<Unit filename="../../../extLibs/imgui-1.91.8/imconfig.h">
+			<Option virtualFolder="imgui/" />
+		</Unit>
+		<Unit filename="../../../extLibs/imgui-1.91.8/imgui.cpp">
+			<Option virtualFolder="imgui/" />
+		</Unit>
+		<Unit filename="../../../extLibs/imgui-1.91.8/imgui.h">
+			<Option virtualFolder="imgui/" />
+		</Unit>
+		<Unit filename="../../../extLibs/imgui-1.91.8/imgui_demo.cpp">
+			<Option virtualFolder="imgui/" />
+		</Unit>
+		<Unit filename="../../../extLibs/imgui-1.91.8/imgui_draw.cpp">
+			<Option virtualFolder="imgui/" />
+		</Unit>
+		<Unit filename="../../../extLibs/imgui-1.91.8/imgui_tables.cpp">
+			<Option virtualFolder="imgui/" />
+		</Unit>
+		<Unit filename="../../../extLibs/imgui-1.91.8/imgui_widgets.cpp">
+			<Option virtualFolder="imgui/" />
+		</Unit>
+		<Unit filename="../../../extLibs/imgui-sfml-3.0/imgui-SFML.cpp">
+			<Option virtualFolder="imgui/sfml/" />
+		</Unit>
+		<Unit filename="../../../task-dev.txt" />
+		<Unit filename="icon.rc">
+			<Option compilerVar="WINDRES" />
+			<Option virtualFolder="res/" />
+		</Unit>
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
