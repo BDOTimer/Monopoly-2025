@@ -174,6 +174,8 @@ namespace vsl
             }
 
         //  uiPlayersLog = uiPlayers;
+
+            uiUpLog.messDown = &uiDownMessage;
         }
     };
 }

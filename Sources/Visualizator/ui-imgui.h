@@ -342,6 +342,7 @@ namespace uii
     };
 
 
+    struct  UIDownMessage;
     ///------------------------------------------------------------------------|
     /// UIBase.
     ///----------------------------------------------------------------- UIBase:
@@ -355,12 +356,19 @@ namespace uii
 
     // vsl::Config& cfg;
 
-        sf::SoundBuffer buffer;
-        sf::Sound       sound ;
+        sf::SoundBuffer  buffer;
+        sf::Sound        sound ;
 
-        bool autoScroll{false};
+        bool autoScroll {false};
 
-        std::stringstream log;
+        std::stringstream   log;
+
+        UIDownMessage* messDown{nullptr};
+
+        void doFooEmpty();
+        std::function<void()> fooEmpty
+        {   [this](){ this->doFooEmpty(); }
+        };
 
         UIBase& operator<<(std::string_view s)
         {   log << s;
@@ -547,6 +555,74 @@ namespace uii
 
 
     ///------------------------------------------------------------------------|
+    /// UIDownMessage для игрока ...
+    ///---------------------------------------------------------- UIDownMessage:
+    struct  UIDownMessage  :   UIBase
+    {       UIDownMessage()
+                    //(vsl::Config  cfg)
+                    //:   UIBase  (cfg)
+            ///     ,   name (pl.name)
+            {
+                name = "ГОЛОС СУДЬИ:";
+
+                bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
+                ASSERT(ok)
+            }
+
+        void show()
+        {
+            auto& color = ImGui::GetStyle().Colors[ImGuiCol_WindowBg];
+                  color = ImColor(35,35,35,190);
+
+            ///---------------------------------------|
+            /// Позиция и размер окна.                |
+            ///---------------------------------------:
+            /// TODO: Окно на разных компах должно соответствовать ....
+
+            ///
+            ImGui::SetNextWindowSize(size);
+            ///
+            ImGui::SetNextWindowPos (position);
+
+            ///---------------------------------------|
+            /// Окно <name>.                          |
+            ///---------------------------------------:
+            ImGui::Begin (name.data(), nullptr, 0
+                    /// | ImGuiWindowFlags_NoCollapse
+                        | ImGuiWindowFlags_NoMove
+                        | ImGuiWindowFlags_NoTitleBar
+                        | ImGuiWindowFlags_HorizontalScrollbar
+                        | ImGuiWindowFlags_AlwaysVerticalScrollbar
+                    /// | ImGuiWindowFlags_MenuBar
+                    /// | ImGuiWindowFlags_NoBackground
+                        | ImGuiWindowFlags_NoResize
+                    /// | ImGuiWindowFlags_AlwaysAutoResize
+            );
+
+            ///----------------------------------------------------------------|
+            {
+                if (ImGui::CollapsingHeader(name.data(),
+                                             ImGuiTreeNodeFlags_DefaultOpen))
+                {   ImGui::Text("%s", log.str().c_str());
+
+                    if (autoScroll)
+                    {   ImGui::SetScrollHereY(1.0f);
+                        autoScroll = false;
+                    }
+                }
+            }
+
+            ImGui::End();
+        }
+    };
+
+    void UIBase::doFooEmpty()
+    {   ASSERT(nullptr != messDown)
+        *messDown << Clear() << "... нефик там щелкать - там ничего нету ...";
+    }
+
+    
+    ///------------------------------------------------------------------------|
     /// UIUpLog для панели сверху ...
     ///---------------------------------------------------------------- UIUpLog:
     struct  UIUpLog  :   UIBase
@@ -637,21 +713,21 @@ namespace uii
                 }
 
                 if(ImGui::Button("..1", WH))
-                {   //foo    ();
+                {   fooEmpty  ();
                     sound.play();
                 }
 
             ImGui::SameLine();
 
                 if(ImGui::Button("..2", WH))
-                {   //foo    ();
+                {   fooEmpty  ();
                     sound.play();
                 }
 
             ImGui::SameLine();
 
                 if(ImGui::Button("..3", WH))
-                {   //foo    ();
+                {   fooEmpty  ();
                     sound.play();
                 }
 
@@ -673,68 +749,6 @@ namespace uii
     private:
     };
 
-
-    ///------------------------------------------------------------------------|
-    /// UIDownMessage для игрока ...
-    ///---------------------------------------------------------- UIDownMessage:
-    struct  UIDownMessage  :   UIBase
-    {       UIDownMessage()
-                    //(vsl::Config  cfg)
-                    //:   UIBase  (cfg)
-            ///     ,   name (pl.name)
-            {
-                name = "ГОЛОС СУДЬИ:";
-
-                bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
-                ASSERT(ok)
-            }
-
-        void show()
-        {
-            auto& color = ImGui::GetStyle().Colors[ImGuiCol_WindowBg];
-                  color = ImColor(35,35,35,190);
-
-            ///---------------------------------------|
-            /// Позиция и размер окна.                |
-            ///---------------------------------------:
-            /// TODO: Окно на разных компах должно соответствовать ....
-
-            ///
-            ImGui::SetNextWindowSize(size);
-            ///
-            ImGui::SetNextWindowPos (position);
-
-            ///---------------------------------------|
-            /// Окно <name>.                          |
-            ///---------------------------------------:
-            ImGui::Begin (name.data(), nullptr, 0
-                    /// | ImGuiWindowFlags_NoCollapse
-                        | ImGuiWindowFlags_NoMove
-                        | ImGuiWindowFlags_NoTitleBar
-                        | ImGuiWindowFlags_HorizontalScrollbar
-                        | ImGuiWindowFlags_AlwaysVerticalScrollbar
-                    /// | ImGuiWindowFlags_MenuBar
-                    /// | ImGuiWindowFlags_NoBackground
-                        | ImGuiWindowFlags_NoResize
-                    /// | ImGuiWindowFlags_AlwaysAutoResize
-            );
-
-            ///----------------------------------------------------------------|
-            {
-                if (ImGui::CollapsingHeader(name.data(),
-                                             ImGuiTreeNodeFlags_DefaultOpen))
-                {   ImGui::Text("%s", log.str().c_str());
-
-                    if (autoScroll)
-                    {   ImGui::SetScrollHereY(1.0f);
-                        autoScroll = false;
-                    }
-                }
-            }
-
-            ImGui::End();
-        }
-    };
 }
 
 #endif // UI_IMGUI_H
