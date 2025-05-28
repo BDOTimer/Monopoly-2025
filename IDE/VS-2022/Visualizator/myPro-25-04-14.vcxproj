@@ -56,6 +56,7 @@
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\win-up.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\shader-dice.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\ui-imgui.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\extLibs\imgui-1.91.8\imgui.cpp" />
@@ -76,6 +77,12 @@
   <ItemGroup>
     <None Include="..\..\..\Sources\Model-25\model\cards.inc" />
     <None Include="..\..\..\Sources\Model-25\model\field.inc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="img_1084.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

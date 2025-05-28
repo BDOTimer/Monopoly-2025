@@ -151,6 +151,9 @@
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\win-up.h">
       <Filter>Vsl\sceneGame</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Res</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\extLibs\imgui-1.91.8\imgui.cpp">
@@ -199,5 +202,15 @@
     <None Include="..\..\..\Sources\Model-25\model\field.inc">
       <Filter>Model-25\model</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="img_1084.ico">
+      <Filter>Res</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc">
+      <Filter>Res</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
