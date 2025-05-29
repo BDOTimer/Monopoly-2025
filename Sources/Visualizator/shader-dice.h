@@ -12,13 +12,9 @@ namespace vsl
 
     struct  ShaderDice : vsl::IObject
     {       ShaderDice  (vsl::Config& cfg)
-                :   cfg    (cfg)
-                ,   scrRect(cfg.szfWin)
+                :   cfg              (cfg)
+                ,   scrRect   (cfg.szfWin)
             {
-                scrRect.setPosition ({0, 0});
-                scrRect.setFillColor(colFon);
-
-                vsl::Config::setOrigin(scrRect);
             }
 
         vsl::Config& cfg;
@@ -60,8 +56,16 @@ namespace vsl
              currentAngle = 0;
         }
 
-        void init()
+        void init(const sf::RectangleShape& rc)
         {
+            scrRect.setPosition (rc.getPosition());
+            scrRect.setSize     (rc.getSize());
+            scrRect.setFillColor(colFon);
+            scrRect.setOutlineColor(colBorder);
+            scrRect.setOutlineThickness(5);
+
+            //vsl::Config::setOrigin(scrRect);
+
             if (!sf::Shader::isAvailable())
                 return throw("!sf::Shader::isAvailable()");
 
@@ -170,8 +174,10 @@ namespace vsl
             const sf::Vector2f sz{float(window.getSize().x),
                                   float(window.getSize().y)};
 
+            sf::RectangleShape rs(sz);
+
             ShaderDice  dice   (vsl::Config::get());
-                        dice.init();
+                        dice.init(rs);
 
             float TN{5.f};
 
