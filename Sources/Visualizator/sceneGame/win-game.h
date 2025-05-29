@@ -15,8 +15,8 @@ namespace vsl
     struct  WinGame : vsl::IObject
     {       WinGame(vsl::Config& cfg)
                 :   cfg         (cfg)
-                ,	dice        (cfg)
                 ,   figField    (cfg)
+                ,	dice        (cfg)
             {
                 const auto& rect    = cfg.markupSG.getWinBase();
                 const auto& border  = cfg.markupSG.border;
@@ -42,8 +42,6 @@ namespace vsl
             /// camMove.setCenter({1260, 1100});
                 camMove.setSize  ({3750, 2410});
                 camMove.setCenter(figField.getCenter());
-
-                dice.init(fon);
 
                 cfg.uiUpLog.fooFon = [this](){fooFon();};
             }
@@ -119,15 +117,16 @@ namespace vsl
         void reStart()
         {   for(unsigned id = 0; id < 3; ++id) setPositionChip(id, 0, false);
             isDiceHide = true ;
+            dice.init(fon);
         }
 
     private:
-        ShaderDice         dice;
         sf::View            cam;
         sf::View        camMove;
         sf::RectangleShape  fon;
         FigureField    figField;
         FigureChips figureChips;
+        ShaderDice         dice;
 
         ///------------------------------------|
         /// На рендер.                         |

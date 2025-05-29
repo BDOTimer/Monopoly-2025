@@ -59,21 +59,19 @@ namespace vsl
              currentAngle = 0;
         }
 
-        sf::RectangleShape tst;
         void init(const sf::RectangleShape& rc)
         {
 
-            tst.setFillColor({ 0, 0, 255, 0 });
-            tst.setPosition (rc.getPosition());
-            tst.setSize     (rc.getSize    ());
-
-            vsl::Config::setOrigin(tst);
-
-            scrRect.setPosition ({300, 0});
+            scrRect.setPosition (rc.getPosition());
             scrRect.setSize     (rc.getSize());
             scrRect.setFillColor(colFon);
 
             vsl::Config::setOrigin(scrRect);
+
+            l(scrRect.getPosition().x)
+            l(scrRect.getPosition().y)
+            l(scrRect.getSize    ().x)
+            l(scrRect.getSize    ().y)
 
             if (!sf::Shader::isAvailable())
                 return throw("!sf::Shader::isAvailable()");
@@ -227,7 +225,6 @@ namespace vsl
             p->shader.setUniform("currentAngle", currentAngle);
 
             target.draw(scrRect, states.shader = &shader);
-target.draw(tst   , states);
 
             if(p->isRot) p->upRotSpeed();
             else         p->downRotSpeed();

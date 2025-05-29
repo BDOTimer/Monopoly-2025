@@ -1667,7 +1667,7 @@
 	<vector>
 	"model/config-model.h"
 
-1748456712 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\main.cpp
+1748531046 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\main.cpp
 	"render.h"
 
 1748517601 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\render.h
@@ -1866,11 +1866,11 @@
 1748456712 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-logo.h
 	"common.h"
 
-1748517601 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-tune.h
+1748531564 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-tune.h
 	"common.h"
 	"scene-game.h"
 
-1748525977 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-game.h
+1748531659 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-game.h
 	"common.h"
 	"shader-dice.h"
 	"sceneGame/win-game.h"
@@ -1878,10 +1878,10 @@
 	"sceneGame/win-down.h"
 	"sceneGame/win-player.h"
 
-1748530007 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\shader-dice.h
+1748532087 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\shader-dice.h
 	"common.h"
 
-1748529263 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
+1748531186 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
 	"../common.h"
 	"fig-field.h"
 	"fig-chips.h"

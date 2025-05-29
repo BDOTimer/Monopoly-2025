@@ -50,7 +50,8 @@ namespace vsl
 		{
 			if (event->is<sf::Event::KeyPressed>())
             {   if (ISKEYPRESSED(Num1))
-                {   cfg.scenesSwitcher.next();
+                {   this->startModel();
+                    cfg.scenesSwitcher.next();
                 }
             }
 		}
@@ -92,13 +93,13 @@ namespace vsl
         virtual void draw(sf::RenderTarget& target,
                           sf::RenderStates  states) const
         {
-            target.setView(*cfg.camFon);
-            target.draw   (fon,      states);
+            target.setView(*cfg  . camFon);
+            target.draw   ( fon  , states);
 
-            target.setView(*cfg.camGui);
-            target.draw   (tmess1,   states);
+            target.setView(*cfg  . camGui);
+            target.draw   (tmess1, states);
 
-        /// cfg.uiTune.show();
+        /// cfg.uiTune    .show();
             cfg.uiTuneBase.show();
         }
     };

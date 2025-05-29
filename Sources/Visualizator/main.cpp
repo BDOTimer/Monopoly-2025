@@ -10,8 +10,9 @@ void tests()
 {
 
 ///
+/// TRY(vsl::ShaderDice::test1())
+///
 TRY(Render::test())
-/// TRY(vsl::ShaderDice::test(cfg))
 }
 
 

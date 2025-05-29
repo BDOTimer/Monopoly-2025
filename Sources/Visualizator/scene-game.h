@@ -44,17 +44,15 @@ namespace vsl
                 {
                     auto& o = this->winGame;
 
-                    this->winGame.dice.isRot = !this->winGame.dice.isRot;
-                    this->winGame.isDiceHide = !this->winGame.isDiceHide;
+                    o.dice.isRot = !o.dice.isRot;
+                    o.isDiceHide = !o.isDiceHide;
 
                     o.dice.resetDice();
 
-                    if(!this->winGame.dice.isRot)
+                    if( !o.dice.isRot)
                     {   this->doStep();
                     }
                 };
-
-                reStart();
             }
 
 		vsl::Config&  cfg;
