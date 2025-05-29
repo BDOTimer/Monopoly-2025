@@ -1878,10 +1878,10 @@
 	"sceneGame/win-down.h"
 	"sceneGame/win-player.h"
 
-1748527107 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\shader-dice.h
+1748530007 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\shader-dice.h
 	"common.h"
 
-1748526945 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
+1748529263 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
 	"../common.h"
 	"fig-field.h"
 	"fig-chips.h"

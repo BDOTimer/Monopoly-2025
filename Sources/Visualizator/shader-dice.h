@@ -10,6 +10,9 @@ void tests();
 namespace vsl
 {
 
+    ///------------------------------------------------------------------------|
+    /// ShaderDice
+    ///------------------------------------------------------------- ShaderDice:
     struct  ShaderDice : vsl::IObject
     {       ShaderDice  (vsl::Config& cfg)
                 :   cfg              (cfg)
@@ -36,7 +39,7 @@ namespace vsl
         bool         mousePressed{false};
         bool         isRot       {false};
 
-        sf::Color colBorder{128, 0,   0, 254};
+        sf::Color colBorder{255,255,255};
         sf::Color colFon   {  0, 0, 128, 254};
 
         void upRotSpeed()
@@ -56,15 +59,21 @@ namespace vsl
              currentAngle = 0;
         }
 
+        sf::RectangleShape tst;
         void init(const sf::RectangleShape& rc)
         {
-            scrRect.setPosition (rc.getPosition());
+
+            tst.setFillColor({ 0, 0, 255, 0 });
+            tst.setPosition (rc.getPosition());
+            tst.setSize     (rc.getSize    ());
+
+            vsl::Config::setOrigin(tst);
+
+            scrRect.setPosition ({300, 0});
             scrRect.setSize     (rc.getSize());
             scrRect.setFillColor(colFon);
-            scrRect.setOutlineColor(colBorder);
-            scrRect.setOutlineThickness(5);
 
-            //vsl::Config::setOrigin(scrRect);
+            vsl::Config::setOrigin(scrRect);
 
             if (!sf::Shader::isAvailable())
                 return throw("!sf::Shader::isAvailable()");
@@ -204,8 +213,6 @@ namespace vsl
             return "SUCCESS";
         }
 
-
-
         ///------------------------------------|
         /// На рендер.                         |
         ///------------------------------------:
@@ -220,6 +227,7 @@ namespace vsl
             p->shader.setUniform("currentAngle", currentAngle);
 
             target.draw(scrRect, states.shader = &shader);
+target.draw(tst   , states);
 
             if(p->isRot) p->upRotSpeed();
             else         p->downRotSpeed();

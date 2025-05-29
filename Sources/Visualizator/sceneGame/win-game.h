@@ -9,6 +9,9 @@
 
 namespace vsl
 {
+    ///------------------------------------------------------------------------|
+    /// WinGame
+    ///---------------------------------------------------------------- WinGame:
     struct  WinGame : vsl::IObject
     {       WinGame(vsl::Config& cfg)
                 :   cfg         (cfg)
@@ -143,6 +146,7 @@ if(isFon) { target.draw   (fon,         states); }
 
             target.draw   (figureChips, states);
 
+            target.setView(cam);
             if(!isDiceHide)
             {   target.draw(dice, states);
             }
