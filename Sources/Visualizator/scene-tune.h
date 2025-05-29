@@ -26,6 +26,19 @@ namespace vsl
                 ({  cfg.szfWin.x - r.size.x - 30,
                     r.position.y
                 });
+
+                cfg.uiTuneBase.fooRestart = [this]()
+                {   this->startModel();
+                    this->cfg.scenesSwitcher.next();
+                };
+
+                cfg.uiTuneBase.fooContinue = [this]()
+                {   this->cfg.scenesSwitcher.next();
+                };
+
+                cfg.uiTuneBase.fooExit = [this]()
+                {   this->cfg.pwin->close();
+                };
             }
 
 		vsl::Config& cfg;
@@ -55,6 +68,19 @@ namespace vsl
             l(fon.getTexture()->getSize().y)
         }
 
+    private:
+        ///////////////////////////////////////////////////////////////////////:
+        void startModel()
+        {   cfg.cfgModel = *model::getConfig ();
+            cfg.idGame   = cfg.cfgModel.idGame;
+            cfg.uiTune << model::getLogo(cfg.idGame) << "\n";
+
+            cfg.uiGameLog << "///-----------------------------------|\n"
+                             "///         ИГРА НАЧАЛАСЬ!            |\n"
+                             "///-----------------------------------:\n" <<'\n';
+        }
+        ///////////////////////////////////////////////////////////////////////.
+
         ///------------------------------------|
         /// На рендер.                         |
         ///------------------------------------:
@@ -67,7 +93,8 @@ namespace vsl
             target.setView(*cfg.camGui);
             target.draw   (tmess1,   states);
 
-            cfg.uiTune.show();
+        /// cfg.uiTune.show();
+            cfg.uiTuneBase.show();
         }
     };
 }

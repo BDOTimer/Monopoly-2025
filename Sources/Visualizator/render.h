@@ -30,8 +30,6 @@ struct  Render
             cfg.camFon = &camFon;
             cfg.camGui = &camGui;
 			cfg.scenesSwitcher.init(&scenes);
-
-            startModel();
         }
 
 	vsl::Config&         cfg;
@@ -70,15 +68,6 @@ private:
 
     bool done{true};
 
-    ///////////////////////////////////////////////////////////////////////////:
-
-    void startModel()
-    {   cfg.cfgModel = *model::getConfig ();
-        cfg.idGame   = cfg.cfgModel.idGame;
-        cfg.uiTune << model::getLogo(cfg.idGame) << "\n";
-    }
-    ///////////////////////////////////////////////////////////////////////////.
-
     void loop(vsl::ScenesAll& scenes)
     {
     /// ui << "Привет, Монополия-2025!\n";
@@ -88,10 +77,6 @@ private:
 
 	/// auto& nScene   = cfg.scenesSwitcher.nScene;
 		auto& nowScene = cfg.scenesSwitcher.nowScene;
-
-        cfg.uiGameLog << "///-----------------------------------|\n"
-                         "///         ИГРА НАЧАЛАСЬ!            |\n"
-                         "///-----------------------------------:\n" << '\n';
 
         while (window.isOpen())
         {   while (const std::optional event = window.pollEvent())

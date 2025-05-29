@@ -6,7 +6,7 @@
 #include "debug.h"
 
 #include "controller/controller.h"
-#include "ui-imgui.h"
+#include "ui-tune.h"
 #include "user-model.h"
 #include "model/config-model.h"
 #include "sceneGame/markup.h"
@@ -50,6 +50,8 @@ namespace vsl
         uii::UIUpLog       uiUpLog      ;
         uii::UIGame        uiGameLog    ;
         uii::UIDownMessage uiDownMessage;
+
+        uii::UITuneBase    uiTuneBase   ;
 
         std::array<uii::UIScnGamePlayer, 3> uiPlayers
         {   uii::UIScnGamePlayer(players[0]),
@@ -152,7 +154,7 @@ namespace vsl
             ///-------------------:
             {   const auto& H = markupSG.winUp;
                 const float Y = 6.0f;
-                
+
                 const float szX = G[0].size .x * szfWin.x - Y2;
                 const float szY = H.size    .y * szfWin.y - Y2;
                 const float psX = H.position.x * szfWin.x + Y;
@@ -171,6 +173,17 @@ namespace vsl
                 const float psY = H.position.y * szfWin.y + Y;
 
                 uiDownMessage.setGeometry({szX, szY}, {psX, psY});
+            }
+
+            ///-------------------|
+            /// uiTuneBase        |
+            ///-------------------:
+            {   const float szX = szfWin.x / 5.f;
+                const float szY = szfWin.y / 2.f;
+                const float psX = szfWin.x / 2.f - szX / 2.f;
+                const float psY = szfWin.y / 2.f - szY / 2.f;
+
+                uiTuneBase.setGeometry({szX, szY}, {psX, psY});
             }
 
         //  uiPlayersLog = uiPlayers;

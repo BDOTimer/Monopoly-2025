@@ -5,7 +5,7 @@
 		<Option title="Visualizator-sfml" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc-14-ucrt-64" />
-		<Option virtualFolders="vsl/;vsl/sceneGame/;model-25/;model-25/controller/;model-25/model/;model-25/vsl/;model-25/model/implants/;imgui/;imgui/sfml/;res/" />
+		<Option virtualFolders="vsl/;vsl/sceneGame/;model-25/;model-25/controller/;model-25/model/;model-25/vsl/;model-25/model/implants/;imgui/;imgui/sfml/;res/;vsl/ui/" />
 		<Build>
 			<Target title="Release">
 				<Option output="../../../bin/Visualizator/sfml-Visualizator[mingw]" prefix_auto="1" extension_auto="1" />
@@ -156,7 +156,10 @@
 			<Option virtualFolder="vsl/" />
 		</Unit>
 		<Unit filename="../../../Sources/Visualizator/ui-imgui.h">
-			<Option virtualFolder="vsl/" />
+			<Option virtualFolder="vsl/ui/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/ui-tune.h">
+			<Option virtualFolder="vsl/ui/" />
 		</Unit>
 		<Unit filename="../../../extLibs/imgui-1.91.8/imconfig.h">
 			<Option virtualFolder="imgui/" />
