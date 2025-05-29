@@ -10,19 +10,26 @@ namespace uii
     ///------------------------------------------------------------------------|
     /// UITuneBase базовое начальное меню ...
     ///------------------------------------------------------------- UITuneBase:
-    struct  UITuneBase  :   UIBase
-    {       UITuneBase()
+    struct  UITuneBase   : UIBase
+    {       UITuneBase() : snd1(buf1)
             {
                 name = "Настройки";
 
                 bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
                 ASSERT(ok)
 
+                       ok = buf1.loadFromFile("res/snd/gudok-doplera.mp3");
+                ASSERT(ok)
+
+
                 ImGuiStyle&      style = ImGui::GetStyle();
                 ColorBLog.m[0] = style.Colors[ImGuiCol_Button];
             }
 
         //ImVec4 buttonColor;
+
+        sf::SoundBuffer  buf1;
+        sf::Sound        snd1;
 
         Callback fooRestart   {[this](){}};
         Callback fooContinue  {[this](){}};
@@ -68,7 +75,7 @@ namespace uii
 
                 if(ImGui::Button("НОВАЯ ИГРА", WH))
                 {   fooRestart();
-                    sound.play();
+                    snd1.play ();
                 }
 
                 if(ImGui::Button("ПРОДОЛЖИТЬ", WH))

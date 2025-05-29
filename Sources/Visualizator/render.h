@@ -7,7 +7,6 @@
 
 #include "scene-logo.h"
 #include "scene-tune.h"
-#include "scene-game.h"
 
 #include "fps.h"
 

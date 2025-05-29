@@ -54,16 +54,15 @@ namespace vsl
                 {   this->isLog = !this->isLog;
                 };
 
-                cfg.uiDownMessage << uii::Clear() << "Ход ИГРОКА: " 
-                                  << (IDPLAYER + 1);
+                reStart();
             }
 
 		vsl::Config&  cfg;
 
         PLUG_IOBJECT2
 
-        unsigned IDPLAYER{0};
-        unsigned cnt     {0};
+        unsigned IDPLAYER;
+        unsigned cnt     ;
 
     /// bool pressEnter{false};
 
@@ -124,9 +123,9 @@ namespace vsl
 
             cfg.players  [ID].stateGame = sg;
 
-            cfg.uiPlayers[ID] << uii::Clear()
-                << "DICE    : " << sg[model::StateGame::E_NDICE   ] << '\n'
-                << "POSITION: " << sg[model::StateGame::E_POSITION] << '\n';
+            cfg.uiPlayers[ID]    << uii::Clear()
+                << "  КУБИК  : " << sg[model::StateGame::E_NDICE   ] << '\n'
+                << "  ПОЗИЦИЯ: " << sg[model::StateGame::E_POSITION] << '\n';
 
             winGame.setPositionChip(ID, sg[model::StateGame::E_POSITION]);
             ///////////////////////////////////////////////////
@@ -135,7 +134,7 @@ namespace vsl
 
             cfg.info_01(++cnt);
 
-            cfg.uiDownMessage << uii::Clear() << "Ход ИГРОКА: " 
+            cfg.uiDownMessage << uii::Clear() << "Ход ИГРОКА: "
                               << IDPLAYER+1   << mess[rand()%mess.size()];
         }
 
@@ -150,14 +149,32 @@ namespace vsl
         WinUp            winUp{cfg};
         WinDown        winDown{cfg};
 
-        WinPlayer winPlayers[3]
-        {   {cfg, 0},
-            {cfg, 1},
-            {cfg, 2}
+        std::array<WinPlayer, 3> winPlayers
+        {   WinPlayer{cfg, 0},
+            WinPlayer{cfg, 1},
+            WinPlayer{cfg, 2}
         };
 
-        bool isDiceHide{true };
-        bool isLog     {false};
+        bool isDiceHide;
+        bool isLog     ;
+
+        ///-----------------------------------|
+        /// Новая игра.                       |
+        ///-----------------------------------:
+        void reStart()
+        {
+            IDPLAYER = 0;
+            cnt      = 0;
+
+            cfg.uiDownMessage << uii::Clear() << "НОВАЯ ИГРА! Ход ИГРОКА: "
+                              << (IDPLAYER + 1);
+
+            isDiceHide = true ;
+            isLog      = false;
+
+            winGame.reStart();
+            cfg    .reStart();
+        }
 
         ///-----------------------------------|
         /// Дебаг.                            |
@@ -208,6 +225,8 @@ namespace vsl
             " Хватит мечтать! Пора делать ход!",
             " Время идёт, а ты всё ещё не сделал ход!"
         };
+
+        friend struct SceneTune;
     };
 }
 

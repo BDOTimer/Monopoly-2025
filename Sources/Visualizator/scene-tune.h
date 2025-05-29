@@ -4,6 +4,7 @@
 /// "scene-tune.h"
 ///----------------------------------------------------------------------------:
 #include "common.h"
+#include "scene-game.h"
 
 namespace vsl
 {
@@ -78,6 +79,10 @@ namespace vsl
             cfg.uiGameLog << "///-----------------------------------|\n"
                              "///         ИГРА НАЧАЛАСЬ!            |\n"
                              "///-----------------------------------:\n" <<'\n';
+
+            auto p = (*cfg.scenesSwitcher.scenes)[ScenesSwitcher::E_GAME];
+            auto P = dynamic_cast<SceneGame*>(p);
+                 P->reStart();
         }
         ///////////////////////////////////////////////////////////////////////.
 

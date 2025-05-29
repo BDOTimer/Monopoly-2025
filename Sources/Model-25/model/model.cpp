@@ -43,23 +43,42 @@ namespace model
         }
     };
 
-    struct CG { Config* cfg; ModelGate* mdl; };
+    struct CG
+    {   Config*    cfg{nullptr};
+        ModelGate* mdl{nullptr};
+
+        void clear()
+        {   if(nullptr != cfg) delete cfg;
+            if(nullptr != mdl) delete mdl;
+        }
+
+        void reCreate()
+        {    clear   ();
+             cfg = new Config   (   );
+             mdl = new ModelGate(cfg);
+        }
+    };
 
     struct  HolderGates : std::vector<CG>
     {       HolderGates ()
             {    reserve(1000);
             }
            ~HolderGates()
-            {   for(auto   p :  *this)
-                {   delete p.cfg;
-                    delete p.mdl;
-                }
+            {   for(auto p : *this) p.clear();
             }
 
-        unsigned/*id*/ create()
-        {   auto p = new Config();
-            emplace_back(p, new ModelGate(p));
-            return (unsigned)size() - 1;
+        unsigned/*id*/ reCreate(const std::string& login)
+        {   if(const auto p = logins.find(login); p != logins.end())
+            {   const unsigned&    id = p->second;
+                auto&  o = (*this)[id];
+                       o.reCreate   ();
+                return id;
+            }
+            else
+            {   emplace_back(CG());
+                back().reCreate( );
+                return (unsigned)size() - 1;
+            }
         }
 
         std::string doStep( unsigned idGame, unsigned idPlayer )
@@ -74,6 +93,9 @@ namespace model
         {   return (*this)[idGame].mdl->getStateGame(idPlayer);
         }
 
+    private:
+        std::map<std::string/*login*/, unsigned/*id*/> logins;
+
     }holderGates;
 
 
@@ -81,7 +103,7 @@ namespace model
     /// Интерфейс модели.
     ///------------------------------------------------------------------------:
     Config* getConfig()
-    {   unsigned id = holderGates.create();
+    {   unsigned    id = holderGates.reCreate("desktop"); /// Desktop version.
         holderGates[id].cfg->idGame = id;
         return holderGates[id].cfg;
     }
@@ -114,7 +136,7 @@ namespace model
     {   return holderGates.whoVictor(idGame);
     }
 
-    const StateGame getStateGame(std::string_view command, 
+    const StateGame getStateGame(std::string_view command,
                                   const std::vector<int>& args)
     {   if(command == "get")
         {   return holderGates.getStateGame(args[0], args[1]);

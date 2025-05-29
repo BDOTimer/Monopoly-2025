@@ -30,7 +30,7 @@ namespace model
     ///---------------------------|
     /// Что должен знать игрок.   |
     ///---------------------------:
-    const StateGame getStateGame(std::string_view command, 
+    const StateGame getStateGame(std::string_view command,
                                   const std::vector<int>& args);
 }
 

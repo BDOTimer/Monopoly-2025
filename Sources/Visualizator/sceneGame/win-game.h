@@ -40,8 +40,6 @@ namespace vsl
                 camMove.setCenter(figField.getCenter());
 
                 cfg.uiUpLog.fooFon = [this](){fooFon();};
-
-                for(unsigned id = 0; id < 3; ++id) setPositionChip(id, 0, false);
             }
 
         vsl::Config& cfg;
@@ -109,6 +107,10 @@ namespace vsl
             figureChips.setPosition(
                 idPlayer, figField[idCell].getPosition(), isSnd
             );
+        }
+
+        void reStart()
+        {   for(unsigned id = 0; id < 3; ++id) setPositionChip(id, 0, false);
         }
 
     private:
