@@ -39,7 +39,7 @@ namespace vsl
 				:	cfg   (cfg)
 				,	fon   (cfg.szfWin)
             {
-                vsl::Config::setOrigin(fon);
+                pr::setOrigin(fon);
 
                 fon.setTexture(&HolderTexture::get("res/logo.jpg"));
 
@@ -89,7 +89,7 @@ namespace vsl
         bool isRot{false};
 
         std::wstring mess1{L"ЛОГО.\nНастройки: ПРОБЕЛ ..."};
-        TextStyleA  tmess1;
+        primitive::TextStyleA  tmess1;
 
         ///------------------------------------|
         /// На рендер.                         |

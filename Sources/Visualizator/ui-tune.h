@@ -74,8 +74,8 @@ namespace uii
 
 
                 if(ImGui::Button("НОВАЯ ИГРА", WH))
-                {   fooRestart();
-                    snd1.play ();
+                {   snd1.play ();
+                    fooRestart();
                 }
 
                 if(ImGui::Button("ПРОДОЛЖИТЬ", WH))

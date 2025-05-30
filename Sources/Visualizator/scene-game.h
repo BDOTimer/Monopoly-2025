@@ -21,25 +21,15 @@ namespace vsl
 				:	cfg    (cfg)
 				,	nameTx ("res/game.jpg")
                 ,	fon    (cfg.szfWin)
-                ,	dice   (cfg)
             {
                 fon.setTexture(&HolderTexture::get(nameTx));
 
-                vsl::Config::setOrigin(fon);
-
-                dice.init();
+                pr::setOrigin(fon);
 
                 cfg.info_01(++cnt);
 
-                cfg.uiUpLog.fooDice2 = [this]()
-                {   this->dice.isRot = !this->dice.isRot;
-                    this->isDiceHide = !this->isDiceHide;
-
-                    this->dice.resetDice();
-
-                    if(!this->dice.isRot)
-                    {   this->doStep();
-                    }
+                cfg.uiUpLog.fooTune = [this]()
+                {   goTune();
                 };
 
                 cfg.uiUpLog.fooMusic = [this]()
@@ -50,11 +40,23 @@ namespace vsl
                         : this->cfg.musicGame.play ();
                 };
 
+                cfg.uiUpLog.fooDice2 = [this]()
+                {
+                    auto& o = this->winGame;
+
+                    o.dice.isRot = !o.dice.isRot;
+                    o.isDiceHide = !o.isDiceHide;
+
+                    o.dice.resetDice();
+
+                    if( !o.dice.isRot)
+                    {   this->doStep();
+                    }
+                };
+
                 cfg.uiUpLog.fooLog = [this]()
                 {   this->isLog = !this->isLog;
                 };
-
-                reStart();
             }
 
 		vsl::Config&  cfg;
@@ -66,13 +68,17 @@ namespace vsl
 
     /// bool pressEnter{false};
 
+        void goTune()
+        {   using E = vsl::ScenesSwitcher;
+			cfg.scenesSwitcher.doSwitcher(E::E_TUNE);
+			cfg.musicGame.stop();
+        }
+
 		void input(const std::optional<sf::Event>&  event) override
 		{
 			if (event->is<sf::Event::KeyPressed>())
             {   if (ISKEYPRESSED(Escape))
-                {   using E = vsl::ScenesSwitcher;
-					cfg.scenesSwitcher.doSwitcher(E::E_TUNE);
-					cfg.musicGame.stop();
+                {   goTune();
                 }
                 else
                 {   winGame.input(event);
@@ -144,7 +150,6 @@ namespace vsl
         std::string     nameTx;
         sf::RectangleShape fon;
 
-        ShaderDice        dice;
         WinGame        winGame{cfg};
         WinUp            winUp{cfg};
         WinDown        winDown{cfg};
@@ -155,7 +160,6 @@ namespace vsl
             WinPlayer{cfg, 2}
         };
 
-        bool isDiceHide;
         bool isLog     ;
 
         ///-----------------------------------|
@@ -169,8 +173,7 @@ namespace vsl
             cfg.uiDownMessage << uii::Clear() << "НОВАЯ ИГРА! Ход ИГРОКА: "
                               << (IDPLAYER + 1);
 
-            isDiceHide = true ;
-            isLog      = false;
+            isLog     = false;
 
             winGame.reStart();
             cfg    .reStart();
@@ -204,11 +207,6 @@ namespace vsl
             target.draw   (winGame  , states);
 
             target.setView(*cfg.camGui);
-
-            if(!isDiceHide)
-            {   target.setView(*cfg.camFon );
-                target.draw   (dice, states);
-            }
 
             if(isLog)   cfg.uiGameLog.show();
 

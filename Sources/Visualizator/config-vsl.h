@@ -100,11 +100,6 @@ namespace vsl
             return  szuWin;
         }
 
-        template<typename T>
-        static void setOrigin(T& o)
-        {   o.setOrigin({ o.getSize().x / 2, o.getSize().y / 2 });
-        }
-
         void info_01(unsigned cnt)
         {
             uiGameLog << "ПАУЗА::\nНажмите ENTER, чтобы сделать "

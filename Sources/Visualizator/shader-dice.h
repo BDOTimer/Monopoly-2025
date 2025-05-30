@@ -10,15 +10,21 @@ void tests();
 namespace vsl
 {
 
+    ///------------------------------------------------------------------------|
+    /// ShaderDice
+    ///------------------------------------------------------------- ShaderDice:
     struct  ShaderDice : vsl::IObject
     {       ShaderDice  (vsl::Config& cfg)
-                :   cfg    (cfg)
-                ,   scrRect(cfg.szfWin)
+                :   cfg              (cfg)
+                ,   scrRect   (cfg.szfWin)
             {
-                scrRect.setPosition ({0, 0});
-                scrRect.setFillColor(colFon);
+                scrRect.setSize(pr::cv( rt.getSize(  )));
+                scrRect.setTexture(    &rt.getTexture());
+                pr::setOrigin     (scrRect);
 
-                vsl::Config::setOrigin(scrRect);
+                camRt.setSize  (scrRect.getSize());
+                camRt.setCenter({0, 0});
+                rt.setView     (camRt);
             }
 
         vsl::Config& cfg;
@@ -29,8 +35,10 @@ namespace vsl
 
         inline static const char* filename{"res/shaders/dice.frag"};
 
-        sf::Shader         shader ;
+        sf::View           camRt;
+        sf::RenderTexture  rt{{400, 400}};
         sf::RectangleShape scrRect;
+        sf::Shader         shader ;
 
         float        currentAngle {0.0f};
         float        rotSpeed     {0.0f};
@@ -40,7 +48,7 @@ namespace vsl
         bool         mousePressed{false};
         bool         isRot       {false};
 
-        sf::Color colBorder{128, 0,   0, 254};
+        sf::Color colBorder{255,255,255};
         sf::Color colFon   {  0, 0, 128, 254};
 
         void upRotSpeed()
@@ -68,6 +76,8 @@ namespace vsl
             if (!shader.loadFromFile(filename, sf::Shader::Type::Fragment))
                 return throw("shader.loadFromFile(...");
         }
+
+        sf::View cam;
 
     private:
 
@@ -167,22 +177,36 @@ namespace vsl
             sf::RenderWindow window(sf::VideoMode({ 1344, 768 }),
                                    "SFML::Test::2", sf::State::Windowed);
 
-            const sf::Vector2f sz{float(window.getSize().x),
-                                  float(window.getSize().y)};
+            //const sf::Vector2f sz{float(window.getSize().x),
+            //                      float(window.getSize().y)};
 
-            ShaderDice  dice   (vsl::Config::get());
+            sf::View       v{window.getDefaultView()}; 
+                           v.setSize  ({1344, 768});
+                           v.setCenter({0, 0});
+            window.setView(v);
+
+            const sf::Vector2f sz{v.getSize()};
+
+            ShaderDice  dice(vsl::Config::get());
                         dice.init();
+
+            sf::RenderTexture rt{{400, 400}};
+                              rt.draw(dice);
+
+            pr::FigRectTest fr;
+                            fr.setTexture(&rt . getTexture());
+                            fr.setSize   ({500, 500});
 
             float TN{5.f};
 
             sf::Texture        texture("res/logo.jpg");
             sf::RectangleShape fon({sz.x-TN-TN, sz.y-TN-TN});
-
-                fon.setFillColor       ({ 255, 255, 255 });
+            {   fon.setFillColor       ({ 255, 255, 255 });
                 fon.setOutlineColor    ({  64, 32,  127 });
                 fon.setOutlineThickness( TN);
-                fon.setPosition        ({TN, TN});
                 fon.setTexture         (&texture);
+                pr::setOrigin(fon);
+            }
 
             while (window.isOpen())
             {   while (auto event = window.pollEvent())
@@ -192,13 +216,12 @@ namespace vsl
                 window.clear  (    );
                 window.draw   ( fon);
                 window.draw   (dice);
+            //  window.draw   ( fr );
                 window.display(    );
             }
 
             return "SUCCESS";
         }
-
-
 
         ///------------------------------------|
         /// На рендер.                         |
@@ -213,9 +236,11 @@ namespace vsl
             p->shader.setUniform("resolution"  , sf::Glsl::Vec2(sz));
             p->shader.setUniform("currentAngle", currentAngle);
 
-            target.draw(scrRect, states.shader = &shader);
+            p->rt .clear({0,0,0,0});
+            p->rt .draw(scrRect    , states.shader = &shader);
+            target.draw(scrRect);
 
-            if(p->isRot) p->upRotSpeed();
+            if(p->isRot) p->upRotSpeed  ();
             else         p->downRotSpeed();
 
             p->currentAngle += rotSpeed * cfg.dt();

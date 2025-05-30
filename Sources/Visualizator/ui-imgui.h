@@ -643,11 +643,12 @@ namespace uii
 
         //ImVec4 buttonColor;
 
-        Callback fooLog     {[this](){}};
+        Callback fooTune    {[this](){}};
         Callback fooMusic   {[this](){}};
         Callback fooFon     {[this](){}};
-        
         Callback fooDice2   {[this](){}};
+
+        Callback fooLog     {[this](){}};
 
         ImVec2 WH  {70, 30};
         ImVec2 WHx2;
@@ -683,13 +684,11 @@ namespace uii
                     /// | ImGuiWindowFlags_AlwaysAutoResize
             );
 
-                ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
-                if(ImGui::Button("Лог", WH))
-                {   fooLog    ();
+
+                if(ImGui::Button("Настройки", WH))
+                {   fooTune   ();
                     sound.play();
-                    ColorBLog.next();
                 }
-                ImGui::PopStyleColor();
 
             ImGui::SameLine();
 
@@ -712,10 +711,13 @@ namespace uii
                     sound.play();
                 }
 
-                if(ImGui::Button("..1", WH))
-                {   fooEmpty  ();
+                ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
+                if(ImGui::Button("Лог", WH))
+                {   fooLog    ();
                     sound.play();
+                    ColorBLog.next();
                 }
+                ImGui::PopStyleColor();
 
             ImGui::SameLine();
 

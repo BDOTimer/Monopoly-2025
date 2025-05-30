@@ -50,7 +50,7 @@ namespace vsl
 
                             sps.back().setFillColor(color[0]);
 
-                            Config::setOrigin(sps.back());
+                            pr::setOrigin(sps.back());
 
                             switch(ID % 3)
                             {

@@ -410,15 +410,44 @@ struct  ObjectTest : vsl::IObject
 
 objectTest4({"res/money.png", {0, 0}, { 0.9f, 0.9f }}, -60.f);
 
-namespace vsl
+namespace primitive
 {
+    template<typename T>
+    static void setOrigin(T& o)
+    {   o.setOrigin({ o.getSize().x / 2, o.getSize().y / 2 });
+    }
+
+    sf::Vector2f cv(const sf::Vector2u u){return {(float)   u.x,(float)  u.y}; }
+    sf::Vector2u cv(const sf::Vector2f f){return {(unsigned)f.x,(unsigned)f.y};}
+
     struct  TextStyleA    : sf::Text
-    {       TextStyleA()  : sf::Text(Config::getFont())
+    {       TextStyleA()  : sf::Text(vsl::Config::getFont())
             {   setCharacterSize         (18);
                 setFillColor({127, 196, 127});
             }
     };
+
+    struct  FigRectTest : sf::RectangleShape
+    {       FigRectTest ()
+            {       init();
+            }
+
+    protected:
+        sf::Color colBorder{  0,127,   0     };
+        sf::Color colFon1  {  0,  0, 128,    };
+        sf::Color colFon2  {  0,  0, 128, 254};
+
+        void init()
+        {   setSize        ({500, 500});
+            setPosition    ({  0,   0});
+            setFillColor      (colFon2);
+            setOutlineColor (colBorder);
+            setOutlineThickness    (10);
+            primitive::setOrigin(*this);
+        }
+    };
 }
+namespace pr = primitive;
 
 
 #endif // COMMON_H

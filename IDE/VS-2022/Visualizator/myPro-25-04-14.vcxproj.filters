@@ -38,6 +38,9 @@
     <Filter Include="extLibs\Imgui\misc">
       <UniqueIdentifier>{8871fd4d-4269-4c8a-a676-a64ca07cc41f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Vsl\ui">
+      <UniqueIdentifier>{9a46d1c2-0b94-40f8-8fee-2052917bd7b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\extLibs\imgui-1.91.8\imconfig.h">
@@ -100,9 +103,6 @@
     <ClInclude Include="..\..\..\Sources\Visualizator\shader-dice.h">
       <Filter>Vsl</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Sources\Visualizator\ui-imgui.h">
-      <Filter>Vsl</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\fig-chips.h">
       <Filter>Vsl\sceneGame</Filter>
     </ClInclude>
@@ -153,6 +153,12 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\ui-imgui.h">
+      <Filter>Vsl\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\ui-tune.h">
+      <Filter>Vsl\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
