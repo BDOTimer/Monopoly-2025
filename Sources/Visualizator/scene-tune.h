@@ -31,16 +31,21 @@ namespace vsl
                 cfg.uiTuneBase.fooRestart = [this]()
                 {   this->startModel();
                     this->cfg.scenesSwitcher.next();
+                    this->isGameRun = true;
                 };
 
                 cfg.uiTuneBase.fooContinue = [this]()
-                {   this->cfg.scenesSwitcher.next();
+                {   if ( this->isGameRun)
+                         this->cfg.scenesSwitcher.next();
+                    else this->cfg.mp3no.play();
                 };
 
                 cfg.uiTuneBase.fooExit = [this]()
                 {   this->cfg.pwin->close();
                 };
             }
+
+        bool isGameRun{false};
 
 		vsl::Config& cfg;
 
