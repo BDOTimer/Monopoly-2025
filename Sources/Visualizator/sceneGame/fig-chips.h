@@ -41,7 +41,7 @@ namespace vsl
                     ConfigFigureChip::filenameSound[id]
                 );
 
-                Config::setOrigin(*this);
+                pr::setOrigin(*this);
             }
 
         unsigned id;

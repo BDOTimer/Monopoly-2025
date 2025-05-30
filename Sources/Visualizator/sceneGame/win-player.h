@@ -22,7 +22,7 @@ namespace vsl
                 cam.setCenter({0, 0});
                 fon.setSize  ({x-border2, y-border2});
                 //fon.setPosition({border, border});
-                vsl::Config::setOrigin(fon);
+                pr::setOrigin(fon);
                 fon.setFillColor   ({255,  0,  0, 31});
                 fon.setOutlineColor({ 64, 64,128    });
                 fon.setOutlineThickness(border);

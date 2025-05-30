@@ -24,9 +24,13 @@ namespace vsl
             {
                 fon.setTexture(&HolderTexture::get(nameTx));
 
-                vsl::Config::setOrigin(fon);
+                pr::setOrigin(fon);
 
                 cfg.info_01(++cnt);
+
+                cfg.uiUpLog.fooTune = [this]()
+                {   goTune();
+                };
 
                 cfg.uiUpLog.fooMusic = [this]()
                 {   using E = sf::SoundSource::Status;
@@ -34,10 +38,6 @@ namespace vsl
                     b{    this->cfg.musicGame.getStatus() == E::Playing };
                     b   ? this->cfg.musicGame.pause()
                         : this->cfg.musicGame.play ();
-                };
-
-                cfg.uiUpLog.fooLog = [this]()
-                {   this->isLog = !this->isLog;
                 };
 
                 cfg.uiUpLog.fooDice2 = [this]()
@@ -53,6 +53,10 @@ namespace vsl
                     {   this->doStep();
                     }
                 };
+
+                cfg.uiUpLog.fooLog = [this]()
+                {   this->isLog = !this->isLog;
+                };
             }
 
 		vsl::Config&  cfg;
@@ -64,13 +68,17 @@ namespace vsl
 
     /// bool pressEnter{false};
 
+        void goTune()
+        {   using E = vsl::ScenesSwitcher;
+			cfg.scenesSwitcher.doSwitcher(E::E_TUNE);
+			cfg.musicGame.stop();
+        }
+
 		void input(const std::optional<sf::Event>&  event) override
 		{
 			if (event->is<sf::Event::KeyPressed>())
             {   if (ISKEYPRESSED(Escape))
-                {   using E = vsl::ScenesSwitcher;
-					cfg.scenesSwitcher.doSwitcher(E::E_TUNE);
-					cfg.musicGame.stop();
+                {   goTune();
                 }
                 else
                 {   winGame.input(event);

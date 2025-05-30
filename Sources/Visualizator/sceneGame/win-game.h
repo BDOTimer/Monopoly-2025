@@ -25,32 +25,35 @@ namespace vsl
                 const float x = rect.size.x * cfg.szfWin.x;
                 const float y = rect.size.y * cfg.szfWin.y;
 
-                cam.setViewport(rect);
-                cam.setSize  ({x, y}); camDice = cam;
-                cam.setCenter({0, 0});
+                camFon.setViewport(rect);
+                camFon.setSize  ({x, y}); camDice = camFon;
+                camFon.setCenter({0, 0});
 
                 fon.setSize  ({x-border2, y-border2});
               //fon.setPosition({border, border});
-                vsl::Config::setOrigin(fon);
+                pr::setOrigin(fon);
               //fon.setFillColor({  0, 0, 255,31});
                 fon.setOutlineColor({64,64,128});
                 fon.setOutlineThickness(border);
 
                 fon.setTexture(&HolderTexture::get(buttonFon.get()));
 
-                camMove = cam;
+                camMove = camFon;
 
             /// camMove.setCenter({1260, 1100});
                 camMove.setSize  ({3750, 2410});
                 camMove.setCenter(figField.getCenter());
 
                 cfg.uiUpLog.fooFon = [this](){fooFon();};
+
+                dice.init();
+
+                camDice = camFon;
             }
 
         vsl::Config& cfg;
 
         PLUG_IOBJECT2
-
 
         void input(const std::optional<sf::Event>&  event) override
 		{
@@ -118,11 +121,10 @@ namespace vsl
         void reStart()
         {   for(unsigned id = 0; id < 3; ++id) setPositionChip(id, 0, false);
             isDiceHide = true ;
-            dice.init(fon);
         }
 
     private:
-        sf::View            cam;
+        sf::View         camFon;
         sf::View        camMove;
         sf::View        camDice;
         sf::RectangleShape  fon;
@@ -138,7 +140,7 @@ namespace vsl
         {
             objectTest4.update(cfg.dt());
 
-            target.setView(cam);
+            target.setView(camFon);
 if(isFon) { target.draw   (fon,         states); }
 
             target.setView(camMove);
@@ -148,8 +150,7 @@ if(isFon) { target.draw   (fon,         states); }
             target.draw   (figureChips, states);
 
             if(!isDiceHide)
-            {   //target.setView(camDice);
-                target.setView(cam);
+            {   target.setView(camDice);
                 target.draw(dice, states);
             }
         }

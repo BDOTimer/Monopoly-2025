@@ -351,7 +351,7 @@ namespace uii
     {       UIBase() //(vsl::Config cfg) : cfg(cfg)
                 :   sound(buffer)
             {
-                
+
             }
 
     // vsl::Config& cfg;
@@ -621,7 +621,7 @@ namespace uii
         *messDown << Clear() << "... нефик там щелкать - там ничего нету ...";
     }
 
-    
+
     ///------------------------------------------------------------------------|
     /// UIUpLog для панели сверху ...
     ///---------------------------------------------------------------- UIUpLog:
@@ -637,17 +637,18 @@ namespace uii
                 ASSERT(ok)
 
                 ImGuiStyle&      style = ImGui::GetStyle();
-                ColorBLog.m[0] = style.Colors[ImGuiCol_Button]; 
+                ColorBLog.m[0] = style.Colors[ImGuiCol_Button];
             }
 
 
         //ImVec4 buttonColor;
 
-        Callback fooLog     {[this](){}};
+        Callback fooTune    {[this](){}};
         Callback fooMusic   {[this](){}};
         Callback fooFon     {[this](){}};
-        
         Callback fooDice2   {[this](){}};
+
+        Callback fooLog     {[this](){}};
 
         ImVec2 WH  {70, 30};
         ImVec2 WHx2;
@@ -683,13 +684,11 @@ namespace uii
                     /// | ImGuiWindowFlags_AlwaysAutoResize
             );
 
-                ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
-                if(ImGui::Button("Лог", WH))
-                {   fooLog    ();
+
+                if(ImGui::Button("< < <", WH))
+                {   fooTune   ();
                     sound.play();
-                    ColorBLog.next();
                 }
-                ImGui::PopStyleColor();
 
             ImGui::SameLine();
 
@@ -712,10 +711,13 @@ namespace uii
                     sound.play();
                 }
 
-                if(ImGui::Button("..1", WH))
-                {   fooEmpty  ();
+                ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
+                if(ImGui::Button("Лог", WH))
+                {   fooLog    ();
                     sound.play();
+                    ColorBLog.next();
                 }
+                ImGui::PopStyleColor();
 
             ImGui::SameLine();
 
@@ -736,7 +738,7 @@ namespace uii
 
         void setGeometry(ImVec2 sz, ImVec2 ps)
         {   UIBase::setGeometry(sz,        ps);
-            WH   = {sz.x / 5.6f, sz.y / 2.5f}; 
+            WH   = {sz.x / 5.6f, sz.y / 2.5f};
             WHx2 = {WH.x + WH.x, WH.y};
         }
 
@@ -744,7 +746,7 @@ namespace uii
         {   ImVec4{0.2f, 0.7f, 0.2f, 1.0f},
             ImVec4{0.7f, 0.2f, 0.2f, 1.0f}
         };
-        
+
 
     private:
     };

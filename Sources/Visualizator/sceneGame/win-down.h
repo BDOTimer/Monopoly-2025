@@ -26,7 +26,7 @@ namespace vsl
 
                 fon.setSize  ({x-border2, y-border2});
               //fon.setPosition({border, border});
-                vsl::Config::setOrigin(fon);
+                pr::setOrigin(fon);
                 fon.setFillColor({  0,200,0,20});
                 fon.setOutlineColor({64,64,128});
                 fon.setOutlineThickness (border);
@@ -42,7 +42,7 @@ namespace vsl
         sf::View         camUI;
         sf::View           cam;
         sf::RectangleShape fon;
-        TextStyleA      tmess1;
+        pr::TextStyleA  tmess1;
 
         ///------------------------------------|
         /// На рендер.                         |
