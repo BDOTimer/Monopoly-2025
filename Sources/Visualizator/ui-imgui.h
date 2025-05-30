@@ -155,6 +155,13 @@ namespace uii
             }
 
             //auto& a = ImGui::GetStyle().WindowMovable;// = false;
+
+            {   auto& color = ImGui::GetStyle().Colors[ImGuiCol_WindowBg];
+                      color = ImColor(35,35,35,170);
+            }
+            {///auto& color = ImGui::GetStyle().Colors[ImGuiCol_Button];
+             ///      color = ImColor(6,15,14,170);
+            }
         }
 
         ///--------------------------------------|
@@ -499,9 +506,6 @@ namespace uii
 
         void show()
         {
-            auto& color = ImGui::GetStyle().Colors[ImGuiCol_WindowBg];
-                  color = ImColor(35,35,35,190);
-
             ///---------------------------------------|
             /// Позиция и размер окна.                |
             ///---------------------------------------:

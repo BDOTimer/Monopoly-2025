@@ -1,0 +1,108 @@
+В Dear ImGui можно выводить текст с разными цветами, используя **`ImGui::TextColored()`** или разбивая текст на части с разными стилями. Вот несколько способов:
+
+---
+
+### **1. Разноцветный текст через `TextColored`**
+```cpp
+ImGui::Text("Обычный текст ");
+ImGui::SameLine();
+ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Красный текст");
+ImGui::SameLine();
+ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "Зелёный текст");
+```
+**Результат**:  
+`Обычный текст Красный текст Зелёный текст`
+
+---
+
+### **2. Разноцветные части текста в одной строке (с `PushStyleColor`)**  
+Если нужно менять цвет внутри одной строки без `SameLine`:
+```cpp
+ImGui::Text("Текст с ");
+ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.5f, 0.0f, 1.0f)); // Оранжевый
+ImGui::SameLine();
+ImGui::Text("разными цветами");
+ImGui::PopStyleColor();
+ImGui::SameLine();
+ImGui::TextColored(ImVec4(0.0f, 0.7f, 1.0f, 1.0f), " и синим.");
+```
+**Результат**:  
+`Текст с разными цветами и синим.`
+
+---
+
+### **3. Форматированный текст (как в `printf`)**  
+Можно комбинировать `TextColored` с `Text` для сложных строк:
+```cpp
+ImGui::Text("Статус: ");
+ImGui::SameLine();
+ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "Успех");
+ImGui::SameLine();
+ImGui::Text(" (код: %d)", 200);
+```
+**Результат**:  
+`Статус: Успех (код: 200)`
+
+---
+
+### **4. Разноцветный текст с форматированием (C++20 `std::format`)**  
+Если используете C++20, можно упростить код:
+```cpp
+ImGui::Text("Цена: ");
+ImGui::SameLine();
+ImGui::TextColored(ImVec4(0.9f, 0.2f, 0.2f, 1.0f), "%.2f руб.", 99.99f);
+```
+**Результат**:  
+`Цена: 99.99 руб.`
+
+---
+
+### **5. Градиентный текст (через `ImDrawList`)**  
+Для сложных эффектов (градиенты, тени) используйте низкоуровневый API:
+```cpp
+ImVec2 text_pos = ImGui::GetCursorScreenPos();
+ImGui::Text("Градиент: ");
+ImDrawList* draw_list = ImGui::GetWindowDrawList();
+
+const char* text = "Разноцветный";
+draw_list->AddText(
+    ImVec2(text_pos.x + 80, text_pos.y), 
+    IM_COL32(255, 0, 0, 255), // Красный
+    text
+);
+draw_list->AddText(
+    ImVec2(text_pos.x + 160, text_pos.y), 
+    IM_COL32(0, 0, 255, 255), // Синий
+    text
+);
+```
+**Результат**:  
+`Градиент: Разноцветный` (с переходом цвета).
+
+---
+
+### **Как задавать цвета?**  
+- Используйте `ImVec4(R, G, B, A)`, где значения от `0.0` до `1.0`.  
+- Для HEX-цветов конвертируйте их в `ImVec4`:  
+  ```cpp
+  ImVec4 color = ImGui::ColorConvertU32ToFloat4(0xFF00AAFF); // RGBA
+  ```
+
+---
+
+### **Итог**  
+- Для простых случаев — `TextColored()`.  
+- Для сложного форматирования — комбинация `PushStyleColor` + `SameLine`.  
+- Для нестандартных эффектов — `ImDrawList`.  
+
+Пример полного кода:  
+```cpp
+if (ImGui::Begin("Пример текста")) {
+    ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Красный");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "Зелёный");
+    ImGui::SameLine();
+    ImGui::TextColored(ImVec4(0.0f, 0.0f, 1.0f, 1.0f), "Синий");
+}
+ImGui::End();
+```

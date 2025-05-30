@@ -160,6 +160,9 @@
     <ClInclude Include="..\..\..\Sources\Visualizator\ui-tune.h">
       <Filter>Vsl\ui</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\ui-win-game.h">
+      <Filter>Vsl\ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\extLibs\imgui-1.91.8\imgui.cpp">
@@ -207,6 +210,9 @@
     </None>
     <None Include="..\..\..\Sources\Model-25\model\field.inc">
       <Filter>Model-25\model</Filter>
+    </None>
+    <None Include="..\..\..\bin\Visualizator\res\shaders\dice.frag">
+      <Filter>Res</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

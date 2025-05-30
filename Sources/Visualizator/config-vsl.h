@@ -7,6 +7,7 @@
 
 #include "controller/controller.h"
 #include "ui-tune.h"
+#include "ui-win-game.h"
 #include "user-model.h"
 #include "model/config-model.h"
 #include "sceneGame/markup.h"
@@ -87,7 +88,7 @@ namespace vsl
             getFont().setSmooth(true);
         }
 
-        inline static constexpr float SCALE_WIN{0.9f};
+        inline static constexpr float SCALE_WIN{0.95f};
 
         static sf::Vector2u initWinSize(sf::Vector2u szuWin = {0,0})
         {

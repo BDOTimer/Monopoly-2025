@@ -29,6 +29,12 @@ struct  Render
             cfg.camFon = &camFon;
             cfg.camGui = &camGui;
 			cfg.scenesSwitcher.init(&scenes);
+
+            const auto cursor = sf::Cursor::createFromSystem(
+                sf::Cursor::Type::Hand).value(); 
+            cfg.pwin->setMouseCursor(cursor);
+
+            cfg.pwin->setMouseCursorVisible(false);
         }
 
 	vsl::Config&         cfg;
@@ -119,6 +125,8 @@ private:
 
             ImGui::SFML::Render  (window);
             window.display       (      );
+
+            
         }
         #undef ISKEYPRESED
 
@@ -136,14 +144,15 @@ private:
     {   sf::RenderWindow window
         (   sf::VideoMode(vsl::Config::initWinSize()),
             L"Монополия-2025",
-            sf::Style::Titlebar | sf::Style::Close
+        /// sf::Style::Titlebar | sf::Style::Close
+            sf::Style::None
         );
 
         window.setPosition({window.getPosition().x, 0});
 
         vsl::Config     cfg(window);
 		Render  render (cfg);
-                render. run();
+                render.run();
     }
 };
 

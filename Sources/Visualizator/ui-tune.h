@@ -23,6 +23,8 @@ namespace uii
 
                 ImGuiStyle&      style = ImGui::GetStyle();
                 ColorBLog.m[0] = style.Colors[ImGuiCol_Button];
+
+                init();
             }
 
         //ImVec4 buttonColor;
@@ -40,11 +42,16 @@ namespace uii
         ImVec2 WH  {100, 40};
         ImVec2 WHx2;
 
+        ImColor colButtonB{ 6,15,14,120};
+        ImColor colButtonH{ 6,35,34,170};
+        ImColor colButtonA{26,55,54,170};
+
         void show()
         {
             auto& color = ImGui::GetStyle().Colors[ImGuiCol_WindowBg];
                   color = ImColor(35,35,35,190);
 
+            
             ///---------------------------------------|
             /// Позиция и размер окна.                |
             ///---------------------------------------:
@@ -58,19 +65,22 @@ namespace uii
             ///---------------------------------------|
             /// Окно <name>.                          |
             ///---------------------------------------:
-            ImGui::Begin (name.data(), nullptr, 0
+            ImGui::Begin( name.data(), nullptr, 0
                     /// | ImGuiWindowFlags_NoCollapse
                         | ImGuiWindowFlags_NoMove
                         | ImGuiWindowFlags_NoTitleBar
+                        | ImGuiWindowFlags_NoScrollbar
+                        | ImGuiWindowFlags_NoResize
                     /// | ImGuiWindowFlags_HorizontalScrollbar
                     /// | ImGuiWindowFlags_AlwaysVerticalScrollbar
-                        | ImGuiWindowFlags_NoScrollbar
                     /// | ImGuiWindowFlags_MenuBar
                     /// | ImGuiWindowFlags_NoBackground
-                        | ImGuiWindowFlags_NoResize
                     /// | ImGuiWindowFlags_AlwaysAutoResize
             );
 
+            ImGui::PushStyleColor(ImGuiCol_Button,       (ImVec4)colButtonB);
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered,(ImVec4)colButtonH);
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive ,(ImVec4)colButtonA);
 
                 if(ImGui::Button("НОВАЯ ИГРА", WH))
                 {   snd1.play ();
@@ -92,20 +102,29 @@ namespace uii
                     sound.play  ();
                 }
 
-            /// ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
                 if(ImGui::Button("ПРАВИЛА ИГРЫ", WH))
                 {   fooTest   ();
                     sound.play();
-                    ColorBLog.next();
                 }
-            /// ImGui::PopStyleColor();
 
                 if(ImGui::Button("ВЫХОД", WH))
                 {   fooExit   ();
                     sound.play();
                 }
 
+                if (ImGui::ImageButton("АВТОРЫ", texId, WH))
+                {   snd1.play ();
+                }
+
+            ImGui::PopStyleColor();
+            ImGui::PopStyleColor();
+            ImGui::PopStyleColor();  
+
             ImGui::End();
+
+        //  ImGui::Begin("TEST");
+        //  ImGui:(buttonTexture);
+        //  ImGui::End();
         }
 
         void setGeometry(ImVec2 sz, ImVec2 ps)
@@ -119,6 +138,18 @@ namespace uii
             ImVec4{0.7f, 0.2f, 0.2f, 1.0f}
         };
 
+        static ImTextureID convertSFMLTexture2Im(const sf::Texture& tx)
+        {   return (ImTextureID)(size_t)tx.getNativeHandle();
+        }
+
+        sf::Texture buttonTexture;
+        ImTextureID texId;
+        void init()
+        {   if (!buttonTexture.loadFromFile("res/img/button.png"))
+            {   ASSERT(false)
+            }
+            texId = convertSFMLTexture2Im(buttonTexture);
+        }
 
     private:
 

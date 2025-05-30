@@ -36,7 +36,7 @@ namespace vsl
         inline static const char* filename{"res/shaders/dice.frag"};
 
         sf::View           camRt;
-        sf::RenderTexture  rt{{400, 400}};
+        sf::RenderTexture  rt{{400, 400}}; /// TODO: 25% от порта ...
         sf::RectangleShape scrRect;
         sf::Shader         shader ;
 
