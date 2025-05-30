@@ -1667,7 +1667,7 @@
 	<vector>
 	"model/config-model.h"
 
-1748531046 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\main.cpp
+1748572904 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\main.cpp
 	"render.h"
 
 1748517601 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\render.h
@@ -1847,7 +1847,7 @@
 	"../debug.h"
 	"../user-model.h"
 
-1748519854 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-tune.h
+1748574978 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-tune.h
 	"ui-imgui.h"
 
 1748500206 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-imgui.h
@@ -1878,10 +1878,10 @@
 	"sceneGame/win-down.h"
 	"sceneGame/win-player.h"
 
-1748532087 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\shader-dice.h
+1748574629 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\shader-dice.h
 	"common.h"
 
-1748531186 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
+1748574840 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
 	"../common.h"
 	"fig-field.h"
 	"fig-chips.h"

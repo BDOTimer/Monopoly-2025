@@ -61,12 +61,19 @@ namespace vsl
 
         void init(const sf::RectangleShape& rc)
         {
+            scrRect = rc;
 
-            scrRect.setPosition (rc.getPosition());
-            scrRect.setSize     (rc.getSize());
-            scrRect.setFillColor(colFon);
+            //scrRect.setPosition (rc.getPosition());
+            //scrRect.setSize     (rc.getSize());
 
-            vsl::Config::setOrigin(scrRect);
+            //scrRect.setPosition ({0,0});
+        //  scrRect.setSize     (cfg.szfWin);
+            //scrRect.setFillColor(colFon);
+
+            //vsl::Config::setOrigin(scrRect);
+
+            //cam = cfg.pwin->getDefaultView();
+            //cam.setCenter({0,0});
 
             l(scrRect.getPosition().x)
             l(scrRect.getPosition().y)
@@ -79,6 +86,8 @@ namespace vsl
             if (!shader.loadFromFile(filename, sf::Shader::Type::Fragment))
                 return throw("shader.loadFromFile(...");
         }
+
+        sf::View cam;
 
     private:
 
@@ -183,7 +192,7 @@ namespace vsl
 
             sf::RectangleShape rs(sz);
 
-            ShaderDice  dice   (vsl::Config::get());
+            ShaderDice  dice(vsl::Config::get());
                         dice.init(rs);
 
             float TN{5.f};
@@ -224,6 +233,7 @@ namespace vsl
             p->shader.setUniform("resolution"  , sf::Glsl::Vec2(sz));
             p->shader.setUniform("currentAngle", currentAngle);
 
+//target.setView(cam);
             target.draw(scrRect, states.shader = &shader);
 
             if(p->isRot) p->upRotSpeed();

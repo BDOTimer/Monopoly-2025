@@ -26,8 +26,9 @@ namespace vsl
                 const float y = rect.size.y * cfg.szfWin.y;
 
                 cam.setViewport(rect);
-                cam.setSize  ({x, y});
+                cam.setSize  ({x, y}); camDice = cam;
                 cam.setCenter({0, 0});
+
                 fon.setSize  ({x-border2, y-border2});
               //fon.setPosition({border, border});
                 vsl::Config::setOrigin(fon);
@@ -90,7 +91,7 @@ namespace vsl
         {   "res/img/ground_01.jpg",
             "res/img/ground_02.jpg",
             "res/img/ground_03.jpg",
-            ""
+            "res/img/ground_04.jpg"
         };
 
         bool isFon{false};
@@ -123,6 +124,7 @@ namespace vsl
     private:
         sf::View            cam;
         sf::View        camMove;
+        sf::View        camDice;
         sf::RectangleShape  fon;
         FigureField    figField;
         FigureChips figureChips;
@@ -145,9 +147,10 @@ if(isFon) { target.draw   (fon,         states); }
 
             target.draw   (figureChips, states);
 
-            target.setView(cam);
             if(!isDiceHide)
-            {   target.draw(dice, states);
+            {   //target.setView(camDice);
+                target.setView(cam);
+                target.draw(dice, states);
             }
         }
 
