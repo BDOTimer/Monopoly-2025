@@ -87,23 +87,23 @@ namespace uii
                     sound.play   ();
                 }
 
-                if(ImGui::Button("НАСТРОКИ ИГРОКА", WH))
+                if(ImGui::Button("НАСТРОйКИ ИГРОКА", WH))
                 {   fooTuneGamer();
-                    sound.play ();
+                    sound.play  ();
                 }
+
+            /// ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
+                if(ImGui::Button("ПРАВИЛА ИГРЫ", WH))
+                {   fooTest   ();
+                    sound.play();
+                    ColorBLog.next();
+                }
+            /// ImGui::PopStyleColor();
 
                 if(ImGui::Button("ВЫХОД", WH))
                 {   fooExit   ();
                     sound.play();
                 }
-
-                ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
-                if(ImGui::Button("ТЕСТОВАЯ ФОРМА", WH))
-                {   fooTest   ();
-                    sound.play();
-                    ColorBLog.next();
-                }
-                ImGui::PopStyleColor();
 
             ImGui::End();
         }
