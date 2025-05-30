@@ -51,7 +51,8 @@ namespace vsl
                 ASSERT(ok)
             }
 
-        void play(){ snd.play(); }
+        void              play()     {        snd.play     (); }
+        sf::Sound::Status getStatus(){ return snd.getStatus(); }
 
     private:
         sf::SoundBuffer buf;

@@ -121,6 +121,12 @@ private:
             window.display       (      );
         }
         #undef ISKEYPRESED
+
+        vsl::Sound sound("res/snd/out.mp3"); sound.play();
+
+        while(sound.getStatus() != sf::Sound::Status::Stopped)
+        {   std::this_thread::sleep_for(std::chrono::milliseconds {100});
+        }
     }
 
     ///--------------------------------------|

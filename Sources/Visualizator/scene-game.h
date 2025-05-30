@@ -52,6 +52,7 @@ namespace vsl
                     if( !o.dice.isRot)
                     {   this->doStep();
                     }
+                    else this->cfg.mp3dice1.play();
                 };
 
                 cfg.uiUpLog.fooLog = [this]()
