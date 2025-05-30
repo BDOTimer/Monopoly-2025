@@ -21,7 +21,6 @@ namespace uii
                        ok = buf1.loadFromFile("res/snd/gudok-doplera.mp3");
                 ASSERT(ok)
 
-
                 ImGuiStyle&      style = ImGui::GetStyle();
                 ColorBLog.m[0] = style.Colors[ImGuiCol_Button];
             }
