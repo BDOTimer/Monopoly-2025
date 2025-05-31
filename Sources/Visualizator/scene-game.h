@@ -10,6 +10,8 @@
 #include "sceneGame/win-down.h"
 #include "sceneGame/win-player.h"
 
+#include "config-vsl.h"
+
 namespace vsl
 {
 
@@ -52,11 +54,14 @@ namespace vsl
                     if( !o.dice.isRot)
                     {   this->doStep();
                     }
-                    else this->cfg.mp3dice1.play();
+                    else
+                    {   this->winGame.isUiCellInfo = false;
+                        this->cfg.mp3dice1.play();
+                    }
                 };
 
                 cfg.uiUpLog.fooLog = [this]()
-                {   this->isLog = !this->isLog;
+                {      this->isLog = !this->isLog;
                 };
             }
 
@@ -131,8 +136,20 @@ namespace vsl
             cfg.players  [ID].stateGame = sg;
 
             cfg.uiPlayers[ID]    << uii::Clear()
-                << "  КУБИК  : " << sg[model::StateGame::E_NDICE   ] << '\n'
-                << "  ПОЗИЦИЯ: " << sg[model::StateGame::E_POSITION] << '\n';
+                << "  КУБИК  : " << sg[model::StateGame::E_NDICE   ] << '\n';
+
+            //model::Field& field1 = *(cfg.cfgModel.pfield);
+            //model::Cell& cell1 = field1[0];
+
+            ///----------------------|
+            /// TODO: ...            |
+            ///----------------------:
+            //model::Field field1(cfg.cfgModel);
+                
+            cfg.uiCellInfo       << uii::Clear()
+                << "  ПОЗИЦИЯ: " << sg[model::StateGame::E_POSITION] << '\n'
+                //<< f[6].name << '\n'
+                ;
 
             winGame.setPositionChip(ID, sg[model::StateGame::E_POSITION]);
             ///////////////////////////////////////////////////
@@ -143,6 +160,8 @@ namespace vsl
 
             cfg.uiDownMessage << uii::Clear() << "Ход ИГРОКА: "
                               << IDPLAYER+1   << mess[rand()%mess.size()];
+
+            winGame.isUiCellInfo = true;
         }
 
         ///-----------------------------------|

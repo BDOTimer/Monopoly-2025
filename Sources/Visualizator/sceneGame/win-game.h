@@ -120,7 +120,8 @@ namespace vsl
 
         void reStart()
         {   for(unsigned id = 0; id < 3; ++id) setPositionChip(id, 0, false);
-            isDiceHide = true ;
+            isDiceHide   = true ;
+            isUiCellInfo = false;
         }
 
     private:
@@ -131,6 +132,7 @@ namespace vsl
         FigureField    figField;
         FigureChips figureChips;
         ShaderDice         dice;
+        bool       isUiCellInfo;
 
         ///------------------------------------|
         /// На рендер.                         |
@@ -153,6 +155,8 @@ if(isFon) { target.draw   (fon,         states); }
             {   target.setView(camDice);
                 target.draw(dice, states);
             }
+
+            if(isUiCellInfo){ cfg.uiCellInfo.show(); }
         }
 
         friend struct SceneGame;

@@ -60,6 +60,8 @@ namespace vsl
             uii::UIScnGamePlayer(players[2])
         };
 
+        uii::UIWinGameCellInfo uiCellInfo;
+
         ///-----------------------------------|
         /// Новая игра.                       |
         ///-----------------------------------:
@@ -190,6 +192,19 @@ namespace vsl
                 const float psY = szfWin.y / 2.f - szY / 2.f;
 
                 uiTuneBase.setGeometry({szX, szY}, {psX, psY});
+            }
+
+            ///-------------------|
+            /// uiCellInfo        |
+            ///-------------------:
+            {   const auto& G = markupSG.getWinBase();
+                
+                const float szX = G.size.x / 2 * szfWin.x;
+                const float szY = G.size.y / 4 * szfWin.y;
+                const float psX =(G.position.x + G.size.x     / 4) * szfWin.x;
+                const float psY =(G.position.y + G.size.y * 3 / 8) * szfWin.y;
+
+                uiCellInfo.setGeometry({szX, szY}, {psX, psY});
             }
 
         //  uiPlayersLog = uiPlayers;

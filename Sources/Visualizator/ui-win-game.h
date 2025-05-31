@@ -26,8 +26,7 @@ namespace uii
 
         Callback fooGo{[this](){}};
 
-        ImVec2 WH  {100, 40};
-        ImVec2 WHx2;
+        ImVec2 WH;
 
         void show()
         {
@@ -60,22 +59,30 @@ namespace uii
                     /// | ImGuiWindowFlags_AlwaysAutoResize
             );
 
+                ImGui::Text("%s", log.str().c_str());
 
             /// ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
-                if(ImGui::Button("ПРАВИЛА ИГРЫ", WH))
+                if(ImGui::Button("КУПИТЬ", WH))
                 {   fooGo     ();
                     sound.play();
             ///     ColorBLog.next();
                 }
-            /// ImGui::PopStyleColor();
+            /// ImGui::PopStyleColor
+
+                ImGui::SameLine();
+
+                if(ImGui::Button("ДАЛЬШЕ", WH))
+                {   fooGo     ();
+                    sound.play();
+            ///     ColorBLog.next();
+                }
 
             ImGui::End();
         }
 
         void setGeometry(ImVec2 sz, ImVec2 ps)
         {   UIBase::setGeometry(sz,        ps);
-            WH   = {sz.x - 17.0f, sz.y / 6.5f};
-            WHx2 = {WH.x + WH.x, WH.y};
+            WH = {size.x / 2.1f, size.y / 8.f};
         }
 
         myl::SwitcherData<ImVec4, 2> ColorBLog
