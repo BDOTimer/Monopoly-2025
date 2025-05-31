@@ -112,7 +112,7 @@ namespace vsl
             unsigned& idPlayer = cfg.players[IDPLAYER].id;
 
             cfg.uiGameLog << model::doStep
-            (   "bot", { (int)cfg.idGame,
+            (   "bot", { (int)cfg.cfgModel.idGame,
                          (int)idPlayer }
             );
 
@@ -126,7 +126,7 @@ namespace vsl
 */
 
             const model::StateGame sg = model::getStateGame
-            (   "get", {(int)cfg.idGame, (int)idPlayer}
+            (   "get", {(int)cfg.cfgModel.idGame, (int)idPlayer}
             );
 
             ASSERT((unsigned)sg[model::StateGame::E_SIZE == sg.size()])
@@ -145,7 +145,7 @@ namespace vsl
             /// TODO: ...            |
             ///----------------------:
             //model::Field field1(cfg.cfgModel);
-                
+
             cfg.uiCellInfo       << uii::Clear()
                 << "  ПОЗИЦИЯ: " << sg[model::StateGame::E_POSITION] << '\n'
                 //<< f[6].name << '\n'

@@ -1,4 +1,4 @@
-﻿const char* const LOGO_VISUALIZATOR{"VISUALIZATOR::ver::0.0.2.5"};
+﻿const char* const LOGO_VISUALIZATOR{"VISUALIZATOR::ver::0.0.2.6"};
 ///----------------------------------------------------------------------------|
 /// C++20
 /// ...
@@ -11,7 +11,7 @@ void tests()
 
 ///
 /// TRY(vsl::ShaderDice::test2())
-/// 
+///
 TRY(Render::test())
 }
 

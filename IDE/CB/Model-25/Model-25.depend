@@ -1,0 +1,80 @@
+# depslib dependency file v1.0
+1748456712 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\main.cpp
+	"program.h"
+	"model/!m-model.h"
+
+1748720183 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\program.h
+	"debug.h"
+	"user-model.h"
+	"vsl/vsl.h"
+	"controller/controller.h"
+
+1748715672 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\debug.h
+	<functional>
+	<filesystem>
+	<algorithm>
+	<iostream>
+	<iterator>
+	<fstream>
+	<sstream>
+	<iomanip>
+	<memory>
+	<format>
+	<vector>
+	<string>
+	<chrono>
+	<thread>
+	<cmath>
+	<array>
+	<tuple>
+	<ctime>
+	<list>
+	<map>
+	<set>
+	<SFML/Graphics.hpp>
+	<windows.h>
+
+1748721196 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\user-model.h
+	<string>
+	<vector>
+
+1748456712 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\vsl\vsl.h
+	<iostream>
+	"../debug.h"
+
+1748456712 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\controller\controller.h
+	"../debug.h"
+	"../user-model.h"
+
+1748456712 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\!m-model.h
+	"myl.h"
+	"cards.inc"
+	"field.inc"
+
+1748456712 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\myl.h
+	"../debug.h"
+	"config-model.h"
+	<locale>
+	<codecvt>
+
+1748721196 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\config-model.h
+	"../debug.h"
+	"../user-model.h"
+	"implants/bot-iq.h"
+
+1748456712 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\implants\bot-iq.h
+	"../../debug.h"
+
+1748456712 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\cards.inc
+
+1748456712 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\field.inc
+
+1748456712 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\implants\bot-iq.cpp
+	"bot-iq.h"
+	"../!m-model.h"
+
+1748720248 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\model.cpp
+	"../user-model.h"
+	"config-model.h"
+	"!m-model.h"
+

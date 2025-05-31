@@ -19,7 +19,7 @@ struct  TestGame2
 
     visual:: Console vc;
     unsigned     idGame;
-    model::Config*  cfg;
+    model::ConfigShare* cfg;
 
     std::array<controller::Player, 3> players
     {          controller::Player (true, 0, "Игрок-1"),
@@ -46,7 +46,7 @@ struct  TestGame2
 
         unsigned cnt{0};
 
-        unsigned isDump2File = model::Config::isDump2File()+ 1;
+        unsigned isDump2File = model::ConfigShare::isDump2File()+ 1;
 
         l(isDump2File)
 
@@ -65,7 +65,7 @@ struct  TestGame2
                 /// << "---------------------------------------------..."
                     << LINE << (cfg->isDump2File() == 0 ? "" : LINE);
 
-                if(0 == model::Config::isDump2File())
+                if(0 == model::ConfigShare::isDump2File())
                 {   std::string e; std::getline(std::cin, e);
                     if(e.back() == '0')
                     {   goto m;
@@ -81,7 +81,7 @@ struct  TestGame2
                 vc  << model::doStep( "bot", { (int)idGame,
                                                (int)idPlayer } );
 
-                if(!model::Config::getDefault().isScrollConsole)
+                if(!cfg->isScrollConsole)
                 {   std::system("cls");
                     vc  << "Процесс " << LOGO << "\n\n";
                 }

@@ -9,7 +9,6 @@
 #include "ui-tune.h"
 #include "ui-win-game.h"
 #include "user-model.h"
-#include "model/config-model.h"
 #include "sceneGame/markup.h"
 
 
@@ -23,6 +22,8 @@ namespace vsl
                 init           ();
                 resizeFormImgui();
             }
+
+        model::ConfigShare   cfgModel;
 
         sf::RenderWindow*        pwin;
 
@@ -68,12 +69,6 @@ namespace vsl
         void reStart()
         {   for(auto& e : uiPlayers) e << uii::Clear();
         }
-
-        model::Config cfgModel;
-
-        ///////////////////////////////////////////////////////////////////////:
-        unsigned    idGame;
-        ///////////////////////////////////////////////////////////////////////.
 
         static sf::Font& getFont()
         {///static sf::Font font("consola.ttf");
@@ -198,7 +193,7 @@ namespace vsl
             /// uiCellInfo        |
             ///-------------------:
             {   const auto& G = markupSG.getWinBase();
-                
+
                 const float szX = G.size.x / 2 * szfWin.x;
                 const float szY = G.size.y / 4 * szfWin.y;
                 const float psX =(G.position.x + G.size.x     / 4) * szfWin.x;

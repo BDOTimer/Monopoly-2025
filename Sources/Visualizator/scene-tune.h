@@ -79,8 +79,7 @@ namespace vsl
         ///////////////////////////////////////////////////////////////////////:
         void startModel()
         {   cfg.cfgModel = *model::getConfig ();
-            cfg.idGame   = cfg.cfgModel.idGame;
-            cfg.uiTune << model::getLogo(cfg.idGame) << "\n";
+            cfg.uiTune << model::getLogo(cfg.cfgModel.idGame) << "\n";
 
             cfg.uiGameLog << "///-----------------------------------|\n"
                              "///         ИГРА НАЧАЛАСЬ!            |\n"

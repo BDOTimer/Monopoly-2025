@@ -102,7 +102,7 @@ namespace model
     ///------------------------------------------------------------------------|
     /// Интерфейс модели.
     ///------------------------------------------------------------------------:
-    Config* getConfig()
+    ConfigShare* getConfig()
     {   unsigned    id = holderGates.reCreate("desktop"); /// Desktop version.
         holderGates[id].cfg->idGame = id;
         return holderGates[id].cfg;

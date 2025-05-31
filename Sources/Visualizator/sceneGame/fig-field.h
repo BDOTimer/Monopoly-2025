@@ -80,8 +80,8 @@ namespace vsl
                 );
             }
 
-        vsl  ::Config& cfg;
-        model::Config& cfgModel;
+        vsl  ::Config&      cfg;
+        model::ConfigShare& cfgModel;
 
         float szCell{350};
 
