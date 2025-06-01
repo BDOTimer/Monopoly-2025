@@ -24,7 +24,10 @@ namespace uii
 
         //ImVec4 buttonColor;
 
-        Callback fooGo{[this](){}};
+        Callback fooBuy {[this](){}};
+        Callback fooNext{[this](){}};
+
+        bool isBot{true};
 
         ImVec2 WH;
 
@@ -61,9 +64,11 @@ namespace uii
 
                 ImGui::Text("%s", log.str().c_str());
 
+                auto nt = isBot ? "...(bot)..." : "КУПИТЬ";
+
             /// ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
-                if(ImGui::Button("КУПИТЬ", WH))
-                {   fooGo     ();
+                if(ImGui::Button(nt, WH))
+                {   fooBuy    ();
                     sound.play();
             ///     ColorBLog.next();
                 }
@@ -72,7 +77,7 @@ namespace uii
                 ImGui::SameLine();
 
                 if(ImGui::Button("ДАЛЬШЕ", WH))
-                {   fooGo     ();
+                {   fooNext   ();
                     sound.play();
             ///     ColorBLog.next();
                 }

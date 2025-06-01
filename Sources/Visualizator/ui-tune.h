@@ -114,6 +114,17 @@ namespace uii
 
                 if (ImGui::ImageButton("АВТОРЫ", texId, WH))
                 {   snd1.play ();
+
+#ifdef _WIN32
+    #define OPEN_CMD "start"
+#elif __APPLE__
+    #define OPEN_CMD "open"
+#else
+    #define OPEN_CMD "xdg-open"
+#endif
+                    auto comm{std::string(OPEN_CMD)
+                         + " https://gamedev.ru/projects/forum/?id=289951"};
+                    std::system(comm.c_str());
                 }
 
             ImGui::PopStyleColor();

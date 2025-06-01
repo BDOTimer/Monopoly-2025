@@ -59,6 +59,9 @@ template<typename T> using Mat3d = Mat2d<std::vector<T>>;
 #define TEST friend void ::tests(); static void test()
 #define STOP std::cout << "STOP\n"; std::cin.get();
 #define SIGNAL(a) std::cout << "\n...---SIGNAL---" << a << "...\n" << std::endl;
+#define SIGNAP    std::cout << "\n...---SIGNAP---...\n" << std::endl;\
+                  std::cin.get();
+
 
 using Strv = std::string_view;
 

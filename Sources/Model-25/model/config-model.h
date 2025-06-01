@@ -83,7 +83,7 @@ namespace model
                 ss << mess1;
                 ss << mess2 << "\n\n";
             }
-            events.clear();
+            events.clear ();
             return ss.str();
         }
 
@@ -98,7 +98,6 @@ namespace model
         /// Пусто?                           |
         ///----------------------------------:
         bool empty() const { return events.empty(); }
-
 
         ///----------------------------------|
         /// Рандомный выбор события.         |
@@ -172,9 +171,14 @@ namespace model
         }
 
         ///------------------------------|
+        /// Статы игрока на шаге.        |
+        ///------------------------------:
+        StateGame               stateGame;
+
+        ///------------------------------|
         /// Если 0, то сид от часов.     |
         ///------------------------------:
-        unsigned isSeed{1234560};
+        unsigned isSeed{123456};
 
         ///------------------------------|
         /// Денеги у игроков на старте.  |
@@ -215,36 +219,10 @@ namespace model
             int         cellsOccupied2{2};
         }victoryCondition;
 
-        ///------------------------------|
-        /// Профиль игрока.              |
-        ///------------------------------:
-        struct Players
-        {   bool       isBot;
-            std::string name;
-        };
-
-        ///------------------------------|
-        /// Состав игроков.              |
-        ///------------------------------:
-        std::vector<Players> players
-        {   {true , "bot::Noname"  }, /// Умный
-            {true , "bot::aliskda" }, /// Срединий
-            {true , "bot::gudleifr"}, /// Дурак
-        //  {false, "Slava-rusi11" }
-        //  {false, "Вася Пупкин"  }
-        };
-
         std::string_view getNamePlayer(unsigned id) const
         {   /// TODO: ASSERT(id < players.size())
             return players[id].name;
         }
-
-        const char* statusNames[4]
-        {   "Ребёнок ",
-            "Взрослый",
-            "Родитель",
-            "Чужой   "
-        };
 
         ///------------------------------|
         /// % выпадение Шанс на ячейке.  |
@@ -276,11 +254,8 @@ namespace model
         ///------------------------------|
         /// Расшифровка статуса.         |
         ///------------------------------:
-        std::string_view decodeStatus(unsigned status) const
-        {   ASSERT(status < 3)
-        /// constexpr unsigned N = sizeof statusNames / sizeof *statusNames ;
-        /// return statusNames[status >= N ? N - 1 : status];
-            return statusNames[status];
+        std::string_view decodeStatus(unsigned i) const
+        {   return decode2Str.getPlayer(i);
         }
 
         ///------------------------------|

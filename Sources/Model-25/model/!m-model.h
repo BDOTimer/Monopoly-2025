@@ -339,8 +339,8 @@ namespace model
                                      {
                                         #include "field.inc"
                                      }
-                                     , bank(cfg)
-                                     , cfg (cfg)
+                                     ,  bank(cfg)
+                                     ,  cfg (cfg)
             {
                 for(auto& e : *this)
                 {   e.init();
@@ -578,6 +578,17 @@ namespace model
         ///------------------------------:
         Card* pcard{nullptr};
 
+        void getStateGame()
+        {   Config* pcfg{const_cast<Config*>(&cfg)};
+            Cell&   cell = (*cfg.pfield)[position];
+
+            using E = StateGame::eSTATE;
+
+            pcfg->stateGame.dat[E::E_MONEY1] = money;
+            pcfg->stateGame.dat[E::E_SELL  ] = cell.bankSell[status];
+            pcfg->stateGame.dat[E::E_BYU   ] = cell.bankBuy [status];
+        }
+
         ///------------------------------|
         /// - Письма.                    |
         /// - События.                   |
@@ -649,7 +660,6 @@ namespace model
             cargo.erase(it);
         }
 
-
         int getCapitalMoney() const
         {   return capital + money;
         }
@@ -697,7 +707,7 @@ namespace model
 
             host->messLetters << " --> Плата за аренду: +"
                               << std::setw(4) << price << $s
-                          << " от " << name << '\n';
+                              << " от " << name << '\n';
             return price;
         }
 
@@ -846,6 +856,8 @@ namespace model
 
         void input () override
         {
+            getStateGame();
+
             Cell& cell = (*cfg.pfield)[position];
 
             ASSERT(cell.status < 3)
@@ -973,6 +985,9 @@ namespace model
             if( isActBuy )
             {   messEvents << "   В этом круге блок на продажу!\n";
             }
+
+            Config* pcfg{const_cast<Config*>(&cfg)};
+            pcfg->stateGame.dat[StateGame::eSTATE::E_MONEY2] = money;
         }
 
         void doAct() override
@@ -1050,9 +1065,6 @@ namespace model
             {
                 unsigned seed = Cfg.isSeed ? Cfg.isSeed : unsigned(time(NULL));
 
-                stateGame.resize(4);
-                stateGame[0] = (int)stateGame.size();
-
                 ///------------------------|
                 /// Инициализация ГПСЧ.    |
                 ///------------------------:
@@ -1073,6 +1085,10 @@ namespace model
                 }
 
                 cfg = const_cast<model::Config*>(&Cfg);
+
+                cfg->stateGame.dat[0] = (int)cfg->stateGame.dat.size();
+
+                ASSERT(StateGame::eSTATE::E_DAT == cfg->stateGame.dat.size())
 
                 cfg->pfield = &field;
                 cfg->managerEvents.initEvents<Referee>(this);
@@ -1157,6 +1173,9 @@ namespace model
         [[nodiscard]]
         std::string doStep(unsigned i)
         {
+            using ED = StateGame::eSTATE;
+            using ES = StateGame::eSTATESTR;
+
             if(_isGameOver) return
             {   "   |----------------------------|\n"
                 "   |      ИГРА ЗАКОНЧЕНА!       |\n"
@@ -1172,9 +1191,11 @@ namespace model
             ///------------------------------:
             ss << field.bank.info() << '\n';
 
-            stateGame[StateGame::E_IDPLAYER] = order[i];
+            cfg->stateGame.dat[ED::E_IDPLAYER] = order[i];
 
             persNow = perses[order[i]];
+
+            cfg->stateGame.str[ES::E_NAME] = persNow->name;
 
             auto& pers = *persNow;
             ss <<  pers.infoName();
@@ -1186,9 +1207,9 @@ namespace model
             ///------------------------------:
             ss << pers.getLetters();
 
-            stateGame[StateGame::E_NDICE] = rand() % 6 + 1;
+            cfg->stateGame.dat[ED::E_NDICE] = rand() % 6 + 1;
 
-            const unsigned& cubicDice = stateGame[StateGame::E_NDICE];
+            const unsigned& cubicDice = cfg->stateGame.dat[ED::E_NDICE];
 
             ss <<   "           |----\n"
                     "cubicDice:-| " << cubicDice << " |\n"
@@ -1198,9 +1219,14 @@ namespace model
                 = field.add(pers.position, cubicDice);
 
             pers.position = pos;
-            stateGame [StateGame::E_POSITION] = pos;
+            cfg->stateGame.dat[ED::E_POSITION] = pos;
 
             Cell& cell = field[pos];
+
+            cfg->stateGame.str[ES::E_NAME]        = persNow->name;
+            cfg->stateGame.str[ES::E_CELL]        =     cell.name;
+            cfg->stateGame.dat[ED::E_STATUS_PERS] =   pers.status;
+            cfg->stateGame.dat[ED::E_STATUS_CELL] =   cell.status;
 
             ///------------------------------|
             /// Ячейка с шансом?             |
@@ -1301,14 +1327,14 @@ namespace model
             return NPOS;
         }
 
-        StateGame stateGame;
+        
         ///------------------------------|
         /// Что должен знать игрок.      |
         ///------------------------------:
         const StateGame getStateGame(unsigned idPlayer)
         {
             /// TODO ...
-            return stateGame;
+            return cfg->stateGame;
         }
 
         friend struct TestGame;

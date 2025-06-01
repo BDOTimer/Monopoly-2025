@@ -43,25 +43,16 @@ namespace vsl
                 };
 
                 cfg.uiUpLog.fooDice2 = [this]()
-                {
-                    auto& o = this->winGame;
-
-                    o.dice.isRot = !o.dice.isRot;
-                    o.isDiceHide = !o.isDiceHide;
-
-                    o.dice.resetDice();
-
-                    if( !o.dice.isRot)
-                    {   this->doStep();
-                    }
-                    else
-                    {   this->winGame.isUiCellInfo = false;
-                        this->cfg.mp3dice1.play();
-                    }
+                {   this->upDice();
                 };
 
                 cfg.uiUpLog.fooLog = [this]()
                 {      this->isLog = !this->isLog;
+                };
+
+                cfg.uiCellInfo.fooNext = [this]()
+                {   this->winGame.isUiCellInfo = false;
+                    this->updateInfoPlayer();
                 };
             }
 
@@ -91,28 +82,51 @@ namespace vsl
                 }
             }
 
-
             if (ISKEYPRESSED(Enter))
-            {
-                doStep();
+            {   this->upDice();
             }
 
             if (auto p = event->getIf<sf::Event::MouseButtonPressed>())
             {   if ( p->button  == sf::Mouse::Button::Left)
                 {
-
                 }
 		    }
 		}
 
 		unsigned nStep{};
 
+        void upDice()
+        {   if(winGame.isUiCellInfo) return;
+            
+            auto& o = this->winGame;
+
+            o.dice.isRot = !o.dice.isRot;
+            o.isDiceHide = !o.isDiceHide;
+
+            o.dice.resetDice();
+
+            if( !o.dice.isRot)
+            {   this->doStep();
+            }
+            else
+            {   this->winGame.isUiCellInfo = false;
+                this->cfg.mp3dice1.play();
+            }
+        }
+
         void doStep()
         {
+            using    E  = model::StateGame;
+            using    ED = model::StateGame::eSTATE;
+            using    ES = model::StateGame::eSTATESTR;
+            const auto& mdl{cfg.cfgModel};
+
             unsigned& idPlayer = cfg.players[IDPLAYER].id;
 
+            cfg.uiCellInfo.isBot = mdl.players[idPlayer].isBot;
+
             cfg.uiGameLog << model::doStep
-            (   "bot", { (int)cfg.cfgModel.idGame,
+            (   "bot", { (int)mdl.idGame,
                          (int)idPlayer }
             );
 
@@ -126,17 +140,23 @@ namespace vsl
 */
 
             const model::StateGame sg = model::getStateGame
-            (   "get", {(int)cfg.cfgModel.idGame, (int)idPlayer}
+            (   "get", {(int)mdl.idGame, (int)idPlayer}
             );
 
-            ASSERT((unsigned)sg[model::StateGame::E_SIZE == sg.size()])
+            ASSERT((unsigned)sg.dat[E::E_SIZE == sg.dat.size()])
 
-            const auto&   ID = (unsigned)sg[model::StateGame::E_IDPLAYER];
+            const auto&   ID = (unsigned)sg.dat[E::E_IDPLAYER];
 
             cfg.players  [ID].stateGame = sg;
 
             cfg.uiPlayers[ID]    << uii::Clear()
-                << "  КУБИК  : " << sg[model::StateGame::E_NDICE   ] << '\n';
+                << "  ИГРОК  : " << sg.str[ES::E_NAME  ]        << '\n'
+                << "  КОШЕЛЁК: " << sg.dat[ED::E_MONEY1]        << '\n'
+                << "  КУБИК  : " << sg.dat[ED::E_NDICE ]        << '\n'
+                << "  СТАТУС : " << sg.dat[ED::E_STATUS_PERS]+1 << " ---> "      
+                << mdl.decode2Str.getPlayer(sg.dat[ED::E_STATUS_PERS]).data()
+                << '\n'
+                ;
 
             //model::Field& field1 = *(cfg.cfgModel.pfield);
             //model::Cell& cell1 = field1[0];
@@ -147,21 +167,37 @@ namespace vsl
             //model::Field field1(cfg.cfgModel);
 
             cfg.uiCellInfo       << uii::Clear()
-                << "  ПОЗИЦИЯ: " << sg[model::StateGame::E_POSITION] << '\n'
-                //<< f[6].name << '\n'
+                << "  ИГРОК    : " << sg.str[ES::E_NAME]             << '\n'
+                << "  ЯЧЕЙКА   : " << sg.str[ES::E_CELL]             << '\n'
+                << "  ПОЗИЦИЯ  : " << sg.dat[ED::E_POSITION]         << '\n'
+                << "  СТАТУС   : " << sg.dat[ED::E_STATUS_CELL]+1<< " ---> "      
+                << mdl.decode2Str.getCell(sg.dat[ED::E_STATUS_CELL]) << '\n'
+                << "  ПРОДАЁТСЯ: " << sg.dat[ED::E_SELL]             << '\n'
+                << "  СКУПКА   : " << sg.dat[ED::E_BYU]              << '\n'
                 ;
 
-            winGame.setPositionChip(ID, sg[model::StateGame::E_POSITION]);
+            winGame.setPositionChip(ID, sg.dat[ED::E_POSITION]);
             ///////////////////////////////////////////////////
 
+            winGame.isUiCellInfo = true;
+        }
+
+        void updateInfoPlayer()
+        {
+            /// TODO ...
+            nextPlayer();
+        }
+
+        void nextPlayer()
+        {
             if(++IDPLAYER == cfg.players.size()) IDPLAYER = 0;
 
             cfg.info_01(++cnt);
 
-            cfg.uiDownMessage << uii::Clear() << "Ход ИГРОКА: "
-                              << IDPLAYER+1   << mess[rand()%mess.size()];
-
-            winGame.isUiCellInfo = true;
+            cfg.uiDownMessage << uii::Clear() << "НОВАЯ ИГРА! Ход ИГРОКА: "
+                              << (IDPLAYER + 1) << ": \""
+                              << cfg.cfgModel.players[IDPLAYER].name << ": \""
+                              << mess[rand()%mess.size()];
         }
 
         ///-----------------------------------|
@@ -191,7 +227,8 @@ namespace vsl
             cnt      = 0;
 
             cfg.uiDownMessage << uii::Clear() << "НОВАЯ ИГРА! Ход ИГРОКА: "
-                              << (IDPLAYER + 1);
+                              << (IDPLAYER + 1) << ": \""
+                              << cfg.cfgModel.players[IDPLAYER].name << "\"";
 
             isLog     = false;
 
