@@ -447,6 +447,21 @@ namespace primitive
             primitive::setOrigin(*this);
         }
     };
+
+    struct InsexCircle
+    {
+        unsigned n;
+        unsigned i{};
+
+        void operator++()
+        {   ++i; if(i >= n) i = 0;
+        }
+        void operator--()
+        {   --i; if(i >= n) i = n - 1;
+        }
+
+        unsigned operator()() const { return i; }
+    };
 }
 namespace pr = primitive;
 

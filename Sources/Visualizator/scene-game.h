@@ -96,7 +96,13 @@ namespace vsl
 		unsigned nStep{};
 
         void upDice()
-        {   if(winGame.isUiCellInfo) return;
+        {   ///if(isGameOver) return; TODO ...
+
+            if( winGame.isUiCellInfo)
+            {   winGame.isUiCellInfo = false;
+                updateInfoPlayer();
+                return;
+            }
             
             auto& o = this->winGame;
 
@@ -114,11 +120,14 @@ namespace vsl
             }
         }
 
+        pr::InsexCircle iWin{3};
+
+        using    E  = model::StateGame;
+        using    ED = model::StateGame::eSTATE;
+        using    ES = model::StateGame::eSTATESTR;
+
         void doStep()
         {
-            using    E  = model::StateGame;
-            using    ED = model::StateGame::eSTATE;
-            using    ES = model::StateGame::eSTATESTR;
             const auto& mdl{cfg.cfgModel};
 
             unsigned& idPlayer = cfg.players[IDPLAYER].id;
@@ -149,7 +158,7 @@ namespace vsl
 
             cfg.players  [ID].stateGame = sg;
 
-            cfg.uiPlayers[ID]    << uii::Clear()
+            cfg.uiPlayers[IDPLAYER]<< uii::Clear()
                 << "  ИГРОК  : " << sg.str[ES::E_NAME  ]        << '\n'
                 << "  КОШЕЛЁК: " << sg.dat[ED::E_MONEY1]        << '\n'
                 << "  КУБИК  : " << sg.dat[ED::E_NDICE ]        << '\n'
@@ -176,14 +185,23 @@ namespace vsl
                 << "  СКУПКА   : " << sg.dat[ED::E_BYU]              << '\n'
                 ;
 
+            if(isGameOver = sg.dat[ED::E_GAMEOVER] >= 0; isGameOver)
+            {   cfg.uiDownMessage << uii::Clear()
+                    << "ИГРА ЗАКОНЧЕНА! Победитель: "
+                    << cfg.players[sg.dat[ED::E_GAMEOVER]].name
+                    ;
+            }
+
             winGame.setPositionChip(ID, sg.dat[ED::E_POSITION]);
             ///////////////////////////////////////////////////
 
             winGame.isUiCellInfo = true;
         }
 
+        bool isGameOver{false};
+
         void updateInfoPlayer()
-        {
+        {   
             /// TODO ...
             nextPlayer();
         }
@@ -194,7 +212,7 @@ namespace vsl
 
             cfg.info_01(++cnt);
 
-            cfg.uiDownMessage << uii::Clear() << "НОВАЯ ИГРА! Ход ИГРОКА: "
+            cfg.uiDownMessage << uii::Clear() << "Ход ИГРОКА: "
                               << (IDPLAYER + 1) << ": \""
                               << cfg.cfgModel.players[IDPLAYER].name << ": \""
                               << mess[rand()%mess.size()];

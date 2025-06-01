@@ -23,7 +23,30 @@ namespace vsl
                 resizeFormImgui();
             }
 
-        model::ConfigShare   cfgModel;
+        ///-----------------------------------|
+        /// Конфиг модели.                    |
+        ///-----------------------------------:
+        model::ConfigShare            cfgModel;
+
+        void setConfigModel(model::ConfigShare& mdl)
+        {   cfgModel = mdl;
+            initPlayers ();
+        }
+
+        controller::Players players
+        {{  { true , 0, "bot::Игрок-1" },
+            { true , 1, "bot::Игрок-2" },
+            { true , 2, "bot::Игрок-3" }
+        }};
+
+        void initPlayers()
+        {   players.resize(cfgModel.order.size());
+            for(unsigned i = 0;      i < players.size(); ++i)
+            {   auto&    a = players[i];
+                auto&    b = cfgModel.players[(unsigned)cfgModel.order[i]];
+                         a = { b.isBot , i, b.name };
+            }
+        }
 
         sf::RenderWindow*        pwin;
 
@@ -41,12 +64,6 @@ namespace vsl
 
 		Music musicLogo{"res/snd/Maddix - Receive Life.mp3"};
 		Music musicGame{"res/snd/Maddix - Acid Soul.mp3"   };
-
-        controller::Players players
-        {{  { true , 0, "bot::Игрок-1" },
-            { true , 1, "bot::Игрок-2" },
-            { true , 2, "bot::Игрок-3" }
-        }};
 
         uii::UITest        uiTune       ;
         uii::UIUpLog       uiUpLog      ;

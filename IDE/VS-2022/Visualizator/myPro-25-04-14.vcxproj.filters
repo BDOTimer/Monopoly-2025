@@ -203,6 +203,7 @@
     <Text Include="..\..\..\Sources\Model-25\model\implants\doc-iq.txt">
       <Filter>Model-25\model\implants</Filter>
     </Text>
+    <Text Include="..\..\..\task-dev.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\Sources\Model-25\model\cards.inc">

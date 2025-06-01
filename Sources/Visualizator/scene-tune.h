@@ -78,7 +78,8 @@ namespace vsl
     private:
         ///////////////////////////////////////////////////////////////////////:
         void startModel()
-        {   cfg.cfgModel = *model::getConfig ();
+        {   //cfg.cfgModel = *model::getConfig ();
+            cfg.setConfigModel(*model::getConfig ());
             cfg.uiTune << model::getLogo(cfg.cfgModel.idGame) << "\n";
 
             cfg.uiGameLog << "///-----------------------------------|\n"

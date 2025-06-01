@@ -75,6 +75,7 @@
   <ItemGroup>
     <Text Include="..\..\..\extLibs\imgui-1.91.8\misc\cpp\README.txt" />
     <Text Include="..\..\..\Sources\Model-25\model\implants\doc-iq.txt" />
+    <Text Include="..\..\..\task-dev.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\bin\Visualizator\res\shaders\dice.frag" />

@@ -12,7 +12,8 @@ namespace controller
     /// Игрок и его стейт.
     ///----------------------------------------------------------------- Player:
     struct  Player
-    {       Player( bool  isBot, unsigned id, std::string_view name)
+    {       Player() = default;
+            Player( bool  isBot, unsigned id, std::string_view name)
                 :   isBot(isBot)
                 ,   id      (id)
                 ,   name  (name)

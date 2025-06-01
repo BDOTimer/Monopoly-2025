@@ -1095,7 +1095,7 @@ namespace model
             //  cfg->managerEvents.push(0);
             //  cfg->managerEvents.make( );
 
-                order = myl::WhoFirstPlayer::getFastOrder(Cfg.amountPlayers);
+                cfg->order = myl::WhoFirstPlayer::getFastOrder(Cfg.amountPlayers);
             }
            ~Referee()
             {   for(auto p : perses) delete p;
@@ -1106,12 +1106,12 @@ namespace model
                                ss << "Field:\n"   << field << "\n"
                                   << "Жеребьевка: ";
 
-            for(const auto n : order)
+            for(const auto n : cfg->order)
             {   ss << (n+1) << " ";
             }   ss << '\n';
 
             for(unsigned i = 0; i < perses.size(); ++i)
-            {   ss << perses[order[i]]->name << '\n';
+            {   ss << perses[cfg->order[i]]->name << '\n';
             }
 
             ss << '\n' << info();
@@ -1124,8 +1124,8 @@ namespace model
         const std::string info() const
         {   std::stringstream ss;
             for(unsigned i = 0; i < perses.size(); ++i)
-            {   ss << perses[order[i]]->infoName();
-                ss << perses[order[i]]->info    ();
+            {   ss << perses[cfg->order[i]]->infoName();
+                ss << perses[cfg->order[i]]->info    ();
             }
             return ss.str();
         }
@@ -1140,7 +1140,6 @@ namespace model
         std::vector<model::Card*> pcards;
 
         myl::WhoFirstPlayer whoFirstPlayer;
-        std::vector<unsigned>        order;
 
         IPerson* persNow{nullptr};
 
@@ -1191,9 +1190,9 @@ namespace model
             ///------------------------------:
             ss << field.bank.info() << '\n';
 
-            cfg->stateGame.dat[ED::E_IDPLAYER] = order[i];
+            cfg->stateGame.dat[ED::E_IDPLAYER] = cfg->order[i];
 
-            persNow = perses[order[i]];
+            persNow = perses[cfg->order[i]];
 
             cfg->stateGame.str[ES::E_NAME] = persNow->name;
 
@@ -1313,6 +1312,8 @@ namespace model
             {
                 if(cap[i] >= capitalAll$cv)
                 {
+                    cfg->stateGame.dat[StateGame::eSTATE::E_GAMEOVER] = i;
+
                     const_cast<Referee*>(this)->_isGameOver = true;
                     const_cast<Referee*>(this)->conditionVictorStr
                         << "   |-------------------------------------|\n"
@@ -1324,6 +1325,7 @@ namespace model
                 }
             }
 
+            cfg->stateGame.dat[StateGame::eSTATE::E_GAMEOVER] = -1;
             return NPOS;
         }
 

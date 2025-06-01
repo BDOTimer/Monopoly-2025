@@ -178,7 +178,7 @@ namespace model
         ///------------------------------|
         /// Если 0, то сид от часов.     |
         ///------------------------------:
-        unsigned isSeed{123456};
+        unsigned isSeed{1234560};
 
         ///------------------------------|
         /// Денеги у игроков на старте.  |
@@ -316,6 +316,9 @@ namespace model
         const Cell& getCell(const unsigned position) const;
               Cell& getCell(const unsigned position);
 
+        void init()
+        {   stateGame.dat[StateGame::E_GAMEOVER] = -1;
+        }
 
         ///------------------------------|
         /// Тест класса.                 |

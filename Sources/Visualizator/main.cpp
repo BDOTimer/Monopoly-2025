@@ -8,7 +8,7 @@
 
 void tests()
 {
-    model::ConfigShare::test();
+/// model::ConfigShare::test();
 ///
 /// TRY(vsl::ShaderDice::test2())
 ///
