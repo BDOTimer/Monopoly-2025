@@ -43,6 +43,11 @@ namespace vsl
                 cfg.uiTuneBase.fooExit = [this]()
                 {   this->cfg.pwin->close();
                 };
+
+                cfg.uiTuneBase.fooRules = [this]()
+                {   this->cfg.uiTuneRulesInfo.doOpen ();
+                    this->cfg.uiTuneBase     .doClose();
+                };
             }
 
         bool isGameRun{false};
@@ -106,6 +111,7 @@ namespace vsl
 
         /// cfg.uiTune    .show();
             cfg.uiTuneBase.show();
+            cfg.uiTuneRulesInfo.show();
         }
     };
 }

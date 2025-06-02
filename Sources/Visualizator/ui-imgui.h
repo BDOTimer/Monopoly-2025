@@ -372,6 +372,10 @@ namespace uii
 
         UIDownMessage* messDown{nullptr};
 
+        bool isOpen    { true };
+        void doClose() { isOpen = false; }
+        void doOpen () { isOpen = true ; }
+
         void doFooEmpty();
         std::function<void()> fooEmpty
         {   [this](){ this->doFooEmpty(); }
@@ -689,7 +693,7 @@ namespace uii
             );
 
 
-                if(ImGui::Button("< < <", WH))
+                if(ImGui::Button("<<<", WH))
                 {   fooTune   ();
                     sound.play();
                 }

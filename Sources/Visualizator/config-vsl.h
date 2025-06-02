@@ -80,6 +80,8 @@ namespace vsl
 
         uii::UIWinGameCellInfo uiCellInfo;
 
+        uii::UITuneRulesInfo   uiTuneRulesInfo{uiTuneBase};
+
         ///-----------------------------------|
         /// Новая игра.                       |
         ///-----------------------------------:
@@ -217,6 +219,20 @@ namespace vsl
                 const float psY =(G.position.y + G.size.y * 3 / 8) * szfWin.y;
 
                 uiCellInfo.setGeometry({szX, szY}, {psX, psY});
+            }
+
+            ///-------------------|
+            /// uiTuneRulesInfo   |
+            ///-------------------:
+            {   const float PAD  = 30.f;
+                const float W    = szfWin.x / 2.8f;
+                const float PAD2 = PAD + PAD;
+                const float szX  = W;
+                const float szY  = szfWin.y - PAD2;
+                const float psX  = (szfWin.x - W) / 2;
+                const float psY  = PAD;
+
+                uiTuneRulesInfo.setGeometry({szX, szY}, {psX, psY});
             }
 
         //  uiPlayersLog = uiPlayers;

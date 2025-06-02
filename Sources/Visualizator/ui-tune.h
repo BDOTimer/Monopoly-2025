@@ -36,8 +36,8 @@ namespace uii
         Callback fooContinue  {[this](){}};
         Callback fooTuneTester{[this](){}};
         Callback fooTuneGamer {[this](){}};
+        Callback fooRules     {[this](){}};
         Callback fooExit      {[this](){}};
-        Callback fooTest      {[this](){}};
 
         ImVec2 WH  {100, 40};
         ImVec2 WHx2;
@@ -47,11 +47,12 @@ namespace uii
         ImColor colButtonA{26,55,54,170};
 
         void show()
-        {
+        {   if(!isOpen) return;
+
             auto& color = ImGui::GetStyle().Colors[ImGuiCol_WindowBg];
                   color = ImColor(35,35,35,190);
 
-            
+
             ///---------------------------------------|
             /// Позиция и размер окна.                |
             ///---------------------------------------:
@@ -103,7 +104,7 @@ namespace uii
                 }
 
                 if(ImGui::Button("ПРАВИЛА ИГРЫ", WH))
-                {   fooTest   ();
+                {   fooRules  ();
                     sound.play();
                 }
 
@@ -129,7 +130,7 @@ namespace uii
 
             ImGui::PopStyleColor();
             ImGui::PopStyleColor();
-            ImGui::PopStyleColor();  
+            ImGui::PopStyleColor();
 
             ImGui::End();
 
@@ -166,6 +167,227 @@ namespace uii
 
     };
 
+    extern const char* const strRules;
+    ///------------------------------------------------------------------------|
+    /// UITuneRulesInfo базовое начальное меню ...
+    ///-------------------------------------------------------- UITuneRulesInfo:
+    struct  UITuneRulesInfo   : UIBase
+    {       UITuneRulesInfo(UITuneBase& uiTuneBase)
+                :   uiTuneBase( uiTuneBase)
+                ,   snd1      ( buf1)
+            {
+                name = "ПРАВИЛА ИГРЫ";
+
+                bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
+                ASSERT(ok)
+
+                       ok = buf1.loadFromFile("res/snd/gudok-doplera.mp3");
+                ASSERT(ok)
+
+                ImGuiStyle&      style = ImGui::GetStyle();
+                ColorBLog.m[0] = style.Colors[ImGuiCol_Button];
+
+                init();
+
+                (*this) << strRules;
+
+                doClose();
+            }
+
+        UITuneBase& uiTuneBase;
+
+        //ImVec4 buttonColor;
+
+        sf::SoundBuffer  buf1;
+        sf::Sound        snd1;
+
+        Callback fooEmpty   {[this](){}};
+
+        ImVec2 WH  {100, 40};
+        ImVec2 WHx2;
+
+        ImColor colButtonB{ 6,15,14,120};
+        ImColor colButtonH{ 6,35,34,170};
+        ImColor colButtonA{26,55,54,170};
+
+        void show()
+        {
+            if(!isOpen) return;
+
+            auto& color = ImGui::GetStyle().Colors[ImGuiCol_WindowBg];
+                  color = ImColor(35,35,35,190);
+
+            ///---------------------------------------|
+            /// Позиция и размер окна.                |
+            ///---------------------------------------:
+            /// TODO: Окно на разных компах должно соответствовать ....
+
+            ///
+            ImGui::SetNextWindowSize(size);
+            ///
+            ImGui::SetNextWindowPos (position);
+
+            ///---------------------------------------|
+            /// Окно <name>.                          |
+            ///---------------------------------------:
+            ImGui::Begin( name.data(), &isOpen, 0
+                        | ImGuiWindowFlags_NoCollapse
+                        | ImGuiWindowFlags_NoMove
+                    /// | ImGuiWindowFlags_NoTitleBar
+                        | ImGuiWindowFlags_NoScrollbar
+                        | ImGuiWindowFlags_NoResize
+                    /// | ImGuiWindowFlags_HorizontalScrollbar
+                    /// | ImGuiWindowFlags_AlwaysVerticalScrollbar
+                    /// | ImGuiWindowFlags_MenuBar
+                    /// | ImGuiWindowFlags_NoBackground
+                    /// | ImGuiWindowFlags_AlwaysAutoResize
+            );
+
+            ImGui::PushStyleColor(ImGuiCol_Button,       (ImVec4)colButtonB);
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered,(ImVec4)colButtonH);
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive ,(ImVec4)colButtonA);
+
+            {   showButtonClose("Закрыть");
+                ImGui::Text("%s", log.str().c_str());
+                showButtonClose("Закрыть ");
+            }
+
+            ImGui::PopStyleColor();
+            ImGui::PopStyleColor();
+            ImGui::PopStyleColor();
+
+            ImGui::End();
+
+        //  ImGui::Begin("TEST");
+        //  ImGui:(buttonTexture);
+        //  ImGui::End();
+
+            if(!isOpen)
+            {   sound.play();
+                uiTuneBase.doOpen();
+            }
+        }
+
+        void setGeometry(ImVec2 sz, ImVec2 ps)
+        {   UIBase::setGeometry(sz,        ps);
+            WH   = {sz.x - 17.0f, sz.y / 20.f};
+            WHx2 = {WH.x + WH.x, WH.y};
+        }
+
+        myl::SwitcherData<ImVec4, 2> ColorBLog
+        {   ImVec4{0.2f, 0.7f, 0.2f, 1.0f},
+            ImVec4{0.7f, 0.2f, 0.2f, 1.0f}
+        };
+
+        static ImTextureID convertSFMLTexture2Im(const sf::Texture& tx)
+        {   return (ImTextureID)(size_t)tx.getNativeHandle();
+        }
+
+        sf::Texture buttonTexture;
+        ImTextureID texId;
+        void init()
+        {   if (!buttonTexture.loadFromFile("res/img/button.png"))
+            {   ASSERT(false)
+            }
+            texId = convertSFMLTexture2Im(buttonTexture);
+        }
+
+    private:
+
+        void showButtonClose(const char* mess)
+        {   if(ImGui::Button(mess, WH))
+            {   /// snd1.play();
+                /// fooEmpty ();
+                    sound.play();
+                    isOpen = false;
+                    uiTuneBase.doOpen();
+            }
+        }
+
+    };
+
+    const char* const strRules
+    {
+R"(
+--------------------------------------------------------------------------------
+ПРАВИЛА ИГРЫ: ПРОМЫШЛЕННАЯ МОНОПОЛИЯ.
+--------------------------------------------------------------------------------
+
+Подготовка.
+    Игроки выбирают фишки . Далее определяют, кто будет ходить первым.
+    Это делают броском кубика: чем больше число выпало, тем раньше ходит игрок.
+    Банкиром в ире будет вычислительная машина.
+    Каждый игрок получает 300 монет на свой счёт.
+--------------------------------------------------------------------------------
+Порядок ходов.
+    Ходы отределяет стандартный кубик 1-6 граней .
+    Игроки по очереди бросают кубик и делают соответствующее количество ходов.
+    Порядок покупки и продажи недвижимости.
+    Встав на поле, игрок либо приобретает актив либо отказывается от сделки.
+    Стоимость актива указана на игровой ячейке
+    и рассчитана согласно статусу игрока.
+    В игре установлены три вида промышленности:
+        - Производство военных товаров.
+        - Производство продуктов питания.
+        - Детская промышленность.
+    Игрок может быть в статусе менеджера
+        - по продаже детских товаров,
+        - военным инженером или
+        - менеджером по продажам продуктов питания.
+    Каждый статус даёт преимущества при управлении своим вида промышленности
+    и недостатки при управлении чужим. Игрок проходит переобучение при
+    прохождении точки старта и меняет статус позволяющий извлекать прибыль из
+    другого вида промышленности.
+    Подробнее указано на информационных табло предприятий.
+    Продажи собственности между игроками запрещены.
+    Продавать можно в банк.
+    Стоимость недвижимости изменяется при изменении статуса.
+    Это даёт возможность для биржиых торгов. Раз за круг игрок может купить
+    одну любую общественную собственность, без занятия этого поля.
+--------------------------------------------------------------------------------
+Аренда.
+    Если игрок встал на уже купленное поле,
+    то он обязан оплатить аренду (стоимость предприятия).
+    Сумма высчитывается от умения управлять данным видом предприятий.
+    На аренду влияет, купил ли собственник все поля этого цвета
+    или только часть этих полей,
+    то есть собрал монополию. С ней арендный платеж будет максимальным.
+    Монополия начинаеся с 4 предприятий одного вида промышленности.
+    Аренда повышается с увелечением предприятий этого вида.
+    Если игрок встал на своё поле получает из банка дивиденды в размере умения
+    управлять данным видом промышленности.
+--------------------------------------------------------------------------------
+Порядок изъятия собственности при минусовом балансе.
+    До минуса 200 монет собственность не изымается.
+    Аренда другому игроку платится из банка,
+    но все последующие доходы автоматически уходят в банк.
+    Игрок не может покупать собственность в минус.
+    Если долг составит больше 200 золотых монет,
+    собственность продадут автоматически (банкротство).
+--------------------------------------------------------------------------------
+События.
+    Первые 6 кругов игроки получают бонус в размере 100 монет
+    за прохождение начального поля.
+    События определяются автоматически. Открывается карточка шанс.
+    Какими бывают события:
+    получить деньги из банка;
+    отдать часть денег в банк;
+    получить право сделать на выбор от 1 до 3 ходов .
+    получить право сделать на выбор от 3 до 6 ходов .
+    сменить статус или продлить текущий статус на следующий круг.
+    получить дополнительный ход и так далее.
+    имет право приобрести собственность по карточке шанс.
+--------------------------------------------------------------------------------
+Победа условия.
+    Исходом игры станет капитализация рынка одним игроком
+    ( стоимость активов по номиналу + оборотные средства на счету)
+    в размере 51% процента при игре трёх игроков.
+    Оба других игрока окажутся в минусе  больше чем на 100 монет и один из них
+    не будет иметь собственность.
+    Один игрок занял 10 ячеек одной отрасли промышленности и две другой.
+--------------------------------------------------------------------------------
+)"
+    };
 }
 
 
