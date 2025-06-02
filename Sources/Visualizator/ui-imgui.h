@@ -142,6 +142,9 @@ namespace uii
 
             ImGuiIO& io = ImGui::GetIO();
 
+            io.IniFilename = "imgui_settings.ini";
+            io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+
             io.Fonts->Clear();
             isGood = io.Fonts->AddFontFromFileTTF(fontname, 18.f, NULL,
                      io.Fonts->GetGlyphRangesCyrillic());
@@ -416,11 +419,11 @@ namespace uii
             position = ps;
         }
 
-    protected:
-        std::string_view name;
-
         ImVec2 size    {200,200};
         ImVec2 position{  0,  0};
+
+    protected:
+        std::string_view name;
     };
 
     ///------------------------------------------------------------------------|

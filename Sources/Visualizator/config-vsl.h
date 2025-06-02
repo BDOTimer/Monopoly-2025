@@ -28,6 +28,11 @@ namespace vsl
         ///-----------------------------------:
         model::ConfigShare            cfgModel;
 
+        ///-----------------------------------|
+        /// Черная дверь на сервер.           |
+        ///-----------------------------------:
+        BackDoor::Data                 backDoor;
+
         void setConfigModel(model::ConfigShare& mdl)
         {   cfgModel = mdl;
             initPlayers ();
@@ -80,7 +85,8 @@ namespace vsl
 
         uii::UIWinGameCellInfo uiCellInfo;
 
-        uii::UITuneRulesInfo   uiTuneRulesInfo{uiTuneBase};
+        uii::UITuneRulesInfo uiTuneRulesInfo{uiTuneBase};
+        uii::UITuneBackDoor  uiTuneBackDoor {uiTuneBase, this};
 
         ///-----------------------------------|
         /// Новая игра.                       |
@@ -235,6 +241,18 @@ namespace vsl
                 uiTuneRulesInfo.setGeometry({szX, szY}, {psX, psY});
             }
 
+            ///-------------------|
+            /// uiTuneBackDoor    |
+            ///-------------------:
+            {   const auto& sz = uiTuneBase.size;
+                const auto& ps = uiTuneBase.position;
+
+                const float psX = ps.x + sz.x + 10.f;
+                const float psY = ps.y;
+
+                uiTuneBackDoor.setGeometry(sz, {psX, psY});
+            }
+
         //  uiPlayersLog = uiPlayers;
 
             uiUpLog.messDown = &uiDownMessage;
@@ -243,6 +261,11 @@ namespace vsl
         Sound mp3no   {"res/snd/no.mp3"};
         Sound mp3dice1{"res/snd/dice1.mp3"};
     };
+}
+
+namespace uii
+{
+    int* UITuneBackDoor::getIsSeed(){ return &cfg->backDoor.isSeed; }
 }
 
 #endif // X_H

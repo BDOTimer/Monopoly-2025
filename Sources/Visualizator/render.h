@@ -31,7 +31,7 @@ struct  Render
 			cfg.scenesSwitcher.init(&scenes);
 
             const auto cursor = sf::Cursor::createFromSystem(
-                sf::Cursor::Type::Hand).value(); 
+                sf::Cursor::Type::Hand).value();
             cfg.pwin->setMouseCursor(cursor);
 
             cfg.pwin->setMouseCursorVisible(false);
@@ -126,15 +126,9 @@ private:
             ImGui::SFML::Render  (window);
             window.display       (      );
 
-            
+
         }
         #undef ISKEYPRESED
-
-        vsl::Sound sound("res/snd/out.mp3"); sound.play();
-
-        while(sound.getStatus() != sf::Sound::Status::Stopped)
-        {   std::this_thread::sleep_for(std::chrono::milliseconds {100});
-        }
     }
 
     ///--------------------------------------|

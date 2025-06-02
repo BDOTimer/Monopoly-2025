@@ -5,6 +5,14 @@
 ///-------------------------------------------------------------- sfml-Monopoly:
 #include "render.h"
 
+void exit2sys()
+{
+    vsl::Sound sound("res/snd/out.mp3"); sound.play();
+    while(sound.getStatus() != sf::Sound::Status::Stopped)
+    {   std::this_thread::sleep_for(std::chrono::milliseconds {100});
+    }
+}
+
 
 void tests()
 {
@@ -39,6 +47,8 @@ int main(int argc, char* argv[])
     }
 
     std::cout << "Программа закончила работу ...\n";
+
+    exit2sys();
 
     std::cin.get();
 }

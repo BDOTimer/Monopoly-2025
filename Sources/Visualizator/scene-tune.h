@@ -48,6 +48,11 @@ namespace vsl
                 {   this->cfg.uiTuneRulesInfo.doOpen ();
                     this->cfg.uiTuneBase     .doClose();
                 };
+
+                cfg.uiTuneBase.fooTuneTester = [this]()
+                {   this->cfg.uiTuneBackDoor.isOpen =
+                   !this->cfg.uiTuneBackDoor.isOpen ;
+                };
             }
 
         bool isGameRun{false};
@@ -84,7 +89,7 @@ namespace vsl
         ///////////////////////////////////////////////////////////////////////:
         void startModel()
         {   //cfg.cfgModel = *model::getConfig ();
-            cfg.setConfigModel(*model::getConfig ());
+            cfg.setConfigModel(*model::getConfig (cfg.backDoor));
             cfg.uiTune << model::getLogo(cfg.cfgModel.idGame) << "\n";
 
             cfg.uiGameLog << "///-----------------------------------|\n"
@@ -110,8 +115,9 @@ namespace vsl
             target.draw   (tmess1, states);
 
         /// cfg.uiTune    .show();
-            cfg.uiTuneBase.show();
+            cfg.uiTuneBase     .show();
             cfg.uiTuneRulesInfo.show();
+            cfg.uiTuneBackDoor .show();
         }
     };
 }

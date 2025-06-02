@@ -5,6 +5,12 @@
 ///----------------------------------------------------------------------------:
 #include "ui-imgui.h"
 
+namespace vsl
+{
+    struct Config;
+}
+
+
 namespace uii
 {
     ///------------------------------------------------------------------------|
@@ -387,6 +393,147 @@ R"(
     Один игрок занял 10 ячеек одной отрасли промышленности и две другой.
 --------------------------------------------------------------------------------
 )"
+    };
+
+
+    ///------------------------------------------------------------------------|
+    /// UITuneBackDoor черный вход на сервер.
+    ///--------------------------------------------------------- UITuneBackDoor:
+    struct  UITuneBackDoor   : UIBase
+    {       UITuneBackDoor(UITuneBase& uiTuneBase, vsl::Config* cfg)
+                :   cfg       (cfg)
+                ,   uiTuneBase( uiTuneBase)
+                ,   snd1      ( buf1)
+            {
+                name = "НАСТРОЙКИ ТЕСТИРОВЩИКА";
+
+                bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
+                ASSERT(ok)
+
+                       ok = buf1.loadFromFile("res/snd/gudok-doplera.mp3");
+                ASSERT(ok)
+
+                ImGuiStyle&      style = ImGui::GetStyle();
+                ColorBLog.m[0] = style.Colors[ImGuiCol_Button];
+
+                init();
+
+                (*this) << "Только в новой игре!";
+
+                doClose();
+            }
+
+        vsl::Config*       cfg;
+        UITuneBase& uiTuneBase;
+
+        //ImVec4 buttonColor;
+
+        sf::SoundBuffer  buf1;
+        sf::Sound        snd1;
+
+        Callback fooEmpty   {[this](){}};
+
+        ImVec2 WH  {100, 40};
+        ImVec2 WHx2;
+
+        ImColor colButtonB{ 6,15,14,120};
+        ImColor colButtonH{ 6,35,34,170};
+        ImColor colButtonA{26,55,54,170};
+
+        void show()
+        {
+            if(!isOpen) return;
+
+            auto& color = ImGui::GetStyle().Colors[ImGuiCol_WindowBg];
+                  color = ImColor(35,35,35,190);
+
+            ///---------------------------------------|
+            /// Позиция и размер окна.                |
+            ///---------------------------------------:
+            /// TODO: Окно на разных компах должно соответствовать ....
+
+            ///
+            ImGui::SetNextWindowSize(size);
+            ///
+            ImGui::SetNextWindowPos (position);
+
+            ///---------------------------------------|
+            /// Окно <name>.                          |
+            ///---------------------------------------:
+            ImGui::Begin( name.data(), &isOpen, 0
+                        | ImGuiWindowFlags_NoCollapse
+                        | ImGuiWindowFlags_NoMove
+                    /// | ImGuiWindowFlags_NoTitleBar
+                        | ImGuiWindowFlags_NoScrollbar
+                        | ImGuiWindowFlags_NoResize
+                    /// | ImGuiWindowFlags_HorizontalScrollbar
+                    /// | ImGuiWindowFlags_AlwaysVerticalScrollbar
+                    /// | ImGuiWindowFlags_MenuBar
+                    /// | ImGuiWindowFlags_NoBackground
+                    /// | ImGuiWindowFlags_AlwaysAutoResize
+            );
+
+            ImGui::PushStyleColor(ImGuiCol_Button,       (ImVec4)colButtonB);
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered,(ImVec4)colButtonH);
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive ,(ImVec4)colButtonA);
+
+            {   showButtonClose("Закрыть");
+                ImGui::Text("%s", log.str().c_str());
+                ImGui::DragInt ("isSeed##3a", getIsSeed());
+            }
+
+            ImGui::PopStyleColor();
+            ImGui::PopStyleColor();
+            ImGui::PopStyleColor();
+
+            ImGui::End();
+
+        //  ImGui::Begin("TEST");
+        //  ImGui:(buttonTexture);
+        //  ImGui::End();
+
+            if(!isOpen)
+            {   sound.play();
+                uiTuneBase.doOpen();
+            }
+        }
+
+        void setGeometry(ImVec2 sz, ImVec2 ps)
+        {   UIBase::setGeometry(sz,        ps);
+            WH   = {sz.x - 17.0f, sz.y / 20.f};
+            WHx2 = {WH.x + WH.x, WH.y};
+        }
+
+        myl::SwitcherData<ImVec4, 2> ColorBLog
+        {   ImVec4{0.2f, 0.7f, 0.2f, 1.0f},
+            ImVec4{0.7f, 0.2f, 0.2f, 1.0f}
+        };
+
+        static ImTextureID convertSFMLTexture2Im(const sf::Texture& tx)
+        {   return (ImTextureID)(size_t)tx.getNativeHandle();
+        }
+
+        sf::Texture buttonTexture;
+        ImTextureID texId;
+        void init()
+        {   if (!buttonTexture.loadFromFile("res/img/button.png"))
+            {   ASSERT(false)
+            }
+            texId = convertSFMLTexture2Im(buttonTexture);
+        }
+
+    private:
+
+        void showButtonClose(const char* mess)
+        {   if(ImGui::Button(mess, WH))
+            {   /// snd1.play();
+                /// fooEmpty ();
+                    sound.play();
+                    isOpen = false;
+            }
+        }
+
+        int* getIsSeed();
     };
 }
 

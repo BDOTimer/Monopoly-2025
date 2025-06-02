@@ -11,6 +11,31 @@ const char* const LOGO = "Model::Monopoly-2025[ver::0.2.4]";
 
 #include "debug.h"
 
+namespace BackDoor
+{
+    struct  Data
+    {       Data()
+            {   std::ifstream f(fn);
+                if(!f.is_open()) return;
+                std::vector<std::string> m;
+                for(std::string s; std::getline(f, s);) m.push_back(s);
+
+                isSeed = std::stoi(m[0].c_str());
+            }
+           ~Data()
+            {   std::ofstream f(fn);
+                f << isSeed << '\n';
+
+                std::cout << "Файл \"BackDoor.txt\" обновлен.\n";
+            }
+
+        int isSeed{1234560};
+
+    private:
+        const char* fn{"BackDoor.txt"};
+    };
+}
+
 namespace model
 {
     struct Decode2Str
@@ -153,7 +178,7 @@ namespace model
         {    E_      ,
              E_NAME  ,
              E_CELL  ,
-             
+
              /// ...
              E_STR
         };
@@ -161,15 +186,13 @@ namespace model
         std::array<std::string, eSTATESTR::E_STR> str
         {   "3"
         };
-
-
     };
 
 
     ///---------------------------|
     /// vsl.                      |
     ///---------------------------:
-    ConfigShare* getConfig();
+    ConfigShare* getConfig(const BackDoor::Data& data);
 
     std::string  getLogo(unsigned id);
 

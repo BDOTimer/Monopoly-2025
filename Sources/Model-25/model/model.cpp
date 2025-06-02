@@ -5,6 +5,18 @@
 #include "config-model.h"
 #include "!m-model.h"
 
+
+namespace BackDoor
+{
+    void loadBackDoor2Config(const BackDoor::Data& bd, model::Config* cfg)
+    {
+        if(!cfg->isActiveBackDoor) return;
+
+        cfg->isSeed = (unsigned)bd.isSeed;
+    }
+}
+
+
 namespace model
 {
     ///----------------------------------|
@@ -52,9 +64,12 @@ namespace model
             if(nullptr != mdl) delete mdl;
         }
 
-        void reCreate()
+        void reCreate(const BackDoor::Data& data)
         {    clear   ();
              cfg = new Config   (   );
+
+             BackDoor::loadBackDoor2Config(data, cfg);
+
              mdl = new ModelGate(cfg);
         }
     };
@@ -67,16 +82,17 @@ namespace model
             {   for(auto p : *this) p.clear();
             }
 
-        unsigned/*id*/ reCreate(const std::string& login)
+        unsigned/*id*/ reCreate(const std::string&   login,
+                                const BackDoor::Data& data)
         {   if(const auto p = logins.find(login); p != logins.end())
             {   const unsigned&    id = p->second;
                 auto&  o = (*this)[id];
-                       o.reCreate   ();
+                       o.reCreate   (data);
                 return id;
             }
             else
             {   emplace_back(CG());
-                back().reCreate( );
+                back().reCreate(data);
                 return (unsigned)size() - 1;
             }
         }
@@ -102,8 +118,8 @@ namespace model
     ///------------------------------------------------------------------------|
     /// Интерфейс модели.
     ///------------------------------------------------------------------------:
-    ConfigShare* getConfig()
-    {   unsigned    id = holderGates.reCreate("desktop"); /// Desktop version.
+    ConfigShare* getConfig(const BackDoor::Data& data)
+    {   unsigned    id = holderGates.reCreate("desktop", data);
         holderGates[id].cfg->idGame = id;
         return holderGates[id].cfg;
     }

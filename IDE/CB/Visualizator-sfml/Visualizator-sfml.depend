@@ -1655,7 +1655,7 @@
 	<locale>
 	<codecvt>
 
-1748845469 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\config-model.h
+1748877433 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\config-model.h
 	"../debug.h"
 	"../user-model.h"
 	"implants/bot-iq.h"
@@ -1664,12 +1664,12 @@
 
 1748456712 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\field.inc
 
-1748720248 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\model.cpp
+1748883060 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\model.cpp
 	"../user-model.h"
 	"config-model.h"
 	"!m-model.h"
 
-1748845469 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\user-model.h
+1748884284 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\user-model.h
 	<iostream>
 	<string>
 	<vector>
@@ -1844,7 +1844,7 @@
 	<SFML/Audio/SoundFileFactory.hpp>
 	<memory>
 
-1748853700 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\config-vsl.h
+1748881589 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\config-vsl.h
 	"debug.h"
 	"controller/controller.h"
 	"ui-tune.h"
@@ -1856,10 +1856,10 @@
 	"../debug.h"
 	"../user-model.h"
 
-1748854091 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-tune.h
+1748881461 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-tune.h
 	"ui-imgui.h"
 
-1748852843 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-imgui.h
+1748882011 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-imgui.h
 	<SFML/Audio/Sound.hpp>
 	"imgui.h"
 	"imgui-SFML.h"
@@ -1875,7 +1875,7 @@
 1748715672 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-logo.h
 	"common.h"
 
-1748849960 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-tune.h
+1748882552 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-tune.h
 	"common.h"
 	"scene-game.h"
 
