@@ -161,6 +161,9 @@
 		<Unit filename="../../../Sources/Visualizator/ui-tune.h">
 			<Option virtualFolder="vsl/ui/" />
 		</Unit>
+		<Unit filename="../../../Sources/Visualizator/ui-win-game.h">
+			<Option virtualFolder="vsl/ui/" />
+		</Unit>
 		<Unit filename="../../../extLibs/imgui-1.91.8/imconfig.h">
 			<Option virtualFolder="imgui/" />
 		</Unit>
