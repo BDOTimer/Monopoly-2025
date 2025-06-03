@@ -20,9 +20,9 @@ namespace vsl
     ///-------------------------------------------------------------- SceneGame:
     struct  SceneGame   :   vsl::IObject
     {       SceneGame      (vsl::Config& cfg)
-				:	cfg    (cfg)
-				,	nameTx ("res/game.jpg")
-                ,	fon    (cfg.szfWin)
+                :   cfg    (cfg)
+                ,   nameTx ("res/game.jpg")
+                ,   fon    (cfg.szfWin)
             {
                 fon.setTexture(&HolderTexture::get(nameTx));
 
@@ -36,7 +36,7 @@ namespace vsl
 
                 cfg.uiUpLog.fooMusic = [this]()
                 {   using E = sf::SoundSource::Status;
-					const bool
+                    const bool
                     b{    this->cfg.musicGame.getStatus() == E::Playing };
                     b   ? this->cfg.musicGame.pause()
                         : this->cfg.musicGame.play ();
@@ -56,7 +56,7 @@ namespace vsl
                 };
             }
 
-		vsl::Config&  cfg;
+        vsl::Config&  cfg;
 
         PLUG_IOBJECT2
 
@@ -67,13 +67,13 @@ namespace vsl
 
         void goTune()
         {   using E = vsl::ScenesSwitcher;
-			cfg.scenesSwitcher.doSwitcher(E::E_TUNE);
-			cfg.musicGame.stop();
+            cfg.scenesSwitcher.doSwitcher(E::E_TUNE);
+            cfg.musicGame.stop();
         }
 
-		void input(const std::optional<sf::Event>&  event) override
-		{
-			if (event->is<sf::Event::KeyPressed>())
+        void input(const std::optional<sf::Event>&  event) override
+        {
+            if (event->is<sf::Event::KeyPressed>())
             {   if (ISKEYPRESSED(Escape))
                 {   goTune();
                 }
@@ -90,10 +90,10 @@ namespace vsl
             {   if ( p->button  == sf::Mouse::Button::Left)
                 {
                 }
-		    }
-		}
+            }
+        }
 
-		unsigned nStep{};
+        unsigned nStep{};
 
         void upDice()
         {   ///if(isGameOver) return; TODO ...

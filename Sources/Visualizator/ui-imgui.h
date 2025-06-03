@@ -138,7 +138,7 @@ namespace uii
             {   ASSERTM(false, "ImGui::SFML::Init() is failed ...")
             }
 
-			const char* fontname = "res/JetBrainsMono-Regular.ttf";
+            const char* fontname = "res/JetBrainsMono-Regular.ttf";
 
             ImGuiIO& io = ImGui::GetIO();
 

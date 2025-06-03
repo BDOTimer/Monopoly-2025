@@ -13,8 +13,8 @@ namespace vsl
     ///-------------------------------------------------------------- SceneTune:
     struct  SceneTune   :  vsl::IObject
     {       SceneTune     (vsl::Config& cfg)
-				:	cfg   (cfg)
-				,	fon   (cfg.szfWin)
+                :   cfg   (cfg)
+                ,   fon   (cfg.szfWin)
             {
                 fon.setTexture(&HolderTexture::get("res/tune.jpg"));
                 pr::setOrigin(fon);
@@ -57,19 +57,19 @@ namespace vsl
 
         bool isGameRun{false};
 
-		vsl::Config& cfg;
+        vsl::Config& cfg;
 
         PLUG_IOBJECT2
 
-		void input(const std::optional<sf::Event>&  event) override
-		{
-			if (event->is<sf::Event::KeyPressed>())
+        void input(const std::optional<sf::Event>&  event) override
+        {
+            if (event->is<sf::Event::KeyPressed>())
             {   if (ISKEYPRESSED(Num1))
                 {   this->startModel();
                     cfg.scenesSwitcher.next();
                 }
             }
-		}
+        }
 
         ///-----------------------------------|
         /// ...                               |

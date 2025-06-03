@@ -62,12 +62,12 @@ namespace vsl
         sf::View*     camFon{nullptr};
         sf::View*     camGui{nullptr};
 
-		ScenesSwitcher scenesSwitcher;
+        ScenesSwitcher scenesSwitcher;
 
         sf::Time            deltaTime;
 
-		Music musicLogo{"res/snd/Maddix - Receive Life.mp3"};
-		Music musicGame{"res/snd/Maddix - Acid Soul.mp3"   };
+        Music musicLogo{"res/snd/Maddix - Receive Life.mp3"};
+        Music musicGame{"res/snd/Maddix - Acid Soul.mp3"   };
         
         uii::UITest        uiTune       ;
         uii::UIUpLog       uiUpLog      ;
@@ -96,14 +96,12 @@ namespace vsl
 
         static sf::Font& getFont()
         {///static sf::Font font("consola.ttf");
-			static sf::Font font("res/JetBrainsMono-Regular.ttf");
+            static sf::Font font("res/JetBrainsMono-Regular.ttf");
             return font;
         }
 
         void init_()
-        {
-            szuWin = initWinSize();
-
+        {   szuWin = initWinSize();
             szfWin = {float(szuWin.x), float(szuWin.y)};
 
             getFont().setSmooth(true);
@@ -251,8 +249,6 @@ namespace vsl
 
                 uiTuneBackDoor.setGeometry(sz, {psX, psY});
             }
-
-        //  uiPlayersLog = uiPlayers;
 
             uiUpLog.messDown = &uiDownMessage;
         }
