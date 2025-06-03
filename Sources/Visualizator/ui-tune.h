@@ -413,7 +413,7 @@ R"(
                 ,   uiTuneBase( uiTuneBase)
                 ,   snd1      ( buf1)
             {
-                name = "НАСТРОЙКИ ТЕСТИРОВЩИКА";
+                name = "Хак-Тюнинг";
 
                 bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
                 ASSERT(ok)
