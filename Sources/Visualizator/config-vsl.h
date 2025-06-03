@@ -69,7 +69,7 @@ namespace vsl
 
 		Music musicLogo{"res/snd/Maddix - Receive Life.mp3"};
 		Music musicGame{"res/snd/Maddix - Acid Soul.mp3"   };
-
+        
         uii::UITest        uiTune       ;
         uii::UIUpLog       uiUpLog      ;
         uii::UIGame        uiGameLog    ;
@@ -231,7 +231,7 @@ namespace vsl
             /// uiTuneRulesInfo   |
             ///-------------------:
             {   const float PAD  = 30.f;
-                const float W    = szfWin.x / 2.8f;
+                const float W    = szfWin.x / 2.3f;
                 const float PAD2 = PAD + PAD;
                 const float szX  = W;
                 const float szY  = szfWin.y - PAD2;

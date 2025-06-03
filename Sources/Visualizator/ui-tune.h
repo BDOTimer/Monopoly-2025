@@ -216,6 +216,10 @@ namespace uii
         ImColor colButtonH{ 6,35,34,170};
         ImColor colButtonA{26,55,54,170};
 
+        void doOpen()
+        {   musicRule.play(); isOpen = true;
+        }
+
         void show()
         {
             if(!isOpen) return;
@@ -271,6 +275,7 @@ namespace uii
             if(!isOpen)
             {   sound.play();
                 uiTuneBase.doOpen();
+                musicRule.stop();
             }
         }
 
@@ -307,9 +312,12 @@ namespace uii
                     sound.play();
                     isOpen = false;
                     uiTuneBase.doOpen();
+
+                musicRule.stop();
             }
         }
 
+        vsl::Music musicRule{"res/snd/musicRule.mp3"};
     };
 
     const char* const strRules
