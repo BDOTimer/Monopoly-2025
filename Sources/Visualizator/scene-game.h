@@ -130,7 +130,7 @@ namespace vsl
         {
             const auto& mdl{cfg.cfgModel};
 
-            unsigned& idPlayer = cfg.players[IDPLAYER].id;
+            unsigned& idPlayer = cfg._3player[IDPLAYER].id;
 
             cfg.uiCellInfo.isBot = mdl.players[idPlayer].isBot;
 
@@ -156,7 +156,7 @@ namespace vsl
 
             const auto&   ID = (unsigned)sg.dat[E::E_IDPLAYER];
 
-            cfg.players  [ID].stateGame = sg;
+            cfg._3player  [ID].stateGame = sg;
 
             cfg.uiPlayers[IDPLAYER]<< uii::Clear()
                 << "  ИГРОК  : " << sg.str[ES::E_NAME  ]        << '\n'
@@ -188,7 +188,7 @@ namespace vsl
             if(isGameOver = sg.dat[ED::E_GAMEOVER] >= 0; isGameOver)
             {   cfg.uiDownMessage << uii::Clear()
                     << "ИГРА ЗАКОНЧЕНА! Победитель: "
-                    << cfg.players[sg.dat[ED::E_GAMEOVER]].name
+                    << cfg._3player[sg.dat[ED::E_GAMEOVER]].name
                     ;
             }
 
@@ -208,7 +208,7 @@ namespace vsl
 
         void nextPlayer()
         {
-            if(++IDPLAYER == cfg.players.size()) IDPLAYER = 0;
+            if(++IDPLAYER == cfg._3player.size()) IDPLAYER = 0;
 
             cfg.info_01(++cnt);
 

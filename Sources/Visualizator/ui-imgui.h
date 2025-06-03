@@ -497,19 +497,22 @@ namespace uii
     /// UI для игрока ...
     ///-------------------------------------------------------- UIScnGamePlayer:
     struct  UIScnGamePlayer  :   UIBase
-    {       UIScnGamePlayer(const controller::Player& pl)
+    {       UIScnGamePlayer()
                     //(vsl::Config  cfg)
                     //:   UIBase  (cfg)
-                    :   id   (pl.id  )
-            ///     ,   name (pl.name)
             {
-                name = pl.name;
+                name = "UIScnGamePlayer";
 
                 bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
                 ASSERT(ok)
             }
 
         unsigned id;
+
+        void setPlayer(const controller::Player& pl)
+        {   id   = pl.id;
+            name = pl.name;
+        }
 
         void show()
         {

@@ -18,8 +18,7 @@ namespace vsl
     {       Config (sf::RenderWindow& window)
                 :   pwin            (&window)
                 ,   uiTune           (window, "Настройки ...")
-            {
-                init           ();
+            {   init_();
                 resizeFormImgui();
             }
 
@@ -36,20 +35,20 @@ namespace vsl
         void setConfigModel(model::ConfigShare& mdl)
         {   cfgModel = mdl;
             initPlayers ();
+
         }
 
-        controller::Players players
-        {{  { true , 0, "bot::Игрок-1" },
-            { true , 1, "bot::Игрок-2" },
-            { true , 2, "bot::Игрок-3" }
-        }};
+        controller::Players _3player;
 
         void initPlayers()
-        {   players.resize(cfgModel.order.size());
-            for(unsigned i = 0;      i < players.size(); ++i)
-            {   auto&    a = players[i];
-                auto&    b = cfgModel.players[(unsigned)cfgModel.order[i]];
-                         a = { b.isBot , i, b.name };
+        {   const auto&         P = cfgModel.players;
+            _3player .clear    ();
+            _3player .reserve  (P.size());
+            for(unsigned i = 0; P.size() > i; ++i)
+            {   auto&    b =    P[(unsigned)cfgModel.order[i]];
+
+                _3player .emplace_back(controller::Player(b.isBot, i, b.name));
+                uiPlayers[i].setPlayer(_3player.back());
             }
         }
 
@@ -78,9 +77,9 @@ namespace vsl
         uii::UITuneBase    uiTuneBase   ;
 
         std::array<uii::UIScnGamePlayer, 3> uiPlayers
-        {   uii::UIScnGamePlayer(players[0]),
-            uii::UIScnGamePlayer(players[1]),
-            uii::UIScnGamePlayer(players[2])
+        {   uii::UIScnGamePlayer(),
+            uii::UIScnGamePlayer(),
+            uii::UIScnGamePlayer()
         };
 
         uii::UIWinGameCellInfo uiCellInfo;
@@ -101,7 +100,7 @@ namespace vsl
             return font;
         }
 
-        void init()
+        void init_()
         {
             szuWin = initWinSize();
 
