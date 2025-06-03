@@ -251,7 +251,6 @@ namespace vsl
             isLog     = false;
 
             winGame.reStart();
-            cfg    .reStart();
         }
 
         ///-----------------------------------|

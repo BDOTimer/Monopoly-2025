@@ -439,6 +439,11 @@ namespace uii
                 ASSERT(ok)
             }
 
+        void clear ()
+        {   doClose();
+            *this << Clear();
+        }
+
         void show()
         {
             auto& color = ImGui::GetStyle().Colors[ImGuiCol_WindowBg];
@@ -654,6 +659,9 @@ namespace uii
                 ColorBLog.m[0] = style.Colors[ImGuiCol_Button];
             }
 
+        void clear ()
+        {   ColorBLog.n = 0;
+        }
 
         //ImVec4 buttonColor;
 

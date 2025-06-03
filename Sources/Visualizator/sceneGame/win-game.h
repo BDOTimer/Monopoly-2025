@@ -11,7 +11,7 @@ namespace vsl
 {
     struct  AnimationFieldStart
     {       AnimationFieldStart(const vsl::Config& cfg) : cfg(cfg)
-            {   
+            {
             }
 
         const vsl::Config& cfg;
@@ -20,11 +20,11 @@ namespace vsl
 
         inline static const float H{10'000.f};
 
-        const float        speed  { 1.f };
+        const float        speed  { 3.f };
         const sf::Vector2f szEnd  { 3045, 1823 };
         const sf::Vector2f szStart{ H * szEnd.x / szEnd.y, H };
 
-        void go(sf::View& cam)
+        void go(sf::View&  cam)
         {   cam.zoom(1.f - speed * cfg.deltaTime.asSeconds());
             const auto& sz{cam.getSize()};
             if(sz.x <= szEnd.x)
@@ -99,18 +99,10 @@ namespace vsl
                 sf::Vector2f a{};
                 const float  S{30.f};
 
-                if (ISKEYPRESSED(Up))
-                {   a.y += S;
-                }
-                else if (ISKEYPRESSED(Down))
-                {   a.y -= S;
-                }
-                else if (ISKEYPRESSED(Left))
-                {   a.x += S;
-                }
-                else if (ISKEYPRESSED(Right))
-                {   a.x -= S;
-                }
+                     if (ISKEYPRESSED(Up  )) {   a.y += S; }
+                else if (ISKEYPRESSED(Down)) {   a.y -= S; }
+                else if (ISKEYPRESSED(Left)) {   a.x += S; }
+                else if (ISKEYPRESSED(Right)){   a.x -= S; }
 
                 camMove.move(a);
 

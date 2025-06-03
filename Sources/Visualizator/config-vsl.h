@@ -34,13 +34,13 @@ namespace vsl
 
         void setConfigModel(model::ConfigShare& mdl)
         {   cfgModel = mdl;
-            initPlayers ();
-
+            initPlayers_();
+            reStart_    ();
         }
 
         controller::Players _3player;
 
-        void initPlayers()
+        void initPlayers_()
         {   const auto&         P = cfgModel.players;
             _3player .clear    ();
             _3player .reserve  (P.size());
@@ -76,11 +76,7 @@ namespace vsl
 
         uii::UITuneBase    uiTuneBase   ;
 
-        std::array<uii::UIScnGamePlayer, 3> uiPlayers
-        {   uii::UIScnGamePlayer(),
-            uii::UIScnGamePlayer(),
-            uii::UIScnGamePlayer()
-        };
+        std::array<uii::UIScnGamePlayer, 3> uiPlayers;
 
         uii::UIWinGameCellInfo uiCellInfo;
 
@@ -90,8 +86,10 @@ namespace vsl
         ///-----------------------------------|
         /// Новая игра.                       |
         ///-----------------------------------:
-        void reStart()
-        {   for(auto& e : uiPlayers) e << uii::Clear();
+        void reStart_()
+        {    for(auto&  e : uiPlayers) e << uii::Clear();
+             uiGameLog.clear();
+             uiUpLog  .clear();
         }
 
         static sf::Font& getFont()
