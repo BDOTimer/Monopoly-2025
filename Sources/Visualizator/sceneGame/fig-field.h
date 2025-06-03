@@ -46,7 +46,7 @@ namespace vsl
                             sps.back().id       = ID;
                             sps.back().setSize    ({255, 255});
                             sps.back().setPosition({x * szCell, y * szCell});
-                            sps.back().setOutlineThickness(12.f);
+                            sps.back().setOutlineThickness(4.f);
 
                             sps.back().setFillColor(color[0]);
 
@@ -83,7 +83,7 @@ namespace vsl
         vsl  ::Config&      cfg;
         model::ConfigShare& cfgModel;
 
-        float szCell{350};
+        float szCell{300};
 
         std::array<sf::Color, 2> color
         {   sf::Color{180,180,180},

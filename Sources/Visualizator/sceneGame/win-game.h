@@ -40,8 +40,7 @@ namespace vsl
 
                 camMove = camFon;
 
-            /// camMove.setCenter({1260, 1100});
-                camMove.setSize  ({3750, 2410});
+                camMove.setSize  ({3045, 1823});
                 camMove.setCenter(figField.getCenter());
 
                 cfg.uiUpLog.fooFon = [this](){fooFon();};
@@ -83,7 +82,7 @@ namespace vsl
 
                 camMove.move(a);
 
-            /// l(camMove.getCenter())
+            /// l(camMove.getSize())
             }
         }
 
