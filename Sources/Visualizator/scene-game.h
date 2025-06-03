@@ -234,7 +234,7 @@ namespace vsl
             WinPlayer{cfg, 2}
         };
 
-        bool isLog     ;
+        bool isLog;
 
         ///-----------------------------------|
         /// Новая игра.                       |
