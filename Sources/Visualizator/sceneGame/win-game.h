@@ -9,6 +9,36 @@
 
 namespace vsl
 {
+    struct  AnimationFieldStart
+    {       AnimationFieldStart(const vsl::Config& cfg) : cfg(cfg)
+            {   
+            }
+
+        const vsl::Config& cfg;
+
+        bool isActive{ true};
+
+        inline static const float H{10'000.f};
+
+        const float        speed  { 1.f };
+        const sf::Vector2f szEnd  { 3045, 1823 };
+        const sf::Vector2f szStart{ H * szEnd.x / szEnd.y, H };
+
+        void go(sf::View& cam)
+        {   cam.zoom(1.f - speed * cfg.deltaTime.asSeconds());
+            const auto& sz{cam.getSize()};
+            if(sz.x <= szEnd.x)
+            {   cam.setSize(szEnd);
+                isActive = false;
+            }
+        }
+
+        void reInit(sf::View& cam)
+        {   isActive = true;
+            cam.setSize(szStart);
+        }
+    };
+
     ///------------------------------------------------------------------------|
     /// WinGame
     ///---------------------------------------------------------------- WinGame:
@@ -40,7 +70,7 @@ namespace vsl
 
                 camMove = camFon;
 
-                camMove.setSize  ({3045, 1823});
+                camMove.setSize  (animationFieldStart.szStart);
                 camMove.setCenter(figField.getCenter());
 
                 cfg.uiUpLog.fooFon = [this](){fooFon();};
@@ -51,6 +81,8 @@ namespace vsl
             }
 
         vsl::Config& cfg;
+
+        AnimationFieldStart animationFieldStart{cfg};
 
         PLUG_IOBJECT2
 
@@ -124,6 +156,8 @@ namespace vsl
         {   for(unsigned id = 0; id < 3; ++id) setPositionChip(id, 0, false);
             isDiceHide   = true ;
             isUiCellInfo = false;
+
+            animationFieldStart.reInit(camMove);
         }
 
     private:
@@ -142,6 +176,8 @@ namespace vsl
         virtual void draw(sf::RenderTarget& target,
                           sf::RenderStates  states) const
         {
+            auto p = const_cast<WinGame*>(this);
+
             objectTest4.update(cfg.dt());
 
             target.setView(camFon);
@@ -159,6 +195,10 @@ if(isFon) { target.draw   (fon,         states); }
             }
 
             if(isUiCellInfo){ cfg.uiCellInfo.show(); }
+
+            if( animationFieldStart.isActive)
+            {   p->animationFieldStart.go(p->camMove);
+            }
         }
 
         friend struct SceneGame;
