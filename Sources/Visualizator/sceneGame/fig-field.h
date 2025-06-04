@@ -7,6 +7,9 @@
 
 namespace vsl
 {
+    ///------------------------------------------------------------------------|
+    /// PrimFigure
+    ///------------------------------------------------------------- PrimFigure:
     template<typename    T>
     struct  PrimFigure : T
     {       PrimFigure(const sf::Texture& t) : T(t) {}
@@ -18,6 +21,20 @@ namespace vsl
 
     using PFS = PrimFigure<sf::RectangleShape>;
 
+
+    ///------------------------------------------------------------------------|
+    /// FigureField
+    ///------------------------------------------------------------ FigureField:
+    struct  FigurePosition  : sf::RectangleShape
+    {       FigurePosition  ()
+            {   setFillColor( sf::Color{127,127,180,180} );
+            }
+    };
+
+
+    ///------------------------------------------------------------------------|
+    /// FigureField
+    ///------------------------------------------------------------ FigureField:
     struct  FigureField : vsl::IObject
     {       FigureField(vsl::Config&  cfg)
                 :   cfg              (cfg)
@@ -78,10 +95,16 @@ namespace vsl
                     {   return    a->id < b->id;
                     }
                 );
+
+                figPos.setSize({szCell, szCell});
+                setFigurePos2Pos(0);
+                pr::setOrigin     (figPos);
             }
 
         vsl  ::Config&      cfg;
         model::ConfigShare& cfgModel;
+
+        FigurePosition figPos;
 
         float szCell{300};
 
@@ -107,16 +130,22 @@ namespace vsl
         {   return *psp[i];
         }
 
+        void setFigurePos2Pos(unsigned id)
+        {   figPos.setPosition(psp[id]->getPosition());
+        }
+
     private:
         std::vector<PFS > sps;
         std::vector<PFS*> psp;
 
         ///------------------------------------|
-        ///  На рендер.                         |
+        ///  На рендер.                        |
         ///------------------------------------:
         virtual void draw(sf::RenderTarget& target,
                           sf::RenderStates  states) const
         {/// auto p = const_cast<FigureField*>(this);
+
+            target.draw( figPos, states);
 
             for(const  auto& sp : sps)
             {   target.draw( sp , states);

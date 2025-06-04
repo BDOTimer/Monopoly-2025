@@ -1892,12 +1892,12 @@
 1748715672 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\shader-dice.h
 	"common.h"
 
-1749017638 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
+1749061301 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
 	"../common.h"
 	"fig-field.h"
 	"fig-chips.h"
 
-1749017638 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-field.h
+1749061209 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-field.h
 	"../common.h"
 
 1748715672 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-chips.h

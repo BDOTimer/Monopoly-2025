@@ -142,6 +142,8 @@ namespace vsl
             figureChips.setPosition(
                 idPlayer, figField[idCell].getPosition(), isSnd
             );
+
+            figField.setFigurePos2Pos(idCell);
         }
 
         void reStart()

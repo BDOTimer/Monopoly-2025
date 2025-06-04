@@ -2,6 +2,7 @@
 /// Решенные задачи[+] и задачи в фокусе[-].
 ///----------------------------------------------------------------------------|
 46. [+] [25.06. 4]  struct UITuneGamer;
+                    struct FigurePosition;
 45. [+] [25.06. 3]  struct AnimationFieldStart;
                     дебаг void initPlayers();
 44. [+] [25.06. 2]  struct UITuneRulesInfo;
