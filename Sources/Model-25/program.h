@@ -29,8 +29,11 @@ struct  TestGame2
 
     size_t whoVictor{NPOS};
 
+    model::UserInit4Model userInit4Model;
+    BackDoor::Data              backDoor;
+
     void start()
-    {   cfg    = model::getConfig();
+    {   cfg    = model::getConfig(backDoor, userInit4Model);
         idGame = cfg->idGame;
         vc << model::getLogo(idGame) << "\n";
     }
