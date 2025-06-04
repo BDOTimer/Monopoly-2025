@@ -180,6 +180,7 @@ namespace model
              E_IDPLAYER,
              E_NDICE   ,
              E_POSITION,
+             E_ISBUSYCELL,
              E_STATUS_PERS,
              E_STATUS_CELL,
              E_SELL ,

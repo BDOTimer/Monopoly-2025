@@ -146,12 +146,18 @@ namespace vsl
             figField.setFigurePos2Pos(idCell);
         }
 
+        void setCellColor(unsigned idCell, unsigned idColor)
+        {   figField.setColor(     idCell,          idColor);
+        }
+
         void reStart()
         {   for(unsigned id = 0; id < 3; ++id) setPositionChip(id, 0, false);
             isDiceHide   = true ;
             isUiCellInfo = false;
 
             animationFieldStart.reInit(camMove);
+
+            figField.clear();
         }
 
     private:

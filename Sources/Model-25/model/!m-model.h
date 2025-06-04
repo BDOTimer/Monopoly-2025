@@ -1275,6 +1275,10 @@ namespace model
                 ss << conditionVictorStr.str();
             }
 
+            cfg->stateGame.dat[ED::E_ISBUSYCELL] = cell.isBusy();
+
+            ///l(cell.isBusy())
+
             return ss.str();
         }
 
@@ -1329,7 +1333,7 @@ namespace model
             return NPOS;
         }
 
-        
+
         ///------------------------------|
         /// Что должен знать игрок.      |
         ///------------------------------:

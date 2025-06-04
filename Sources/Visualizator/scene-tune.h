@@ -30,8 +30,6 @@ namespace vsl
 
                 cfg.uiTuneBase.fooRestart = [this]()
                 {   this->startModel();
-                    this->cfg.scenesSwitcher.next();
-                    this->isGameRun = true;
                 };
 
                 cfg.uiTuneBase.fooContinue = [this]()
@@ -68,12 +66,13 @@ namespace vsl
 
         PLUG_IOBJECT2
 
+        vsl::Sound soundStart{"res/snd/gudok-doplera.mp3"};
+
         void input(const std::optional<sf::Event>&  event) override
         {
             if (event->is<sf::Event::KeyPressed>())
-            {   if (ISKEYPRESSED(Num1))
+            {   if (ISKEYPRESSED(G))
                 {   this->startModel();
-                    cfg.scenesSwitcher.next();
                 }
             }
         }
@@ -96,6 +95,8 @@ namespace vsl
         ///////////////////////////////////////////////////////////////////////:
         void startModel()
         {
+            soundStart.play();
+
             //cfg.cfgModel = *model::getConfig  ();
             cfg.setConfigModel(*model::getConfig(cfg.backDoor,
                                                  cfg.userInit4Model));
@@ -109,6 +110,9 @@ namespace vsl
             auto p = (*cfg.scenesSwitcher.scenes)[ScenesSwitcher::E_GAME];
             auto P = dynamic_cast<SceneGame*>(p);
                  P->reStart();
+
+            this->cfg.scenesSwitcher.next();
+            this->isGameRun = true;
         }
         ///////////////////////////////////////////////////////////////////////.
 

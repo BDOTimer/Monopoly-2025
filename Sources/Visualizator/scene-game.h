@@ -51,8 +51,7 @@ namespace vsl
                 };
 
                 cfg.uiCellInfo.fooNext = [this]()
-                {   this->winGame.isUiCellInfo = false;
-                    this->updateInfoPlayer();
+                {   this->upDice();
                 };
             }
 
@@ -62,6 +61,8 @@ namespace vsl
 
         unsigned IDPLAYER;
         unsigned cnt     ;
+
+        unsigned       ID;
 
     /// bool pressEnter{false};
 
@@ -101,9 +102,18 @@ namespace vsl
             if( winGame.isUiCellInfo)
             {   winGame.isUiCellInfo = false;
                 updateInfoPlayer();
+
+                const auto& idCell =
+                cfg._3player[ID].stateGame.dat[model::StateGame::E_POSITION];
+
+                const auto& isBusy =
+                cfg._3player[ID].stateGame.dat[model::StateGame::E_ISBUSYCELL];
+
+                winGame.setCellColor(idCell, isBusy);
+
                 return;
             }
-            
+
             auto& o = this->winGame;
 
             o.dice.isRot = !o.dice.isRot;
@@ -130,7 +140,7 @@ namespace vsl
         {
             const auto& mdl{cfg.cfgModel};
 
-            unsigned& idPlayer = cfg._3player[IDPLAYER].id;
+            unsigned&   idPlayer = cfg._3player[IDPLAYER].id;
 
             cfg.uiCellInfo.isBot = mdl.players[idPlayer].isBot;
 
@@ -154,7 +164,7 @@ namespace vsl
 
             ASSERT((unsigned)sg.dat[E::E_SIZE == sg.dat.size()])
 
-            const auto&   ID = (unsigned)sg.dat[E::E_IDPLAYER];
+                           ID = (unsigned)sg.dat[E::E_IDPLAYER];
 
             cfg._3player  [ID].stateGame = sg;
 
@@ -162,7 +172,7 @@ namespace vsl
                 << "  ИГРОК  : " << sg.str[ES::E_NAME  ]        << '\n'
                 << "  КОШЕЛЁК: " << sg.dat[ED::E_MONEY1]        << '\n'
                 << "  КУБИК  : " << sg.dat[ED::E_NDICE ]        << '\n'
-                << "  СТАТУС : " << sg.dat[ED::E_STATUS_PERS]+1 << " ---> "      
+                << "  СТАТУС : " << sg.dat[ED::E_STATUS_PERS]+1 << " ---> "
                 << mdl.decode2Str.getPlayer(sg.dat[ED::E_STATUS_PERS]).data()
                 << '\n'
                 ;
@@ -179,7 +189,7 @@ namespace vsl
                 << "  ИГРОК    : " << sg.str[ES::E_NAME]             << '\n'
                 << "  ЯЧЕЙКА   : " << sg.str[ES::E_CELL]             << '\n'
                 << "  ПОЗИЦИЯ  : " << sg.dat[ED::E_POSITION]         << '\n'
-                << "  СТАТУС   : " << sg.dat[ED::E_STATUS_CELL]+1<< " ---> "      
+                << "  СТАТУС   : " << sg.dat[ED::E_STATUS_CELL]+1<< " ---> "
                 << mdl.decode2Str.getCell(sg.dat[ED::E_STATUS_CELL]) << '\n'
                 << "  ПРОДАЁТСЯ: " << sg.dat[ED::E_SELL]             << '\n'
                 << "  СКУПКА   : " << sg.dat[ED::E_BYU]              << '\n'
@@ -201,7 +211,7 @@ namespace vsl
         bool isGameOver{false};
 
         void updateInfoPlayer()
-        {   
+        {
             /// TODO ...
             nextPlayer();
         }

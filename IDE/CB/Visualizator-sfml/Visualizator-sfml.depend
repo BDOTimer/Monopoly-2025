@@ -1644,7 +1644,7 @@
 1734196663 c:\workcb-2024\sfml-3.0\sfml-3.0.0\include\sfml\system\sleep.hpp
 	<SFML/System/Export.hpp>
 
-1748845468 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\!m-model.h
+1749068916 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\!m-model.h
 	"myl.h"
 	"cards.inc"
 	"field.inc"
@@ -1669,7 +1669,7 @@
 	"config-model.h"
 	"!m-model.h"
 
-1749056009 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\user-model.h
+1749063776 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\user-model.h
 	<iostream>
 	<string>
 	<vector>
@@ -1857,7 +1857,7 @@
 	"../debug.h"
 	"../user-model.h"
 
-1749056199 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-tune.h
+1749067279 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-tune.h
 	"ui-imgui.h"
 
 1749046968 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-imgui.h
@@ -1876,11 +1876,11 @@
 1748715672 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-logo.h
 	"common.h"
 
-1749055521 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-tune.h
+1749067279 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-tune.h
 	"common.h"
 	"scene-game.h"
 
-1749017638 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-game.h
+1749069493 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-game.h
 	"common.h"
 	"shader-dice.h"
 	"sceneGame/win-game.h"
@@ -1892,12 +1892,12 @@
 1748715672 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\shader-dice.h
 	"common.h"
 
-1749061301 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
+1749067639 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
 	"../common.h"
 	"fig-field.h"
 	"fig-chips.h"
 
-1749061209 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-field.h
+1749069473 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-field.h
 	"../common.h"
 
 1748715672 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-chips.h

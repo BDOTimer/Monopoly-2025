@@ -91,7 +91,7 @@ namespace uii
             ImGui::PushStyleColor(ImGuiCol_ButtonActive ,(ImVec4)colButtonA);
 
                 if(ImGui::Button("НОВАЯ ИГРА", WH))
-                {   snd1.play ();
+                {   //snd1.play ();
                     fooRestart();
                 }
 

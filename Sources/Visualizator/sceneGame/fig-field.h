@@ -64,7 +64,6 @@ namespace vsl
                             sps.back().setSize    ({255, 255});
                             sps.back().setPosition({x * szCell, y * szCell});
                             sps.back().setOutlineThickness(4.f);
-
                             sps.back().setFillColor(color[0]);
 
                             pr::setOrigin(sps.back());
@@ -104,18 +103,14 @@ namespace vsl
         vsl  ::Config&      cfg;
         model::ConfigShare& cfgModel;
 
-        FigurePosition figPos;
+        FigurePosition      figPos;
 
         float szCell{300};
 
         std::array<sf::Color, 2> color
         {   sf::Color{180,180,180},
-            sf::Color{255,255,255}
+            sf::Color{ 40, 40, 80}
         };
-
-        void setColor(unsigned idCell, unsigned idColor)
-        {   psp[idCell]->setFillColor    (color[idColor]);;
-        }
 
         PLUG_IOBJECT
 
@@ -132,6 +127,14 @@ namespace vsl
 
         void setFigurePos2Pos(unsigned id)
         {   figPos.setPosition(psp[id]->getPosition());
+        }
+
+        void setColor(unsigned idCell, unsigned idColor)
+        {   psp[idCell]->setFillColor    (color[idColor]);
+        }
+
+        void clear()
+        {   for(auto p : psp) p->setFillColor(color[0]);
         }
 
     private:
