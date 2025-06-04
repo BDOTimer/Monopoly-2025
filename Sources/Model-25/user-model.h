@@ -72,8 +72,49 @@ namespace model
     };
 
 
-    struct ConfigShare
+    ///------------------------------|
+    /// Профиль игрока.              |
+    ///------------------------------:
+    struct Player
     {
+        unsigned           id;
+        bool            isBot;
+        std::string nameInput{"имя..."};
+        std::string      name;
+
+        void initName()
+        {   name = std::string(isBot?"bot::":"user::") + nameInput;
+        }
+    };
+
+
+    ///------------------------------|
+    /// UserInit4Model               |
+    ///------------------------------:
+    struct UserInit4Model
+    {
+        ///------------------------------|
+        /// Состав игроков.              |
+        ///------------------------------:
+        std::array<Player, 3> players
+        {   Player{0, true , "Noname"  }, /// Умный
+            Player{1, true , "aliskda" }, /// Срединий
+            Player{2, true , "gudleifr"}  /// Дурак
+        //  {false, "Slava-rusi11" }
+        //  {false, "Вася Пупкин"  }
+        };
+
+        void initNames()
+        {   for(unsigned i  = 0; i < players.size(); ++i)
+            {   players [i].id = i;
+                players [i].initName();
+            }
+        }
+    };
+
+    struct ConfigShare : UserInit4Model
+    {
+
         ///------------------------------|
         /// Индекс игры.                 |
         ///------------------------------:
@@ -94,25 +135,6 @@ namespace model
             { 26, -1, -1, -1, -1, -1, -1, -1, 12 },
             { 25, 24, -1, 20, 19, 18, -1, 14, 13 },
             { -1, 23, 22, 21, -1, 17, 16, 15, -1 }
-        };
-
-        ///------------------------------|
-        /// Профиль игрока.              |
-        ///------------------------------:
-        struct Player
-        {   bool       isBot;
-            std::string name;
-        };
-
-        ///------------------------------|
-        /// Состав игроков.              |
-        ///------------------------------:
-        std::array<Player, 3> players
-        {   Player{true , "bot::Noname"  }, /// Умный
-            Player{true , "bot::aliskda" }, /// Срединий
-            Player{true , "bot::gudleifr"}  /// Дурак
-        //  {false, "Slava-rusi11" }
-        //  {false, "Вася Пупкин"  }
         };
 
         ///------------------------------|
@@ -192,7 +214,8 @@ namespace model
     ///---------------------------|
     /// vsl.                      |
     ///---------------------------:
-    ConfigShare* getConfig(const BackDoor::Data& data);
+    ConfigShare* getConfig(const BackDoor::Data& data,
+                           const UserInit4Model& userInit4Model);
 
     std::string  getLogo(unsigned id);
 

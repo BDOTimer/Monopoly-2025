@@ -16,8 +16,10 @@ namespace uii
     ///------------------------------------------------------------------------|
     /// UITuneBase базовое начальное меню ...
     ///------------------------------------------------------------- UITuneBase:
-    struct  UITuneBase   : UIBase
-    {       UITuneBase() : snd1(buf1)
+    struct  UITuneBase  : UIBase
+    {       UITuneBase  (vsl::Config* cfg)
+                :   cfg (cfg )
+                ,   snd1(buf1)
             {
                 name = "Настройки";
 
@@ -33,10 +35,13 @@ namespace uii
                 init();
             }
 
-        //ImVec4 buttonColor;
+    /// ImVec4     buttonColor;
+        vsl::Config*       cfg;
 
-        sf::SoundBuffer  buf1;
-        sf::Sound        snd1;
+        void  doTuneAllClose();
+
+        sf::SoundBuffer   buf1;
+        sf::Sound         snd1;
 
         Callback fooRestart   {[this](){}};
         Callback fooContinue  {[this](){}};
@@ -47,10 +52,6 @@ namespace uii
 
         ImVec2 WH  {100, 40};
         ImVec2 WHx2;
-
-        ImColor colButtonB{ 6,15,14,120};
-        ImColor colButtonH{ 6,35,34,170};
-        ImColor colButtonA{26,55,54,170};
 
         void show()
         {   if(!isOpen) return;
@@ -211,10 +212,6 @@ namespace uii
 
         ImVec2 WH  {100, 40};
         ImVec2 WHx2;
-
-        ImColor colButtonB{ 6,15,14,120};
-        ImColor colButtonH{ 6,35,34,170};
-        ImColor colButtonA{26,55,54,170};
 
         void doOpen()
         {   musicRule.play(); isOpen = true;
@@ -444,10 +441,6 @@ R"(
         ImVec2 WH  {100, 40};
         ImVec2 WHx2;
 
-        ImColor colButtonB{ 6,15,14,120};
-        ImColor colButtonH{ 6,35,34,170};
-        ImColor colButtonA{26,55,54,170};
-
         void show()
         {
             if(!isOpen) return;
@@ -542,6 +535,159 @@ R"(
         }
 
         int* getIsSeed();
+    };
+
+
+    ///------------------------------------------------------------------------|
+    /// UITuneGamer черный вход на сервер.
+    ///------------------------------------------------------------ UITuneGamer:
+    struct  UITuneGamer   : UIBase
+    {       UITuneGamer(UITuneBase&     uiTuneBase,
+                        vsl  ::Config*         cfg,
+                        model::UserInit4Model* userInit4Model)
+                :   uiTuneBase    ( uiTuneBase )
+                ,   cfg           ( cfg )
+                ,   userInit4Model( userInit4Model )
+                ,   snd1          ( buf1 )
+            {
+                name = "Игрок ...";
+
+                bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
+                ASSERT(ok)
+
+                       ok = buf1.loadFromFile("res/snd/gudok-doplera.mp3");
+                ASSERT(ok)
+
+                ImGuiStyle&      style = ImGui::GetStyle();
+                ColorBLog.m[0] = style.Colors[ImGuiCol_Button];
+
+                init();
+
+            /// (*this) << "Только в новой игре!";
+
+                doClose();
+            }
+
+        UITuneBase&                uiTuneBase;
+        vsl::Config*                      cfg;
+        model::UserInit4Model* userInit4Model;
+
+        //ImVec4 buttonColor;
+
+        sf::SoundBuffer  buf1;
+        sf::Sound        snd1;
+
+        Callback fooEmpty   {[this](){}};
+
+        ImVec2 WH  {100, 40};
+        ImVec2 WHx2;
+
+        std::string  strTest {"...пусто..."};
+
+        void show()
+        {
+            std::array<model::Player, 3>& pl{userInit4Model->players};
+
+            if(!isOpen) return;
+
+            auto& color = ImGui::GetStyle().Colors[ImGuiCol_WindowBg];
+                  color = ImColor(35,35,35,190);
+
+            ///---------------------------------------|
+            /// Позиция и размер окна.                |
+            ///---------------------------------------:
+            /// TODO: Окно на разных компах должно соответствовать ....
+
+            ///
+            ImGui::SetNextWindowSize(size);
+            ///
+            ImGui::SetNextWindowPos (position);
+
+            ///---------------------------------------|
+            /// Окно <name>.                          |
+            ///---------------------------------------:
+            ImGui::Begin( name.data(), &isOpen, 0
+                        | ImGuiWindowFlags_NoCollapse
+                        | ImGuiWindowFlags_NoMove
+                    /// | ImGuiWindowFlags_NoTitleBar
+                        | ImGuiWindowFlags_NoScrollbar
+                        | ImGuiWindowFlags_NoResize
+                    /// | ImGuiWindowFlags_HorizontalScrollbar
+                    /// | ImGuiWindowFlags_AlwaysVerticalScrollbar
+                    /// | ImGuiWindowFlags_MenuBar
+                    /// | ImGuiWindowFlags_NoBackground
+                    /// | ImGuiWindowFlags_AlwaysAutoResize
+            );
+
+            ImGui::PushStyleColor(ImGuiCol_Button,       (ImVec4)colButtonB);
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered,(ImVec4)colButtonH);
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive ,(ImVec4)colButtonA);
+
+            {   showButtonClose("Закрыть");
+                ImGui::Text("%s", "Введите имена игроков:");
+
+        ImGui::InputText("Игрок-1", &pl[0].nameInput, sizeof pl[0].nameInput);
+        ImGui::InputText("Игрок-2", &pl[1].nameInput, sizeof pl[1].nameInput);
+        ImGui::InputText("Игрок-3", &pl[2].nameInput, sizeof pl[2].nameInput);
+
+                //ImGui::DragInt ("...##3a", getIsSeed());
+
+                if(ImGui::Button("Test", WH))
+                {   sound.play   ();
+                    l(pl[0].name)
+                }
+            }
+
+            ImGui::PopStyleColor();
+            ImGui::PopStyleColor();
+            ImGui::PopStyleColor();
+
+            ImGui::End();
+
+        //  ImGui::Begin("TEST");
+        //  ImGui:(buttonTexture);
+        //  ImGui::End();
+
+            if(!isOpen)
+            {   sound.play();
+                uiTuneBase.doOpen();
+            }
+        }
+
+        void setGeometry(ImVec2 sz, ImVec2 ps)
+        {   UIBase::setGeometry(sz,        ps);
+            WH   = {sz.x - 17.0f, sz.y / 20.f};
+            WHx2 = {WH.x + WH.x, WH.y};
+        }
+
+        myl::SwitcherData<ImVec4, 2> ColorBLog
+        {   ImVec4{0.2f, 0.7f, 0.2f, 1.0f},
+            ImVec4{0.7f, 0.2f, 0.2f, 1.0f}
+        };
+
+        static ImTextureID convertSFMLTexture2Im(const sf::Texture& tx)
+        {   return (ImTextureID)(size_t)tx.getNativeHandle();
+        }
+
+        sf::Texture buttonTexture;
+        ImTextureID texId;
+        void init()
+        {   if (!buttonTexture.loadFromFile("res/img/button.png"))
+            {   ASSERT(false)
+            }
+            texId = convertSFMLTexture2Im(buttonTexture);
+        }
+
+    private:
+
+        void showButtonClose(const char* mess)
+        {   if(ImGui::Button(mess, WH))
+            {   /// snd1.play();
+                /// fooEmpty ();
+                    sound.play();
+                    isOpen = false;
+            }
+        }
     };
 }
 

@@ -44,14 +44,21 @@ namespace vsl
                 {   this->cfg.pwin->close();
                 };
 
-                cfg.uiTuneBase.fooRules = [this]()
-                {   this->cfg.uiTuneRulesInfo.doOpen ();
-                    this->cfg.uiTuneBase     .doClose();
+                cfg.uiTuneBase.fooTuneGamer = [this]()
+                {   this->cfg.doTuneAllClose    ();
+                    this->cfg.uiTuneGamer.doOpen();
                 };
 
                 cfg.uiTuneBase.fooTuneTester = [this]()
-                {   this->cfg.uiTuneBackDoor.isOpen =
+                {   this->cfg.doTuneAllClose();
+                    this->cfg.uiTuneBackDoor.isOpen =
                    !this->cfg.uiTuneBackDoor.isOpen ;
+                };
+
+                cfg.uiTuneBase.fooRules = [this]()
+                {   this->cfg.doTuneAllClose();
+                    this->cfg.uiTuneRulesInfo.doOpen ();
+                    this->cfg.uiTuneBase     .doClose();
                 };
             }
 
@@ -88,8 +95,11 @@ namespace vsl
     private:
         ///////////////////////////////////////////////////////////////////////:
         void startModel()
-        {   //cfg.cfgModel = *model::getConfig ();
-            cfg.setConfigModel(*model::getConfig (cfg.backDoor));
+        {
+            //cfg.cfgModel = *model::getConfig  ();
+            cfg.setConfigModel(*model::getConfig(cfg.backDoor,
+                                                 cfg.userInit4Model));
+
             cfg.uiTune << model::getLogo(cfg.cfgModel.idGame) << "\n";
 
             cfg.uiGameLog << "///-----------------------------------|\n"
@@ -118,6 +128,7 @@ namespace vsl
             cfg.uiTuneBase     .show();
             cfg.uiTuneRulesInfo.show();
             cfg.uiTuneBackDoor .show();
+            cfg.uiTuneGamer    .show();
         }
     };
 }

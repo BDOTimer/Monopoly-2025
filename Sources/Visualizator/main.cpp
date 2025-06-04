@@ -4,6 +4,15 @@
 /// ...
 ///-------------------------------------------------------------- sfml-Monopoly:
 #include "render.h"
+#include "ui-tune.h"
+
+namespace uii
+{
+    void UITuneBase::doTuneAllClose() /// not used.
+    {   cfg->doTuneAllClose();
+    }
+}
+
 
 void exit2sys()
 {

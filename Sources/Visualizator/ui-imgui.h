@@ -19,6 +19,10 @@ namespace uii
 {
     using Callback = std::function<void()>;
 
+    constexpr ImColor colButtonA{ 6,15,14,120}; /// Нажата.
+    constexpr ImColor colButtonB{ 6,35,34,170}; /// Спокойная.
+    constexpr ImColor colButtonH{26,55,54,170}; /// Наведенная.
+
     struct ImGuiDemoWindowData
     {   bool MainMenuBar = false;
         bool Help        = false;

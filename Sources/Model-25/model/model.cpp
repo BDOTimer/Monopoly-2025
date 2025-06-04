@@ -64,9 +64,18 @@ namespace model
             if(nullptr != mdl) delete mdl;
         }
 
-        void reCreate(const BackDoor::Data& data)
-        {    clear   ();
-             cfg = new Config   (   );
+        void reCreate(const BackDoor::Data& data,
+                      const UserInit4Model& userInit4Mode)
+        {    clear();
+             cfg = new Config();
+
+             auto p = const_cast<UserInit4Model*>(&userInit4Mode);
+                  p-> initNames();
+
+             cfg->players = userInit4Mode.players; /// TODO ...
+
+        ///  l(userInit4Mode.players[0].name)
+        ///  l(cfg->players[0].name)
 
              BackDoor::loadBackDoor2Config(data, cfg);
 
@@ -83,16 +92,17 @@ namespace model
             }
 
         unsigned/*id*/ reCreate(const std::string&   login,
-                                const BackDoor::Data& data)
+                                const BackDoor::Data& data,
+                                const UserInit4Model& userInit4Mode)
         {   if(const auto p = logins.find(login); p != logins.end())
             {   const unsigned&    id = p->second;
                 auto&  o = (*this)[id];
-                       o.reCreate   (data);
+                       o.reCreate   (data, userInit4Mode);
                 return id;
             }
             else
             {   emplace_back(CG());
-                back().reCreate(data);
+                back().reCreate(data, userInit4Mode);
                 return (unsigned)size() - 1;
             }
         }
@@ -118,8 +128,12 @@ namespace model
     ///------------------------------------------------------------------------|
     /// Интерфейс модели.
     ///------------------------------------------------------------------------:
-    ConfigShare* getConfig(const BackDoor::Data& data)
-    {   unsigned    id = holderGates.reCreate("desktop", data);
+    ConfigShare* getConfig(const BackDoor::Data& data,
+                           const UserInit4Model& userInit4Model)
+    {
+        /// TODO ...
+
+        unsigned    id = holderGates.reCreate("desktop", data, userInit4Model);
         holderGates[id].cfg->idGame = id;
         return holderGates[id].cfg;
     }

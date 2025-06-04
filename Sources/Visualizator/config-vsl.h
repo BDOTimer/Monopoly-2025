@@ -17,10 +17,15 @@ namespace vsl
     struct  Config
     {       Config (sf::RenderWindow& window)
                 :   pwin            (&window)
-                ,   uiTune           (window, "Настройки ...")
+                ,   uiTune          ( window, "Настройки ...")
             {   init_();
                 resizeFormImgui();
             }
+
+        ///-----------------------------------|
+        /// Профиль игрока.                   |
+        ///-----------------------------------:
+        model::UserInit4Model   userInit4Model;
 
         ///-----------------------------------|
         /// Конфиг модели.                    |
@@ -68,20 +73,26 @@ namespace vsl
 
         Music musicLogo{"res/snd/Maddix - Receive Life.mp3"};
         Music musicGame{"res/snd/Maddix - Acid Soul.mp3"   };
-        
+
         uii::UITest        uiTune       ;
         uii::UIUpLog       uiUpLog      ;
         uii::UIGame        uiGameLog    ;
         uii::UIDownMessage uiDownMessage;
 
-        uii::UITuneBase    uiTuneBase   ;
+        uii::UITuneBase    uiTuneBase{this};
 
         std::array<uii::UIScnGamePlayer, 3> uiPlayers;
 
         uii::UIWinGameCellInfo uiCellInfo;
 
-        uii::UITuneRulesInfo uiTuneRulesInfo{uiTuneBase};
-        uii::UITuneBackDoor  uiTuneBackDoor {uiTuneBase, this};
+        uii::UITuneRulesInfo uiTuneRulesInfo{ uiTuneBase       };
+        uii::UITuneGamer     uiTuneGamer    { uiTuneBase, this,&userInit4Model};
+        uii::UITuneBackDoor  uiTuneBackDoor { uiTuneBase, this };
+
+        void doTuneAllClose()
+        {   uiTuneGamer   .doClose();
+            uiTuneBackDoor.doClose();
+        }
 
         ///-----------------------------------|
         /// Новая игра.                       |
@@ -246,6 +257,18 @@ namespace vsl
                 const float psY = ps.y;
 
                 uiTuneBackDoor.setGeometry(sz, {psX, psY});
+            }
+
+            ///-------------------|
+            /// uiTuneGamer       |
+            ///-------------------:
+            {   const auto& sz = uiTuneBase.size;
+                const auto& ps = uiTuneBase.position;
+
+                const float psX = ps.x + sz.x + 10.f;
+                const float psY = ps.y;
+
+                uiTuneGamer.setGeometry(sz, {psX, psY});
             }
 
             uiUpLog.messDown = &uiDownMessage;
