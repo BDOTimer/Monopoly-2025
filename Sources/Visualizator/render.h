@@ -12,9 +12,9 @@
 
 struct  Render
 {       Render( vsl::Config& cfg)
-			:	cfg         (cfg)
-			,	window(     *cfg.pwin)
-            ,	camFon(   window.getDefaultView() )
+            :   cfg         (cfg)
+            ,   window(     *cfg.pwin)
+            ,   camFon(   window.getDefaultView() )
             ,   fps   (      cfg)
         {
             cfg.pwin = &window;
@@ -28,7 +28,7 @@ struct  Render
 
             cfg.camFon = &camFon;
             cfg.camGui = &camGui;
-			cfg.scenesSwitcher.init(&scenes);
+            cfg.scenesSwitcher.init(&scenes);
 
             const auto cursor = sf::Cursor::createFromSystem(
                 sf::Cursor::Type::Hand).value();
@@ -37,7 +37,7 @@ struct  Render
             cfg.pwin->setMouseCursorVisible(false);
         }
 
-	vsl::Config&         cfg;
+    vsl::Config&         cfg;
     sf::RenderWindow& window;
 
     ///---------------------|
@@ -51,7 +51,7 @@ struct  Render
     ///---------------------:
     vsl::Fps             fps;
 
-	vsl::ScenesAll scenes
+    vsl::ScenesAll scenes
     {   &logo,
         &tune,
         &game,
@@ -80,8 +80,8 @@ private:
     /// using Key  = sf::Keyboard::Key ;
     /// using Scan = sf::Keyboard::Scan;
 
-	/// auto& nScene   = cfg.scenesSwitcher.nScene;
-		auto& nowScene = cfg.scenesSwitcher.nowScene;
+    /// auto& nScene   = cfg.scenesSwitcher.nScene;
+        auto& nowScene = cfg.scenesSwitcher.nowScene;
 
         while (window.isOpen())
         {   while (const std::optional event = window.pollEvent())
@@ -145,7 +145,7 @@ private:
         window.setPosition({window.getPosition().x, 0});
 
         vsl::Config     cfg(window);
-		Render  render (cfg);
+        Render  render (cfg);
                 render.run();
     }
 };

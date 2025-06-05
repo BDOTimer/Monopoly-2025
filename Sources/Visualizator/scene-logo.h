@@ -36,8 +36,8 @@ namespace vsl
     ///-------------------------------------------------------------- SceneLogo:
     struct  SceneLogo   :  vsl::IObject
     {       SceneLogo     (vsl::Config& cfg)
-				:	cfg   (cfg)
-				,	fon   (cfg.szfWin)
+                :   cfg   (cfg)
+                ,   fon   (cfg.szfWin)
             {
                 pr::setOrigin(fon);
 
@@ -56,31 +56,31 @@ namespace vsl
                 tmess1.setString(ss.str());
             }
 
-		vsl::Config& cfg;
+        vsl::Config& cfg;
 
         PLUG_IOBJECT2
 
-		void input(const std::optional<sf::Event>&  event) override
-		{
-			if (event->is<sf::Event::KeyPressed>())
+        void input(const std::optional<sf::Event>&  event) override
+        {
+            if (event->is<sf::Event::KeyPressed>())
             {   if (ISKEYPRESSED(Space))
-                {	cfg.scenesSwitcher.next();
-					cfg.musics       .pause();
+                {   cfg.scenesSwitcher.next();
+                    cfg.musics       .pause();
                 }
             }
 
-			if (auto p = event->getIf<sf::Event::MouseButtonPressed>())
+            if (auto p = event->getIf<sf::Event::MouseButtonPressed>())
             {   if ( p->button  == sf::Mouse::Button::Left)
                 {
-					using E = sf::SoundSource::Status;
-					cfg.musics.getStatus  () == E::Playing
-						? cfg.musics.pause()
+                    using E = sf::SoundSource::Status;
+                    cfg.musics.getStatus  () == E::Playing
+                        ? cfg.musics.pause()
                         : cfg.musics.play(1);
 
                 /// isRot = !isRot;
                 }
-		    }
-		}
+            }
+        }
 
     private:
         sf::RectangleShape fon;

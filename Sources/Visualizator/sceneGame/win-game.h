@@ -46,7 +46,7 @@ namespace vsl
     {       WinGame(vsl::Config& cfg)
                 :   cfg         (cfg)
                 ,   figField    (cfg)
-                ,	dice        (cfg)
+                ,   dice        (cfg)
             {
                 const auto& rect    = cfg.markupSG.getWinBase();
                 const auto& border  = cfg.markupSG.border;
@@ -87,8 +87,8 @@ namespace vsl
         PLUG_IOBJECT2
 
         void input(const std::optional<sf::Event>&  event) override
-		{
-			if (event->is<sf::Event::KeyPressed>())
+        {
+            if (event->is<sf::Event::KeyPressed>())
             {   if (ISKEYPRESSED(W))
                 {   camMove.zoom(0.97f);
                 }

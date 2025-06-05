@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
     std::system("chcp 65001>nul");
 #endif // _WIN32
 
-	std::cout << "Compilator: " << win::COMPILATOR_NAME << '\n'
+    std::cout << "Compilator: " << win::COMPILATOR_NAME << '\n'
               << "Старт "       << LOGO_VISUALIZATOR << " ...\n\n";
 
     try

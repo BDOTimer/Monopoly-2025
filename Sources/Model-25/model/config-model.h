@@ -10,8 +10,8 @@
 
 
 #ifndef l
-	#define  l(v)     std::cout << #v << " = " << (v) << std::endl;
-	#define ln(v)     std::cout << #v << ":\n" << (v) << std::endl;
+    #define  l(v)     std::cout << #v << " = " << (v) << std::endl;
+    #define ln(v)     std::cout << #v << ":\n" << (v) << std::endl;
 #endif
 
 
@@ -277,7 +277,7 @@ namespace model
                 ASSERTM(cnt == amountCells, "Число ячеек != геометрии!")
             }
 
-			ASSERTM(3 == players.size(), "Поддерживается только 3 игрока!")
+            ASSERTM(3 == players.size(), "Поддерживается только 3 игрока!")
 
             /// TODO ...
 
