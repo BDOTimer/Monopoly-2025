@@ -363,7 +363,7 @@ namespace uii
     ///static bool autoScroll{false};
     struct  UIBase
     {       UIBase() //(vsl::Config cfg) : cfg(cfg)
-                :   sound(buffer)
+                :   soundx(buffer)
             {
 
             }
@@ -371,7 +371,7 @@ namespace uii
     // vsl::Config& cfg;
 
         sf::SoundBuffer  buffer;
-        sf::Sound        sound ;
+        sf::Sound        soundx;
 
         bool autoScroll {false};
 
@@ -439,8 +439,8 @@ namespace uii
             {
                 name = "ИГРА ...";
 
-                bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
-                ASSERT(ok)
+                //bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
+                //ASSERT(ok)
             }
 
         void clear ()
@@ -512,8 +512,8 @@ namespace uii
             {
                 name = "UIScnGamePlayer";
 
-                bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
-                ASSERT(ok)
+                //bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
+                //ASSERT(ok)
             }
 
         unsigned id;
@@ -588,8 +588,8 @@ namespace uii
             {
                 name = "ГОЛОС СУДЬИ:";
 
-                bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
-                ASSERT(ok)
+                //bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
+                //ASSERT(ok)
             }
 
         void show()
@@ -713,34 +713,34 @@ namespace uii
 
                 if(ImGui::Button("<<<", WH))
                 {   fooTune   ();
-                    sound.play();
+                    vsl::Sounds::p->play(0);
                 }
 
             ImGui::SameLine();
 
                 if(ImGui::Button("Музыка", WH))
                 {   fooMusic  ();
-                    sound.play();
+                    vsl::Sounds::p->play(0);
                 }
 
             ImGui::SameLine();
 
                 if(ImGui::Button("Фон", WH))
                 {   fooFon    ();
-                    sound.play();
+                    vsl::Sounds::p->play(0);
                 }
 
             ImGui::SameLine();
 
             if(ImGui::Button("КУБИК", WHx2))
                 {   fooDice2  ();
-                    sound.play();
+                    vsl::Sounds::p->play(0);
                 }
 
                 ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
                 if(ImGui::Button("Лог", WH))
                 {   fooLog    ();
-                    sound.play();
+                    vsl::Sounds::p->play(0);
                     ColorBLog.next();
                 }
                 ImGui::PopStyleColor();
@@ -749,14 +749,14 @@ namespace uii
 
                 if(ImGui::Button("..2", WH))
                 {   fooEmpty  ();
-                    sound.play();
+                    vsl::Sounds::p->play(0);
                 }
 
             ImGui::SameLine();
 
                 if(ImGui::Button("..3", WH))
                 {   fooEmpty  ();
-                    sound.play();
+                    vsl::Sounds::p->play(0);
                 }
 
             ImGui::End();
@@ -764,7 +764,7 @@ namespace uii
 
         void setGeometry(ImVec2 sz, ImVec2 ps)
         {   UIBase::setGeometry(sz,        ps);
-            WH   = {sz.x / 5.6f, sz.y / 2.5f};
+            WH   = {sz.x / 5.6f, sz.y / 2.5f };
             WHx2 = {WH.x + WH.x, WH.y};
         }
 

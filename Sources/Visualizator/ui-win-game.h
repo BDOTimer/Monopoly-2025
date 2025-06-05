@@ -15,9 +15,6 @@ namespace uii
             {
                 name = "Инфа о ячейке";
 
-                bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
-                ASSERT(ok)
-
                 ImGuiStyle&      style = ImGui::GetStyle();
                 ColorBLog.m[0] = style.Colors[ImGuiCol_Button];
             }
@@ -69,7 +66,7 @@ namespace uii
             /// ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
                 if(ImGui::Button(nt, WH))
                 {   fooBuy    ();
-                    sound.play();
+                    vsl::Sounds::p->play(0);
             ///     ColorBLog.next();
                 }
             /// ImGui::PopStyleColor
@@ -78,7 +75,7 @@ namespace uii
 
                 if(ImGui::Button("ДАЛЬШЕ", WH))
                 {   fooNext   ();
-                    sound.play();
+                    vsl::Sounds::p->play(0);
             ///     ColorBLog.next();
                 }
 

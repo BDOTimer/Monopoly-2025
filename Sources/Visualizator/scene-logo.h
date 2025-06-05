@@ -65,7 +65,7 @@ namespace vsl
 			if (event->is<sf::Event::KeyPressed>())
             {   if (ISKEYPRESSED(Space))
                 {	cfg.scenesSwitcher.next();
-					cfg.musicLogo    .pause();
+					cfg.musics       .pause();
                 }
             }
 
@@ -73,9 +73,9 @@ namespace vsl
             {   if ( p->button  == sf::Mouse::Button::Left)
                 {
 					using E = sf::SoundSource::Status;
-					cfg.musicLogo.getStatus() == E::Playing
-						? cfg.musicLogo.pause()
-                        : cfg.musicLogo.play ();
+					cfg.musics.getStatus  () == E::Playing
+						? cfg.musics.pause()
+                        : cfg.musics.play(1);
 
                 /// isRot = !isRot;
                 }

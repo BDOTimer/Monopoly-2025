@@ -23,10 +23,7 @@ namespace uii
             {
                 name = "Настройки";
 
-                bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
-                ASSERT(ok)
-
-                       ok = buf1.loadFromFile("res/snd/gudok-doplera.mp3");
+                bool   ok = buf1.loadFromFile("res/snd/gudok-doplera.mp3");
                 ASSERT(ok)
 
                 ImGuiStyle&      style = ImGui::GetStyle();
@@ -70,6 +67,8 @@ namespace uii
             ///
             ImGui::SetNextWindowPos (position);
 
+            ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 35.0f);
+
             ///---------------------------------------|
             /// Окно <name>.                          |
             ///---------------------------------------:
@@ -97,27 +96,27 @@ namespace uii
 
                 if(ImGui::Button("ПРОДОЛЖИТЬ", WH))
                 {   fooContinue();
-                    sound.play ();
+                    vsl::Sounds::p->play(0);
                 }
 
                 if(ImGui::Button("НАСТРОЙКИ ТЕСТИРОВЩИКА", WH))
                 {   fooTuneTester();
-                    sound.play   ();
+                    vsl::Sounds::p->play(0);
                 }
 
                 if(ImGui::Button("НАСТРОйКИ ИГРОКА", WH))
                 {   fooTuneGamer();
-                    sound.play  ();
+                    vsl::Sounds::p->play(0);
                 }
 
                 if(ImGui::Button("ПРАВИЛА ИГРЫ", WH))
                 {   fooRules  ();
-                    sound.play();
+                    vsl::Sounds::p->play(0);
                 }
 
                 if(ImGui::Button("ВЫХОД", WH))
                 {   fooExit   ();
-                    sound.play();
+                    vsl::Sounds::p->play(0);
                 }
 
                 if (ImGui::ImageButton("АВТОРЫ", texId, WH))
@@ -144,6 +143,8 @@ namespace uii
         //  ImGui::Begin("TEST");
         //  ImGui:(buttonTexture);
         //  ImGui::End();
+
+            ImGui::PopStyleVar();
         }
 
         void setGeometry(ImVec2 sz, ImVec2 ps)
@@ -185,10 +186,7 @@ namespace uii
             {
                 name = "ПРАВИЛА ИГРЫ";
 
-                bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
-                ASSERT(ok)
-
-                       ok = buf1.loadFromFile("res/snd/gudok-doplera.mp3");
+                bool   ok = buf1.loadFromFile("res/snd/gudok-doplera.mp3");
                 ASSERT(ok)
 
                 ImGuiStyle&      style = ImGui::GetStyle();
@@ -214,7 +212,8 @@ namespace uii
         ImVec2 WHx2;
 
         void doOpen()
-        {   musicRule.play(); isOpen = true;
+        {   vsl::Musics::p->play(2);
+            isOpen = true;
         }
 
         void show()
@@ -255,6 +254,12 @@ namespace uii
             ImGui::PushStyleColor(ImGuiCol_ButtonActive ,(ImVec4)colButtonA);
 
             {   showButtonClose("Закрыть");
+                
+                if(ImGui::SliderFloat("Громкость музыки:", 
+                                   vsl::Musics::p->getPVol(), 0, 100, "%.f"))
+                {   vsl::Musics::p->setVolume();
+                }
+
                 ImGui::Text("%s", log.str().c_str());
                 showButtonClose("Закрыть ");
             }
@@ -270,9 +275,9 @@ namespace uii
         //  ImGui::End();
 
             if(!isOpen)
-            {   sound.play();
+            {   vsl::Sounds::p->play(0);
                 uiTuneBase.doOpen();
-                musicRule.stop();
+                vsl::Musics::p->stop();
             }
         }
 
@@ -306,15 +311,13 @@ namespace uii
         {   if(ImGui::Button(mess, WH))
             {   /// snd1.play();
                 /// fooEmpty ();
-                    sound.play();
+                    vsl::Sounds::p->play(0);
                     isOpen = false;
                     uiTuneBase.doOpen();
 
-                musicRule.stop();
+                vsl::Musics::p->stop();
             }
         }
-
-        vsl::Music musicRule{"res/snd/musicRule.mp3"};
     };
 
     const char* const strRules
@@ -412,10 +415,7 @@ R"(
             {
                 name = "Хак-Тюнинг";
 
-                bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
-                ASSERT(ok)
-
-                       ok = buf1.loadFromFile("res/snd/gudok-doplera.mp3");
+                bool   ok = buf1.loadFromFile("res/snd/gudok-doplera.mp3");
                 ASSERT(ok)
 
                 ImGuiStyle&      style = ImGui::GetStyle();
@@ -494,7 +494,7 @@ R"(
         //  ImGui::End();
 
             if(!isOpen)
-            {   sound.play();
+            {   vsl::Sounds::p->play(0);
                 uiTuneBase.doOpen();
             }
         }
@@ -529,7 +529,7 @@ R"(
         {   if(ImGui::Button(mess, WH))
             {   /// snd1.play();
                 /// fooEmpty ();
-                    sound.play();
+                    vsl::Sounds::p->play(0);
                     isOpen = false;
             }
         }
@@ -552,10 +552,7 @@ R"(
             {
                 name = "Игрок ...";
 
-                bool   ok = buffer.loadFromFile("res/snd/click-01.mp3");
-                ASSERT(ok)
-
-                       ok = buf1.loadFromFile("res/snd/gudok-doplera.mp3");
+                bool   ok = buf1.loadFromFile("res/snd/gudok-doplera.mp3");
                 ASSERT(ok)
 
                 ImGuiStyle&      style = ImGui::GetStyle();
@@ -626,17 +623,49 @@ R"(
             {   showButtonClose("Закрыть");
                 ImGui::Text("%s", "Введите имена игроков:");
 
+        ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.8f, 0.5f, 0.2f, 1.0f));
+        ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 5.0f);
+
+        const char* items[] = { "бот", "человек"};
+
+        static int currItem0 = 0;
+        if(ImGui::Combo("кто игрок?##0", &currItem0, items, IM_ARRAYSIZE(items)))
+        {   vsl::Sounds::p->play(0);
+        }
         ImGui::InputText("Игрок-1", &pl[0].nameInput, sizeof pl[0].nameInput);
+
+        static int currItem1 = 0;
+        if(ImGui::Combo("кто игрок?##1", &currItem1, items, IM_ARRAYSIZE(items)))
+        {   vsl::Sounds::p->play(0);
+        }
         ImGui::InputText("Игрок-2", &pl[1].nameInput, sizeof pl[1].nameInput);
+
+        static int currItem2 = 0;
+        if(ImGui::Combo("кто игрок?##2", &currItem2, items, IM_ARRAYSIZE(items)))
+        {   vsl::Sounds::p->play(0);
+        }
         ImGui::InputText("Игрок-3", &pl[2].nameInput, sizeof pl[2].nameInput);
 
-                //ImGui::DragInt ("...##3a", getIsSeed());
+    /// ImGui::DragInt ("...##3a", getIsSeed());
+    /// ImGui::SameLine();
+
+                if(ImGui::SliderFloat(  "Громкость музыки:", 
+                    vsl::Musics::p->getPVol(), 0, 100, "%.f"))
+                {   vsl::Musics::p->setVolume();
+                }
+
+                if(ImGui::SliderFloat(  "Громкость звуков:", 
+                    vsl::Sounds::p->getPVol(), 0, 100, "%.f"))
+                {   vsl::Sounds::p->play(0);
+                }
 
                 if(ImGui::Button("Test", WH))
-                {   sound.play   ();
-                    l(pl[0].name)
+                {   vsl::Musics::p->play(0);
                 }
             }
+        
+        ImGui::PopStyleVar();
+        ImGui::PopStyleColor();
 
             ImGui::PopStyleColor();
             ImGui::PopStyleColor();
@@ -649,13 +678,14 @@ R"(
         //  ImGui::End();
 
             if(!isOpen)
-            {   sound.play();
+            {   vsl::Sounds::p->play(0);
                 uiTuneBase.doOpen();
             }
         }
 
         void setGeometry(ImVec2 sz, ImVec2 ps)
-        {   UIBase::setGeometry(sz,        ps);
+        {   sz.x += 200;
+            UIBase::setGeometry(sz,        ps);
             WH   = {sz.x - 17.0f, sz.y / 20.f};
             WHx2 = {WH.x + WH.x, WH.y};
         }
@@ -684,7 +714,7 @@ R"(
         {   if(ImGui::Button(mess, WH))
             {   /// snd1.play();
                 /// fooEmpty ();
-                    sound.play();
+                    vsl::Sounds::p->play(0);
                     isOpen = false;
             }
         }

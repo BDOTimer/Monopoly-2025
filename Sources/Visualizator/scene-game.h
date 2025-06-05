@@ -37,9 +37,9 @@ namespace vsl
                 cfg.uiUpLog.fooMusic = [this]()
                 {   using E = sf::SoundSource::Status;
                     const bool
-                    b{    this->cfg.musicGame.getStatus() == E::Playing };
-                    b   ? this->cfg.musicGame.pause()
-                        : this->cfg.musicGame.play ();
+                    b{    this->cfg.musics.getStatus() == E::Playing };
+                    b   ? this->cfg.musics.pause()
+                        : this->cfg.musics.play(0);
                 };
 
                 cfg.uiUpLog.fooDice2 = [this]()
@@ -69,7 +69,7 @@ namespace vsl
         void goTune()
         {   using E = vsl::ScenesSwitcher;
             cfg.scenesSwitcher.doSwitcher(E::E_TUNE);
-            cfg.musicGame.stop();
+            cfg.musics.stop();
         }
 
         void input(const std::optional<sf::Event>&  event) override

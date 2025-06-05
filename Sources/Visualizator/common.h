@@ -60,16 +60,135 @@ namespace vsl
     };
 
 
-	struct	Music : sf::Music
-	{		Music(std::string_view name)
-			{	if (!openFromFile( name.data()))
+	struct	Music : sf ::Music
+	{		Music ( std::string_view name)
+			{	
+                if (!openFromFile( name.data()))
 				{	std::cout << "ERROR: \"" << name << "\"";
 				}
 			}
-
-		/// "res/snd/Maddix - Acid Soul.mp3"
-		/// "res/snd/Maddix - Receive Life.mp3"
+        
+    private:
 	};
+
+    ///------------------------------------------------------------------------|
+    /// Мюзикс-контрол.
+    ///----------------------------------------------------------------- Musics:
+    #define MAY(a) if(a == nullptr) return
+    struct	Musics   : std::vector<sf::Music*>
+	{		Musics() : std::vector<sf::Music*>(fn.size(), nullptr)
+			{	
+			}
+
+        enum eMusic
+        {    E_Acid,
+             E_Life,
+             E_musicRule
+        };
+
+		std::array<const char*, 3> fn
+        {   "res/snd/Maddix - Acid Soul.mp3",
+		    "res/snd/Maddix - Receive Life.mp3",
+            "res/snd/musicRule.mp3"
+        };
+
+        void play(unsigned i)
+        {   if(i >= fn.size()) return;
+            else if( auto& p = (*this)[i]; p != nullptr )
+            {   
+                if( pnow              != nullptr &&
+                    pnow->getStatus() == sf::SoundSource::Status::Playing &&
+                    pnow              == p)
+                {   stop();
+                }
+                else
+                {   stop();
+                   (pnow = p)->play();
+                    pnow ->setVolume (volume);
+                }
+            }
+            else
+            {   stop();
+                m.emplace_back( sf::Music(fn[i]) );
+                (pnow = &m.back())->play();
+                (p = pnow)->setVolume(volume);
+            }
+        }
+
+        void stop     (          ){ MAY(pnow); pnow->stop     (      ); }
+        void pause    (          ){ MAY(pnow); pnow->pause    (      ); }
+        void setVolume(          ){ MAY(pnow); pnow->setVolume(volume); }
+        void setVolume(float  val)
+        {   if(0.f   > val || val > 100.f) return;
+            volume   = val ;
+            MAY(pnow); pnow->setVolume(val);
+        }
+        sf::SoundSource::Status     getStatus() const
+        {   if    (pnow == nullptr) return sf::SoundSource::Status::Stopped;
+            return pnow->getStatus();
+        }
+
+        float* getPVol() { return &volume; }
+
+        static inline Musics* p{nullptr};
+        
+    private:
+        std::list<sf ::Music>           m;
+        sf ::Music*         pnow{nullptr};
+        float volume                 {60};
+	};
+
+
+    ///------------------------------------------------------------------------|
+    /// Саунд-контрол.
+    ///----------------------------------------------------------------- Sounds:
+    struct	Sounds   : std::vector<sf::Sound*>
+	{		Sounds() : std::vector<sf::Sound*>(60, nullptr)
+			{	
+			}
+
+        enum eMusic
+        {    E_click_01
+        };
+
+		std::array<const char*, 1> fn
+        {   "res/snd/click-01.mp3"
+        };
+
+
+        void play(unsigned i)
+        {   if(i >= fn.size())  return;
+            if(auto& e =  (*this )[i]; e == nullptr)
+            {   
+                b.emplace_back(sf::SoundBuffer(fn[i]));
+                s.emplace_back(sf::Sound   (b.back()));
+                s.back().setVolume(volume);
+
+                e = &s.back();
+                e ->   play();
+            }
+            else
+            {   e->setVolume(volume);
+                e->play     ();
+            }
+        }
+
+        void setVolume(float  val)
+        {   if(0.f   > val || val > 100.f) return;
+            volume   = val ;
+        }
+
+        float* getPVol() { return &volume; }
+
+        static inline Sounds*  p{nullptr};
+        
+    private:
+        std::list<sf::SoundBuffer>      b;
+        std::list<sf::Sound>            s;
+        float volume                 {60};
+	};
+    #undef MAY
+
 
     ///-------------------------|
     /// Интерфейс объекта.      |--------------------------------------------!!!

@@ -20,6 +20,9 @@ namespace vsl
                 ,   uiTune          ( window, "Настройки ...")
             {   init_();
                 resizeFormImgui();
+
+                Musics::p = &musics;
+                Sounds::p = &sounds;
             }
 
         ///-----------------------------------|
@@ -69,10 +72,10 @@ namespace vsl
 
         ScenesSwitcher scenesSwitcher;
 
-        sf::Time            deltaTime;
+        sf::Time           deltaTime;
 
-        Music musicLogo{"res/snd/Maddix - Receive Life.mp3"};
-        Music musicGame{"res/snd/Maddix - Acid Soul.mp3"   };
+        Musics             musics;
+        Sounds             sounds;
 
         uii::UITest        uiTune       ;
         uii::UIUpLog       uiUpLog      ;

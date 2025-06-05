@@ -1,10 +1,11 @@
-﻿const char* const LOGO_VISUALIZATOR{"VISUALIZATOR::ver::0.0.2.6"};
+﻿const char* const LOGO_VISUALIZATOR{"VISUALIZATOR::ver::0.0.2.7"};
 ///----------------------------------------------------------------------------|
 /// C++20
 /// ...
 ///-------------------------------------------------------------- sfml-Monopoly:
 #include "render.h"
 #include "ui-tune.h"
+#include "common.h"
 
 namespace uii
 {
