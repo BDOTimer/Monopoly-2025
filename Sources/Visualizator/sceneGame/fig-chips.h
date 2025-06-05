@@ -70,13 +70,12 @@ namespace vsl
         }
 
     private:
-
         ///------------------------------------|
         ///  На рендер.                         |
         ///------------------------------------:
         virtual void draw(sf::RenderTarget& target,
                           sf::RenderStates  states) const
-        {/// auto p = const_cast<FigureField*>(this);
+        {///auto p = const_cast<FigureField*>(this);
 
             for(const  auto& f : *this )
             {   target.draw( f , states);

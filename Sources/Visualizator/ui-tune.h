@@ -18,13 +18,8 @@ namespace uii
     ///------------------------------------------------------------- UITuneBase:
     struct  UITuneBase  : UIBase
     {       UITuneBase  (vsl::Config* cfg)
-                :   cfg (cfg )
-                ,   snd1(buf1)
             {
                 name = "Настройки";
-
-                bool   ok = buf1.loadFromFile("res/snd/gudok-doplera.mp3");
-                ASSERT(ok)
 
                 ImGuiStyle&      style = ImGui::GetStyle();
                 ColorBLog.m[0] = style.Colors[ImGuiCol_Button];
@@ -36,9 +31,6 @@ namespace uii
         vsl::Config*       cfg;
 
         void  doTuneAllClose();
-
-        sf::SoundBuffer   buf1;
-        sf::Sound         snd1;
 
         Callback fooRestart   {[this](){}};
         Callback fooContinue  {[this](){}};
@@ -120,7 +112,7 @@ namespace uii
                 }
 
                 if (ImGui::ImageButton("АВТОРЫ", texId, WH))
-                {   snd1.play ();
+                {   vsl::Sounds::p->play(1);
 
 #ifdef _WIN32
     #define OPEN_CMD "start"
@@ -182,12 +174,8 @@ namespace uii
     struct  UITuneRulesInfo   : UIBase
     {       UITuneRulesInfo(UITuneBase& uiTuneBase)
                 :   uiTuneBase( uiTuneBase)
-                ,   snd1      ( buf1)
             {
                 name = "ПРАВИЛА ИГРЫ";
-
-                bool   ok = buf1.loadFromFile("res/snd/gudok-doplera.mp3");
-                ASSERT(ok)
 
                 ImGuiStyle&      style = ImGui::GetStyle();
                 ColorBLog.m[0] = style.Colors[ImGuiCol_Button];
@@ -202,9 +190,6 @@ namespace uii
         UITuneBase& uiTuneBase;
 
         //ImVec4 buttonColor;
-
-        sf::SoundBuffer  buf1;
-        sf::Sound        snd1;
 
         Callback fooEmpty   {[this](){}};
 
@@ -309,11 +294,10 @@ namespace uii
 
         void showButtonClose(const char* mess)
         {   if(ImGui::Button(mess, WH))
-            {   /// snd1.play();
-                /// fooEmpty ();
-                    vsl::Sounds::p->play(0);
-                    isOpen = false;
-                    uiTuneBase.doOpen();
+            {   
+                vsl::Sounds::p->play(0);
+                isOpen     = false;
+                uiTuneBase .doOpen();
 
                 vsl::Musics::p->stop();
             }
@@ -411,12 +395,8 @@ R"(
     {       UITuneBackDoor(UITuneBase& uiTuneBase, vsl::Config* cfg)
                 :   cfg       (cfg)
                 ,   uiTuneBase( uiTuneBase)
-                ,   snd1      ( buf1)
             {
                 name = "Хак-Тюнинг";
-
-                bool   ok = buf1.loadFromFile("res/snd/gudok-doplera.mp3");
-                ASSERT(ok)
 
                 ImGuiStyle&      style = ImGui::GetStyle();
                 ColorBLog.m[0] = style.Colors[ImGuiCol_Button];
@@ -432,9 +412,6 @@ R"(
         UITuneBase& uiTuneBase;
 
         //ImVec4 buttonColor;
-
-        sf::SoundBuffer  buf1;
-        sf::Sound        snd1;
 
         Callback fooEmpty   {[this](){}};
 
@@ -548,12 +525,8 @@ R"(
                 :   uiTuneBase    ( uiTuneBase )
                 ,   cfg           ( cfg )
                 ,   userInit4Model( userInit4Model )
-                ,   snd1          ( buf1 )
             {
                 name = "Игрок ...";
-
-                bool   ok = buf1.loadFromFile("res/snd/gudok-doplera.mp3");
-                ASSERT(ok)
 
                 ImGuiStyle&      style = ImGui::GetStyle();
                 ColorBLog.m[0] = style.Colors[ImGuiCol_Button];
@@ -570,9 +543,6 @@ R"(
         model::UserInit4Model* userInit4Model;
 
         //ImVec4 buttonColor;
-
-        sf::SoundBuffer  buf1;
-        sf::Sound        snd1;
 
         Callback fooEmpty   {[this](){}};
 
@@ -621,30 +591,35 @@ R"(
             ImGui::PushStyleColor(ImGuiCol_ButtonActive ,(ImVec4)colButtonA);
 
             {   showButtonClose("Закрыть");
-                ImGui::Text("%s", "Введите имена игроков:");
+                ImGui::Text("%s", "Кто в игре?");
 
         ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.8f, 0.5f, 0.2f, 1.0f));
         ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 5.0f);
 
         const char* items[] = { "бот", "человек"};
 
+    ImGui::BeginChild("Left Panel", ImVec2(150, 99), true);
         static int currItem0 = 0;
-        if(ImGui::Combo("кто игрок?##0", &currItem0, items, IM_ARRAYSIZE(items)))
+        if(ImGui::Combo("?##0", &currItem0, items, IM_ARRAYSIZE(items)))
         {   vsl::Sounds::p->play(0);
         }
-        ImGui::InputText("Игрок-1", &pl[0].nameInput, sizeof pl[0].nameInput);
-
+        
         static int currItem1 = 0;
-        if(ImGui::Combo("кто игрок?##1", &currItem1, items, IM_ARRAYSIZE(items)))
+        if(ImGui::Combo("?##1", &currItem1, items, IM_ARRAYSIZE(items)))
         {   vsl::Sounds::p->play(0);
         }
-        ImGui::InputText("Игрок-2", &pl[1].nameInput, sizeof pl[1].nameInput);
-
+        
         static int currItem2 = 0;
-        if(ImGui::Combo("кто игрок?##2", &currItem2, items, IM_ARRAYSIZE(items)))
+        if(ImGui::Combo("?##2", &currItem2, items, IM_ARRAYSIZE(items)))
         {   vsl::Sounds::p->play(0);
         }
+    ImGui::EndChild();
+    ImGui::SameLine();
+    ImGui::BeginChild("Right Panel", ImVec2(0, 99), true);
+        ImGui::InputText("Игрок-1", &pl[0].nameInput, sizeof pl[0].nameInput);
+        ImGui::InputText("Игрок-2", &pl[1].nameInput, sizeof pl[1].nameInput);
         ImGui::InputText("Игрок-3", &pl[2].nameInput, sizeof pl[2].nameInput);
+    ImGui::EndChild();
 
     /// ImGui::DragInt ("...##3a", getIsSeed());
     /// ImGui::SameLine();

@@ -276,9 +276,6 @@ namespace vsl
 
             uiUpLog.messDown = &uiDownMessage;
         }
-
-        Sound mp3no   {"res/snd/no.mp3"};
-        Sound mp3dice1{"res/snd/dice1.mp3"};
     };
 }
 

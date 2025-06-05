@@ -126,7 +126,7 @@ namespace vsl
             }
             else
             {   this->winGame.isUiCellInfo = false;
-                this->cfg.mp3dice1.play();
+                this->cfg.sounds.play(3);
             }
         }
 
