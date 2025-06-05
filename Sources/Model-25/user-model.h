@@ -1,6 +1,6 @@
 ﻿#ifndef USER_MODEL_H
 #define USER_MODEL_H
-const char* const LOGO = "Model::Monopoly-2025[ver::0.2.4]";
+const char* const LOGO = "Model::Monopoly-2025[ver::0.2.5]";
 ///----------------------------------------------------------------------------|
 /// "user-model.h"
 ///----------------------------------------------------------------------------:
@@ -83,7 +83,7 @@ namespace model
         std::string      name;
 
         void initName()
-        {   name = std::string(isBot?"bot::":"user::") + nameInput;
+        {   name = std::string(isBot ? "bot::" : "user::") + nameInput;
         }
     };
 
@@ -97,9 +97,9 @@ namespace model
         /// Состав игроков.              |
         ///------------------------------:
         std::array<Player, 3> players
-        {   Player{0, true , "Noname"  }, /// Умный
-            Player{1, true , "aliskda" }, /// Срединий
-            Player{2, true , "gudleifr"}  /// Дурак
+        {   Player{0, false, "Noname"  }, /// Умный.
+            Player{1, true , "aliskda" }, /// Срединий.
+            Player{2, true , "gudleifr"}  /// Дурак.
         //  {false, "Slava-rusi11" }
         //  {false, "Вася Пупкин"  }
         };

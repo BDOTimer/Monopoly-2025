@@ -596,22 +596,25 @@ R"(
         ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.8f, 0.5f, 0.2f, 1.0f));
         ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 5.0f);
 
-        const char* items[] = { "бот", "человек"};
+        const char* items[] = { "человек", "бот"};
 
     ImGui::BeginChild("Left Panel", ImVec2(150, 99), true);
-        static int currItem0 = 0;
+        static int currItem0 = 1;
         if(ImGui::Combo("?##0", &currItem0, items, IM_ARRAYSIZE(items)))
         {   vsl::Sounds::p->play(0);
+            //pl[0].isBot = currItem0;
         }
         
-        static int currItem1 = 0;
+        static int currItem1 = 1;
         if(ImGui::Combo("?##1", &currItem1, items, IM_ARRAYSIZE(items)))
         {   vsl::Sounds::p->play(0);
+            //pl[1].isBot = currItem1;
         }
         
-        static int currItem2 = 0;
+        static int currItem2 = 1;
         if(ImGui::Combo("?##2", &currItem2, items, IM_ARRAYSIZE(items)))
         {   vsl::Sounds::p->play(0);
+            //pl[2].isBot = currItem2;
         }
     ImGui::EndChild();
     ImGui::SameLine();

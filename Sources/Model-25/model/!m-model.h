@@ -512,12 +512,12 @@ namespace model
         virtual void input() = 0;
         virtual void doAct() = 0;
 
-        const Config& cfg;
-
         ///------------------------------|
-        /// Интеллект бота               |
+        /// Инфа об имени игроке.        |
         ///------------------------------:
-        implants::IBotIQ* botIQ{nullptr};
+        virtual const std::string infoName() const = 0;
+
+        const Config& cfg;
 
         ///------------------------------|
         /// Идентификатор.               |
@@ -709,17 +709,6 @@ namespace model
                               << std::setw(4) << price << $s
                               << " от " << name << '\n';
             return price;
-        }
-
-        ///------------------------------|
-        /// Инфа об имени игроке.        |
-        ///------------------------------:
-        [[nodiscard]]
-        const std::string infoName() const
-        {   std::stringstream ss;
-                              ss  << ">> ИГРОК: "
-                                  << name << " --> " << botIQ->name << '\n';
-            return            ss.str();
         }
 
         ///------------------------------|
@@ -998,7 +987,23 @@ namespace model
             messEvents << pcard->doAct(this);
         }
 
+        ///------------------------------|
+        /// Инфа об имени игроке.        |
+        ///------------------------------:
+        const std::string infoName() const override
+        {   std::stringstream 
+                    ss;
+                    ss  << ">> ИГРОК: " << name << " --> "<< botIQ->name <<'\n';
+            return  ss.str();
+        }
+
     private:
+
+        ///------------------------------|
+        /// Интеллект бота               |
+        ///------------------------------:
+        implants::IBotIQ* botIQ{nullptr};
+
         ///------------------------------|
         /// Тест класса.                 |
         ///------------------------------:
@@ -1023,13 +1028,19 @@ namespace model
     struct  PersonHuman : IPerson
     {       PersonHuman(const Config& cfg, unsigned id)
                         : IPerson    (cfg, id)
-            {
-                init();
+            {   init();
+            /// 
+    botIQ = const_cast<implants::IBotIQ*>(cfg.getIBotIQ(id));
             }
 
         void input () override
         {
+            getStateGame();
+
             /// ...
+
+            Config* pcfg{const_cast<Config*>(&cfg)};
+            pcfg->stateGame.dat[StateGame::eSTATE::E_MONEY2] = money;
         }
 
         void doAct() override
@@ -1037,7 +1048,22 @@ namespace model
             messEvents << pcard->doAct(this);
         }
 
+        ///------------------------------|
+        /// Инфа об имени игроке.        |
+        ///------------------------------:
+        const std::string infoName() const override
+        {   std::stringstream ss;
+                              ss  << ">> ИГРОК: "
+                                  << name << " --> Человек" << '\n';
+            return            ss.str();
+        }
+
     private:
+        ///------------------------------|
+        /// Интеллект бота               |
+        ///------------------------------:
+        implants::IBotIQ* botIQ{nullptr};
+
         ///------------------------------|
         /// Тест класса.                 |
         ///------------------------------:
@@ -1084,6 +1110,8 @@ namespace model
                     idBot++;
                 }
 
+                SIGNAL(0) l(perses[0]->infoName()) //////////////////////---TODO
+
                 cfg = const_cast<model::Config*>(&Cfg);
 
                 cfg->stateGame.dat[0] = (int)cfg->stateGame.dat.size();
@@ -1115,7 +1143,6 @@ namespace model
             }
 
             ss << '\n' << info();
-
             return ss.str();
         }
 
@@ -1124,7 +1151,8 @@ namespace model
         const std::string info() const
         {   std::stringstream ss;
             for(unsigned i = 0; i < perses.size(); ++i)
-            {   ss << perses[cfg->order[i]]->infoName();
+            {   
+                ss << perses[cfg->order[i]]->infoName();
                 ss << perses[cfg->order[i]]->info    ();
             }
             return ss.str();
