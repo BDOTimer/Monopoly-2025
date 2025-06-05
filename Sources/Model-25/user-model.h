@@ -97,9 +97,9 @@ namespace model
         /// Состав игроков.              |
         ///------------------------------:
         std::array<Player, 3> players
-        {   Player{0, false, "Noname"  }, /// Умный.
-            Player{1, true , "aliskda" }, /// Срединий.
-            Player{2, true , "gudleifr"}  /// Дурак.
+        {   Player{0, true, "Noname"  }, /// Умный.
+            Player{1, true, "aliskda" }, /// Срединий.
+            Player{2, true, "gudleifr"}  /// Дурак.
         //  {false, "Slava-rusi11" }
         //  {false, "Вася Пупкин"  }
         };

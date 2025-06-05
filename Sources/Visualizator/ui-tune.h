@@ -239,8 +239,8 @@ namespace uii
             ImGui::PushStyleColor(ImGuiCol_ButtonActive ,(ImVec4)colButtonA);
 
             {   showButtonClose("Закрыть");
-                
-                if(ImGui::SliderFloat("Громкость музыки:", 
+
+                if(ImGui::SliderFloat("Громкость музыки:",
                                    vsl::Musics::p->getPVol(), 0, 100, "%.f"))
                 {   vsl::Musics::p->setVolume();
                 }
@@ -294,7 +294,7 @@ namespace uii
 
         void showButtonClose(const char* mess)
         {   if(ImGui::Button(mess, WH))
-            {   
+            {
                 vsl::Sounds::p->play(0);
                 isOpen     = false;
                 uiTuneBase .doOpen();
@@ -602,19 +602,19 @@ R"(
         static int currItem0 = 1;
         if(ImGui::Combo("?##0", &currItem0, items, IM_ARRAYSIZE(items)))
         {   vsl::Sounds::p->play(0);
-            //pl[0].isBot = currItem0;
+            pl[0].isBot = currItem0;
         }
-        
+
         static int currItem1 = 1;
         if(ImGui::Combo("?##1", &currItem1, items, IM_ARRAYSIZE(items)))
         {   vsl::Sounds::p->play(0);
-            //pl[1].isBot = currItem1;
+            pl[1].isBot = currItem1;
         }
-        
+
         static int currItem2 = 1;
         if(ImGui::Combo("?##2", &currItem2, items, IM_ARRAYSIZE(items)))
         {   vsl::Sounds::p->play(0);
-            //pl[2].isBot = currItem2;
+            pl[2].isBot = currItem2;
         }
     ImGui::EndChild();
     ImGui::SameLine();
@@ -627,12 +627,12 @@ R"(
     /// ImGui::DragInt ("...##3a", getIsSeed());
     /// ImGui::SameLine();
 
-                if(ImGui::SliderFloat(  "Громкость музыки:", 
+                if(ImGui::SliderFloat(  "Громкость музыки:",
                     vsl::Musics::p->getPVol(), 0, 100, "%.f"))
                 {   vsl::Musics::p->setVolume();
                 }
 
-                if(ImGui::SliderFloat(  "Громкость звуков:", 
+                if(ImGui::SliderFloat(  "Громкость звуков:",
                     vsl::Sounds::p->getPVol(), 0, 100, "%.f"))
                 {   vsl::Sounds::p->play(0);
                 }
@@ -641,7 +641,7 @@ R"(
                 {   vsl::Musics::p->play(0);
                 }
             }
-        
+
         ImGui::PopStyleVar();
         ImGui::PopStyleColor();
 

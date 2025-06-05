@@ -991,7 +991,7 @@ namespace model
         /// Инфа об имени игроке.        |
         ///------------------------------:
         const std::string infoName() const override
-        {   std::stringstream 
+        {   std::stringstream
                     ss;
                     ss  << ">> ИГРОК: " << name << " --> "<< botIQ->name <<'\n';
             return  ss.str();
@@ -1029,7 +1029,7 @@ namespace model
     {       PersonHuman(const Config& cfg, unsigned id)
                         : IPerson    (cfg, id)
             {   init();
-            /// 
+            ///
     botIQ = const_cast<implants::IBotIQ*>(cfg.getIBotIQ(id));
             }
 
@@ -1110,8 +1110,6 @@ namespace model
                     idBot++;
                 }
 
-                SIGNAL(0) l(perses[0]->infoName()) //////////////////////---TODO
-
                 cfg = const_cast<model::Config*>(&Cfg);
 
                 cfg->stateGame.dat[0] = (int)cfg->stateGame.dat.size();
@@ -1151,7 +1149,7 @@ namespace model
         const std::string info() const
         {   std::stringstream ss;
             for(unsigned i = 0; i < perses.size(); ++i)
-            {   
+            {
                 ss << perses[cfg->order[i]]->infoName();
                 ss << perses[cfg->order[i]]->info    ();
             }
