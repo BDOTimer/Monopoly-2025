@@ -60,25 +60,25 @@ namespace vsl
     };
 
 
-	struct	Music : sf ::Music
-	{		Music ( std::string_view name)
-			{	
+    struct  Music : sf ::Music
+    {       Music ( std::string_view name)
+            {   
                 if (!openFromFile( name.data()))
-				{	std::cout << "ERROR: \"" << name << "\"";
-				}
-			}
+                {   std::cout << "ERROR: \"" << name << "\"";
+                }
+            }
         
     private:
-	};
+    };
 
     ///------------------------------------------------------------------------|
     /// Мюзикс-контрол.
     ///----------------------------------------------------------------- Musics:
     #define MAY(a) if(a == nullptr) return
-    struct	Musics   : std::vector<sf::Music*>
-	{		Musics() : std::vector<sf::Music*>(fn.size(), nullptr)
-			{	
-			}
+    struct  Musics   : std::vector<sf::Music*>
+    {       Musics() : std::vector<sf::Music*>(fn.size(), nullptr)
+            {   
+            }
 
         enum eMusic
         {    E_Acid,
@@ -86,9 +86,9 @@ namespace vsl
              E_musicRule
         };
 
-		std::array<const char*, 3> fn
+        std::array<const char*, 3> fn
         {   "res/snd/Maddix - Acid Soul.mp3",
-		    "res/snd/Maddix - Receive Life.mp3",
+            "res/snd/Maddix - Receive Life.mp3",
             "res/snd/musicRule.mp3"
         };
 
@@ -136,22 +136,22 @@ namespace vsl
         std::list<sf ::Music>           m;
         sf ::Music*         pnow{nullptr};
         float volume                 {60};
-	};
+    };
 
 
     ///------------------------------------------------------------------------|
     /// Саунд-контрол.
     ///----------------------------------------------------------------- Sounds:
-    struct	Sounds   : std::vector<sf::Sound*>
-	{		Sounds() : std::vector<sf::Sound*>(60, nullptr)
-			{	
-			}
+    struct  Sounds   : std::vector<sf::Sound*>
+    {       Sounds() : std::vector<sf::Sound*>(60, nullptr)
+            {   
+            }
 
         enum eMusic
         {    E_click_01
         };
 
-		std::array<const char*, 1> fn
+        std::array<const char*, 1> fn
         {   "res/snd/click-01.mp3"
         };
 
@@ -186,7 +186,7 @@ namespace vsl
         std::list<sf::SoundBuffer>      b;
         std::list<sf::Sound>            s;
         float volume                 {60};
-	};
+    };
     #undef MAY
 
 
@@ -238,43 +238,43 @@ namespace uii
 
 namespace vsl
 {
-	using ScenesAll = std::array<vsl::IObject*, 3>;
+    using ScenesAll = std::array<vsl::IObject*, 3>;
 
-	struct	ScenesSwitcher
-	{		ScenesSwitcher()
-			{
-			}
+    struct  ScenesSwitcher
+    {       ScenesSwitcher()
+            {
+            }
 
-		enum eSCENE
-		{	E_LOGO,
-			E_TUNE,
-			E_GAME
-		};
+        enum eSCENE
+        {   E_LOGO,
+            E_TUNE,
+            E_GAME
+        };
 
-		///---------------------|
-		/// Номер сцены.        |
-		///---------------------:
-		unsigned      nScene   {E_LOGO};
-		vsl::IObject* nowScene{nullptr};
-		ScenesAll*    scenes;
+        ///---------------------|
+        /// Номер сцены.        |
+        ///---------------------:
+        unsigned      nScene   {E_LOGO};
+        vsl::IObject* nowScene{nullptr};
+        ScenesAll*    scenes;
 
-		void doSwitcher(eSCENE id = E_TUNE)
-		{	ASSERT(scenes != nullptr)
-		    nowScene = (*scenes)[id];
-			nScene   = id;
-		}
+        void doSwitcher(eSCENE id = E_TUNE)
+        {   ASSERT(scenes != nullptr)
+            nowScene = (*scenes)[id];
+            nScene   = id;
+        }
 
-		void next()
-		{	ASSERT(scenes != nullptr)
-		    nScene =  (nScene + 1) % scenes->size();
-			nowScene = (*scenes)[nScene];
-		}
+        void next()
+        {   ASSERT(scenes != nullptr)
+            nScene =  (nScene + 1) % scenes->size();
+            nowScene = (*scenes)[nScene];
+        }
 
-		void init(ScenesAll* sns)
-		{	scenes = sns;
-			doSwitcher(E_LOGO);
-		}
-	};
+        void init(ScenesAll* sns)
+        {   scenes = sns;
+            doSwitcher(E_LOGO);
+        }
+    };
 }
 
 
