@@ -145,7 +145,7 @@ namespace vsl
             cfg.uiCellInfo.isBot = mdl.players[idPlayer].isBot;
 
             cfg.uiGameLog << model::doStep
-            (   "bot", { (int)mdl.idGame,
+            (   "start", { (int)mdl.idGame,
                          (int)idPlayer }
             );
 
@@ -153,7 +153,7 @@ namespace vsl
             ///////////////////////////////////////////////////
             cfg.uiPlayers[idPlayer] << uii::Clear() <<
             model::doStep
-            (   "bot", { (int)cfg.idGame,
+            (   "start", { (int)cfg.idGame,
                          (int)idPlayer  }
             );
 */

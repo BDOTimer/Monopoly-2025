@@ -170,9 +170,10 @@ namespace model
         }
     };
 
-    ///---------------------------|
-    /// Стейт визуализатора игры. |
-    ///---------------------------:
+    ///------------------------------------------------------------------------|
+    /// Стейт визуализатора игры.
+    /// Данные посылаемые от сервера к клиенту(игроку).
+    ///------------------------------------------------------------------------:
     struct StateGame
     {
         enum eSTATE
@@ -211,6 +212,29 @@ namespace model
         };
     };
 
+    ///------------------------------------------------------------------------|
+    /// Стейт визуализатора игры.
+    /// Данные посылаемые от клиента(игрока) на сервер.
+    ///------------------------------------------------------------------------:
+    struct StateGameClient2Server
+    {
+        bool isBuy;
+        std::vector<unsigned> isSellIds;
+
+        ///----------------------------|
+        /// Для верификации.           |
+        ///----------------------------:
+        int money;
+
+        void init()
+        {
+            isBuy     = false;
+            isSellIds.clear();
+
+            money   = -0xFFFF;
+        }
+    };
+
 
     ///---------------------------|
     /// vsl.                      |
@@ -231,10 +255,17 @@ namespace model
     size_t whoVictor(unsigned idGame);
 
     ///---------------------------|
-    /// Что должен знать игрок.   |
+    /// Сервер ---> Клиент.       |
     ///---------------------------:
-    const StateGame getStateGame(std::string_view command,
+    const StateGame getStateGame( std::string_view command,
                                   const std::vector<int>& args);
+
+    ///---------------------------|
+    /// Клиент ---> Сервер.       |
+    ///---------------------------:
+    const StateGame sendStateGame( std::string_view        command,
+                                   const std::vector<int>& args,
+                                   const StateGameClient2Server& stateGameC2S );
 }
 
 #endif // USER_MODEL_H

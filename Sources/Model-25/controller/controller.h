@@ -29,6 +29,11 @@ namespace controller
         ///---------------------------:
         model::StateGame     stateGame;
 
+        ///---------------------------|
+        /// Данные для сервера.       |
+        ///---------------------------:
+        model::StateGameClient2Server stateGame4S;
+
         std::string input()
         {   std::string s; std::getline(std::cin, s); return s;
         }

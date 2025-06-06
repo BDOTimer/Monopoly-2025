@@ -81,8 +81,8 @@ struct  TestGame2
                     }
                 }
 
-                vc  << model::doStep( "bot", { (int)idGame,
-                                               (int)idPlayer } );
+                vc  << model::doStep( "start", { (int)idGame,
+                                                 (int)idPlayer } );
 
                 if(!cfg->isScrollConsole)
                 {   std::system("cls");

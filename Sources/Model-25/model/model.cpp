@@ -148,9 +148,11 @@ namespace model
     ///---------------------------:
     std::string doStep(std::string_view command, const std::vector<int>& args)
     {
-        if(command == "bot")
+        if(command == "start")
         {   return holderGates.doStep(args[0], args[1]);
         }
+
+        std::cout << "ERROR: model::doStep(..." << command << "...);\n";
         return "error...\n";
     }
 
@@ -171,8 +173,18 @@ namespace model
     {   if(command == "get")
         {   return holderGates.getStateGame(args[0], args[1]);
         }
-    return {{999}};
+        return {{999}};
     }
+
+    const StateGame sendStateGame( std::string_view        command,
+                                   const std::vector<int>& args,
+                                   const StateGameClient2Server& stateGameC2S )
+    {   if(command == "2server")
+        {   return holderGates.getStateGame(args[0], args[1]);
+        }
+        return {{999}};
+    }
+
 }
 
 
