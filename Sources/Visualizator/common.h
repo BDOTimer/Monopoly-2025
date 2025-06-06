@@ -62,12 +62,12 @@ namespace vsl
 
     struct  Music : sf ::Music
     {       Music ( std::string_view name)
-            {   
+            {
                 if (!openFromFile( name.data()))
                 {   std::cout << "ERROR: \"" << name << "\"";
                 }
             }
-        
+
     private:
     };
 
@@ -77,7 +77,7 @@ namespace vsl
     #define MAY(a) if(a == nullptr) return
     struct  Musics   : std::vector<sf::Music*>
     {       Musics() : std::vector<sf::Music*>(fn.size(), nullptr)
-            {   
+            {
             }
 
         enum eMusic
@@ -87,15 +87,15 @@ namespace vsl
         };
 
         std::array<const char*, 3> fn
-        {   "res/snd/Maddix - Acid Soul.mp3",
-            "res/snd/Maddix - Receive Life.mp3",
+        {   "res/snd/gaming.mp3",
+            "res/snd/logo.mp3",
             "res/snd/musicRule.mp3"
         };
 
         void play(unsigned i)
         {   if(i >= fn.size()) return;
             else if( auto& p = (*this)[i]; p != nullptr )
-            {   
+            {
                 if( pnow              != nullptr &&
                     pnow->getStatus() == sf::SoundSource::Status::Playing &&
                     pnow              == p)
@@ -131,7 +131,7 @@ namespace vsl
         float* getPVol() { return &volume; }
 
         static inline Musics* p{nullptr};
-        
+
     private:
         std::list<sf ::Music>           m;
         sf ::Music*         pnow{nullptr};
@@ -145,7 +145,7 @@ namespace vsl
     ///----------------------------------------------------------------- Sounds:
     struct  Sounds   : std::vector<sf::Sound*>
     {       Sounds() : std::vector<sf::Sound*>(60, nullptr)
-            {   
+            {
             }
 
         enum eMusic
@@ -166,7 +166,7 @@ namespace vsl
         void play(unsigned i)
         {   if(i >= fn.size())  return;
             if(auto& e =  (*this )[i]; e == nullptr)
-            {   
+            {
                 b.emplace_back(sf::SoundBuffer(fn[i]));
                 s.emplace_back(sf::Sound   (b.back()));
                 s.back().setVolume(volume);
@@ -188,7 +188,7 @@ namespace vsl
         float* getPVol() { return &volume; }
 
         static inline Sounds*  p{nullptr};
-        
+
     private:
         std::list<sf::SoundBuffer>      b;
         std::list<sf::Sound>            s;
