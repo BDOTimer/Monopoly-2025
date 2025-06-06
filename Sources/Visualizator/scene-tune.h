@@ -43,14 +43,15 @@ namespace vsl
                 };
 
                 cfg.uiTuneBase.fooTuneGamer = [this]()
-                {   this->cfg.doTuneAllClose    ();
-                    this->cfg.uiTuneGamer.doOpen();
+                {   const bool b = this->cfg.uiTuneGamer.isOpen;
+                    this->cfg.doTuneAllClose();
+                    this->cfg.uiTuneGamer.isOpen = !b;
                 };
 
                 cfg.uiTuneBase.fooTuneTester = [this]()
-                {   this->cfg.doTuneAllClose();
-                    this->cfg.uiTuneBackDoor.isOpen =
-                   !this->cfg.uiTuneBackDoor.isOpen ;
+                {   const bool b = this->cfg.uiTuneBackDoor.isOpen;
+                    this->cfg.doTuneAllClose();
+                    this->cfg.uiTuneBackDoor.isOpen = !b;
                 };
 
                 cfg.uiTuneBase.fooRules = [this]()
@@ -69,7 +70,7 @@ namespace vsl
         void input(const std::optional<sf::Event>&  event) override
         {
             if (event->is<sf::Event::KeyPressed>())
-            {   if (ISKEYPRESSED(G))
+            {   if (ISKEYPRESSED(F5))
                 {   this->startModel();
                 }
             }
