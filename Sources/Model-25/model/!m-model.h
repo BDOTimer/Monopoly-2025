@@ -1029,15 +1029,57 @@ namespace model
     {       PersonHuman(const Config& cfg, unsigned id)
                         : IPerson    (cfg, id)
             {   init();
-            ///
-    botIQ = const_cast<implants::IBotIQ*>(cfg.getIBotIQ(id));
+            /// botIQ = const_cast<implants::IBotIQ*>(cfg.getIBotIQ(id));
             }
 
         void input () override
         {
             getStateGame();
 
+            Cell& cell = (*cfg.pfield)[position];
+
+            ASSERT(cell.status < 3)
+            ASSERT(     status < 3)
+
+            bool goodSky = cell.status == IPerson::status;
+            if(  goodSky)
+            {   messEvents << "   \"ЗВЁЗДЫ СВЕТЯТ МНЕ КРАСИВО!\"\n";
+            }
+
+            ///----------------------------------------|
+            /// Человек.                               |
+            ///----------------------------------------:
             /// ...
+
+            ///----------------------------------------|
+            /// Ячейка уже занята!                     |
+            ///----------------------------------------:
+            if(cell.isBusy())
+            {
+                if(this == cell.pers)
+                {   messOper << "   ... это моя ячейка: +"
+                             << prizeMyCell << $sn;
+                }
+                else
+                {   messEvents << "   ... ячейка занята ...\n";
+                    messOper   << "   Кошелёк до   : " << money << $sn
+                               << "   Стоимость аренды ячейки: -"
+                               << this->payRent(cell.pers)      << $sn
+                               << "   Кошелёк после: " << money << $sn;
+                }
+            }
+
+            ///----------------------------------------|
+            /// Активность игрока-человека.            |
+            ///----------------------------------------:
+            if(cfg.stateGame4S.isBuy)
+            {
+                doBuy();
+            }
+
+            if( isActBuy )
+            {   messEvents << "   В этом круге блок на продажу!\n";
+            }
 
             Config* pcfg{const_cast<Config*>(&cfg)};
             pcfg->stateGame.dat[StateGame::eSTATE::E_MONEY2] = money;
@@ -1056,6 +1098,100 @@ namespace model
                               ss  << ">> ИГРОК: "
                                   << name << " --> Человек" << '\n';
             return            ss.str();
+        }
+
+        ///------------------------------|
+        /// Заява на покупку.            |
+        ///------------------------------:
+        void doBuy()
+        {   
+            Config* pcfg{const_cast<Config*>(&cfg)};
+
+            Bank&   bank =   cfg.pfield->bank;
+            Cell&   cell = (*cfg.pfield)[position];
+            bool goodSky = cell.status == IPerson::status;
+
+            ///----------------------------------------|
+            /// Купить.                                |
+            ///----------------------------------------:
+            if(cfg.stateGame4S.isBuy && !cell.isBusy())
+            {
+                const int price 
+                    =   goodSky ? cell.getBestSell() : cell.bankSell[status];
+
+                bool isMoney = money >= price;
+                bool isEmpty = cell.amountThings == 0;
+
+                if( isMoney && !isEmpty)
+                {        money -= price;
+                    bank.money += price;
+                  --cell.amountThings  ;
+
+                    ///------------------------------|
+                    /// Добавить Вещь в инвентарь.   |
+                    ///------------------------------:
+                /// cargo[position] = 1;
+                /// cargo.insert(std::pair{cell.status, position});
+                    addThing(cell);
+
+                    messOper << "   \"" << cell.name
+                             << "\" куплен за " << price << $sn;
+
+                    messOper << IPerson::infoCargo();
+
+                    isActBuy  = true;
+                    cell.pers = this;
+                }
+                else if( isEmpty) messEvents << "   ... нет товара ...\n";
+                else if(!isMoney) messEvents << "   ... мало денег ...\n";
+
+                pcfg->stateGame4S.isBuy = false;
+                pcfg->stateGame.dat[StateGame::E_ISBUSYCELL] = cell.isBusy();
+            }
+
+            ///----------------------------------------|
+            /// Продать.                               |
+            ///----------------------------------------:
+            if(!cfg.stateGame4S.isSellIds.empty())
+            {
+                ASSERT(cargo.size() == cfg.stateGame4S.isSellIds.size())
+
+                messOper << IPerson::infoCargo();
+
+                auto it = cargo.begin();
+
+                const auto&[sts, id] = *it;
+
+            /// if(TITER == nullptr) break;
+
+                Cell& cellSell = (*cfg.pfield)[id];
+            /// Cell& cellSell = (*cfg.pfield)[TITER->second];
+
+                const int price = goodSky ?
+                    cellSell.getBestBuy() : cellSell.bankBuy[status];
+
+                {
+                         money += price;
+                    bank.money -= price;
+                  ++cellSell.amountThings;
+
+                    ///------------------------------|
+                    /// Удалить Вещь из инвентаря.   |
+                    ///------------------------------:
+                    deleteThing(it);
+
+                    messOper << "   \"" << cellSell.name
+                             << "\" продан за " << price << $s << '\n';
+
+                    messOper << IPerson::infoCargo();
+
+                    cell.pers = nullptr;
+                }
+
+                pcfg->stateGame4S.isSellIds.clear();
+            }
+
+            getStateGame();
         }
 
     private:
@@ -1367,6 +1503,24 @@ namespace model
         {
             /// TODO ...
             return cfg->stateGame;
+        }
+
+        ///------------------------------|
+        /// Клиент прислал решение.      |
+        ///------------------------------:
+        void sendStateGame(const unsigned          idPlayer,
+                           const StateGame4Server& stateGame4S)
+        {   cfg->stateGame4S = stateGame4S;
+
+            ///--------------------------|
+            /// Верификатор.             |
+            ///--------------------------:
+            ASSERT(!cfg->players[idPlayer].isBot) /// Запрет на ботов.
+            ASSERT(persNow == perses[cfg->order[idPlayer]])
+
+            persNow->input();
+          
+            /// TODO ...
         }
 
         friend struct TestGame;

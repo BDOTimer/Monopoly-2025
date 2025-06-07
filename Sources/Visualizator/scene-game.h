@@ -53,6 +53,10 @@ namespace vsl
                 cfg.uiCellInfo.fooNext = [this]()
                 {   this->upDice();
                 };
+
+                cfg.uiCellInfo.fooBuy = [this]()
+                {   this->doBuy();
+                };
             }
 
         vsl::Config&  cfg;
@@ -95,38 +99,46 @@ namespace vsl
         }
 
         unsigned nStep{};
+        unsigned nClickDice{};
 
         void upDice()
         {   ///if(isGameOver) return; TODO ...
 
-            if( winGame.isUiCellInfo)
-            {   winGame.isUiCellInfo = false;
-                updateInfoPlayer();
+            nClickDice = (nClickDice + 1) % 3;
 
-                const auto& idCell =
-                cfg._3player[ID].stateGame.dat[model::StateGame::E_POSITION];
+            switch(nClickDice)
+            {
+                case 0:
+                {
+                    if( winGame.isUiCellInfo)
+                    {   winGame.isUiCellInfo = false;
+                        updateInfoPlayer();
+                        setCellColor    ();
 
-                const auto& isBusy =
-                cfg._3player[ID].stateGame.dat[model::StateGame::E_ISBUSYCELL];
+                        return;
+                    }
+                    break;
+                }
+                case 1:
+                case 2:
+                {
+                    auto& o = this->winGame;
 
-                winGame.setCellColor(idCell, isBusy);
+                    o.dice.isRot = !o.dice.isRot;
+                    o.isDiceHide = !o.isDiceHide;
 
-                return;
-            }
+                    o.dice.resetDice();
 
-            auto& o = this->winGame;
-
-            o.dice.isRot = !o.dice.isRot;
-            o.isDiceHide = !o.isDiceHide;
-
-            o.dice.resetDice();
-
-            if( !o.dice.isRot)
-            {   this->doStep();
-            }
-            else
-            {   this->winGame.isUiCellInfo = false;
-                this->cfg.sounds.play(3);
+                    if( !o.dice.isRot)
+                    {   this->doStep();
+                    }
+                    else
+                    {   this->winGame.isUiCellInfo = false;
+                        this->cfg.sounds.play(3);
+                    }
+                    break;
+                }
+                default: ASSERT(false)
             }
         }
 
@@ -146,7 +158,7 @@ namespace vsl
 
             cfg.uiGameLog << model::doStep
             (   "start", { (int)mdl.idGame,
-                         (int)idPlayer }
+                           (int)idPlayer }
             );
 
 /*
@@ -168,32 +180,8 @@ namespace vsl
 
             cfg._3player  [ID].stateGame = sg;
 
-            cfg.uiPlayers[IDPLAYER]<< uii::Clear()
-                << "  ИГРОК  : " << sg.str[ES::E_NAME  ]        << '\n'
-                << "  КОШЕЛЁК: " << sg.dat[ED::E_MONEY1]        << '\n'
-                << "  КУБИК  : " << sg.dat[ED::E_NDICE ]        << '\n'
-                << "  СТАТУС : " << sg.dat[ED::E_STATUS_PERS]+1 << " ---> "
-                << mdl.decode2Str.getPlayer(sg.dat[ED::E_STATUS_PERS]).data()
-                << '\n'
-                ;
-
-            //model::Field& field1 = *(cfg.cfgModel.pfield);
-            //model::Cell& cell1 = field1[0];
-
-            ///----------------------|
-            /// TODO: ...            |
-            ///----------------------:
-            //model::Field field1(cfg.cfgModel);
-
-            cfg.uiCellInfo       << uii::Clear()
-                << "  ИГРОК    : " << sg.str[ES::E_NAME]             << '\n'
-                << "  ЯЧЕЙКА   : " << sg.str[ES::E_CELL]             << '\n'
-                << "  ПОЗИЦИЯ  : " << sg.dat[ED::E_POSITION]         << '\n'
-                << "  СТАТУС   : " << sg.dat[ED::E_STATUS_CELL]+1<< " ---> "
-                << mdl.decode2Str.getCell(sg.dat[ED::E_STATUS_CELL]) << '\n'
-                << "  ПРОДАЁТСЯ: " << sg.dat[ED::E_SELL]             << '\n'
-                << "  СКУПКА   : " << sg.dat[ED::E_BYU]              << '\n'
-                ;
+            set2uiPlayers ();
+            set2uiCellInfo();
 
             if(isGameOver = sg.dat[ED::E_GAMEOVER] >= 0; isGameOver)
             {   cfg.uiDownMessage << uii::Clear()
@@ -261,6 +249,79 @@ namespace vsl
             isLog     = false;
 
             winGame.reStart();
+        }
+
+        ///-----------------------------------|
+        /// Покупка ячейки.                   |
+        ///-----------------------------------:
+        void doBuy()
+        { 
+            if(cfg._3player[ID].isBot)
+            {   return;
+            }
+                  auto& sg4S{cfg._3player[ID].stateGame4S};
+            const auto& mdl {cfg.cfgModel};
+            unsigned&   idPlayer = cfg._3player[IDPLAYER].id;
+
+            sg4S.isBuy  = true;
+
+            const model::StateGame sg = 
+                  model::sendStateGame("4server", 
+                                      {(int)mdl.idGame, (int)idPlayer}, sg4S);
+
+            ///-------------------------------|
+            /// Получить стейт.               |
+            ///-------------------------------:
+
+            cfg._3player  [ID].stateGame = sg;
+
+            set2uiPlayers ();
+            set2uiCellInfo();
+            setCellColor  ();
+        }
+
+        void set2uiPlayers()
+        {
+            const auto& sg = cfg._3player[ID].stateGame;
+            const auto& mdl{cfg.cfgModel};
+
+            cfg.uiPlayers[IDPLAYER]<< uii::Clear()
+                << "  ИГРОК  : " << sg.str[ES::E_NAME  ]        << '\n'
+                << "  КОШЕЛЁК: " << sg.dat[ED::E_MONEY1]        << '\n'
+                << "  КУБИК  : " << sg.dat[ED::E_NDICE ]        << '\n'
+                << "  СТАТУС : " << sg.dat[ED::E_STATUS_PERS]+1 << " ---> "
+                << mdl.decode2Str.getPlayer(sg.dat[ED::E_STATUS_PERS]).data()
+                << '\n'
+                ;
+        }
+
+        void set2uiCellInfo()
+        {   
+            const auto& sg = cfg._3player[ID].stateGame;
+            const auto& mdl{cfg.cfgModel};
+
+            cfg.uiCellInfo         << uii::Clear()
+                << "  ИГРОК    : " << sg.str[ES::E_NAME]             << '\n'
+                << "  ЯЧЕЙКА   : " << sg.str[ES::E_CELL]             << '\n'
+                << "  ПОЗИЦИЯ  : " << sg.dat[ED::E_POSITION]         << '\n'
+                << "  СТАТУС   : " << sg.dat[ED::E_STATUS_CELL]+1<< " ---> "
+                << mdl.decode2Str.getCell(sg.dat[ED::E_STATUS_CELL]) << '\n'
+                << "  ПРОДАЁТСЯ: " << sg.dat[ED::E_SELL]             << '\n'
+                << "  СКУПКА   : " << sg.dat[ED::E_BYU]              << '\n'
+                ;
+        }
+
+        ///-----------------------------------|
+        /// Цвет купленной ячейки.            |
+        ///-----------------------------------:
+        void setCellColor()
+        {   const auto& idCell =
+                cfg._3player[ID].stateGame.dat[model::StateGame::E_POSITION];
+
+            const auto& isBusy =
+                cfg._3player[ID].stateGame.dat[model::StateGame::E_ISBUSYCELL];
+
+            winGame.setCellColor(idCell, isBusy);
         }
 
         ///-----------------------------------|

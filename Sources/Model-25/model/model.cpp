@@ -53,6 +53,11 @@ namespace model
         const StateGame getStateGame(unsigned idPlayer)
         {   return model::Referee::getStateGame(idPlayer);
         }
+
+        void sendStateGame(const unsigned           idPlayer,
+                           const StateGame4Server&  stateGame4S)
+        {   model::Referee::sendStateGame(idPlayer, stateGame4S);
+        }
     };
 
     struct CG
@@ -119,6 +124,12 @@ namespace model
         {   return (*this)[idGame].mdl->getStateGame(idPlayer);
         }
 
+        void sendStateGame(unsigned idGame, unsigned idPlayer, 
+                           const StateGame4Server& stateGame4S)
+        {
+            (*this)[idGame].mdl->sendStateGame(idPlayer, stateGame4S);
+        }
+
     private:
         std::map<std::string/*login*/, unsigned/*id*/> logins;
 
@@ -178,9 +189,10 @@ namespace model
 
     const StateGame sendStateGame( std::string_view        command,
                                    const std::vector<int>& args,
-                                   const StateGameClient2Server& stateGameC2S )
-    {   if(command == "2server")
-        {   return holderGates.getStateGame(args[0], args[1]);
+                                   const StateGame4Server& stateGame4S )
+    {   if(command == "4server")
+        {          holderGates.sendStateGame(args[0], args[1],stateGame4S);
+            return holderGates.getStateGame (args[0], args[1]);
         }
         return {{999}};
     }

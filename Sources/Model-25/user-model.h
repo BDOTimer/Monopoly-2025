@@ -215,8 +215,8 @@ namespace model
     ///------------------------------------------------------------------------|
     /// Стейт визуализатора игры.
     /// Данные посылаемые от клиента(игрока) на сервер.
-    ///------------------------------------------------------------------------:
-    struct StateGameClient2Server
+    ///------------------------------------------------------- StateGame4Server:
+    struct StateGame4Server
     {
         bool isBuy;
         std::vector<unsigned> isSellIds;
@@ -233,6 +233,8 @@ namespace model
 
             money   = -0xFFFF;
         }
+
+        bool isWork() const { return isBuy || !isSellIds.empty(); }
     };
 
 
@@ -265,7 +267,7 @@ namespace model
     ///---------------------------:
     const StateGame sendStateGame( std::string_view        command,
                                    const std::vector<int>& args,
-                                   const StateGameClient2Server& stateGameC2S );
+                                   const StateGame4Server& stateGame4S );
 }
 
 #endif // USER_MODEL_H
