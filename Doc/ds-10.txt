@@ -1,0 +1,105 @@
+Если вы разрабатываете приложение с интерфейсом на **Dear ImGui** и хотите разместить его в интернете, есть несколько технических подходов. Поскольку ImGui изначально создан для нативных приложений (C++/DirectX/OpenGL/Vulkan), его интеграция в веб требует дополнительных решений.  
+
+---
+
+## **1. Компиляция в WebAssembly (Emscripten)**
+**Самый надёжный способ** — скомпилировать ImGui-приложение в **WebAssembly** с помощью **Emscripten**.  
+
+### **Как это работает?**
+- Код на C++ компилируется в **.wasm** + **JavaScript**-обвязку.
+- Рендеринг через **WebGL** (аналог OpenGL для браузера).  
+
+### **Шаги для сборки:**
+1. **Установка Emscripten**  
+   ```bash
+   git clone https://github.com/emscripten-core/emsdk.git
+   cd emsdk
+   ./emsdk install latest
+   ./emsdk activate latest
+   source ./emsdk_env.sh
+   ```
+
+2. **Компиляция ImGui-приложения**  
+   Пример для **SDL2 + OpenGL**:
+   ```bash
+   emcc main.cpp -o imgui_app.html \
+      -s USE_SDL=2 -s USE_WEBGL2=1 \
+      -s FULL_ES3=1 -s WASM=1 \
+      --shell-file minimal.html
+   ```
+
+3. **Запуск в браузере**  
+   Файлы `imgui_app.html`, `imgui_app.js`, `imgui_app.wasm` можно загрузить на хостинг.  
+
+**Плюсы:**  
+✔ Полная работа ImGui в браузере  
+✔ Поддержка мыши/клавиатуры  
+✔ Высокая производительность  
+
+**Минусы:**  
+❌ Требует настройки сборки  
+❌ Нет доступа к некоторым системным API  
+
+---
+
+## **2. Серверный рендеринг + WebSocket**
+Если WASM не подходит, можно:  
+- Запускать ImGui на **сервере** (например, на C++ с OpenGL).  
+- Передавать изображение через **WebSocket** в браузер.  
+
+### **Пример архитектуры:**
+```
+[Браузер] ←(WebSocket)→ [Сервер: ImGui + FFmpeg] → [Стриминг видео]
+```
+
+**Библиотеки для реализации:**  
+- **WebSocket++** (C++)  
+- **FFmpeg** (кодирование в H264/WebM)  
+
+**Плюсы:**  
+✔ Работает даже на слабых устройствах  
+✔ Не требует WASM  
+
+**Минусы:**  
+❌ Задержка из-за стриминга  
+❌ Сложность настройки  
+
+---
+
+## **3. Альтернативы ImGui для веба**
+Если переписать интерфейс — есть аналоги:  
+
+### **a) ImGui-JS-портированные версии**
+- **Dear ImGui порты на TypeScript**:  
+  - [imgui-js](https://github.com/rokups/imgui-js) (WebGL-рендеринг)  
+  - [imgui-wasm](https://github.com/jnmaloney/WebGui) (на базе Emscripten)  
+
+### **b) Другие Immediate Mode GUI для веба**
+- **React + Three.js** (для 3D-интерфейсов)  
+- **PixiJS** (2D-рендеринг)  
+- **Babylon.js** (с поддержкой WebGPU)  
+
+---
+
+## **4. Готовые решения**
+- **Cheetah Engine** — фреймворк для ImGui в вебе.  
+- **Magnum Engine** — поддерживает Emscripten.  
+
+---
+
+## **Итог: что выбрать?**
+| Способ | Когда использовать | Сложность |
+|--------|-------------------|-----------|
+| **WASM + Emscripten** | Если нужно портировать существующий ImGui-код | Средняя |
+| **Серверный рендеринг** | Для сложных приложений с GPU-логикой | Высокая |
+| **ImGui-JS** | Если можно переписать интерфейс | Низкая |
+
+**Рекомендация:**  
+Начните с **Emscripten**, если ImGui критичен. Для новых проектов рассмотрите **React + WebGL**.  
+
+Пример работающего ImGui в браузере:  
+👉 [Dear ImGui WASM Demo](https://paweljarosz.github.io/emscripten-imgui/)  
+
+Для вдохновения:  
+- [ImGui + Emscripten Boilerplate](https://github.com/jnmaloney/WebGui)  
+- [Официальный пример ImGui для Web](https://github.com/ocornut/imgui/tree/master/examples/example_emscripten)
