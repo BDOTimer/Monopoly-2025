@@ -46,6 +46,7 @@ namespace vsl
             target.draw   (fon, states);
 
             cfg.uiUpLog.show();
+            cfg.uiUpBankInfo.show();
         }
     };
 }

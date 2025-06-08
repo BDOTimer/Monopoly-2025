@@ -126,6 +126,11 @@ namespace model
         unsigned amountCells       { 30 };
 
         ///------------------------------|
+        /// Денеги Банка.                |
+        ///------------------------------:
+        int moneyBank{3200};
+
+        ///------------------------------|
         /// Мировая геометрия.           |
         ///------------------------------:
         std::vector<std::vector<int>> worldGeometry
@@ -189,6 +194,7 @@ namespace model
              E_MONEY1,
              E_MONEY2,
              E_GAMEOVER,
+             E_BANK,
 
              /// ...
              E_DAT

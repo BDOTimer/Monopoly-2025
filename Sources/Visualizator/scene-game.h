@@ -194,6 +194,8 @@ namespace vsl
             ///////////////////////////////////////////////////
 
             winGame.isUiCellInfo = true;
+
+            cfg.cfgModel.moneyBank = sg.dat[model::StateGame::E_BANK];
         }
 
         bool isGameOver{false};
@@ -255,7 +257,7 @@ namespace vsl
         /// Покупка ячейки.                   |
         ///-----------------------------------:
         void doBuy()
-        { 
+        {
             if(cfg._3player[ID].isBot)
             {   return;
             }
@@ -265,8 +267,8 @@ namespace vsl
 
             sg4S.isBuy  = true;
 
-            const model::StateGame sg = 
-                  model::sendStateGame("4server", 
+            const model::StateGame sg =
+                  model::sendStateGame("4server",
                                       {(int)mdl.idGame, (int)idPlayer}, sg4S);
 
             ///-------------------------------|
@@ -278,6 +280,8 @@ namespace vsl
             set2uiPlayers ();
             set2uiCellInfo();
             setCellColor  ();
+
+            cfg.cfgModel.moneyBank = sg.dat[model::StateGame::E_BANK];
         }
 
         void set2uiPlayers()
@@ -296,7 +300,7 @@ namespace vsl
         }
 
         void set2uiCellInfo()
-        {   
+        {
             const auto& sg = cfg._3player[ID].stateGame;
             const auto& mdl{cfg.cfgModel};
 

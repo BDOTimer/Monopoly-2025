@@ -1104,7 +1104,7 @@ namespace model
         /// Заява на покупку.            |
         ///------------------------------:
         void doBuy()
-        {   
+        {
             Config* pcfg{const_cast<Config*>(&cfg)};
 
             Bank&   bank =   cfg.pfield->bank;
@@ -1116,7 +1116,7 @@ namespace model
             ///----------------------------------------:
             if(cfg.stateGame4S.isBuy && !cell.isBusy())
             {
-                const int price 
+                const int price
                     =   goodSky ? cell.getBestSell() : cell.bankSell[status];
 
                 bool isMoney = money >= price;
@@ -1353,6 +1353,7 @@ namespace model
             ss << field.bank.info() << '\n';
 
             cfg->stateGame.dat[ED::E_IDPLAYER] = cfg->order[i];
+            cfg->stateGame.dat[ED::E_BANK] = cfg->pfield->bank.money;
 
             persNow = perses[cfg->order[i]];
 
@@ -1519,7 +1520,7 @@ namespace model
             ASSERT(persNow == perses[cfg->order[idPlayer]])
 
             persNow->input();
-          
+
             /// TODO ...
         }
 

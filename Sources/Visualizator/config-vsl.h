@@ -92,6 +92,8 @@ namespace vsl
         uii::UITuneGamer     uiTuneGamer    { uiTuneBase, this,&userInit4Model};
         uii::UITuneBackDoor  uiTuneBackDoor { uiTuneBase, this };
 
+        uii::UIUpBankInfo    uiUpBankInfo   {&cfgModel.moneyBank};
+
         void doTuneAllClose()
         {   uiTuneGamer   .doClose();
             uiTuneBackDoor.doClose();
@@ -272,6 +274,20 @@ namespace vsl
                 const float psY = ps.y;
 
                 uiTuneGamer.setGeometry(sz, {psX, psY});
+            }
+
+            ///-------------------|
+            /// uiUpBankInfo      |
+            ///-------------------:
+            {
+                const auto& G = markupSG.getWinBase();
+
+                const auto  px = uiUpLog.size.x + 10.f;
+                const auto& py = uiUpLog.position.y;
+                const auto& sx = G.size.x * szfWin.x * 0.2f;
+                const auto& sy = uiUpLog.size.y;
+
+                uiUpBankInfo.setGeometry({sx, sy}, {px, py});
             }
 
             uiUpLog.messDown = &uiDownMessage;
