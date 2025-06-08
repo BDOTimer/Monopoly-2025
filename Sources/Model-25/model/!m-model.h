@@ -1439,7 +1439,6 @@ namespace model
             }
 
             cfg->stateGame.dat[ED::E_ISBUSYCELL] = cell.isBusy();
-            cfg->stateGame.dat[ED::E_BANK2]      = cfg->pfield->bank.money;
 
             ///l(cell.isBusy())
 
@@ -1505,7 +1504,8 @@ namespace model
         {
             /// TODO ...
             using ED = StateGame::eSTATE;
-            cfg->stateGame.dat[ED::E_BANK2] = cfg->pfield->bank.money;
+            cfg->stateGame.dat[ED::E_BANK2 ] = cfg->pfield->bank.money;
+            cfg->stateGame.dat[ED::E_MONEY2] = persNow->money;
 
             return cfg->stateGame;
         }

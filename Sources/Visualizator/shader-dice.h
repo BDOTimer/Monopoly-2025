@@ -66,6 +66,7 @@ namespace vsl
         void resetDice()
         {    rotSpeed     = 0;
              currentAngle = 0;
+             isRot        = false;
         }
 
         void init()
@@ -180,7 +181,7 @@ namespace vsl
             //const sf::Vector2f sz{float(window.getSize().x),
             //                      float(window.getSize().y)};
 
-            sf::View       v{window.getDefaultView()}; 
+            sf::View       v{window.getDefaultView()};
                            v.setSize  ({1344, 768});
                            v.setCenter({0, 0});
             window.setView(v);

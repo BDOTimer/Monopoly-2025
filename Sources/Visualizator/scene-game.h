@@ -98,49 +98,52 @@ namespace vsl
             }
         }
 
-        unsigned nStep{};
+        unsigned nStep     {};
         unsigned nClickDice{};
 
         void upDice()
         {   ///if(isGameOver) return; TODO ...
 
-            nClickDice = (nClickDice + 1) % 3;
-
             switch(nClickDice)
             {
                 case 0:
+                {   auto& o = this->winGame;
+
+                    o.dice.isRot = true ;
+                    o.isDiceHide = false;
+
+                    this->winGame.isUiCellInfo = false;
+                    this->cfg.sounds.play(3);
+                    break;
+                }
+                case 1:
+                {   auto& o = this->winGame;
+
+                    o.dice.isRot = false;
+                    o.isDiceHide = true ;
+
+                    o.dice.resetDice();
+
+                    this->doStep();
+                    break;
+                }
+                case 2:
                 {
                     if( winGame.isUiCellInfo)
                     {   winGame.isUiCellInfo = false;
                         setCellColor    ();
+
+                        updateEndStep   ();
                         set2uiPlayers   ();
 
                         updateInfoPlayer();
-                        return;
-                    }
-                    break;
-                }
-                case 1:
-                case 2:
-                {
-                    auto&      o = this->winGame;
-
-                    o.dice.isRot = !o.dice.isRot;
-                    o.isDiceHide = !o.isDiceHide;
-
-                    o.dice.resetDice();
-
-                    if( !o.dice.isRot)
-                    {   this->doStep();
-                    }
-                    else
-                    {   this->winGame.isUiCellInfo = false;
-                        this->cfg.sounds.play(3);
                     }
                     break;
                 }
                 default: ASSERT(false)
             }
+
+            nClickDice = (nClickDice + 1) % 3;
         }
 
         pr::InsexCircle iWin{3};
@@ -209,14 +212,15 @@ namespace vsl
 
         void nextPlayer()
         {
-            if(++IDPLAYER == cfg._3player.size()) IDPLAYER = 0;
+            IDPLAYER = (IDPLAYER + 1) % cfg._3player.size();
 
             cfg.info_01(++cnt);
 
-            cfg.uiDownMessage << uii::Clear() << "Ход ИГРОКА: "
+            cfg.uiDownMessage << uii::Clear()   << "Ход ИГРОКА: "
                               << (IDPLAYER + 1) << ": \""
                               << cfg.cfgModel.players[IDPLAYER].name << ": \""
                               << mess[rand()%mess.size()];
+            ++nStep;
         }
 
         ///-----------------------------------|
@@ -245,6 +249,7 @@ namespace vsl
             IDPLAYER   = 0;
             cnt        = 0;
             nClickDice = 0;
+            nStep      = 0;
 
             winGame.isUiCellInfo = false;
 
@@ -286,7 +291,8 @@ namespace vsl
             set2uiCellInfo();
             setCellColor  ();
 
-            cfg.cfgModel.moneyBank = sg.dat[model::StateGame::E_BANK2];
+            updateEndStep ();
+            set2uiPlayers ();
         }
 
         void set2uiPlayers()
@@ -302,11 +308,6 @@ namespace vsl
                 << mdl.decode2Str.getPlayer(sg.dat[ED::E_STATUS_PERS]).data()
                 << '\n'
                 ;
-
-            cfg.cfgModel.moneyBank = sg.dat[ED::E_BANK1 ];
-
-            sg.dat[ED::E_BANK1 ]   = sg.dat[ED::E_BANK2 ];
-            sg.dat[ED::E_MONEY1]   = sg.dat[ED::E_MONEY2];
         }
 
         void set2uiCellInfo()
@@ -338,10 +339,17 @@ namespace vsl
             winGame.setCellColor(idCell, isBusy);
         }
 
+        void updateEndStep()
+        {   auto& sg = cfg._3player[ID].stateGame;
+
+            cfg.cfgModel.moneyBank = sg.dat[ED::E_BANK2 ];
+            sg.dat[ED::E_MONEY1]   = sg.dat[ED::E_MONEY2];
+        }
+
         ///-----------------------------------|
         /// Дебаг.                            |
         ///-----------------------------------:
-        void debug() const
+        void debug( ) const
         {   l(nameTx)
             l(fon.getTexture()->getSize().x)
             l(fon.getTexture()->getSize().y)
