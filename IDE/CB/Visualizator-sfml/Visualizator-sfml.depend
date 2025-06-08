@@ -1646,7 +1646,7 @@
 1734196663 c:\workcb-2024\sfml-3.0\sfml-3.0.0\include\sfml\system\sleep.hpp
 	<SFML/System/Export.hpp>
 
-1749371298 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\!m-model.h
+1749403292 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\!m-model.h
 	"myl.h"
 	"cards.inc"
 	"field.inc"
@@ -1671,7 +1671,7 @@
 	"config-model.h"
 	"!m-model.h"
 
-1749372048 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\user-model.h
+1749402271 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\user-model.h
 	<iostream>
 	<string>
 	<vector>
@@ -1883,7 +1883,7 @@
 	"common.h"
 	"scene-game.h"
 
-1749373649 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-game.h
+1749403733 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-game.h
 	"common.h"
 	"shader-dice.h"
 	"sceneGame/win-game.h"

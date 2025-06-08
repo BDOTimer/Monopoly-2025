@@ -193,8 +193,9 @@ namespace model
              E_BYU  ,
              E_MONEY1,
              E_MONEY2,
+             E_BANK1,
+             E_BANK2,
              E_GAMEOVER,
-             E_BANK,
 
              /// ...
              E_DAT

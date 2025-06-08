@@ -1353,7 +1353,7 @@ namespace model
             ss << field.bank.info() << '\n';
 
             cfg->stateGame.dat[ED::E_IDPLAYER] = cfg->order[i];
-            cfg->stateGame.dat[ED::E_BANK] = cfg->pfield->bank.money;
+            cfg->stateGame.dat[ED::E_BANK1] = cfg->pfield->bank.money;
 
             persNow = perses[cfg->order[i]];
 
@@ -1439,6 +1439,7 @@ namespace model
             }
 
             cfg->stateGame.dat[ED::E_ISBUSYCELL] = cell.isBusy();
+            cfg->stateGame.dat[ED::E_BANK2]      = cfg->pfield->bank.money;
 
             ///l(cell.isBusy())
 
@@ -1503,6 +1504,9 @@ namespace model
         const StateGame getStateGame(unsigned idPlayer)
         {
             /// TODO ...
+            using ED = StateGame::eSTATE;
+            cfg->stateGame.dat[ED::E_BANK2] = cfg->pfield->bank.money;
+
             return cfg->stateGame;
         }
 

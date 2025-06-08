@@ -112,9 +112,10 @@ namespace vsl
                 {
                     if( winGame.isUiCellInfo)
                     {   winGame.isUiCellInfo = false;
-                        updateInfoPlayer();
                         setCellColor    ();
+                        set2uiPlayers   ();
 
+                        updateInfoPlayer();
                         return;
                     }
                     break;
@@ -122,7 +123,7 @@ namespace vsl
                 case 1:
                 case 2:
                 {
-                    auto& o = this->winGame;
+                    auto&      o = this->winGame;
 
                     o.dice.isRot = !o.dice.isRot;
                     o.isDiceHide = !o.isDiceHide;
@@ -144,9 +145,9 @@ namespace vsl
 
         pr::InsexCircle iWin{3};
 
-        using    E  = model::StateGame;
-        using    ED = model::StateGame::eSTATE;
-        using    ES = model::StateGame::eSTATESTR;
+        using E  = model::StateGame;
+        using ED = model::StateGame::eSTATE;
+        using ES = model::StateGame::eSTATESTR;
 
         void doStep()
         {
@@ -195,7 +196,7 @@ namespace vsl
 
             winGame.isUiCellInfo = true;
 
-            cfg.cfgModel.moneyBank = sg.dat[model::StateGame::E_BANK];
+            cfg.cfgModel.moneyBank = sg.dat[model::StateGame::E_BANK1];
         }
 
         bool isGameOver{false};
@@ -241,8 +242,11 @@ namespace vsl
         ///-----------------------------------:
         void reStart()
         {
-            IDPLAYER = 0;
-            cnt      = 0;
+            IDPLAYER   = 0;
+            cnt        = 0;
+            nClickDice = 0;
+
+            winGame.isUiCellInfo = false;
 
             cfg.uiDownMessage << uii::Clear() << "НОВАЯ ИГРА! Ход ИГРОКА: "
                               << (IDPLAYER + 1) << ": \""
@@ -250,7 +254,8 @@ namespace vsl
 
             isLog     = false;
 
-            winGame.reStart();
+            winGame.reStart ();
+            winGame.dice.resetDice();
         }
 
         ///-----------------------------------|
@@ -281,12 +286,12 @@ namespace vsl
             set2uiCellInfo();
             setCellColor  ();
 
-            cfg.cfgModel.moneyBank = sg.dat[model::StateGame::E_BANK];
+            cfg.cfgModel.moneyBank = sg.dat[model::StateGame::E_BANK2];
         }
 
         void set2uiPlayers()
         {
-            const auto& sg = cfg._3player[ID].stateGame;
+                  auto& sg = cfg._3player[ID].stateGame;
             const auto& mdl{cfg.cfgModel};
 
             cfg.uiPlayers[IDPLAYER]<< uii::Clear()
@@ -297,6 +302,11 @@ namespace vsl
                 << mdl.decode2Str.getPlayer(sg.dat[ED::E_STATUS_PERS]).data()
                 << '\n'
                 ;
+
+            cfg.cfgModel.moneyBank = sg.dat[ED::E_BANK1 ];
+
+            sg.dat[ED::E_BANK1 ]   = sg.dat[ED::E_BANK2 ];
+            sg.dat[ED::E_MONEY1]   = sg.dat[ED::E_MONEY2];
         }
 
         void set2uiCellInfo()
