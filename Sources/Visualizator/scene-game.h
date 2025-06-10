@@ -271,13 +271,9 @@ namespace vsl
 
             sg4S.isBuy  = true;
 
-            SIGNAL(1)
-
-            const model::StateGame sg =
+            cfg._3player[idUI].stateGame =
                   model::sendStateGame("4server",
                                       {(int)mdl.idGame, (int)idUI}, sg4S);
-
-            SIGNAL(2)
 
             ///-------------------------------|
             /// Получить стейт.               |
@@ -289,8 +285,6 @@ namespace vsl
 
             updateEndStep ();
             set2uiPlayers ();
-
-            SIGNAL(3)
         }
 
         void set2uiPlayers()

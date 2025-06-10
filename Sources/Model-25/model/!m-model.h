@@ -1147,12 +1147,15 @@ namespace model
 
                     isActBuy  = true;
                     cell.pers = this;
+
+                    pcfg->stateGame4S.isBuy = false;
+                    pcfg->stateGame.dat[StateGame::E_ISBYU     ] = 1;
+                    pcfg->stateGame.dat[StateGame::E_ISBUSYCELL] = 1;
+                    pcfg->stateGame.dat[StateGame::E_MONEY2    ] = money;
+                    pcfg->stateGame.dat[StateGame::E_BANK2     ] = bank.money;
                 }
                 else if( isEmpty) messEvents << "   ... нет товара ...\n";
                 else if(!isMoney) messEvents << "   ... мало денег ...\n";
-
-                pcfg->stateGame4S.isBuy = false;
-                pcfg->stateGame.dat[StateGame::E_ISBUSYCELL] = cell.isBusy();
             }
 
             ///----------------------------------------|
@@ -1301,7 +1304,6 @@ namespace model
         std::vector<model::IPerson*> perses;
 
         model::Field  field;
-
         model::Config*  cfg;
 
         std::vector<model::Card >  cards;
@@ -1527,7 +1529,7 @@ namespace model
             ///--------------------------|
             /// Верификатор.             |
             ///--------------------------:
-            const unsigned           id = cfg->order[idPlayer];
+            const unsigned&          id = cfg->order[idPlayer];
             ASSERT(!cfg->players    [id].isBot) /// Запрет на ботов.
             ASSERT(persNow == perses[id])
 
