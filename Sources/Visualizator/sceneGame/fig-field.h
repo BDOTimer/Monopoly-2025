@@ -98,6 +98,8 @@ namespace vsl
                 figPos.setSize({szCell, szCell});
                 setFigurePos2Pos(0);
                 pr::setOrigin     (figPos);
+
+                cfg.holderTFieldCash.init(*this);
             }
 
         vsl  ::Config&      cfg;
@@ -137,6 +139,8 @@ namespace vsl
         {   for(auto p : psp) p->setFillColor(color[0]);
         }
 
+        const  std::vector<PFS*>& getPSP() const { return psp; }
+
     private:
         std::vector<PFS > sps;
         std::vector<PFS*> psp;
@@ -155,6 +159,19 @@ namespace vsl
             }
         }
     };
+
+
+    ///------------------------------------------------------------------------|
+    /// Грабим текстуры у ячеек в кэш.
+    /// (нужно для uii::UIGameIcons)
+    ///------------------------------------------------------------------------:
+    void HolderTextureFieldCash::init(const vsl::FigureField& ff)
+    {   clear  ();
+        reserve(ff.getPSP().size()); 
+        for(const auto p : ff.getPSP())
+        {   push_back( p->getTexture());
+        }
+    }
 }
 
 

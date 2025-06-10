@@ -64,6 +64,12 @@ namespace vsl
 
         MarkupSceneGame      markupSG;
 
+        vsl::HolderTextureFieldCash holderTFieldCash;
+        void init(const vsl::FigureField& ff)
+        {   holderTFieldCash.init        (ff);
+            //SIGNAL(1)
+        }
+
         sf::Vector2u         szuWin  ;
         sf::Vector2f         szfWin  ;
 
@@ -84,7 +90,11 @@ namespace vsl
 
         uii::UITuneBase    uiTuneBase{this};
 
-        std::array<uii::UIScnGamePlayer, 3> uiPlayers;
+        std::array<uii::UIScnGamePlayer, 3> uiPlayers
+        {   uii::UIScnGamePlayer{holderTFieldCash},
+            uii::UIScnGamePlayer{holderTFieldCash},
+            uii::UIScnGamePlayer{holderTFieldCash}
+        };
 
         uii::UIWinGameCellInfo uiCellInfo;
 

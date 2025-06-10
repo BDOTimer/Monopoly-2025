@@ -55,6 +55,8 @@
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\win-player.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\win-up.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\shader-dice.h" />
+    <ClInclude Include="..\..\..\Sources\Visualizator\ui-base.h" />
+    <ClInclude Include="..\..\..\Sources\Visualizator\ui-icons.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\ui-imgui.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\ui-tune.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\ui-win-game.h" />

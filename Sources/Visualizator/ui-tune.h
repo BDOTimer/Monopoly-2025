@@ -3,6 +3,7 @@
 ///----------------------------------------------------------------------------|
 /// "ui-tune.h"
 ///----------------------------------------------------------------------------:
+#include "ui-base.h"
 #include "ui-imgui.h"
 
 namespace vsl
@@ -150,17 +151,13 @@ namespace uii
             ImVec4{0.7f, 0.2f, 0.2f, 1.0f}
         };
 
-        static ImTextureID convertSFMLTexture2Im(const sf::Texture& tx)
-        {   return (ImTextureID)(size_t)tx.getNativeHandle();
-        }
-
         sf::Texture buttonTexture;
         ImTextureID texId;
         void init()
         {   if (!buttonTexture.loadFromFile("res/img/button.png"))
             {   ASSERT(false)
             }
-            texId = convertSFMLTexture2Im(buttonTexture);
+            texId = UIBase::convertSFMLTexture2Im(buttonTexture);
         }
 
     private:
