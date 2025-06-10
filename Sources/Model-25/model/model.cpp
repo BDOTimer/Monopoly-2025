@@ -73,6 +73,7 @@ namespace model
                       const UserInit4Model& userInit4Mode)
         {    clear();
              cfg = new Config();
+             cfg->_init();
 
              auto p = const_cast<UserInit4Model*>(&userInit4Mode);
                   p-> initNames();

@@ -268,8 +268,10 @@ namespace model
         ///------------------------------:
         bool doValidation() const
         {
+            const_cast<Config*>(this)->_init();
+
             {   unsigned cnt{};
-                for(    const auto& s : worldGeometry)
+                for(    const auto& s : _worldGeometry[worldGeometryN])
                 {   for(const auto  c : s)
                     {   cnt += c == 'O' ? 1 : 0;
                     }
@@ -321,8 +323,9 @@ namespace model
         const Cell& getCell(const unsigned position) const;
               Cell& getCell(const unsigned position);
 
-        void init()
+        void _init()
         {   stateGame.dat[StateGame::E_GAMEOVER] = -1;
+            worldGeometryN = rand()% _worldGeometry.size();
         }
 
         ///------------------------------|

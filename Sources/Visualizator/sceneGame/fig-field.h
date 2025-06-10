@@ -42,7 +42,7 @@ namespace vsl
             {
                 sps.reserve(cfgModel.amountCells);
                 psp.reserve(cfgModel.amountCells);
-                const auto& m{cfgModel.worldGeometry};
+                const auto& m{cfgModel.getWorldGeometry()};
 
                 for    (unsigned y  = 0; y < m   .size(); ++y)
                 {   for(unsigned x  = 0; x < m[y].size(); ++x)
@@ -117,10 +117,17 @@ namespace vsl
         PLUG_IOBJECT
 
         sf::Vector2f getCenter() const
-        {   const auto& m{cfgModel.worldGeometry};
+        {   const auto& m{cfgModel.getWorldGeometry()};
             const auto szCell2 = szCell / 2;
             return { szCell * m[0].size() / 2 - szCell2 ,
                      szCell * m   .size() / 2 - szCell2 };
+        }
+
+        sf::Vector2f getSize() const
+        {   const auto& m{cfgModel.getWorldGeometry()};
+            const auto szCell2 = szCell / 2;
+            return { szCell *( m[0].size()) + szCell2,
+                     szCell *( m   .size()) + szCell2};
         }
 
         const PFS& operator[](unsigned i) const
@@ -140,6 +147,23 @@ namespace vsl
         }
 
         const  std::vector<PFS*>& getPSP() const { return psp; }
+
+        void rePosition()
+        {   unsigned i{};
+            const auto& m{cfgModel.getWorldGeometry()};
+            for    (unsigned y  = 0; y < m   .size(); ++y)
+            {   for(unsigned x  = 0; x < m[y].size(); ++x)
+                {
+                    if(const int& ID = m[y][x]; ID >= 0)
+                    {   
+                        /// TODO: ...
+                        sps[i].id = ID;
+                        sps[i].setPosition({x * szCell, y * szCell});
+                          ++i;
+                    }
+                }
+            }
+        }
 
     private:
         std::vector<PFS > sps;

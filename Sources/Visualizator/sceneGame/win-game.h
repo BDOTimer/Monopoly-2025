@@ -18,17 +18,14 @@ namespace vsl
 
         bool isActive{ true};
 
-        inline static const float H{10'000.f};
-
-        const float        speed  { 3.f };
-        const sf::Vector2f szEnd  { 3045, 1823 };
-        const sf::Vector2f szStart{ H * szEnd.x / szEnd.y, H };
-
         void go(sf::View&  cam)
         {   cam.zoom(1.f - speed * cfg.deltaTime.asSeconds());
             const auto& sz{cam.getSize()};
-            if(sz.x <= szEnd.x)
-            {   cam.setSize(szEnd);
+            if(sz.y <= szEnd.y)
+            {   
+                float k = cam.getSize().x / cam.getSize().y;
+                
+                cam.setSize({szEnd.y * k, szEnd.y});
                 isActive = false;
             }
         }
@@ -37,6 +34,20 @@ namespace vsl
         {   isActive = true;
             cam.setSize(szStart);
         }
+
+        void setSizeEnd(const sf::Vector2f sz)
+        {   szEnd   = sz;
+            szStart = { H * szEnd.x / szEnd.y, H };
+        }
+
+        const sf::Vector2f& getSizeStart() const { return szStart; };
+
+    private:
+        inline static 
+        const float  H      {10'000.f};
+        const float  speed  { 3.f };
+        sf::Vector2f szStart;
+        sf::Vector2f szEnd;
     };
 
     ///------------------------------------------------------------------------|
@@ -70,7 +81,7 @@ namespace vsl
 
                 camMove = camFon;
 
-                camMove.setSize  (animationFieldStart.szStart);
+                camMove.setSize  (animationFieldStart.getSizeStart());
                 camMove.setCenter(figField.getCenter());
 
                 cfg.uiUpLog.fooFon = [this](){fooFon();};
@@ -78,6 +89,8 @@ namespace vsl
                 dice.init();
 
                 camDice = camFon;
+
+                animationFieldStart.setSizeEnd(figField.getSize());
             }
 
         vsl::Config& cfg;
