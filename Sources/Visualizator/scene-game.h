@@ -299,13 +299,13 @@ namespace vsl
         void set2uiPlayers()
         {
                   auto& sg = cfg._3player[ID].stateGame;
-            const auto& mdl{cfg.cfgModel};
+            const auto& mdl{ cfg.cfgModel};
 
             cfg.uiPlayers[IDPLAYER]<< uii::Clear()
-                << "  ИГРОК  : " << sg.str[ES::E_NAME  ]        << '\n'
-                << "  КОШЕЛЁК: " << sg.dat[ED::E_MONEY1]        << '\n'
-                << "  КУБИК  : " << sg.dat[ED::E_NDICE ]        << '\n'
-                << "  СТАТУС : " << sg.dat[ED::E_STATUS_PERS]+1 << " ---> "
+                << "  ИГРОК  : "   << sg.str[ES::E_NAME  ]        << '\n'
+                << "  КОШЕЛЁК: "   << sg.dat[ED::E_MONEY1]        << '\n'
+                << "  КУБИК  : "   << sg.dat[ED::E_NDICE ]        << '\n'
+                << "  СТАТУС : "   << sg.dat[ED::E_STATUS_PERS]+1 << " ---> "
                 << mdl.decode2Str.getPlayer(sg.dat[ED::E_STATUS_PERS]).data()
                 << '\n'
                 ;
