@@ -111,4 +111,26 @@ inline std::string methodName(const std::string& prettyFunction)
 
 constexpr auto NPOS{std::string::npos};
 
+/*
+template<typename T, unsigned N>
+inline std::ostream& operator<<(std::ostream& o, const std::array<T,N>& m)
+{   for(const auto n : m) o << n << " ";
+    std::cout << '\n';
+    return o;
+}
+*/
+
+
+template<typename T>
+std::ostream& operator<<(std::ostream& o, const std::vector<T>& m)
+{   for(const auto& e : m) o << e << ' ';
+    return o;
+}
+
+template<typename T>
+void show(const T& m)
+{   for(auto&  e : m) std::cout << e << ' ';
+    std::cout << "\n\n";
+}
+
 #endif // DEBUG_H

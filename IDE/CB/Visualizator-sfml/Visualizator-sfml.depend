@@ -1402,7 +1402,7 @@
 1748456712 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\implants\bot-iq.h
 	"../../debug.h"
 
-1749561443 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\debug.h
+1749569228 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\debug.h
 	<functional>
 	<filesystem>
 	<algorithm>
@@ -1646,12 +1646,12 @@
 1734196663 c:\workcb-2024\sfml-3.0\sfml-3.0.0\include\sfml\system\sleep.hpp
 	<SFML/System/Export.hpp>
 
-1749559381 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\!m-model.h
+1749572307 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\!m-model.h
 	"myl.h"
 	"cards.inc"
 	"field.inc"
 
-1748456712 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\myl.h
+1749568827 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\myl.h
 	"../debug.h"
 	"config-model.h"
 	<locale>
@@ -1881,7 +1881,7 @@
 	"common.h"
 	"scene-game.h"
 
-1749562116 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-game.h
+1749572821 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-game.h
 	"common.h"
 	"shader-dice.h"
 	"sceneGame/win-game.h"

@@ -151,35 +151,31 @@ namespace vsl
 
         void doStep()
         {
-            const auto& mdl{cfg.cfgModel};
-
-            unsigned&   idTune = cfg._3player[idUI].id;
-
-        /// cfg.uiCellInfo.isBot = mdl.players[idTune].isBot;
+            const auto&    mdl    {cfg.cfgModel};
             cfg.uiCellInfo.isBot = cfg._3player[idUI].isBot;
 
             cfg.uiGameLog << model::doStep
             (   "start", { (int)mdl.idGame,
-                           (int)idTune }
+                           (int)idUI }
             );
 /*
             ///////////////////////////////////////////////////
-            cfg.uiPlayers[idTune] << uii::Clear() <<
+            cfg.uiPlayers[idUI] << uii::Clear() <<
             model::doStep
             (   "start", { (int)cfg.idGame,
-                         (int)idTune  }
+                         (int)idUI  }
             );
 */
 
             const model::StateGame sg = model::getStateGame
-            (   "get", {(int)mdl.idGame, (int)idTune}
+            (   "get", {(int)mdl.idGame, (int)idUI}
             );
 
             ASSERT((unsigned)sg.dat[ED::E_SIZE == sg.dat.size()])
 
             unsigned idM = (unsigned)sg.dat[ED::E_IDPLAYER];
 
-            ASSERT(idUI == idM)
+            ASSERT(cfg._3player[idUI].id == idM)
 
             cfg._3player[idUI].stateGame = sg;
 
@@ -217,7 +213,7 @@ namespace vsl
 
             cfg.uiDownMessage << uii::Clear()   << "Ход ИГРОКА: "
                               << (idUI + 1) << ": \""
-                              << cfg.cfgModel.players[idUI].name << ": \""
+                              << cfg._3player[idUI].name << ": \""
                               << mess[rand()%mess.size()];
             ++nStep;
         }
@@ -254,8 +250,7 @@ namespace vsl
 
             cfg.uiDownMessage << uii::Clear() << "НОВАЯ ИГРА! Ход ИГРОКА: "
                               << (idUI + 1) << ": \""
-                              << cfg.cfgModel.players[idUI].name << "\"";
-
+                              << cfg._3player[idUI].name << "\"";
             isLog = false;
 
             winGame.reStart ();
@@ -269,18 +264,20 @@ namespace vsl
         ///-----------------------------------:
         void doBuy()
         {
-            if(cfg._3player[idUI].isBot)
-            {   return;
-            }
+            ASSERT(!cfg._3player[idUI].isBot) /// Запрет для ботов.
+
                   auto& sg4S{cfg._3player[idUI].stateGame4S};
             const auto& mdl {cfg.cfgModel};
-            const unsigned&  idPlayer = cfg._3player[idUI].id;
 
             sg4S.isBuy  = true;
 
+            SIGNAL(1)
+
             const model::StateGame sg =
                   model::sendStateGame("4server",
-                                      {(int)mdl.idGame, (int)idPlayer}, sg4S);
+                                      {(int)mdl.idGame, (int)idUI}, sg4S);
+
+            SIGNAL(2)
 
             ///-------------------------------|
             /// Получить стейт.               |
@@ -292,6 +289,8 @@ namespace vsl
 
             updateEndStep ();
             set2uiPlayers ();
+
+            SIGNAL(3)
         }
 
         void set2uiPlayers()
@@ -359,9 +358,11 @@ namespace vsl
         /// Дебаг.                            |
         ///-----------------------------------:
         void debug( ) const
-        {   l(nameTx)
-            l(fon.getTexture()->getSize().x)
-            l(fon.getTexture()->getSize().y)
+        {   l(cfg.cfgModel.order)
+            l(cfg.cfgModel.order[idUI])
+
+            const auto& sg = cfg._3player[idUI].stateGame;
+            l(sg.dat[ED::E_IDPLAYER])
         }
 
         ///------------------------------------|

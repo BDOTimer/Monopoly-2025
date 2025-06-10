@@ -1527,8 +1527,9 @@ namespace model
             ///--------------------------|
             /// Верификатор.             |
             ///--------------------------:
-            ASSERT(!cfg->players[idPlayer].isBot) /// Запрет на ботов.
-            ASSERT(persNow == perses[cfg->order[idPlayer]])
+            const unsigned           id = cfg->order[idPlayer];
+            ASSERT(!cfg->players    [id].isBot) /// Запрет на ботов.
+            ASSERT(persNow == perses[id])
 
             persNow->input();
 

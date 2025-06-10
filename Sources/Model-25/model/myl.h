@@ -10,13 +10,6 @@
 #include <codecvt>
 
 
-template<typename T>
-std::ostream& operator<<(std::ostream& o, const std::vector<T>& m)
-{   for(auto& e : m) o << e << ' ';
-    return o;
-}
-
-
 inline std::string WstrToUtf8(const std::wstring& str)
 {   std::wstring_convert<std::codecvt_utf8<wchar_t> > strCnv;
     return strCnv.to_bytes(str);
