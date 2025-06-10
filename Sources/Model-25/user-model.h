@@ -106,8 +106,7 @@ namespace model
 
         void initNames()
         {   for(unsigned i  = 0; i < players.size(); ++i)
-            {   players [i].id = i;
-                players [i].initName();
+            {   players [i].initName();
             }
         }
     };
@@ -159,7 +158,7 @@ namespace model
                 { 24,  o   o   o   o   o   o   o  14 },
                 { 23, 22, 21, 20, 19, 18, 17, 16, 15 }
             }
-        };  
+        };
         #undef o
 
         unsigned worldGeometryN{0};

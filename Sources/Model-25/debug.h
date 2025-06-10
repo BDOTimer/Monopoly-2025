@@ -87,7 +87,7 @@ struct  Ass
     }
 
     static Strv cutStr(Strv s)
-    {   auto p = s.rfind("sources"); return s.substr(p, s.size() - p);
+    {   auto p = s.rfind("Sources"); return s.substr(p, s.size() - p);
     }
 };
 

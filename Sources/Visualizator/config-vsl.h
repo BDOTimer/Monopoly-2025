@@ -55,7 +55,7 @@ namespace vsl
             for(unsigned i = 0; P.size() > i; ++i)
             {   auto&    b =    P[(unsigned)cfgModel.order[i]];
 
-                _3player .emplace_back(controller::Player(b.isBot, i, b.name));
+               _3player.emplace_back(controller::Player(b.isBot, b.id, b.name));
                 uiPlayers[i].setPlayer(_3player.back());
             }
         }

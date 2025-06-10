@@ -63,10 +63,8 @@ namespace vsl
 
         PLUG_IOBJECT2
 
-        unsigned IDPLAYER;
-        unsigned cnt     ;
-
-        unsigned       ID;
+        unsigned idUI;
+        unsigned  cnt;
 
         using ED = model::StateGame::eSTATE;
         using ES = model::StateGame::eSTATESTR;
@@ -155,33 +153,35 @@ namespace vsl
         {
             const auto& mdl{cfg.cfgModel};
 
-            unsigned&   idPlayer = cfg._3player[IDPLAYER].id;
+            unsigned&   idTune = cfg._3player[idUI].id;
 
-            cfg.uiCellInfo.isBot = mdl.players[idPlayer].isBot;
+        /// cfg.uiCellInfo.isBot = mdl.players[idTune].isBot;
+            cfg.uiCellInfo.isBot = cfg._3player[idUI].isBot;
 
             cfg.uiGameLog << model::doStep
             (   "start", { (int)mdl.idGame,
-                           (int)idPlayer }
+                           (int)idTune }
             );
-
 /*
             ///////////////////////////////////////////////////
-            cfg.uiPlayers[idPlayer] << uii::Clear() <<
+            cfg.uiPlayers[idTune] << uii::Clear() <<
             model::doStep
             (   "start", { (int)cfg.idGame,
-                         (int)idPlayer  }
+                         (int)idTune  }
             );
 */
 
             const model::StateGame sg = model::getStateGame
-            (   "get", {(int)mdl.idGame, (int)idPlayer}
+            (   "get", {(int)mdl.idGame, (int)idTune}
             );
 
             ASSERT((unsigned)sg.dat[ED::E_SIZE == sg.dat.size()])
 
-                           ID = (unsigned)sg.dat[ED::E_IDPLAYER];
+            unsigned idM = (unsigned)sg.dat[ED::E_IDPLAYER];
 
-            cfg._3player  [ID].stateGame = sg;
+            ASSERT(idUI == idM)
+
+            cfg._3player[idUI].stateGame = sg;
 
             set2uiPlayers ();
             set2uiCellInfo();
@@ -193,7 +193,7 @@ namespace vsl
                     ;
             }
 
-            winGame.setPositionChip(ID, sg.dat[ED::E_POSITION]);
+            winGame.setPositionChip(idUI, sg.dat[ED::E_POSITION]);
             ///////////////////////////////////////////////////
 
             winGame.isUiCellInfo = true;
@@ -211,13 +211,13 @@ namespace vsl
 
         void nextPlayer()
         {
-            IDPLAYER = (IDPLAYER + 1) % cfg._3player.size();
+            idUI = (idUI + 1) % cfg._3player.size();
 
             cfg.info_01(++cnt);
 
             cfg.uiDownMessage << uii::Clear()   << "Ход ИГРОКА: "
-                              << (IDPLAYER + 1) << ": \""
-                              << cfg.cfgModel.players[IDPLAYER].name << ": \""
+                              << (idUI + 1) << ": \""
+                              << cfg.cfgModel.players[idUI].name << ": \""
                               << mess[rand()%mess.size()];
             ++nStep;
         }
@@ -228,9 +228,9 @@ namespace vsl
         std::string     nameTx;
         sf::RectangleShape fon;
 
-        WinGame        winGame{cfg};
-        WinUp            winUp{cfg};
-        WinDown        winDown{cfg};
+        WinGame   winGame{cfg};
+        WinUp       winUp{cfg};
+        WinDown   winDown{cfg};
 
         std::array<WinPlayer, 3> winPlayers
         {   WinPlayer{cfg, 0},
@@ -245,7 +245,7 @@ namespace vsl
         ///-----------------------------------:
         void reStart()
         {
-            IDPLAYER   = 0;
+            idUI       = 0;
             cnt        = 0;
             nClickDice = 0;
             nStep      = 0;
@@ -253,10 +253,10 @@ namespace vsl
             winGame.isUiCellInfo = false;
 
             cfg.uiDownMessage << uii::Clear() << "НОВАЯ ИГРА! Ход ИГРОКА: "
-                              << (IDPLAYER + 1) << ": \""
-                              << cfg.cfgModel.players[IDPLAYER].name << "\"";
+                              << (idUI + 1) << ": \""
+                              << cfg.cfgModel.players[idUI].name << "\"";
 
-            isLog     = false;
+            isLog = false;
 
             winGame.reStart ();
             winGame.dice.resetDice();
@@ -269,12 +269,12 @@ namespace vsl
         ///-----------------------------------:
         void doBuy()
         {
-            if(cfg._3player[ID].isBot)
+            if(cfg._3player[idUI].isBot)
             {   return;
             }
-                  auto& sg4S{cfg._3player[ID].stateGame4S};
+                  auto& sg4S{cfg._3player[idUI].stateGame4S};
             const auto& mdl {cfg.cfgModel};
-            unsigned&   idPlayer = cfg._3player[IDPLAYER].id;
+            const unsigned&  idPlayer = cfg._3player[idUI].id;
 
             sg4S.isBuy  = true;
 
@@ -285,10 +285,8 @@ namespace vsl
             ///-------------------------------|
             /// Получить стейт.               |
             ///-------------------------------:
+            //cfg._3player[idUI].stateGame = sg;
 
-            cfg._3player  [ID].stateGame = sg;
-
-            set2uiPlayers ();
             set2uiCellInfo();
             setCellColor  ();
 
@@ -298,14 +296,14 @@ namespace vsl
 
         void set2uiPlayers()
         {
-                  auto& sg = cfg._3player[ID].stateGame;
+                  auto& sg = cfg._3player[idUI].stateGame;
             const auto& mdl{ cfg.cfgModel};
 
-            cfg.uiPlayers[IDPLAYER]<< uii::Clear()
-                << "  ИГРОК  : "   << sg.str[ES::E_NAME  ]        << '\n'
-                << "  КОШЕЛЁК: "   << sg.dat[ED::E_MONEY1]        << '\n'
-                << "  КУБИК  : "   << sg.dat[ED::E_NDICE ]        << '\n'
-                << "  СТАТУС : "   << sg.dat[ED::E_STATUS_PERS]+1 << " ---> "
+            cfg.uiPlayers[idUI]  << uii::Clear()
+                << "  ИГРОК  : " << sg.str[ES::E_NAME  ]        << '\n'
+                << "  КОШЕЛЁК: " << sg.dat[ED::E_MONEY1]        << '\n'
+                << "  КУБИК  : " << sg.dat[ED::E_NDICE ]        << '\n'
+                << "  СТАТУС : " << sg.dat[ED::E_STATUS_PERS]+1 << " ---> "
                 << mdl.decode2Str.getPlayer(sg.dat[ED::E_STATUS_PERS]).data()
                 << '\n'
                 ;
@@ -313,7 +311,7 @@ namespace vsl
 
         void set2uiCellInfo()
         {
-            const auto& sg = cfg._3player[ID].stateGame;
+            const auto& sg = cfg._3player[idUI].stateGame;
             const auto& mdl{cfg.cfgModel};
 
             cfg.uiCellInfo         << uii::Clear()
@@ -331,19 +329,19 @@ namespace vsl
         /// Цвет купленной ячейки.            |
         ///-----------------------------------:
         void setCellColor()
-        {   const auto& sg     = cfg._3player[ID].stateGame;
+        {   const auto& sg     = cfg._3player[idUI].stateGame;
             const auto& idCell =  sg.dat[ED::E_POSITION   ];
             const auto& isBusy =  sg.dat[ED::E_ISBUSYCELL ];
             const auto& isByu  =  sg.dat[ED::E_ISBYU      ];
 
             if(isByu)
-            {   insertIcon(ID, idCell); /// TODO: отладка ...
+            {   insertIcon          (idUI  , idCell); /// TODO: отладка ...
                 winGame.setCellColor(idCell, isBusy);
             }
         }
 
         void updateEndStep()
-        {   auto& sg = cfg._3player[ID].stateGame;
+        {   auto& sg = cfg._3player[idUI].stateGame;
 
             cfg.cfgModel.moneyBank = sg.dat[ED::E_BANK2 ];
             sg.dat[ED::E_MONEY1]   = sg.dat[ED::E_MONEY2];
@@ -387,7 +385,6 @@ namespace vsl
             target.setView(*cfg.camGui);
 
             if(isLog)   cfg.uiGameLog.show();
-
         }
 
         ///------------------------------------|
