@@ -35,17 +35,14 @@ namespace uii
                 //ASSERT(ok)
 
                 (*this) << "...";
-
-                idCells.insert(0);
-                idCells.insert(1);
             }
 
         const vsl::HolderTextureFieldCash& holderTFieldCash;
 
         std::set<unsigned> idCells;
 
-        void inset(unsigned id){ idCells.insert(id); }
-        void erase(unsigned id)
+        void insert(unsigned id){ idCells.insert(id); }
+        void erase (unsigned id)
         {   if (const auto&   f = idCells.find(id); f != idCells.end())
             {   idCells.erase(f);
             }

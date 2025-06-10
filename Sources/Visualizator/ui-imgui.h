@@ -417,6 +417,14 @@ namespace uii
             name = pl.name;
         }
 
+        inline void insertIcon(  unsigned idCell)
+        {   uiGameIcons.insert(idCell);
+        }
+
+        inline void eraseIcon(  unsigned idCell)
+        {   uiGameIcons.erase(idCell);
+        }
+
         void show()
         {
             ///---------------------------------------|

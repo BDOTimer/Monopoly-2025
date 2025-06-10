@@ -191,6 +191,7 @@ namespace model
              E_STATUS_CELL,
              E_SELL ,
              E_BYU  ,
+             E_ISBYU, // Событие покупки.
              E_MONEY1,
              E_MONEY2,
              E_BANK1,

@@ -512,6 +512,9 @@ namespace model
         virtual void input() = 0;
         virtual void doAct() = 0;
 
+        using ED = StateGame::eSTATE;
+        using ES = StateGame::eSTATESTR;
+
         ///------------------------------|
         /// Инфа об имени игроке.        |
         ///------------------------------:
@@ -847,6 +850,8 @@ namespace model
         {
             getStateGame();
 
+            Config* pcfg{const_cast<Config*>(&cfg)};
+
             Cell& cell = (*cfg.pfield)[position];
 
             ASSERT(cell.status < 3)
@@ -914,6 +919,8 @@ namespace model
 
                         isActBuy  = true;
                         cell.pers = this;
+
+                        pcfg->stateGame.dat[ED::E_ISBYU] = 1;
                     }
                     else if( isEmpty) messEvents << "   ... нет товара ...\n";
                     else if(!isMoney) messEvents << "   ... мало денег ...\n";
@@ -975,7 +982,6 @@ namespace model
             {   messEvents << "   В этом круге блок на продажу!\n";
             }
 
-            Config* pcfg{const_cast<Config*>(&cfg)};
             pcfg->stateGame.dat[StateGame::eSTATE::E_MONEY2] = money;
         }
 
@@ -1354,6 +1360,7 @@ namespace model
 
             cfg->stateGame.dat[ED::E_IDPLAYER] = cfg->order[i];
             cfg->stateGame.dat[ED::E_BANK1] = cfg->pfield->bank.money;
+            cfg->stateGame.dat[ED::E_ISBYU] = 0;
 
             persNow = perses[cfg->order[i]];
 

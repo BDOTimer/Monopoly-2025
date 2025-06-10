@@ -68,6 +68,9 @@ namespace vsl
 
         unsigned       ID;
 
+        using ED = model::StateGame::eSTATE;
+        using ES = model::StateGame::eSTATESTR;
+
     /// bool pressEnter{false};
 
         void goTune()
@@ -330,13 +333,15 @@ namespace vsl
         /// Цвет купленной ячейки.            |
         ///-----------------------------------:
         void setCellColor()
-        {   const auto& idCell =
-                cfg._3player[ID].stateGame.dat[model::StateGame::E_POSITION];
+        {   const auto& sg     = cfg._3player[ID].stateGame;
+            const auto& idCell =  sg.dat[ED::E_POSITION   ];
+            const auto& isBusy =  sg.dat[ED::E_ISBUSYCELL ];
+            const auto& isByu  =  sg.dat[ED::E_ISBYU      ];
 
-            const auto& isBusy =
-                cfg._3player[ID].stateGame.dat[model::StateGame::E_ISBUSYCELL];
-
-            winGame.setCellColor(idCell, isBusy);
+            if(isByu)
+            {   insertIcon(ID, idCell); /// TODO: отладка ...
+                winGame.setCellColor(idCell, isBusy);
+            }
         }
 
         void updateEndStep()
@@ -344,6 +349,14 @@ namespace vsl
 
             cfg.cfgModel.moneyBank = sg.dat[ED::E_BANK2 ];
             sg.dat[ED::E_MONEY1]   = sg.dat[ED::E_MONEY2];
+        }
+
+        void insertIcon(unsigned idPlayer, unsigned idCell)
+        {   cfg.uiPlayers[idPlayer].insertIcon(idCell);
+        }
+
+        void eraseIcon(unsigned idPlayer, unsigned idCell)
+        {   cfg.uiPlayers[idPlayer].eraseIcon(idCell);
         }
 
         ///-----------------------------------|
