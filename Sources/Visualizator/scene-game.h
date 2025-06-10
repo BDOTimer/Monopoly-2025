@@ -151,10 +151,6 @@ namespace vsl
 
         pr::InsexCircle iWin{3};
 
-        using E  = model::StateGame;
-        using ED = model::StateGame::eSTATE;
-        using ES = model::StateGame::eSTATESTR;
-
         void doStep()
         {
             const auto& mdl{cfg.cfgModel};
@@ -181,9 +177,9 @@ namespace vsl
             (   "get", {(int)mdl.idGame, (int)idPlayer}
             );
 
-            ASSERT((unsigned)sg.dat[E::E_SIZE == sg.dat.size()])
+            ASSERT((unsigned)sg.dat[ED::E_SIZE == sg.dat.size()])
 
-                           ID = (unsigned)sg.dat[E::E_IDPLAYER];
+                           ID = (unsigned)sg.dat[ED::E_IDPLAYER];
 
             cfg._3player  [ID].stateGame = sg;
 
@@ -264,6 +260,8 @@ namespace vsl
 
             winGame.reStart ();
             winGame.dice.resetDice();
+
+            for(auto& e : cfg.uiPlayers) e.reStart();
         }
 
         ///-----------------------------------|

@@ -54,6 +54,10 @@ namespace uii
             *this << Clear();
         }
 
+        inline void reStart()
+        {   idCells.clear  ();
+        }
+
         void subShow()
         {
             const ImVec2 WH{30, 30};
@@ -63,12 +67,12 @@ namespace uii
                                              ImGuiTreeNodeFlags_DefaultOpen))
             {   ImGui::Text("%s", log.str().c_str());
 
-                
+
                 for(const auto& id : idCells)
                 {
                     if (ImGui::ImageButton("...", getTexId(id), WH))
                     {   vsl::Sounds::p->play(1);
-                        
+
                     }
                     ImGui::SameLine();
                 }

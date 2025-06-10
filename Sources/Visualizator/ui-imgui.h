@@ -425,6 +425,10 @@ namespace uii
         {   uiGameIcons.erase(idCell);
         }
 
+        inline void reStart()
+        {   uiGameIcons.reStart();
+        }
+
         void show()
         {
             ///---------------------------------------|

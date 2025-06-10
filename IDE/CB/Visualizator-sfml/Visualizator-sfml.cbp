@@ -155,6 +155,12 @@
 		<Unit filename="../../../Sources/Visualizator/shader-dice.h">
 			<Option virtualFolder="vsl/" />
 		</Unit>
+		<Unit filename="../../../Sources/Visualizator/ui-base.h">
+			<Option virtualFolder="vsl/ui/" />
+		</Unit>
+		<Unit filename="../../../Sources/Visualizator/ui-icons.h">
+			<Option virtualFolder="vsl/ui/" />
+		</Unit>
 		<Unit filename="../../../Sources/Visualizator/ui-imgui.h">
 			<Option virtualFolder="vsl/ui/" />
 		</Unit>
