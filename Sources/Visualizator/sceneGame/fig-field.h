@@ -143,7 +143,7 @@ namespace vsl
             figPos.idCellPos     = id;
         }
 
-        void updateSetFigurePos2Pos()
+        void updateFigurePos2Pos()
         {   figPos.setPosition(psp[figPos.idCellPos]->getPosition());
         }
 
@@ -158,52 +158,30 @@ namespace vsl
         const  std::vector<PFS*>& getPSP() const { return psp; }
 
         void reGeometry()
-        {   unsigned i{};
-            const auto& m{cfgModel.getWorldGeometry()};
-            for    (unsigned y  = 0; y < m   .size(); ++y)
-            {   for(unsigned x  = 0; x < m[y].size(); ++x)
-                {
-                    if(const int& ID = m[y][x]; ID >= 0)
-                    {   
-                        /// TODO: ...
-                        sps[i].id = ID;
-                        sps[i].setPosition({x * szCell, y * szCell});
-                        sps[i].setTexture(cfg.holderTFieldCash [ID]);
-
-                        switch(ID % 3)
-                        {   case 0:
-                            {   sps[i].setOutlineColor({0,128,0});
-                                break;
-                            }
-                            case 1:
-                            {   sps[i].setOutlineColor({128,0,0});
-                                break;
-                            }
-                            case 2:
-                            {   sps[i].setOutlineColor({128,128,0});
-                                break;
-                            }
-                        }
-                        psp[i] = &sps[i];
-                          ++i;
-                    }
-                }
-            }
-
-            std::sort(psp.begin(), psp.end(),
-                [](const PFS* a, const PFS* b)
-                {   return    a->id < b->id;
-                }
-            );
-
-            updateSetFigurePos2Pos();
-
-            fooRePosition();
+        {   setGeomPos         (); 
+            updateFigurePos2Pos();
+            fooRePosition      ();
+            return;
         }
 
     private:
         std::vector<PFS > sps;
         std::vector<PFS*> psp;
+
+        void setGeomPos()
+        {   std::vector<PFS*>& r{psp};
+
+            const auto& m{cfgModel.getWorldGeometry()};
+            for    (unsigned y  = 0; y < m   .size(); ++y)
+            {   for(unsigned x  = 0; x < m[y].size(); ++x)
+                {
+                    if(const int& ID = m[y][x]; ID >= 0)
+                    {   ASSERT(ID < r.size())
+                        r[ID]->setPosition({ x * szCell, y * szCell });
+                    }
+                }
+            }
+        }
 
         ///------------------------------------|
         ///  На рендер.                        |
