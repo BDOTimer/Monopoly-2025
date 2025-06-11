@@ -141,7 +141,7 @@ namespace vsl
 
     ///------------------------------------------------------------------------|
     /// Саунд-контрол.
-    /// vsl::Sounds::p->play(0);
+    /// vsl::Sounds::p->play(4);
     ///----------------------------------------------------------------- Sounds:
     struct  Sounds   : std::vector<sf::Sound*>
     {       Sounds() : std::vector<sf::Sound*>(60, nullptr)
@@ -152,11 +152,12 @@ namespace vsl
         {    E_click_01
         };
 
-        std::array<const char*, 4> fn
+        std::array<const char*, 5> fn
         {   "res/snd/click-01.mp3",      // 0
             "res/snd/gudok-doplera.mp3", // 1
             "res/snd/no.mp3",            // 2
-            "res/snd/dice1.mp3"          // 3
+            "res/snd/dice1.mp3",         // 3
+            "res/snd/field-fly.mp3"      // 4
         };
 
         //Sound mp3no   {"res/snd/no.mp3"};

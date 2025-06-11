@@ -659,6 +659,7 @@ namespace uii
                 if(ImGui::Button("Поле", WH))
                 {   fooFieldGeom();
                     vsl::Sounds::p->play(0);
+                    vsl::Sounds::p->play(4);
                 }
 
             ImGui::SameLine();
