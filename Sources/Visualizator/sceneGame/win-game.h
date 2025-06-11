@@ -150,7 +150,7 @@ namespace vsl
 
         void setPositionChip(unsigned idPlayer,
                              unsigned idCell,
-                             bool     isSnd = true)
+                             bool     isSnd )
         {
             figureChips.setPosition(
                 idPlayer, idCell, figField[idCell].getPosition(), isSnd

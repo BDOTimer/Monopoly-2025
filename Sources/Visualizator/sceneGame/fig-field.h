@@ -42,64 +42,37 @@ namespace vsl
                 :   cfg              (cfg)
                 ,   cfgModel(cfg.cfgModel)
             {
-                sps.reserve(cfgModel.amountCells);
-                psp.reserve(cfgModel.amountCells);
-                const auto& m{cfgModel.getWorldGeometry()};
+                sps.resize(cfgModel.amountCells);
 
-                for    (unsigned y  = 0; y < m   .size(); ++y)
-                {   for(unsigned x  = 0; x < m[y].size(); ++x)
-                    {
-                        if(const int& ID = m[y][x]; ID >= 0)
-                        {
-                            std::string name  { "res/img/field/" };
-                                        name += std::to_string(ID);
-                                        name += ".jpeg";
+                for    (unsigned i  = 0; i < cfgModel.amountCells; ++i)
+                {   
+                    std::string name  { "res/img/field/" };
+                                name += std::to_string(i);
+                                name += ".jpeg";
 
-                            sps.emplace_back
-                            (   PFS()
-                            );
+                    auto& e{sps[i]};
 
-                            sps.back().setTexture(&HolderTexture::get(name));
+                    e.nameTxtr = name;
+                    e.id       = i;
+                    e.setTexture(&HolderTexture::get(name));
+                    e.setSize     ({255, 255});
+                    e.setOutlineThickness(4.f);
+                    e.setFillColor  (color[0]);
 
-                            sps.back().nameTxtr = name;
-                            sps.back().id       = ID;
-                            sps.back().setSize    ({255, 255});
-                            sps.back().setPosition({x * szCell, y * szCell});
-                            sps.back().setOutlineThickness(4.f);
-                            sps.back().setFillColor(color[0]);
+                    pr::setOrigin (e);
 
-                            pr::setOrigin(sps.back());
-
-                            switch(ID % 3)
-                            {
-                                case 0:
-                                {   sps.back().setOutlineColor({0,128,0});
-                                    break;
-                                }
-                                case 1:
-                                {   sps.back().setOutlineColor({128,0,0});
-                                    break;
-                                }
-                                case 2:
-                                {   sps.back().setOutlineColor({128,128,0});
-                                    break;
-                                }
-                            }
-
-                            psp.push_back(&sps.back());
-                        }
+                    switch(i %  3)
+                    {   case 0: e.setOutlineColor({0,  128,0}); break;
+                        case 1: e.setOutlineColor({128,  0,0}); break;
+                        case 2: e.setOutlineColor({128,128,0}); break;
                     }
                 }
 
-                std::sort(psp.begin(), psp.end(),
-                    [](const PFS* a, const PFS* b)
-                    {   return    a->id < b->id;
-                    }
-                );
+                setGeomPos();
 
-                figPos.setSize({szCell, szCell});
+                figPos.setSize  ({szCell, szCell});
                 setFigurePos2Pos(0);
-                pr::setOrigin     (figPos);
+                pr::setOrigin   (figPos);
 
                 cfg.holderTFieldCash.init(*this);
             }
@@ -135,27 +108,27 @@ namespace vsl
         }
 
         const PFS& operator[](unsigned i) const
-        {   return *psp[i];
+        {   return sps[i];
         }
 
         void setFigurePos2Pos(unsigned id)
-        {   figPos.setPosition(psp[id]->getPosition());
+        {   figPos.setPosition(sps[id].getPosition());
             figPos.idCellPos     = id;
         }
 
         void updateFigurePos2Pos()
-        {   figPos.setPosition(psp[figPos.idCellPos]->getPosition());
+        {   figPos.setPosition(sps[figPos.idCellPos].getPosition());
         }
 
         void setColor(unsigned idCell, unsigned idColor)
-        {   psp[idCell]->setFillColor    (color[idColor]);
+        {   sps[idCell].setFillColor    (color[idColor]);
         }
 
         void clear()
-        {   for(auto p : psp) p->setFillColor(color[0]);
+        {   for(auto p : sps) p.setFillColor(color[0]);
         }
 
-        const  std::vector<PFS*>& getPSP() const { return psp; }
+        const  std::vector<PFS>& getPSP() const { return sps; }
 
         void reGeometry()
         {   setGeomPos         (); 
@@ -166,10 +139,9 @@ namespace vsl
 
     private:
         std::vector<PFS > sps;
-        std::vector<PFS*> psp;
 
         void setGeomPos()
-        {   std::vector<PFS*>& r{psp};
+        {   std::vector<PFS>& r{sps};
 
             const auto& m{cfgModel.getWorldGeometry()};
             for    (unsigned y  = 0; y < m   .size(); ++y)
@@ -177,7 +149,7 @@ namespace vsl
                 {
                     if(const int& ID = m[y][x]; ID >= 0)
                     {   ASSERT(ID < r.size())
-                        r[ID]->setPosition({ x * szCell, y * szCell });
+                        r[ID].setPosition({ x * szCell, y * szCell });
                     }
                 }
             }
@@ -207,7 +179,7 @@ namespace vsl
     {   clear  ();
         reserve(ff.getPSP().size()); 
         for(const auto p : ff.getPSP())
-        {   push_back( p->getTexture());
+        {   push_back( p.getTexture());
         }
     }
 }

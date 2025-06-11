@@ -194,7 +194,7 @@ namespace vsl
                     ;
             }
 
-            winGame.setPositionChip(idUI, sg.dat[ED::E_POSITION]);
+            winGame.setPositionChip(idUI, sg.dat[ED::E_POSITION], true);
             ///////////////////////////////////////////////////
 
             winGame.isUiCellInfo = true;

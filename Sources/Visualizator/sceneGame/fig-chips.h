@@ -73,13 +73,13 @@ namespace vsl
         void setPosition(unsigned idPers,
                          unsigned idCell,
                          sf::Vector2f pos, 
-                         bool isSnd = true)
+                         bool isSnd)
         {   const auto& SZ = ConfigFigureChip::get().Size;
 
             const auto D{SZ.y / 4};
 
             auto& o = (*this)[idPers];
-                  o.setPosition( { pos.x, pos.y + D * o.idPers - D }, true );
+                  o.setPosition( { pos.x, pos.y + D * o.idPers - D }, isSnd);
                   o.idCell = idCell;
         }
 
