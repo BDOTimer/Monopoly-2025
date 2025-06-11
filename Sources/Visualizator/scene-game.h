@@ -50,6 +50,11 @@ namespace vsl
                 {      this->isLog = !this->isLog;
                 };
 
+                cfg.uiUpLog.fooFieldGeom = [this]()
+                {   this->cfg.cfgModel.nextWorldGeometry();
+                    this->winGame.figField.reGeometry();
+                };
+
                 cfg.uiCellInfo.fooNext = [this]()
                 {   this->upDice();
                 };

@@ -31,22 +31,34 @@ namespace vsl
     };
 
     struct  FigureChip : sf::RectangleShape
-    {       FigureChip(unsigned id)
+    {       FigureChip(unsigned idPers)
                 :   sf::RectangleShape(ConfigFigureChip::get().Size)
-                ,   id (id)
+                ,   idPers (idPers)
             {
-                setTexture(&HolderTexture::get(ConfigFigureChip::filename[id]));
+                setTexture(&HolderTexture::get(
+                    ConfigFigureChip::filename[idPers]));
 
                 snd = std::make_unique<vsl::Sound>(
-                    ConfigFigureChip::filenameSound[id]
+                    ConfigFigureChip::filenameSound[idPers]
                 );
 
                 pr::setOrigin(*this);
             }
 
-        unsigned id;
+        unsigned idPers;
+        unsigned idCell;
 
         std::unique_ptr<vsl::Sound>  snd;
+
+        void setPosition(sf::Vector2f pos, bool isSnd)
+        {   
+            const auto& SZ = ConfigFigureChip::get().Size;
+            const auto  D{SZ.y / 5};
+
+            sf::RectangleShape::setPosition( { pos.x, pos.y + D * idPers - D });
+
+            if(isSnd) snd->play();
+        }
     };
 
     struct  FigureChips : std::vector<FigureChip>, sf::Drawable
@@ -58,15 +70,17 @@ namespace vsl
                 }
             }
 
-        void setPosition(unsigned id, sf::Vector2f pos, bool isSnd = true)
+        void setPosition(unsigned idPers,
+                         unsigned idCell,
+                         sf::Vector2f pos, 
+                         bool isSnd = true)
         {   const auto& SZ = ConfigFigureChip::get().Size;
 
             const auto D{SZ.y / 4};
 
-            auto& o = (*this)[id];
-                  o.setPosition( { pos.x, pos.y + D * o.id - D } );
-
-            if(isSnd) o.snd->play();
+            auto& o = (*this)[idPers];
+                  o.setPosition( { pos.x, pos.y + D * o.idPers - D }, true );
+                  o.idCell = idCell;
         }
 
     private:

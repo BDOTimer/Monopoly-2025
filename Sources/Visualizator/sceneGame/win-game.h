@@ -21,33 +21,27 @@ namespace vsl
         void go(sf::View&  cam)
         {   cam.zoom(1.f - speed * cfg.deltaTime.asSeconds());
             const auto& sz{cam.getSize()};
-            if(sz.y <= szEnd.y)
+            if(sz.y <= szEndFig.y || sz.x <= szEndFig.x)
             {   
-                float k = cam.getSize().x / cam.getSize().y;
-                
-                cam.setSize({szEnd.y * k, szEnd.y});
                 isActive = false;
             }
         }
 
-        void reInit(sf::View& cam)
-        {   isActive = true;
-            cam.setSize(szStart);
+        void reInit(sf::View& cam, const sf::Vector2f szFig)
+        {   isActive   = true ;
+            szEndFig   = szFig;
+            szStartCam = {cam.getSize().x * H, cam.getSize().y * H};
+            cam.setSize(szStartCam);
         }
 
-        void setSizeEnd(const sf::Vector2f sz)
-        {   szEnd   = sz;
-            szStart = { H * szEnd.x / szEnd.y, H };
-        }
-
-        const sf::Vector2f& getSizeStart() const { return szStart; };
+        const sf::Vector2f& getSizeStart() const { return szStartCam; };
 
     private:
         inline static 
-        const float  H      {10'000.f};
+        const float  H      {20.f};
         const float  speed  { 3.f };
-        sf::Vector2f szStart;
-        sf::Vector2f szEnd;
+        sf::Vector2f szStartCam;
+        sf::Vector2f szEndFig  ;
     };
 
     ///------------------------------------------------------------------------|
@@ -81,16 +75,22 @@ namespace vsl
 
                 camMove = camFon;
 
-                camMove.setSize  (animationFieldStart.getSizeStart());
-                camMove.setCenter(figField.getCenter());
-
                 cfg.uiUpLog.fooFon = [this](){fooFon();};
 
                 dice.init();
 
                 camDice = camFon;
 
-                animationFieldStart.setSizeEnd(figField.getSize());
+                figField.fooRePosition = [this]()
+                {   //this->camMove.setSize  (animationFieldStart.getSizeStart());
+                    this->camMove.setCenter(figField.getCenter());
+                    this->animationFieldStart.reInit
+                    (   this->camMove, figField.getSize()
+                    );
+                    this->updateSetPositionChip();
+                };
+
+                figField.fooRePosition();
             }
 
         vsl::Config& cfg;
@@ -153,10 +153,16 @@ namespace vsl
                              bool     isSnd = true)
         {
             figureChips.setPosition(
-                idPlayer, figField[idCell].getPosition(), isSnd
+                idPlayer, idCell, figField[idCell].getPosition(), isSnd
             );
 
             figField.setFigurePos2Pos(idCell);
+        }
+
+        void updateSetPositionChip()
+        {   for(auto& chip : figureChips)
+            {   chip.setPosition(figField[chip.idCell].getPosition(), false);
+            }
         }
 
         void setCellColor(unsigned idCell, unsigned idColor)
@@ -168,7 +174,7 @@ namespace vsl
             isDiceHide   = true ;
             isUiCellInfo = false;
 
-            animationFieldStart.reInit(camMove);
+            figField.fooRePosition();
 
             figField.clear();
         }

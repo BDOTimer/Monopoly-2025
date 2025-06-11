@@ -577,12 +577,13 @@ namespace uii
 
         //ImVec4 buttonColor;
 
-        Callback fooTune    {[this](){}};
-        Callback fooMusic   {[this](){}};
-        Callback fooFon     {[this](){}};
-        Callback fooDice2   {[this](){}};
+        Callback fooTune     {[this](){}};
+        Callback fooMusic    {[this](){}};
+        Callback fooFon      {[this](){}};
+        Callback fooDice2    {[this](){}};
+        Callback fooFieldGeom{[this](){}};
 
-        Callback fooLog     {[this](){}};
+        Callback fooLog      {[this](){}};
 
         ImVec2 WH  {70, 30};
         ImVec2 WHx2;
@@ -655,8 +656,8 @@ namespace uii
 
             ImGui::SameLine();
 
-                if(ImGui::Button("..2", WH))
-                {   fooEmpty  ();
+                if(ImGui::Button("Поле", WH))
+                {   fooFieldGeom();
                     vsl::Sounds::p->play(0);
                 }
 

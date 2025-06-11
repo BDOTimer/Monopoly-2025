@@ -29,6 +29,8 @@ namespace vsl
     {       FigurePosition  ()
             {   setFillColor( sf::Color{127,127,180,180} );
             }
+
+        unsigned idCellPos{};
     };
 
 
@@ -114,6 +116,8 @@ namespace vsl
             sf::Color{ 40, 40, 80}
         };
 
+        std::function<void()> fooRePosition{[](){}};
+
         PLUG_IOBJECT
 
         sf::Vector2f getCenter() const
@@ -136,6 +140,11 @@ namespace vsl
 
         void setFigurePos2Pos(unsigned id)
         {   figPos.setPosition(psp[id]->getPosition());
+            figPos.idCellPos     = id;
+        }
+
+        void updateSetFigurePos2Pos()
+        {   figPos.setPosition(psp[figPos.idCellPos]->getPosition());
         }
 
         void setColor(unsigned idCell, unsigned idColor)
@@ -148,7 +157,7 @@ namespace vsl
 
         const  std::vector<PFS*>& getPSP() const { return psp; }
 
-        void rePosition()
+        void reGeometry()
         {   unsigned i{};
             const auto& m{cfgModel.getWorldGeometry()};
             for    (unsigned y  = 0; y < m   .size(); ++y)
@@ -159,10 +168,37 @@ namespace vsl
                         /// TODO: ...
                         sps[i].id = ID;
                         sps[i].setPosition({x * szCell, y * szCell});
+                        sps[i].setTexture(cfg.holderTFieldCash [ID]);
+
+                        switch(ID % 3)
+                        {   case 0:
+                            {   sps[i].setOutlineColor({0,128,0});
+                                break;
+                            }
+                            case 1:
+                            {   sps[i].setOutlineColor({128,0,0});
+                                break;
+                            }
+                            case 2:
+                            {   sps[i].setOutlineColor({128,128,0});
+                                break;
+                            }
+                        }
+                        psp[i] = &sps[i];
                           ++i;
                     }
                 }
             }
+
+            std::sort(psp.begin(), psp.end(),
+                [](const PFS* a, const PFS* b)
+                {   return    a->id < b->id;
+                }
+            );
+
+            updateSetFigurePos2Pos();
+
+            fooRePosition();
         }
 
     private:

@@ -142,12 +142,12 @@ namespace model
                 { 25, 24,  o  20, 19, 18,  o  14, 13 },
                 {  o  23, 22, 21,  o  17, 16, 15,  o }
             },
-            {   { 29,  0,  1,  2,  o   6,  7,  8,  9 }, /// TODO ...
-                { 28,  o   o   3,  4,  5,  o   o  10 },
-                { 27,  o   o   o   o   o   o   o  11 },
-                { 26,  o   o   o   o   o   o   o  12 },
-                { 25,  o   o  20, 19, 18,  o   o  13 },
-                { 24, 23, 22, 21,  o  17, 16, 15, 14 }
+            {   {  0,  1,  2,  3,  o   7,  8,  9, 10 }, /// TODO ...
+                { 29,  o   o   4,  5,  6,  o   o  11 },
+                { 28,  o   o   o   o   o   o   o  12 },
+                { 27,  o   o   o   o   o   o   o  13 },
+                { 26,  o   o  21, 20, 19,  o   o  14 },
+                { 25, 24, 23, 22,  o  18, 17, 16, 15 }
             },
             {   {  0,  1,  2,  3,  4,  5,  6,  7,  8 },
                 { 29,  o   o   o   o   o   o   o   9 },
@@ -161,10 +161,14 @@ namespace model
         };
         #undef o
 
-        unsigned worldGeometryN{0};
+        unsigned worldGeometryN1{0};
 
         const std::vector<std::vector<int>>& getWorldGeometry() const
-        {   return _worldGeometry[worldGeometryN];
+        {   return _worldGeometry[worldGeometryN1];
+        }
+
+        void nextWorldGeometry()
+        {   worldGeometryN1 = (worldGeometryN1 + 1) % _worldGeometry.size();
         }
 
         ///------------------------------|
