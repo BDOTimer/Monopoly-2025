@@ -269,7 +269,7 @@ namespace vsl
         ///-----------------------------------:
         void doBuy()
         {
-            ASSERT(!cfg._3player[idUI].isBot) /// Запрет для ботов.
+            if(cfg._3player[idUI].isBot) return;
 
                   auto& sg4S{cfg._3player[idUI].stateGame4S};
             const auto& mdl {cfg.cfgModel};

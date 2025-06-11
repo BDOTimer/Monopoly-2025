@@ -39,9 +39,9 @@ namespace uii
 
         const vsl::HolderTextureFieldCash& holderTFieldCash;
 
-        std::set<unsigned> idCells;
+        std::map<unsigned, std::string> idCells;
 
-        void insert(unsigned id){ idCells.insert(id); }
+        void insert(unsigned id){ idCells.insert({id, std::to_string(id)}); }
         void erase (unsigned id)
         {   if (const auto&   f = idCells.find(id); f != idCells.end())
             {   idCells.erase(f);
@@ -68,10 +68,10 @@ namespace uii
             {   ImGui::Text("%s", log.str().c_str());
 
 
-                for(const auto& id : idCells)
+                for(const auto&[id, mtk]: idCells)
                 {
-                    if (ImGui::ImageButton("...", getTexId(id), WH))
-                    {   vsl::Sounds::p->play(1);
+                    if (ImGui::ImageButton(mtk.c_str(), getTexId(id), WH))
+                    {   vsl::Sounds::p->play(5);
 
                     }
                     ImGui::SameLine();
@@ -93,6 +93,8 @@ namespace uii
         {   const auto& texture = *holderTFieldCash.get(id);
             return UIBase::convertSFMLTexture2Im  (texture);
         }
+
+        std::list<std::string> ls;
     };
 }
 
