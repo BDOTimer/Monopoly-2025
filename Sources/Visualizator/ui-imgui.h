@@ -412,6 +412,8 @@ namespace uii
 
         unsigned id;
 
+        bool isFocus{false};
+
         void setPlayer(const controller::Player& pl)
         {   id   = pl.id;
             name = pl.name;
@@ -428,6 +430,8 @@ namespace uii
         inline void reStart()
         {   uiGameIcons.reStart();
         }
+
+        void setFocus(){ isFocus = true; }
 
         void show()
         {

@@ -22,6 +22,7 @@ namespace uii
                 ColorBLog.m[0] = style.Colors[ImGuiCol_Button];
 
                 (*this) << uii::Clear() << "...(инфа)...\n";
+                isOpen = false;
             }
 
         //ImVec4 buttonColor;

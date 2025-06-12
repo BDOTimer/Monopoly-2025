@@ -41,11 +41,9 @@ namespace uii
 
         std::map<unsigned, std::string> idCells;
 
-        std::function<void(unsigned /* idCell */)> fooSellCell;
-        //{   [this](unsigned idCell){}
-        //};
-
-        //Callback fooSellOpen{ [](){} };
+        std::function<void(unsigned /* idCell */)> fooSellCell
+        {   [this](unsigned idCell){}
+        };
 
         void insert(unsigned id){ idCells.insert({id, std::to_string(id)}); }
         void erase (unsigned id)
@@ -73,19 +71,14 @@ namespace uii
                                              ImGuiTreeNodeFlags_DefaultOpen))
             {   ImGui::Text("%s", log.str().c_str());
 
-
                 for(const auto&[id, mtk]: idCells)
                 {
                     if (ImGui::ImageButton(mtk.c_str(), getTexId(id), WH))
                     {   vsl::Sounds::p->play(5);
                         fooSellCell(id);
-
-                    /// TODO ...
-
-                        //fooSellOpen();
                     }
                     ImGui::SameLine();
-                }
+                }   ImGui::Text("%s", ".");
             }
         }
 

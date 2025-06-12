@@ -62,6 +62,14 @@ namespace vsl
                 cfg.uiCellInfo.fooBuy = [this]()
                 {   this->doBuy();
                 };
+
+                for(auto& e : cfg.uiPlayers)
+                {   e.uiGameIcons.fooSellCell = [this](unsigned idCell)
+                    {   this->cfg.uiSellPanel.doOpen2();
+                        this->cfg.uiSellPanel << uii::Clear()
+                                              << "idCell: " << idCell;
+                    };
+                }
             }
 
         vsl::Config&  cfg;
