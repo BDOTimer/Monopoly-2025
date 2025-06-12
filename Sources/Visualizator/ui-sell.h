@@ -10,6 +10,8 @@ namespace uii
 {
     ///------------------------------------------------------------------------|
     /// UISellPanel базовое начальное меню ...
+    /// -   объект существует в единственном экземпляре.
+    /// -   объект находится в vsl::Config
     ///------------------------------------------------------------ UISellPanel:
     struct  UISellPanel : UIBase
     {       UISellPanel()
@@ -32,10 +34,14 @@ namespace uii
 
         ImVec2 WH;
 
-        UIGameIcons* pUiGameIcons{nullptr};
+        UIGameIcons*   pUiGameIcons{nullptr};
 
         using idIter = std::map<unsigned, std::string>::iterator;
-        idIter idNow;
+        idIter idNow ;
+
+        void doOpen2()
+        {   UIBase::doOpen();
+        }
 
         void doOpen(std::map<unsigned, std::string>::iterator idNow)
         {   UIBase::doOpen();
@@ -118,7 +124,6 @@ namespace uii
         {   ImVec4{0.2f, 0.7f, 0.2f, 1.0f},
             ImVec4{0.7f, 0.2f, 0.2f, 1.0f}
         };
-
 
     private:
 

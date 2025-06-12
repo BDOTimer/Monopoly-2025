@@ -22,7 +22,7 @@ namespace vsl
         {   cam.zoom(1.f - speed * cfg.deltaTime.asSeconds());
             const auto& sz{cam.getSize()};
             if(sz.y <= szEndFig.y || sz.x <= szEndFig.x)
-            {   
+            {
                 isActive = false;
             }
         }
@@ -37,7 +37,7 @@ namespace vsl
         const sf::Vector2f& getSizeStart() const { return szStartCam; };
 
     private:
-        inline static 
+        inline static
         const float  H      {20.f};
         const float  speed  { 3.f };
         sf::Vector2f szStartCam;
@@ -218,6 +218,11 @@ if(isFon) { target.draw   (fon,         states); }
             if( animationFieldStart.isActive)
             {   p->animationFieldStart.go(p->camMove);
             }
+
+            ///-------------------------------|
+            /// Панель продажи ячеек.         |
+            ///-------------------------------:
+            cfg.uiSellPanel.show();
         }
 
         friend struct SceneGame;

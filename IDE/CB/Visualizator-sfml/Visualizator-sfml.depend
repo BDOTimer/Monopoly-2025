@@ -1848,7 +1848,7 @@
 	<SFML/Audio/SoundFileFactory.hpp>
 	<memory>
 
-1749719695 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\config-vsl.h
+1749740072 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\config-vsl.h
 	"debug.h"
 	"controller/controller.h"
 	"ui-tune.h"
@@ -1894,7 +1894,7 @@
 1749408863 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\shader-dice.h
 	"common.h"
 
-1749715100 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
+1749740301 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
 	"../common.h"
 	"fig-field.h"
 	"fig-chips.h"
@@ -1933,10 +1933,10 @@
 	"misc/cpp/imgui_stdlib.h"
 	"common.h"
 
-1749716905 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-icons.h
+1749738686 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-icons.h
 	"ui-base.h"
 
-1749720119 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-sell.h
+1749740301 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-sell.h
 	"ui-base.h"
 	"ui-icons.h"
 

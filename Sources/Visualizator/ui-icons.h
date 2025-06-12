@@ -45,6 +45,8 @@ namespace uii
         {   [](unsigned){}
         };
 
+        Callback fooSellOpen{ [](){} };
+
         void insert(unsigned id){ idCells.insert({id, std::to_string(id)}); }
         void erase (unsigned id)
         {   if (const auto&   f = idCells.find(id); f != idCells.end())
@@ -76,7 +78,11 @@ namespace uii
                 {
                     if (ImGui::ImageButton(mtk.c_str(), getTexId(id), WH))
                     {   vsl::Sounds::p->play(5);
-                        fooSellCell(id);
+                        //fooSellCell(id);
+
+                    /// TODO ...
+
+                        fooSellOpen();
                     }
                     ImGui::SameLine();
                 }

@@ -303,7 +303,31 @@ namespace vsl
                 uiUpBankInfo.setGeometry({sx, sy}, {px, py});
             }
 
+            ///-------------------|
+            /// uiSellPanel       |
+            ///-------------------:
+
+            {   const auto& G = markupSG.getWinBase();
+
+                const float sx = G.size.x / 2 * szfWin.x;
+                const float sy = G.size.y / 4 * szfWin.y;
+                const float px =(G.position.x + G.size.x     / 4) * szfWin.x;
+                const float py =(G.position.y + G.size.y * 3 / 8) * szfWin.y;
+
+                uiSellPanel.setGeometry({sx, sy}, {px, py});
+            }
+
             uiUpLog.messDown = &uiDownMessage;
+
+            initUIPlayers();
+        }
+
+        void initUIPlayers()
+        {   for(auto& e : uiPlayers)
+            {   e.uiGameIcons.fooSellOpen = [this]()
+                {   this->uiSellPanel.doOpen2();
+                };
+            }
         }
     };
 }
