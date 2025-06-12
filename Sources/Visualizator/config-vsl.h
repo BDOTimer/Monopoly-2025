@@ -319,15 +319,19 @@ namespace vsl
 
             uiUpLog.messDown = &uiDownMessage;
 
-            initUIPlayers();
+        ///
+        initUIPlayers();
         }
 
         void initUIPlayers()
         {   for(auto& e : uiPlayers)
-            {   e.uiGameIcons.fooSellOpen = [this]()
+            {   e.uiGameIcons.fooSellCell = [this](unsigned idCell)
                 {   this->uiSellPanel.doOpen2();
+                    this->uiSellPanel << uii::Clear() << "idCell: " << idCell;
                 };
             }
+            /// TODO: ... UB ...
+            SIGNAL("initUIPlayers")
         }
     };
 }

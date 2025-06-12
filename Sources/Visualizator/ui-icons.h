@@ -41,11 +41,11 @@ namespace uii
 
         std::map<unsigned, std::string> idCells;
 
-        std::function<void(unsigned idCell)> fooSellCell
-        {   [](unsigned){}
-        };
+        std::function<void(unsigned /* idCell */)> fooSellCell;
+        //{   [this](unsigned idCell){}
+        //};
 
-        Callback fooSellOpen{ [](){} };
+        //Callback fooSellOpen{ [](){} };
 
         void insert(unsigned id){ idCells.insert({id, std::to_string(id)}); }
         void erase (unsigned id)
@@ -78,11 +78,11 @@ namespace uii
                 {
                     if (ImGui::ImageButton(mtk.c_str(), getTexId(id), WH))
                     {   vsl::Sounds::p->play(5);
-                        //fooSellCell(id);
+                        fooSellCell(id);
 
                     /// TODO ...
 
-                        fooSellOpen();
+                        //fooSellOpen();
                     }
                     ImGui::SameLine();
                 }
