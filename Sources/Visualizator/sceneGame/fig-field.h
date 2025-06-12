@@ -45,7 +45,7 @@ namespace vsl
                 sps.resize(cfgModel.amountCells);
 
                 for    (unsigned i  = 0; i < cfgModel.amountCells; ++i)
-                {   
+                {
                     std::string name  { "res/img/field/" };
                                 name += std::to_string(i);
                                 name += ".jpeg";
@@ -131,7 +131,7 @@ namespace vsl
         const  std::vector<PFS>& getPSP() const { return sps; }
 
         void reGeometry()
-        {   setGeomPos         (); 
+        {   setGeomPos         ();
             updateFigurePos2Pos();
             fooRePosition      ();
             return;
@@ -147,8 +147,8 @@ namespace vsl
             for    (unsigned y  = 0; y < m   .size(); ++y)
             {   for(unsigned x  = 0; x < m[y].size(); ++x)
                 {
-                    if(const int& ID = m[y][x]; ID >= 0)
-                    {   ASSERT(ID < r.size())
+                    if(const int&     ID = m[y][x]; ID >= 0)
+                    {   ASSERT(size_t(ID) < r.size())
                         r[ID].setPosition({ x * szCell, y * szCell });
                     }
                 }
@@ -177,9 +177,9 @@ namespace vsl
     ///------------------------------------------------------------------------:
     void HolderTextureFieldCash::init(const vsl::FigureField& ff)
     {   clear  ();
-        reserve(ff.getPSP().size()); 
-        for(const auto p : ff.getPSP())
-        {   push_back( p.getTexture());
+        reserve(ff.getPSP().size());
+        for(const auto& o : ff.getPSP())
+        {   push_back(  o .getTexture());
         }
     }
 }

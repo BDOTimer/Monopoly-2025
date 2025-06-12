@@ -8,6 +8,7 @@
 #include "controller/controller.h"
 #include "ui-tune.h"
 #include "ui-win-game.h"
+#include "ui-sell.h"
 #include "user-model.h"
 #include "sceneGame/markup.h"
 
@@ -103,6 +104,8 @@ namespace vsl
         uii::UITuneBackDoor  uiTuneBackDoor { uiTuneBase, this };
 
         uii::UIUpBankInfo    uiUpBankInfo   {&cfgModel.moneyBank};
+
+        uii::UISellPanel     uiSellPanel; /// TODO: ... новое ...
 
         void doTuneAllClose()
         {   uiTuneGamer   .doClose();

@@ -164,6 +164,9 @@
 		<Unit filename="../../../Sources/Visualizator/ui-imgui.h">
 			<Option virtualFolder="vsl/ui/" />
 		</Unit>
+		<Unit filename="../../../Sources/Visualizator/ui-sell.h">
+			<Option virtualFolder="vsl/ui/" />
+		</Unit>
 		<Unit filename="../../../Sources/Visualizator/ui-tune.h">
 			<Option virtualFolder="vsl/ui/" />
 		</Unit>

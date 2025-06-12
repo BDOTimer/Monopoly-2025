@@ -2,14 +2,14 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Release" />
-	<File name="..\..\..\Sources\Visualizator\sceneGame\win-up.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\..\..\Sources\Visualizator\scene-tune.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1584" topLine="37" />
+			<Cursor1 position="2308" topLine="114" />
 		</Cursor>
 	</File>
-	<File name="..\..\..\Sources\Model-25\controller\controller.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\..\..\Sources\Visualizator\ui-imgui.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1343" topLine="12" />
+			<Cursor1 position="7602" topLine="354" />
 		</Cursor>
 	</File>
 	<File name="..\..\..\Sources\Model-25\model\model.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
@@ -17,24 +17,29 @@
 			<Cursor1 position="2193" topLine="60" />
 		</Cursor>
 	</File>
-	<File name="..\..\..\Sources\Visualizator\ui-tune.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
+	<File name="..\..\..\Sources\Model-25\controller\controller.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="27839" topLine="691" />
+			<Cursor1 position="1343" topLine="12" />
 		</Cursor>
 	</File>
-	<File name="..\..\..\Sources\Visualizator\render.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\..\..\Sources\Visualizator\ui-icons.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3523" topLine="135" />
+			<Cursor1 position="1334" topLine="36" />
 		</Cursor>
 	</File>
-	<File name="..\..\..\Sources\Visualizator\model.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\..\..\Sources\Model-25\debug.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="373" topLine="24" />
+			<Cursor1 position="2859" topLine="80" />
 		</Cursor>
 	</File>
-	<File name="..\..\..\Sources\Model-25\model\!m-model.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+	<File name="..\..\..\Sources\Visualizator\sceneGame\fig-field.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="49267" topLine="1383" />
+			<Cursor1 position="4963" topLine="145" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\Sources\Visualizator\scene-game.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7362" topLine="235" />
 		</Cursor>
 	</File>
 	<File name="..\..\..\Sources\Model-25\program.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -42,14 +47,9 @@
 			<Cursor1 position="0" topLine="81" />
 		</Cursor>
 	</File>
-	<File name="..\..\..\Sources\Model-25\model\myl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+	<File name="..\..\..\Sources\Visualizator\ui-sell.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="296" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\Sources\Model-25\model\config-model.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6617" topLine="178" />
+			<Cursor1 position="4864" topLine="101" />
 		</Cursor>
 	</File>
 	<File name="..\..\..\Sources\Visualizator\common.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -57,14 +57,9 @@
 			<Cursor1 position="2701" topLine="78" />
 		</Cursor>
 	</File>
-	<File name="..\..\..\Sources\Visualizator\shader-dice.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\..\..\Sources\Visualizator\model.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1727" topLine="39" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\Sources\Visualizator\sceneGame\fig-field.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4701" topLine="114" />
+			<Cursor1 position="373" topLine="24" />
 		</Cursor>
 	</File>
 	<File name="..\..\..\Sources\Visualizator\fps.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -72,59 +67,19 @@
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="..\..\..\task-dev.txt" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\..\..\Sources\Visualizator\ui-tune.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="258" topLine="0" />
+			<Cursor1 position="27839" topLine="691" />
 		</Cursor>
 	</File>
-	<File name="..\..\..\Sources\Visualizator\sceneGame\win-game.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\..\..\Sources\Visualizator\ui-win-game.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4759" topLine="167" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\Sources\Visualizator\ui-icons.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1703" topLine="45" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\Sources\Model-25\debug.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1573" topLine="115" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\Sources\Visualizator\main.cpp" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1229" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\Sources\Visualizator\scene-game.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="10547" topLine="355" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\Sources\Visualizator\sceneGame\win-player.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="12" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\Sources\Visualizator\ui-win-game.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3596" topLine="95" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\Sources\Visualizator\scene-tune.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2308" topLine="114" />
+			<Cursor1 position="552" topLine="58" />
 		</Cursor>
 	</File>
 	<File name="..\..\..\Sources\Model-25\user-model.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5713" topLine="257" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\Sources\Visualizator\ui-imgui.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="13995" topLine="411" />
+			<Cursor1 position="5171" topLine="146" />
 		</Cursor>
 	</File>
 	<File name="..\..\..\Sources\Visualizator\scene-logo.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -132,9 +87,64 @@
 			<Cursor1 position="0" topLine="38" />
 		</Cursor>
 	</File>
-	<File name="..\..\..\Sources\Visualizator\config-vsl.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+	<File name="..\..\..\Sources\Model-25\model\myl.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1740" topLine="45" />
+			<Cursor1 position="296" topLine="3" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\Sources\Visualizator\ui-base.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1896" topLine="60" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\Sources\Model-25\model\!m-model.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="49267" topLine="1383" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\Sources\Visualizator\sceneGame\win-game.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4759" topLine="167" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\Sources\Visualizator\sceneGame\win-up.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1584" topLine="37" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\Sources\Visualizator\config-vsl.h" open="1" top="1" tabpos="7" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="325" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\Sources\Visualizator\render.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3523" topLine="135" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\task-dev.txt" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="258" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\Sources\Visualizator\sceneGame\win-player.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="12" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\Sources\Visualizator\main.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="431" topLine="20" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\Sources\Model-25\model\config-model.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6617" topLine="178" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\Sources\Visualizator\shader-dice.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1727" topLine="39" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
