@@ -118,6 +118,8 @@ namespace uii
         {   return (ImTextureID)(size_t)tx.getNativeHandle();
         }
 
+        void soundClick(){ vsl::Sounds::p->play(0); }
+
     protected:
         std::string_view name;
     };

@@ -105,7 +105,7 @@ namespace vsl
 
         uii::UIUpBankInfo    uiUpBankInfo   {&cfgModel.moneyBank};
 
-        uii::UISellPanel     uiSellPanel; /// TODO: ... новое ...
+        uii::UISellPanel     uiSellPanel{holderTFieldCash};
 
         void doTuneAllClose()
         {   uiTuneGamer   .doClose();

@@ -14,7 +14,8 @@ namespace uii
     /// -   объект находится в vsl::Config
     ///------------------------------------------------------------ UISellPanel:
     struct  UISellPanel : UIBase
-    {       UISellPanel()
+    {       UISellPanel(const vsl::HolderTextureFieldCash& holderTFieldCash)
+                :   holderTFieldCash(holderTFieldCash)
             {
                 name = "ПРОДАТЬ ЯЧЕЙКУ";
 
@@ -27,6 +28,10 @@ namespace uii
 
         //ImVec4 buttonColor;
 
+        const vsl::HolderTextureFieldCash& holderTFieldCash;
+
+        unsigned idCell{};
+
         Callback fooSell {[this](){}};
         Callback fooNext {[this](){}};
         Callback fooClose{[this](){ this->doClose(); }};
@@ -34,6 +39,10 @@ namespace uii
         bool isBot{true};
 
         ImVec2 WH;
+        ImVec2 WHicon;
+
+        ImVec2 WHPanelL;
+        ImVec2 WHPanelR;
 
         UIGameIcons*   pUiGameIcons{nullptr};
 
@@ -89,12 +98,24 @@ namespace uii
                     /// | ImGuiWindowFlags_AlwaysAutoResize
             );
 
-                ImGui::Text("%s", log.str().c_str());
+        ///////////////////////////////////////////////////////////////////////:
+        ImGui::BeginChild("Left Panel", WHPanelL, true);
+            if (ImGui::ImageButton("idCellSell", getTexId(idCell), WHicon))
+            {   vsl::Sounds::p->play(5);
+            }
+        ImGui::EndChild();
+        ImGui::SameLine();
+        ImGui::BeginChild("Right Panel", WHPanelR, true);
+
+            ImGui::Text("%s", log.str().c_str());
+
+        ImGui::EndChild();
+        ///////////////////////////////////////////////////////////////////////.
 
             /// ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
                 if(ImGui::Button("ПРОДАТЬ", WH))
                 {   fooSell   ();
-                    vsl::Sounds::p->play(0);
+                    soundClick();
             ///     ColorBLog.next();
                 }
             /// ImGui::PopStyleColor
@@ -103,14 +124,14 @@ namespace uii
 
                 if(ImGui::Button("СЛЕДУЮЩАЯ", WH))
                 {   fooNext   ();
-                    vsl::Sounds::p->play(0);
+                    soundClick();
                 }
 
                 ImGui::SameLine();
 
                 if(ImGui::Button("ЗАКРЫТЬ", WH))
                 {   fooClose  ();
-                    vsl::Sounds::p->play(0);
+                    soundClick();
                 }
 
             ImGui::End();
@@ -118,7 +139,15 @@ namespace uii
 
         void setGeometry(ImVec2 sz, ImVec2 ps)
         {   UIBase::setGeometry(sz,        ps);
-            WH = {size.x / 3.1f, size.y / 8.f};
+
+            WH       = { size.x / 3.2f, size.y / 7.9f };
+
+            const auto H = (sz.y - WH.y) / 1.2f;
+
+            WHPanelL = { H + 20, H  };
+            WHPanelR = { 0     , H  };
+
+            WHicon   = { H / 1.25f, H / 1.25f };
         }
 
         myl::SwitcherData<ImVec4, 2> ColorBLog
@@ -127,7 +156,10 @@ namespace uii
         };
 
     private:
-
+        ImTextureID getTexId(unsigned id)
+        {   const auto& texture = *holderTFieldCash.get(id);
+            return UIBase::convertSFMLTexture2Im  (texture);
+        }
     };
 
 

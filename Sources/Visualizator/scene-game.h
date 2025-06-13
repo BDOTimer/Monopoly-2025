@@ -68,6 +68,7 @@ namespace vsl
                     {   this->cfg.uiSellPanel.doOpen2();
                         this->cfg.uiSellPanel << uii::Clear()
                                               << "idCell: " << idCell;
+                        this->cfg.uiSellPanel.idCell = idCell;
                     };
                 }
             }
@@ -117,6 +118,8 @@ namespace vsl
 
         void upDice()
         {   ///if(isGameOver) return; TODO ...
+
+            cfg.uiSellPanel.doClose();
 
             switch(nClickDice)
             {
