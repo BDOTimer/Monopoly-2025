@@ -297,7 +297,7 @@ namespace vsl
 
                 const auto  px = uiUpLog.size.x + 10.f;
                 const auto& py = uiUpLog.position.y;
-                const auto& sx = G.size.x * szfWin.x * 0.2f;
+                const auto& sx = G.size.x * szfWin.x * 0.25f;
                 const auto& sy = uiUpLog.size.y;
 
                 uiUpBankInfo.setGeometry({sx, sy}, {px, py});
