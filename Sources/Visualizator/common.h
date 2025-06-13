@@ -393,6 +393,8 @@ struct  Object : vsl::IObject
         {
             sp.setPosition(dat.position);
             sp.setScale   (dat.scale   );
+            sp.setOrigin({(float)sp.getTexture().getSize().x/2,
+                          (float)sp.getTexture().getSize().y/2});
         }
 
     PLUG_IOBJECT

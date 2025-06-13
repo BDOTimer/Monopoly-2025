@@ -77,7 +77,7 @@ namespace vsl
                         ? cfg.musics.pause()
                         : cfg.musics.play(1);
 
-                /// isRot = !isRot;
+                    isRot = !isRot;
                 }
             }
         }
@@ -87,6 +87,7 @@ namespace vsl
         std::vector<Player>  m;
 
         bool isRot{false};
+        float speed{9.0f};
 
         std::wstring mess1{L"ЛОГО.\nНастройки: ПРОБЕЛ ..."};
         primitive::TextStyleA  tmess1;
@@ -101,7 +102,17 @@ namespace vsl
 
             if(isRot)
             {   auto p = const_cast<Player*>(&m[2]);
-                     p->sp.rotate(sf::degrees(1.f));
+                     p->sp.rotate(
+                         sf::degrees(speed * cfg.deltaTime.asSeconds()));
+
+                     p = const_cast<Player*>(&m[3]);
+                     p->sp.rotate(
+                        -sf::degrees(speed * cfg.deltaTime.asSeconds() * 2));
+
+                     p = const_cast<Player*>(&m[1]);
+                     p->sp.rotate(
+                         sf::degrees(speed * cfg.deltaTime.asSeconds()*4));
+                
             }
 
             for(const auto& pl : m)
