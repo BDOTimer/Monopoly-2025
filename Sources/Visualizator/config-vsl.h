@@ -18,7 +18,7 @@ namespace vsl
     struct  Config
     {       Config (sf::RenderWindow& window)
                 :   pwin            (&window)
-                ,   uiTune          ( window, "Настройки ...")
+                ,   uiInit          ( window, "Настройки ...")
             {   init_();
                 resizeFormImgui();
 
@@ -84,7 +84,7 @@ namespace vsl
         Musics             musics;
         Sounds             sounds;
 
-        uii::UITest        uiTune       ;
+        uii::UITest        uiInit       ;
         uii::UIUpLog       uiUpLog      ;
         uii::UIGame        uiGameLog    ;
         uii::UIDownMessage uiDownMessage;
@@ -103,7 +103,7 @@ namespace vsl
         uii::UITuneGamer     uiTuneGamer    { uiTuneBase, this,&userInit4Model};
         uii::UITuneBackDoor  uiTuneBackDoor { uiTuneBase, this };
 
-        uii::UIUpBankInfo    uiUpBankInfo   {&cfgModel.moneyBank};
+        uii::UIUpBankInfo    uiUpBankInfo   {uiInit, &cfgModel.moneyBank};
 
         uii::UISellPanel     uiSellPanel{holderTFieldCash};
 
@@ -123,7 +123,7 @@ namespace vsl
 
         static sf::Font& getFont()
         {///static sf::Font font("consola.ttf");
-            static sf::Font font("res/JetBrainsMono-Regular.ttf");
+            static sf::Font font("res/fonts/JetBrainsMono-Regular.ttf");
             return font;
         }
 

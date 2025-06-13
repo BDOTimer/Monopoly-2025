@@ -102,8 +102,9 @@ namespace uii
     /// UIUpBankInfo.
     ///------------------------------------------------------------ UIUpBankInfo:
     struct  UIUpBankInfo    : UIBase
-    {       UIUpBankInfo(int* bankMoney)
-                :   bankMoney ( bankMoney)
+    {       UIUpBankInfo(const uii::UITest& uiInit, int* bankMoney)
+                :   uiInit(uiInit)
+                ,   bankMoney ( bankMoney)
             {
                 name = "Банк";
 
@@ -119,10 +120,12 @@ namespace uii
 
         //ImVec4 buttonColor;
 
+        const uii::UITest& uiInit;
+
         Callback fooEmpty   {[this](){}};
 
-        ImVec2 WH  {100, 40};
-        ImVec2 WHx2;
+        ImVec2   WH  {100, 40};
+        ImVec2   WHx2;
 
         void doOpen()
         {   vsl::Musics::p->play(2);
@@ -148,7 +151,7 @@ namespace uii
             ///
             ImGui::SetNextWindowPos (position);
 
-            ImGui::PushStyleColor(ImGuiCol_Border, IM_COL32(0, 127, 0, 200));
+            ImGui::PushStyleColor(ImGuiCol_Border, IM_COL32(0, 100, 0, 80));
             ImGui::PushStyleVar  (ImGuiStyleVar_WindowBorderSize, 8.0f);
 
             ///---------------------------------------|
@@ -171,7 +174,7 @@ namespace uii
             ImGui::PushStyleColor(ImGuiCol_ButtonHovered,(ImVec4)colButtonH);
             ImGui::PushStyleColor(ImGuiCol_ButtonActive ,(ImVec4)colButtonA);
 
-            {   ImGui::SetWindowFontScale(2.f);
+            {   ImGui::SetWindowFontScale(1.6f);
 
                 const char* text = "  БАНК: ";
                 // Получаем доступную ширину внутри окна
@@ -182,12 +185,19 @@ namespace uii
                 // Вычисляем отступ слева для центрирования
                 //ImGui::SetCursorPosX(sx);
                 ImGui::SetCursorPosY(py);
+
+                ImGui::PushFont(uiInit.second_font);
                 ImGui::Text("%s", text);
+                
+
                 ImGui::SameLine();
-                //ImGui::SetCursorPosY(py);
+            /// ImGui::SetCursorPosY(py);
+
                 ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "%d", *bankMoney);
 
                 ImGui::SetWindowFontScale(1.0f);
+
+                ImGui::PopFont();
             }
 
             ImGui::PopStyleColor();

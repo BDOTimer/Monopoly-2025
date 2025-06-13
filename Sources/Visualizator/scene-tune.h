@@ -100,7 +100,7 @@ namespace vsl
             cfg.setConfigModel(*model::getConfig(cfg.backDoor,
                                                  cfg.userInit4Model));
 
-            cfg.uiTune << model::getLogo(cfg.cfgModel.idGame) << "\n";
+            cfg.uiInit << model::getLogo(cfg.cfgModel.idGame) << "\n";
 
             cfg.uiGameLog << "///-----------------------------------|\n"
                              "///         ИГРА НАЧАЛАСЬ!            |\n"

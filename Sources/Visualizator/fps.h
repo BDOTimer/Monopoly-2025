@@ -18,7 +18,7 @@ namespace vsl
                 fon.setOutlineThickness(   1                );
                 fon.setOutlineColor    ({  0,   0, 255, 128});
                 fon.setFillColor       ({  0, 255, 128, 64 });
-                txt.setFillColor       ({128, 255, 255     });
+                txt.setFillColor       ({128, 255, 128     });
 
                 fon.setPosition({position.x       ,  position.y + 5.f});
                 txt.setPosition({position.x + 15.f,  position.y + 6.f});

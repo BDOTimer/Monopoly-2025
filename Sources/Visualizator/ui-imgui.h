@@ -27,9 +27,14 @@ namespace uii
                 log      .reserve(0xFFFFFF);
                 callbacks.reserve(10);
             }
+           ~UITest()
+            {   ImGui::SFML::Shutdown();
+            }
 
 
         Callback foo;
+
+        ImFont* second_font;
 
         void pushCallback(const std::pair<const char*, Callback> cb)
         {   callbacks.emplace_back(cb);
@@ -99,6 +104,11 @@ namespace uii
 
         ImGuiDemoWindowData isShow;
 
+        std::array<const char*, 2> fontname
+        {   "res/fonts/JetBrainsMono-Regular.ttf",
+            "res/fonts/Country Western Script Open.ttf"
+        };
+
         ///--------------------------------------|
         /// initImgui                            |
         ///--------------------------------------:
@@ -109,20 +119,35 @@ namespace uii
             {   ASSERTM(false, "ImGui::SFML::Init() is failed ...")
             }
 
-            const char* fontname = "res/JetBrainsMono-Regular.ttf";
-
             ImGuiIO& io = ImGui::GetIO();
 
             io.IniFilename = "imgui_settings.ini";
             io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 
             io.Fonts->Clear();
-            isGood = io.Fonts->AddFontFromFileTTF(fontname, 18.f, NULL,
-                     io.Fonts->GetGlyphRangesCyrillic());
-            if (!isGood)
+
+            // Основной шрифт
+            ImFont* main_font = io.Fonts->AddFontFromFileTTF(
+                fontname[0], 18.f, NULL,
+                io.Fonts->GetGlyphRangesCyrillic()
+            );
+
+            if (!main_font)
             {   ASSERTM(false, "io.Fonts->AddFontFromFileTTF() is failed ...")
             }
 
+            // Второй шрифт
+            second_font = io.Fonts->AddFontFromFileTTF(
+                fontname[1], 18.0f,
+                NULL,
+                io.Fonts->GetGlyphRangesCyrillic()
+            );
+
+            if (!second_font)
+            {   ASSERTM(false, "io.Fonts->AddFontFromFileTTF() is failed ...")
+            }
+
+            /// Обновление текстурного атласа:
             isGood = ImGui::SFML::UpdateFontTexture();
             if (!isGood)
             {   ASSERTM(false, "ImGui::SFML::UpdateFontTexture()is failed ...")

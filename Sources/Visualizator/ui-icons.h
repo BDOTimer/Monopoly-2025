@@ -84,7 +84,7 @@ namespace uii
                         fooSellCell(this, i);
                     }
                     ImGui::SameLine();
-                }   ImGui::Text("%s", ".");
+                }   ImGui::Text("%s", " ");
             }
         }
 
