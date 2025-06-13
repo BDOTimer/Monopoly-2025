@@ -64,11 +64,12 @@ namespace vsl
                 };
 
                 for(auto& e : cfg.uiPlayers)
-                {   e.uiGameIcons.fooSellCell = [this](unsigned idCell)
+                {   e.uiGameIcons.fooSellCell = [this](uii::UIGameIcons* p, 
+                                                       uii::IconIt idCell)
                     {   this->cfg.uiSellPanel.doOpen2();
-                        this->cfg.uiSellPanel << uii::Clear()
-                                              << "idCell: " << idCell;
                         this->cfg.uiSellPanel.idCell = idCell;
+                        this->cfg.uiSellPanel.pIcons = p;
+                        this->cfg.uiSellPanel.loadInfo();
                     };
                 }
             }

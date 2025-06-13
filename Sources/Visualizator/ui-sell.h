@@ -15,7 +15,8 @@ namespace uii
     ///------------------------------------------------------------ UISellPanel:
     struct  UISellPanel : UIBase
     {       UISellPanel(const vsl::HolderTextureFieldCash& holderTFieldCash)
-                :   holderTFieldCash(holderTFieldCash)
+                :   
+                    holderTFieldCash(holderTFieldCash)
             {
                 name = "ПРОДАТЬ ЯЧЕЙКУ";
 
@@ -23,17 +24,18 @@ namespace uii
                 ColorBLog.m[0] = style.Colors[ImGuiCol_Button];
 
                 (*this) << uii::Clear() << "...(инфа)...\n";
-                isOpen = false;
+                isOpen  =  false;
             }
 
-        //ImVec4 buttonColor;
-
+    /// ImVec4 buttonColor;
+        
         const vsl::HolderTextureFieldCash& holderTFieldCash;
 
-        unsigned idCell{};
+        UIGameIcons* pIcons;
+        IconIt       idCell;
 
         Callback fooSell {[this](){}};
-        Callback fooNext {[this](){}};
+    /// Callback fooNext {[this](){}};
         Callback fooClose{[this](){ this->doClose(); }};
 
         bool isBot{true};
@@ -44,25 +46,24 @@ namespace uii
         ImVec2 WHPanelL;
         ImVec2 WHPanelR;
 
-        UIGameIcons*   pUiGameIcons{nullptr};
-
-        using idIter = std::map<unsigned, std::string>::iterator;
-        idIter idNow ;
-
         void doOpen2()
         {   UIBase::doOpen();
         }
 
-        void doOpen(std::map<unsigned, std::string>::iterator idNow)
+        void doOpen(IconIt idCell)
         {   UIBase::doOpen();
-            this->idNow = idNow;
+            this->idCell = idCell;
         }
 
-        idIter next()
-        {   if(++idNow == pUiGameIcons->idCells.end  ())
-            {    idNow =  pUiGameIcons->idCells.begin();
+        IconIt next()
+        {   if(++idCell == pIcons->idCells.end  ())
+            {    idCell =  pIcons->idCells.begin();
             }
-            return idNow;
+            return idCell;
+        }
+
+        void loadInfo()
+        {   (*this) << uii::Clear() << "ЯЧЕЙКА: " << idCell->first;
         }
 
         void show()
@@ -100,7 +101,7 @@ namespace uii
 
         ///////////////////////////////////////////////////////////////////////:
         ImGui::BeginChild("Left Panel", WHPanelL, true);
-            if (ImGui::ImageButton("idCellSell", getTexId(idCell), WHicon))
+            if (ImGui::ImageButton("idCellSell", getTexId(idCell->first), WHicon))
             {   vsl::Sounds::p->play(5);
             }
         ImGui::EndChild();
@@ -123,7 +124,8 @@ namespace uii
                 ImGui::SameLine();
 
                 if(ImGui::Button("СЛЕДУЮЩАЯ", WH))
-                {   fooNext   ();
+                {   next      ();
+                    loadInfo  ();
                     soundClick();
                 }
 

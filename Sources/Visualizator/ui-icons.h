@@ -22,6 +22,9 @@ namespace vsl
 
 namespace uii
 {
+    using Icons  = std::map<unsigned, std::string>;
+    using IconIt = std::map<unsigned, std::string>::iterator;
+
     ///------------------------------------------------------------------------|
     /// UIGameIcons.
     ///------------------------------------------------------------ UIGameIcons:
@@ -39,10 +42,10 @@ namespace uii
 
         const vsl::HolderTextureFieldCash& holderTFieldCash;
 
-        std::map<unsigned, std::string> idCells;
+        Icons idCells;
 
-        std::function<void(unsigned /* idCell */)> fooSellCell
-        {   [this](unsigned idCell){}
+        std::function<void(UIGameIcons*, IconIt /* idCell */)> fooSellCell
+        {   [this](UIGameIcons* p, IconIt idCell){}
         };
 
         void insert(unsigned id){ idCells.insert({id, std::to_string(id)}); }
@@ -71,11 +74,14 @@ namespace uii
                                              ImGuiTreeNodeFlags_DefaultOpen))
             {   ImGui::Text("%s", log.str().c_str());
 
-                for(const auto&[id, mtk]: idCells)
+                for(auto i = idCells.begin(); i != idCells.end(); ++i)
                 {
-                    if (ImGui::ImageButton(mtk.c_str(), getTexId(id), WH))
+                    const auto& id{i->first};
+
+                    if (ImGui::ImageButton(
+                        i->second.c_str(), getTexId(id), WH))
                     {   vsl::Sounds::p->play(5);
-                        fooSellCell(id);
+                        fooSellCell(this, i);
                     }
                     ImGui::SameLine();
                 }   ImGui::Text("%s", ".");
