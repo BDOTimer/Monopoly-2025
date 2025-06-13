@@ -58,6 +58,7 @@
     <ClInclude Include="..\..\..\Sources\Visualizator\ui-base.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\ui-icons.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\ui-imgui.h" />
+    <ClInclude Include="..\..\..\Sources\Visualizator\ui-sell.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\ui-tune.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\ui-win-game.h" />
     <ClInclude Include="resource.h" />

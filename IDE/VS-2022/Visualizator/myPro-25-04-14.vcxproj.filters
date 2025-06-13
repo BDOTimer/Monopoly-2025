@@ -169,6 +169,9 @@
     <ClInclude Include="..\..\..\Sources\Visualizator\ui-base.h">
       <Filter>Vsl\ui</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\ui-sell.h">
+      <Filter>Vsl\ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\extLibs\imgui-1.91.8\imgui.cpp">
