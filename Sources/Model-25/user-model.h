@@ -113,7 +113,6 @@ namespace model
 
     struct ConfigShare : UserInit4Model
     {
-
         ///------------------------------|
         /// Индекс игры.                 |
         ///------------------------------:
@@ -128,6 +127,12 @@ namespace model
         /// Денеги Банка.                |
         ///------------------------------:
         int moneyBank{3200};
+
+        ///------------------------------|
+        /// Инфа о ячейках для игроков.  |
+        ///------------------------------:
+        struct      CellUser{std::string name; int priseBase; };
+        std::vector<CellUser>       cells;
 
         ///------------------------------|
         /// Мировая геометрия.           |
@@ -272,7 +277,7 @@ namespace model
         ///----------------------------:
         int money;
 
-        void init()
+        void resert()
         {
             isBuy     = false;
             isSellIds.clear();

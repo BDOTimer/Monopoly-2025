@@ -326,6 +326,7 @@ namespace model
         void _init()
         {   stateGame.dat[StateGame::E_GAMEOVER] = -1;
             //worldGeometryN = rand()% _worldGeometry.size();
+            
         }
 
         ///------------------------------|

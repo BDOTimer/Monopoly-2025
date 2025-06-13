@@ -347,6 +347,23 @@ namespace model
                     statist.capitalAll += e.priseBase;
                 }
                 statist.priceAvarege = statist.capitalAll / (int)size();
+
+                ///------------------------------|
+                /// Загрузка инфы для клиента.   |
+                ///------------------------------:
+                auto p{const_cast<Config*>(&cfg)};
+                     p->cells.resize(cfg.amountCells);
+
+                ASSERT(size() == cfg.amountCells)
+
+                for(unsigned i{}; i < cfg.amountCells; ++i)
+                {
+                          auto& r = p->cells[i];
+                    const auto& s = (*this) [i];
+
+                    r.name      = s.name;
+                    r.priseBase = s.priseBase;
+                }
             }
 
         Bank   bank;
@@ -1078,7 +1095,7 @@ namespace model
             ///----------------------------------------|
             /// Активность игрока-человека.            |
             ///----------------------------------------:
-            if(cfg.stateGame4S.isBuy)
+            if(cfg.stateGame4S.isWork())
             {
                 doBuy();
             }

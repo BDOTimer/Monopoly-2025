@@ -34,9 +34,7 @@ namespace uii
         UIGameIcons* pIcons;
         IconIt       idCell;
 
-        Callback fooSell {[this](){}};
-    /// Callback fooNext {[this](){}};
-        Callback fooClose{[this](){ this->doClose(); }};
+        std::function<void(unsigned/*idCell*/)> fooSell{[this](unsigned id){}};
 
         bool isBot{true};
 
@@ -115,9 +113,11 @@ namespace uii
 
             /// ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
                 if(ImGui::Button("ПРОДАТЬ", WH))
-                {   fooSell   ();
-                    soundClick();
-            ///     ColorBLog.next();
+                {   
+                    const unsigned id = idCell->first;
+                    fooSell       (id);
+                    soundClick    (  );
+            ///     ColorBLog.next(  );
                 }
             /// ImGui::PopStyleColor
 
@@ -132,7 +132,7 @@ namespace uii
                 ImGui::SameLine();
 
                 if(ImGui::Button("ЗАКРЫТЬ", WH))
-                {   fooClose  ();
+                {   doClose   ();
                     soundClick();
                 }
 

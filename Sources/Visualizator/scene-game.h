@@ -70,8 +70,19 @@ namespace vsl
                         this->cfg.uiSellPanel.idCell = idCell;
                         this->cfg.uiSellPanel.pIcons = p;
                         this->cfg.uiSellPanel.loadInfo();
+
+                        const auto& cellUder
+                        {   this->cfg.cfgModel.cells[idCell->first]
+                        };
+
+                        this-> cfg.uiSellPanel << "\n\"" << cellUder.name
+                            << "\"\nБАЗОВАЯ СТОИМОСТЬ: " << cellUder.priseBase;
                     };
                 }
+
+                cfg.uiSellPanel.fooSell = [this](unsigned idCell)
+                {   this->doSell(idCell);
+                };
             }
 
         vsl::Config&  cfg;
@@ -286,6 +297,8 @@ namespace vsl
                   auto& sg4S{cfg._3player[idUI].stateGame4S};
             const auto& mdl {cfg.cfgModel};
 
+            sg4S.resert();
+
             sg4S.isBuy  = true;
 
             cfg._3player[idUI].stateGame =
@@ -296,6 +309,28 @@ namespace vsl
             /// Получить стейт.               |
             ///-------------------------------:
             //cfg._3player[idUI].stateGame = sg;
+
+            set2uiCellInfo();
+            setCellColor  ();
+
+            updateEndStep ();
+            set2uiPlayers ();
+        }
+
+        void doSell(unsigned idCell)
+        {   
+            if(cfg._3player[idUI].isBot) return;
+
+                  auto& sg4S{cfg._3player[idUI].stateGame4S};
+            const auto& mdl {cfg.cfgModel};
+
+            sg4S.resert();
+
+            sg4S.isSellIds.push_back(idCell);
+
+            cfg._3player[idUI].stateGame =
+                  model::sendStateGame("4server",
+                                      {(int)mdl.idGame, (int)idUI}, sg4S);
 
             set2uiCellInfo();
             setCellColor  ();
