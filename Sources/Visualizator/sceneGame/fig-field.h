@@ -121,11 +121,11 @@ namespace vsl
         }
 
         void setColor(unsigned idCell, unsigned idColor)
-        {   sps[idCell].setFillColor    (color[idColor]);
+        {   sps[idCell].setFillColor ( color[   idColor]);
         }
 
         void clear()
-        {   for(auto p : sps) p.setFillColor(color[0]);
+        {   for(auto& e : sps) e.setFillColor(color[0]);
         }
 
         const  std::vector<PFS>& getPSP() const { return sps; }
@@ -134,7 +134,6 @@ namespace vsl
         {   setGeomPos         ();
             updateFigurePos2Pos();
             fooRePosition      ();
-            return;
         }
 
     private:
@@ -144,8 +143,8 @@ namespace vsl
         {   std::vector<PFS>& r{sps};
 
             const auto& m{cfgModel.getWorldGeometry()};
-            for    (unsigned y  = 0; y < m   .size(); ++y)
-            {   for(unsigned x  = 0; x < m[y].size(); ++x)
+            for    (size_t y{}, Y{m   .size()}; y < Y; ++y)
+            {   for(size_t x{}, X{m[y].size()}; x < X; ++x)
                 {
                     if(const int&     ID = m[y][x]; ID >= 0)
                     {   ASSERT(size_t(ID) < r.size())

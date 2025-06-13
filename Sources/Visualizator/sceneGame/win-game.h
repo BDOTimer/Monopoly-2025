@@ -174,9 +174,8 @@ namespace vsl
             isDiceHide   = true ;
             isUiCellInfo = false;
 
-            figField.fooRePosition();
-
             figField.clear();
+            figField.fooRePosition();
         }
 
     private:
