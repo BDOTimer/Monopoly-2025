@@ -13,10 +13,11 @@
 struct  Render
 {       Render( vsl::Config& cfg)
             :   cfg         (cfg)
-            ,   window(     *cfg.pwin)
-            ,   camFon(   window.getDefaultView() )
-            ,   fps   (      cfg)
+            ,   window (    *cfg.pwin)
+            ,   camFon (  window.getDefaultView() )
+            ,   fps    (     cfg)
         {
+
             cfg.pwin = &window;
 
             sf::Image         icon("icon.png");
@@ -51,12 +52,6 @@ struct  Render
     ///---------------------:
     vsl::Fps             fps;
 
-    vsl::ScenesAll scenes
-    {   &logo,
-        &tune,
-        &game,
-    };
-
     void run()
     {   loop(scenes);
     }
@@ -65,6 +60,12 @@ private:
     vsl::SceneLogo logo{cfg};
     vsl::SceneTune tune{cfg};
     vsl::SceneGame game{cfg};
+
+    vsl::ScenesAll scenes
+    {   &logo,
+        &tune,
+        &game,
+    };
 
     ///---------------------|
     /// Часы.               |
@@ -145,11 +146,8 @@ private:
         window.setPosition({window.getPosition().x, 0});
 
         vsl::Config     cfg(window);
-SIGNAL("Config(...)")
         Render  render (cfg);
-SIGNAL("Render(...)")
                 render.run();
-SIGNAL("render.run()")
     }
 };
 

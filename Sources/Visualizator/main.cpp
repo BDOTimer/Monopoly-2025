@@ -45,6 +45,7 @@ int main(int argc, char* argv[])
 
     std::cout << "Compilator: " << win::COMPILATOR_NAME << '\n'
               << "Старт "       << LOGO_VISUALIZATOR << " ...\n\n";
+    l("start ... ")
 
     try
     {   tests();

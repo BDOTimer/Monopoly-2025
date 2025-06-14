@@ -1,0 +1,4 @@
+"start ... ": start ... 
+holderGates[id].cfg->idGame: 0
+holderGates[id].cfg->idGame: 1
+holderGates[id].cfg->idGame: 2

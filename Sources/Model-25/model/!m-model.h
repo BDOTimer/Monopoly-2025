@@ -524,7 +524,7 @@ namespace model
 
                     getLetters ();
                 }
-        virtual~IPerson()  {};
+        virtual~IPerson()  {}
 
         virtual void input() = 0;
         virtual void doAct() = 0;
@@ -1097,7 +1097,7 @@ namespace model
             ///----------------------------------------:
             if(cfg.stateGame4S.isWork())
             {
-                doBuy();
+                doByuOrSell();
             }
 
             if( isActBuy )
@@ -1126,7 +1126,7 @@ namespace model
         ///------------------------------|
         /// Заява на покупку.            |
         ///------------------------------:
-        void doBuy()
+        void doByuOrSell()
         {
             Config* pcfg{const_cast<Config*>(&cfg)};
 
@@ -1168,8 +1168,6 @@ namespace model
                     pcfg->stateGame4S.isBuy = false;
                     pcfg->stateGame.dat[StateGame::E_ISBYU     ] = 1;
                     pcfg->stateGame.dat[StateGame::E_ISBUSYCELL] = 1;
-                    pcfg->stateGame.dat[StateGame::E_MONEY2    ] = money;
-                    pcfg->stateGame.dat[StateGame::E_BANK2     ] = bank.money;
                 }
                 else if( isEmpty) messEvents << "   ... нет товара ...\n";
                 else if(!isMoney) messEvents << "   ... мало денег ...\n";
@@ -1180,7 +1178,7 @@ namespace model
             ///----------------------------------------:
             if(!cfg.stateGame4S.isSellIds.empty())
             {
-                ASSERT(cargo.size() == cfg.stateGame4S.isSellIds.size())
+                //ASSERT(cargo.size() == cfg.stateGame4S.isSellIds.size())
 
                 messOper << IPerson::infoCargo();
 
@@ -1202,6 +1200,11 @@ namespace model
                   ++cellSell.amountThings;
 
                     ///------------------------------|
+                    /// Вещь продана!                |
+                    ///------------------------------:
+                    pcfg->stateGame.dat[StateGame::E_ISSELL] = 1;
+
+                    ///------------------------------|
                     /// Удалить Вещь из инвентаря.   |
                     ///------------------------------:
                     deleteThing(it);
@@ -1218,6 +1221,12 @@ namespace model
             }
 
             getStateGame();
+
+            pcfg->stateGame.dat[StateGame::E_MONEY2] = money;
+            pcfg->stateGame.dat[StateGame::E_BANK2 ] = bank.money;
+
+l(pcfg->stateGame.dat[StateGame::E_MONEY1])
+l(pcfg->stateGame.dat[StateGame::E_MONEY2])
         }
 
     private:
@@ -1543,12 +1552,15 @@ namespace model
                            const StateGame4Server& stateGame4S)
         {   cfg->stateGame4S = stateGame4S;
 
+            cfg->stateGame.reset();
+
             ///--------------------------|
             /// Верификатор.             |
             ///--------------------------:
             const unsigned&          id = cfg->order[idPlayer];
             ASSERT(!cfg->players    [id].isBot) /// Запрет на ботов.
-            ASSERT(persNow == perses[id])
+
+            if(cfg->stateGame4S.isBuy) ASSERT(persNow == perses[id])
 
             persNow->input();
 

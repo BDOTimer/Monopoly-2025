@@ -232,13 +232,14 @@ namespace model
              E_ISBUSYCELL,
              E_STATUS_PERS,
              E_STATUS_CELL,
-             E_SELL ,
-             E_BYU  ,
-             E_ISBYU, // Событие покупки.
+             E_SELL  ,  // Цена    продажи.
+             E_BYU   ,  // Цена    покупки.
+             E_ISBYU ,  // Событие покупки.
+             E_ISSELL,  // Событие продажи.
              E_MONEY1,
              E_MONEY2,
-             E_BANK1,
-             E_BANK2,
+             E_BANK1 ,
+             E_BANK2 ,
              E_GAMEOVER,
 
              /// ...
@@ -261,6 +262,11 @@ namespace model
         std::array<std::string, eSTATESTR::E_STR> str
         {   "3"
         };
+
+        void reset()
+        {    dat[E_ISSELL] = 0;
+             dat[E_ISBYU ] = 0;
+        }
     };
 
     ///------------------------------------------------------------------------|

@@ -1402,7 +1402,7 @@
 1748456712 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\implants\bot-iq.h
 	"../../debug.h"
 
-1749569228 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\debug.h
+1749907929 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\debug.h
 	<functional>
 	<filesystem>
 	<algorithm>
@@ -1646,7 +1646,7 @@
 1734196663 c:\workcb-2024\sfml-3.0\sfml-3.0.0\include\sfml\system\sleep.hpp
 	<SFML/System/Export.hpp>
 
-1749880384 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\!m-model.h
+1749910890 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\!m-model.h
 	"myl.h"
 	"cards.inc"
 	"field.inc"
@@ -1666,24 +1666,24 @@
 
 1749017638 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\field.inc
 
-1749885610 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\model.cpp
+1749907963 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\model.cpp
 	"../user-model.h"
 	"config-model.h"
 	"!m-model.h"
 
-1749882764 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\user-model.h
+1749910931 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\user-model.h
 	<iostream>
 	<string>
 	<vector>
 	<array>
 	"debug.h"
 
-1749561527 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\main.cpp
+1749904439 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\main.cpp
 	"render.h"
 	"ui-tune.h"
 	"common.h"
 
-1749885857 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\render.h
+1749907734 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\render.h
 	"model.h"
 	"scene-logo.h"
 	"scene-tune.h"
@@ -1882,7 +1882,7 @@
 	"common.h"
 	"scene-game.h"
 
-1749880384 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-game.h
+1749911245 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-game.h
 	"common.h"
 	"shader-dice.h"
 	"sceneGame/win-game.h"
@@ -1891,10 +1891,10 @@
 	"sceneGame/win-player.h"
 	"config-vsl.h"
 
-1749408863 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\shader-dice.h
+1749906290 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\shader-dice.h
 	"common.h"
 
-1749880384 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
+1749907552 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
 	"../common.h"
 	"fig-field.h"
 	"fig-chips.h"

@@ -54,8 +54,19 @@ template<typename T> using Arr1d =       std::vector<T> ;
 template<typename T> using Mat2d = Arr1d<std::vector<T>>;
 template<typename T> using Mat3d = Mat2d<std::vector<T>>;
 
-#define ln(a) std::cout << #a << ":\n" << (a) << '\n';
-#define  l(a) std::cout << #a << ": "  << (a) << '\n';
+struct Log2File
+{
+    static std::ofstream& get()
+    {   static std::ofstream f{"log.txt"};
+        return f;
+    }
+};
+
+#define COUT   std::cout
+#define COUTx  Log2File::get()
+
+#define ln(a) COUT << #a << ":\n" << (a) << std::endl;
+#define  l(a) COUT << #a << ": "  << (a) << std::endl;
 #define TEST friend void ::tests(); static void test()
 #define STOP std::cout << "STOP\n"; std::cin.get();
 #define SIGNAL(a) std::cout << "\n...---SIGNAL---" << a << "...\n" << std::endl;
@@ -119,6 +130,12 @@ inline std::ostream& operator<<(std::ostream& o, const std::array<T,N>& m)
     return o;
 }
 */
+
+struct  Test999
+{       Test999(unsigned n) : n(n) { l(n) }
+        Test999(          )        { l(n) }
+private:        unsigned n{ 888 };
+};
 
 
 template<typename T>

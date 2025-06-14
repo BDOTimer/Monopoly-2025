@@ -52,8 +52,8 @@ namespace vsl
                 :   cfg         (cfg)
                 ,   figField    (cfg)
                 ,   dice        (cfg)
-            {
-                const auto& rect    = cfg.markupSG.getWinBase();
+
+            {   const auto& rect    = cfg.markupSG.getWinBase();
                 const auto& border  = cfg.markupSG.border;
                 const auto& border2 = border + border;
 
@@ -74,7 +74,6 @@ namespace vsl
                 fon.setTexture(&HolderTexture::get(buttonFon.get()));
 
                 camMove = camFon;
-
                 cfg.uiUpLog.fooFon = [this](){fooFon();};
 
                 dice.init();
@@ -90,7 +89,7 @@ namespace vsl
                     this->updateSetPositionChip();
                 };
 
-                figField.fooRePosition();
+            /// figField.fooRePosition(); /// UB!!!
             }
 
         vsl::Config& cfg;
@@ -184,8 +183,8 @@ namespace vsl
         sf::View        camDice;
         sf::RectangleShape  fon;
         FigureField    figField;
-        FigureChips figureChips;
         ShaderDice         dice;
+        FigureChips figureChips;
         bool       isUiCellInfo;
 
         ///------------------------------------|

@@ -145,12 +145,8 @@ namespace model
     {
         /// TODO ...
 
-SIGNAL("getConfig")
-
         unsigned    id = holderGates.reCreate("desktop", data, userInit4Model);
         holderGates[id].cfg->idGame = id;
-
-l(holderGates[id].cfg->idGame)
 
         return holderGates[id].cfg;
     }

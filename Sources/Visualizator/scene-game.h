@@ -14,14 +14,12 @@
 
 namespace vsl
 {
-
     ///------------------------------------------------------------------------|
     /// Отображаемый одиночный объект.
     ///-------------------------------------------------------------- SceneGame:
     struct  SceneGame   :   vsl::IObject
     {       SceneGame      (vsl::Config& cfg)
                 :   cfg    (cfg)
-                ,   nameTx ("res/game.jpg")
                 ,   fon    (cfg.szfWin)
             {
                 fon.setTexture(&HolderTexture::get(nameTx));
@@ -64,7 +62,7 @@ namespace vsl
                 };
 
                 for(auto& e : cfg.uiPlayers)
-                {   e.uiGameIcons.fooSellCell = [this](uii::UIGameIcons* p, 
+                {   e.uiGameIcons.fooSellCell = [this](uii::UIGameIcons* p,
                                                        uii::IconIt idCell)
                     {   this->cfg.uiSellPanel.doOpen2();
                         this->cfg.uiSellPanel.idCell = idCell;
@@ -249,7 +247,7 @@ namespace vsl
         ///-----------------------------------|
         /// Имя загруженной текстуры.         |
         ///-----------------------------------:
-        std::string     nameTx;
+        std::string     nameTx{"res/game.jpg"};
         sf::RectangleShape fon;
 
         WinGame   winGame{cfg};
@@ -318,7 +316,7 @@ namespace vsl
         }
 
         void doSell(unsigned idCell)
-        {   
+        {
             if(cfg._3player[idUI].isBot) return;
 
                   auto& sg4S{cfg._3player[idUI].stateGame4S};
@@ -331,6 +329,16 @@ namespace vsl
             cfg._3player[idUI].stateGame =
                   model::sendStateGame("4server",
                                       {(int)mdl.idGame, (int)idUI}, sg4S);
+
+            if(cfg._3player[idUI].stateGame.dat[ED::E_ISSELL])
+            {
+                cfg.uiDownMessage << uii::Clear()
+                    << " Товар был продан! Проверьте деньги на вашем счету!";
+
+                cfg.uiPlayers[this->idUI].uiGameIcons.erase(idCell);
+
+                winGame.setCellColor(idCell, false);
+            }
 
             set2uiCellInfo();
             setCellColor  ();
