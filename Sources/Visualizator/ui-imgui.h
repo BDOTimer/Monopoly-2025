@@ -458,6 +458,19 @@ namespace uii
 
         void setFocus(){ isFocus = true; }
 
+        ImU32  col[3][2]
+        {
+            {   IM_COL32( 50,  50, 100, 180), /// 0: ImGuiCol_Header
+                IM_COL32(200, 200,   0, 180)
+            },
+            {   IM_COL32(127, 127, 127, 180), /// 1: ImGuiCol_Border
+                IM_COL32(127,   0,   0, 180)
+            },
+            {   IM_COL32(127, 127, 127, 180), /// 2: ImGuiCol_Text
+                IM_COL32(220, 220, 220, 180)
+            }
+        };
+
         void show()
         {
             ///---------------------------------------|
@@ -469,6 +482,11 @@ namespace uii
             ImGui::SetNextWindowSize(size);
             ///
             ImGui::SetNextWindowPos (position);
+
+            ImGui::PushStyleColor(ImGuiCol_Header, col[0][isFocus]);
+            ImGui::PushStyleColor(ImGuiCol_Border, col[1][isFocus]);
+            ImGui::PushStyleColor(ImGuiCol_Text  , col[2][isFocus]);
+            ImGui::PushStyleVar  (ImGuiStyleVar_WindowBorderSize, 8.0f);
 
             ///---------------------------------------|
             /// Окно <name>.                          |
@@ -510,6 +528,11 @@ namespace uii
             }
 
             ImGui::End();
+
+            ImGui::PopStyleVar  ();
+            ImGui::PopStyleColor();
+            ImGui::PopStyleColor();
+            ImGui::PopStyleColor();
         }
     };
 

@@ -1678,7 +1678,7 @@
 	<array>
 	"debug.h"
 
-1749904439 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\main.cpp
+1749912852 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\main.cpp
 	"render.h"
 	"ui-tune.h"
 	"common.h"
@@ -1865,7 +1865,7 @@
 	"ui-base.h"
 	"ui-imgui.h"
 
-1749880384 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-imgui.h
+1749918584 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-imgui.h
 	"ui-base.h"
 	"ui-icons.h"
 
@@ -1882,7 +1882,7 @@
 	"common.h"
 	"scene-game.h"
 
-1749911355 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-game.h
+1749919055 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-game.h
 	"common.h"
 	"shader-dice.h"
 	"sceneGame/win-game.h"

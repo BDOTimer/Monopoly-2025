@@ -87,7 +87,7 @@ namespace vsl
 
         PLUG_IOBJECT2
 
-        unsigned idUI;
+        unsigned idUI{};
         unsigned  cnt;
 
         using ED = model::StateGame::eSTATE;
@@ -233,6 +233,8 @@ namespace vsl
 
         void nextPlayer()
         {
+            cfg.uiPlayers[idUI].isFocus = false;
+
             idUI = (idUI + 1) % cfg._3player.size();
 
             cfg.info_01(++cnt);
@@ -242,6 +244,8 @@ namespace vsl
                               << cfg._3player[idUI].name << ": \""
                               << mess[rand()%mess.size()];
             ++nStep;
+
+            cfg.uiPlayers[idUI].isFocus = true;
         }
 
         ///-----------------------------------|
@@ -267,10 +271,14 @@ namespace vsl
         ///-----------------------------------:
         void reStart()
         {
+            cfg.uiPlayers[idUI].isFocus = false;
+
             idUI       = 0;
             cnt        = 0;
             nClickDice = 0;
             nStep      = 0;
+
+            cfg.uiPlayers[idUI].isFocus = true;
 
             winGame.isUiCellInfo = false;
 
