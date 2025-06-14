@@ -15,7 +15,7 @@ namespace uii
     ///------------------------------------------------------------ UISellPanel:
     struct  UISellPanel : UIBase
     {       UISellPanel(const vsl::HolderTextureFieldCash& holderTFieldCash)
-                :   
+                :
                     holderTFieldCash(holderTFieldCash)
             {
                 name = "ПРОДАТЬ ЯЧЕЙКУ";
@@ -28,7 +28,7 @@ namespace uii
             }
 
     /// ImVec4 buttonColor;
-        
+
         const vsl::HolderTextureFieldCash& holderTFieldCash;
 
         UIGameIcons* pIcons;
@@ -113,11 +113,15 @@ namespace uii
 
             /// ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
                 if(ImGui::Button("ПРОДАТЬ", WH))
-                {   
+                {
                     const unsigned id = idCell->first;
                     fooSell       (id);
                     soundClick    (  );
             ///     ColorBLog.next(  );
+
+                    if(pIcons->idCells.empty())
+                    {   doClose();
+                    }
                 }
             /// ImGui::PopStyleColor
 

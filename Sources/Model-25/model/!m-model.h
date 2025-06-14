@@ -1224,9 +1224,6 @@ namespace model
 
             pcfg->stateGame.dat[StateGame::E_MONEY2] = money;
             pcfg->stateGame.dat[StateGame::E_BANK2 ] = bank.money;
-
-l(pcfg->stateGame.dat[StateGame::E_MONEY1])
-l(pcfg->stateGame.dat[StateGame::E_MONEY2])
         }
 
     private:
