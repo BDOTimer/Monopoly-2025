@@ -596,22 +596,17 @@ R"(
         const char* items[] = { "человек", "бот"};
 
     ImGui::BeginChild("Left Panel", ImVec2(150, 99), true);
-        static int currItem0 = 1;
-        if(ImGui::Combo("?##0", &currItem0, items, IM_ARRAYSIZE(items)))
+
+        if(ImGui::Combo("?##0", &pl[0].isBot, items, IM_ARRAYSIZE(items)))
         {   vsl::Sounds::p->play(0);
-            pl[0].isBot = currItem0;
         }
 
-        static int currItem1 = 1;
-        if(ImGui::Combo("?##1", &currItem1, items, IM_ARRAYSIZE(items)))
+        if(ImGui::Combo("?##1", &pl[1].isBot,items, IM_ARRAYSIZE(items)))
         {   vsl::Sounds::p->play(0);
-            pl[1].isBot = currItem1;
         }
 
-        static int currItem2 = 1;
-        if(ImGui::Combo("?##2", &currItem2, items, IM_ARRAYSIZE(items)))
+        if(ImGui::Combo("?##2", &pl[2].isBot, items, IM_ARRAYSIZE(items)))
         {   vsl::Sounds::p->play(0);
-            pl[2].isBot = currItem2;
         }
     ImGui::EndChild();
     ImGui::SameLine();

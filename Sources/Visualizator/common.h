@@ -99,10 +99,10 @@ namespace vsl
                 if( pnow              != nullptr &&
                     pnow->getStatus() == sf::SoundSource::Status::Playing &&
                     pnow              == p)
-                {   stop();
+                {   pause();
                 }
                 else
-                {   stop();
+                {   //stop();
                    (pnow = p)->play();
                     pnow ->setVolume (volume);
                 }
@@ -126,6 +126,11 @@ namespace vsl
         sf::SoundSource::Status     getStatus() const
         {   if    (pnow == nullptr) return sf::SoundSource::Status::Stopped;
             return pnow->getStatus();
+        }
+
+        bool isPlaying() const
+        {   return  pnow != nullptr
+                &&  pnow->getStatus() == sf::SoundSource::Status::Playing;
         }
 
         float* getPVol() { return &volume; }

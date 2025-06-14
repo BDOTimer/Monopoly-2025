@@ -71,13 +71,8 @@ namespace vsl
 
             if (auto p = event->getIf<sf::Event::MouseButtonPressed>())
             {   if ( p->button  == sf::Mouse::Button::Left)
-                {
-                    using E = sf::SoundSource::Status;
-                    cfg.musics.getStatus  () == E::Playing
-                        ? cfg.musics.pause()
-                        : cfg.musics.play(1);
-
-                    isRot = !isRot;
+                {   cfg.musics.play(1);
+                /// isRot = cfg.musics.isPlaying();
                 }
             }
         }
@@ -100,7 +95,7 @@ namespace vsl
         {                           target.draw(fon, states);
             target.setView(*cfg.camFon);
 
-            if(isRot)
+            if(cfg.musics.isPlaying())
             {   auto p = const_cast<Player*>(&m[2]);
                      p->sp.rotate(
                          sf::degrees(speed * cfg.deltaTime.asSeconds()));
@@ -112,7 +107,6 @@ namespace vsl
                      p = const_cast<Player*>(&m[1]);
                      p->sp.rotate(
                          sf::degrees(speed * cfg.deltaTime.asSeconds()*4));
-                
             }
 
             for(const auto& pl : m)

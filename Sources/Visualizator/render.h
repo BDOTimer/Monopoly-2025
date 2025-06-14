@@ -145,8 +145,11 @@ private:
         window.setPosition({window.getPosition().x, 0});
 
         vsl::Config     cfg(window);
+SIGNAL("Config(...)")
         Render  render (cfg);
+SIGNAL("Render(...)")
                 render.run();
+SIGNAL("render.run()")
     }
 };
 

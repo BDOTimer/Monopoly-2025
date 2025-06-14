@@ -78,7 +78,7 @@ namespace model
     struct Player
     {
         unsigned           id;
-        bool            isBot;
+        int             isBot;
         std::string nameInput{"имя..."};
         std::string      name;
 
@@ -97,11 +97,11 @@ namespace model
         /// Состав игроков.              |
         ///------------------------------:
         std::array<Player, 3> players
-        {   Player{0, true, "Noname"  }, /// Умный.
-            Player{1, true, "aliskda" }, /// Срединий.
-            Player{2, true, "gudleifr"}  /// Дурак.
-        //  {false, "Slava-rusi11" }
-        //  {false, "Вася Пупкин"  }
+        {   Player{0, true , "aliskda"      }, /// Срединий.
+        /// Player{1, true , "Noname"       }, /// Умный.
+            Player{1, false, "Вася Пупкин"  },
+        /// Player{1, false, "Slava-rusi11" },
+            Player{2, true , "gudleifr"     }  /// Дурак.
         };
 
         void initNames()

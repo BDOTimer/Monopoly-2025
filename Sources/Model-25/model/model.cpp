@@ -125,7 +125,7 @@ namespace model
         {   return (*this)[idGame].mdl->getStateGame(idPlayer);
         }
 
-        void sendStateGame(unsigned idGame, unsigned idPlayer, 
+        void sendStateGame(unsigned idGame, unsigned idPlayer,
                            const StateGame4Server& stateGame4S)
         {
             (*this)[idGame].mdl->sendStateGame(idPlayer, stateGame4S);
@@ -145,8 +145,13 @@ namespace model
     {
         /// TODO ...
 
+SIGNAL("getConfig")
+
         unsigned    id = holderGates.reCreate("desktop", data, userInit4Model);
         holderGates[id].cfg->idGame = id;
+
+l(holderGates[id].cfg->idGame)
+
         return holderGates[id].cfg;
     }
 
