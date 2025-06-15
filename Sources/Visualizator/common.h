@@ -99,13 +99,12 @@ namespace vsl
         {   if(i >= fn.size()) return;
             else if( auto& p = (*this)[i]; p != nullptr )
             {
-                if( pnow              != nullptr &&
-                    pnow->getStatus() == sf::SoundSource::Status::Playing &&
+                if( pnow->getStatus() == sf::SoundSource::Status::Playing &&
                     pnow              == p)
                 {   pause();
                 }
                 else
-                {   //stop();
+                {   stop();
                    (pnow = p)->play();
                     pnow ->setVolume (volume);
                 }
@@ -141,6 +140,11 @@ namespace vsl
         float* getPVol() { return &volume; }
 
         static inline Musics* p{nullptr};
+
+        unsigned n{};
+        void playn()
+        {    play(n / 2); n = (n + 1) % (fn.size() * 2);
+        }
 
     private:
         std::list<sf ::Music>           m;

@@ -82,7 +82,7 @@ namespace vsl
         std::vector<Player>  m;
 
         bool isRot{false};
-        float speed{9.0f};
+        float speed{9.0f}; 
 
         std::wstring mess1{L"ЛОГО.\nНастройки: ПРОБЕЛ ..."};
         primitive::TextStyleA  tmess1;

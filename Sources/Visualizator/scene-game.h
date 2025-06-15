@@ -32,13 +32,9 @@ namespace vsl
                 {   goTune();
                 };
 
-                cfg.uiUpLog.fooMusic = [this]()
-                {   using E = sf::SoundSource::Status;
-                    const bool
-                    b{    this->cfg.musics.getStatus() == E::Playing };
-                    b   ? this->cfg.musics.pause()
-                        : this->cfg.musics.play(0);
-                };
+            //  cfg.uiUpLog.fooMusic = [this]()
+            //  {   
+            //  };
 
                 cfg.uiUpLog.fooDice2 = [this]()
                 {   this->upDice();
@@ -233,7 +229,7 @@ namespace vsl
 
         void nextPlayer()
         {
-            cfg.uiPlayers[idUI].isFocus = false;
+            cfg.uiPlayers[idUI].setFocus(false);
 
             idUI = (idUI + 1) % cfg._3player.size();
 
@@ -245,7 +241,7 @@ namespace vsl
                               << mess[rand()%mess.size()];
             ++nStep;
 
-            cfg.uiPlayers[idUI].isFocus = true;
+            cfg.uiPlayers[idUI].setFocus(true);
         }
 
         ///-----------------------------------|
@@ -271,14 +267,14 @@ namespace vsl
         ///-----------------------------------:
         void reStart()
         {
-            cfg.uiPlayers[idUI].isFocus = false;
+            cfg.uiPlayers[idUI].setFocus(false);
 
             idUI       = 0;
             cnt        = 0;
             nClickDice = 0;
             nStep      = 0;
 
-            cfg.uiPlayers[idUI].isFocus = true;
+            cfg.uiPlayers[idUI].setFocus(true);
 
             winGame.isUiCellInfo = false;
 

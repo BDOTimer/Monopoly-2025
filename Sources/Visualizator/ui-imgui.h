@@ -458,8 +458,6 @@ namespace uii
 
         unsigned id;
 
-        bool isFocus{false};
-
         void setPlayer(const controller::Player& pl)
         {   id   = pl.id;
             name = pl.name;
@@ -477,7 +475,7 @@ namespace uii
         {   uiGameIcons.reStart();
         }
 
-        void setFocus(){ isFocus = true; }
+        void setFocus(bool b = true){ uiGameIcons.isFocus = b; }
 
         ImU32  col[4][2]
         {
@@ -507,10 +505,12 @@ namespace uii
             ///
             ImGui::SetNextWindowPos (position);
 
-            ImGui::PushStyleColor(ImGuiCol_Header  , col[0][isFocus]);
-            ImGui::PushStyleColor(ImGuiCol_Border  , col[1][isFocus]);
-            ImGui::PushStyleColor(ImGuiCol_Text    , col[2][isFocus]);
-            ImGui::PushStyleColor(ImGuiCol_WindowBg, col[3][isFocus]);
+            const bool& f{uiGameIcons.isFocus};
+
+            ImGui::PushStyleColor(ImGuiCol_Header  , col[0][f]);
+            ImGui::PushStyleColor(ImGuiCol_Border  , col[1][f]);
+            ImGui::PushStyleColor(ImGuiCol_Text    , col[2][f]);
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, col[3][f]);
             ImGui::PushStyleVar  (ImGuiStyleVar_WindowBorderSize, widthBorder);
 
             ///---------------------------------------|
@@ -668,7 +668,7 @@ namespace uii
         //ImVec4 buttonColor;
 
         Callback fooTune     {[this](){}};
-        Callback fooMusic    {[this](){}};
+    /// Callback fooMusic    {[this](){}};
         Callback fooFon      {[this](){}};
         Callback fooDice2    {[this](){}};
         Callback fooFieldGeom{[this](){}};
@@ -718,8 +718,10 @@ namespace uii
             ImGui::SameLine();
 
                 if(ImGui::Button("Музыка", WH))
-                {   fooMusic  ();
+                {   
+                /// fooMusic  ();
                     vsl::Sounds::p->play(0);
+                    vsl::Musics::p->playn();
                 }
 
             ImGui::SameLine();

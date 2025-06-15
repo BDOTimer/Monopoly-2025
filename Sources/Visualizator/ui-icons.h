@@ -44,6 +44,8 @@ namespace uii
 
         Icons idCells;
 
+        bool isFocus{false};
+
         std::function<void(UIGameIcons*, IconIt /* idCell */)> fooSellCell
         {   [this](UIGameIcons* p, IconIt idCell){}
         };
@@ -69,6 +71,8 @@ namespace uii
         {
             const ImVec2 WH{30, 30};
 
+            unsigned cnt{};
+
             ///----------------------------------------------------------------|
             if (ImGui::CollapsingHeader("СОБСТВЕННОСТЬ:",
                                              ImGuiTreeNodeFlags_DefaultOpen))
@@ -78,13 +82,17 @@ namespace uii
                 {
                     const auto& id{i->first};
 
+
+
                     if (ImGui::ImageButton(
                         i->second.c_str(), getTexId(id), WH))
                     {   vsl::Sounds::p->play(5);
                         fooSellCell(this, i);
                     }
-                    ImGui::SameLine();
-                }   ImGui::Text("%s", " ");
+                    
+                    if(++cnt % 8) ImGui::SameLine();
+                }
+                ImGui::Text("%s", " ");
             }
         }
 
