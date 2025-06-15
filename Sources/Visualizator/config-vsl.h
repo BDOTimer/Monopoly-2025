@@ -84,6 +84,9 @@ namespace vsl
         Musics             musics;
         Sounds             sounds;
 
+        ///-----------------------------------|
+        /// UI.                               |
+        ///-----------------------------------:
         uii::UITest        uiInit       ;
         uii::UIUpLog       uiUpLog      ;
         uii::UIGame        uiGameLog    ;

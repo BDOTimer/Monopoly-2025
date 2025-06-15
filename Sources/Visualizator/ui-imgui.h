@@ -67,12 +67,12 @@ namespace uii
         }
 
         UITest& operator<<(const int n)
-        {   log += std::to_string   (n);
+        {   log += std::to_string  (n);
             return *this;
         }
 
         UITest& operator<<(const unsigned n)
-        {   log += std::to_string        (n);
+        {   log += std::to_string       (n);
             return *this;
         }
 
@@ -458,16 +458,19 @@ namespace uii
 
         void setFocus(){ isFocus = true; }
 
-        ImU32  col[3][2]
+        ImU32  col[4][2]
         {
-            {   IM_COL32( 50,  50, 100, 180), /// 0: ImGuiCol_Header
-                IM_COL32(200, 200,   0, 180)
+            {   IM_COL32( 50,  50,  50, 180), /// 0: ImGuiCol_Header
+                IM_COL32(200, 200, 200, 180)
             },
-            {   IM_COL32(127, 127, 127, 180), /// 1: ImGuiCol_Border
-                IM_COL32(127,   0,   0, 180)
+            {   IM_COL32(  0,  32,  32, 255), /// 1: ImGuiCol_Border
+                IM_COL32(  0,  64,  127, 180)
             },
             {   IM_COL32(127, 127, 127, 180), /// 2: ImGuiCol_Text
-                IM_COL32(220, 220, 220, 180)
+                IM_COL32(255, 255, 220, 255)
+            },
+            {   IM_COL32( 64,  64,  64, 128), /// 3: ImGuiCol_WindowBg
+                IM_COL32(255, 255, 220,   0)
             }
         };
 
@@ -483,10 +486,11 @@ namespace uii
             ///
             ImGui::SetNextWindowPos (position);
 
-            ImGui::PushStyleColor(ImGuiCol_Header, col[0][isFocus]);
-            ImGui::PushStyleColor(ImGuiCol_Border, col[1][isFocus]);
-            ImGui::PushStyleColor(ImGuiCol_Text  , col[2][isFocus]);
-            ImGui::PushStyleVar  (ImGuiStyleVar_WindowBorderSize, 8.0f);
+            ImGui::PushStyleColor(ImGuiCol_Header  , col[0][isFocus]);
+            ImGui::PushStyleColor(ImGuiCol_Border  , col[1][isFocus]);
+            ImGui::PushStyleColor(ImGuiCol_Text    , col[2][isFocus]);
+            ImGui::PushStyleColor(ImGuiCol_WindowBg, col[3][isFocus]);
+            ImGui::PushStyleVar  (ImGuiStyleVar_WindowBorderSize, widthBorder);
 
             ///---------------------------------------|
             /// Окно <name>.                          |
@@ -533,6 +537,18 @@ namespace uii
             ImGui::PopStyleColor();
             ImGui::PopStyleColor();
             ImGui::PopStyleColor();
+            ImGui::PopStyleColor();
+        }
+
+        float widthBorder{8.f};
+
+        void setGeometry(ImVec2 sz, ImVec2 ps)
+        {   sz.x -= (widthBorder*2);
+            sz.y -= (widthBorder*2);
+            ps.x += widthBorder;
+            ps.y += widthBorder;
+
+            UIBase::setGeometry(sz, ps);
         }
     };
 
