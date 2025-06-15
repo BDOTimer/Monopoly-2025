@@ -73,6 +73,7 @@ namespace vsl
 
     ///------------------------------------------------------------------------|
     /// Мюзикс-контрол.
+    /// vsl::Musics::p->play(3);
     ///----------------------------------------------------------------- Musics:
     #define MAY(a) if(a == nullptr) return
     struct  Musics   : std::vector<sf::Music*>
@@ -83,13 +84,15 @@ namespace vsl
         enum eMusic
         {    E_Acid,
              E_Life,
-             E_musicRule
+             E_musicRule,
+             E_
         };
 
-        std::array<const char*, 3> fn
-        {   "res/snd/gaming.mp3",
-            "res/snd/logo.mp3",
-            "res/snd/musicRule.mp3"
+        std::array<const char*, 4> fn
+        {   "res/snd/gaming.mp3",    /// 0
+            "res/snd/logo.mp3",      /// 1
+            "res/snd/musicRule.mp3", /// 2
+            "res/muz/kirk.mp3"       /// 3
         };
 
         void play(unsigned i)
@@ -110,6 +113,8 @@ namespace vsl
             else
             {   stop();
                 m.emplace_back( sf::Music(fn[i]) );
+                (*this)[i] = &m.back();
+
                 (pnow = &m.back())->play();
                 (p = pnow)->setVolume(volume);
             }

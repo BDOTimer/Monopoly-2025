@@ -27,7 +27,7 @@ namespace vsl
                 fon.setSize  ({x-border2, y-border2});
               //fon.setPosition({border, border});
                 pr::setOrigin(fon);
-                fon.setFillColor({  0,200,0,20});
+                fon.setFillColor({  0,0,200,40});
                 fon.setOutlineColor({64,64,128});
                 fon.setOutlineThickness (border);
 

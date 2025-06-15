@@ -94,7 +94,8 @@ namespace vsl
         ///////////////////////////////////////////////////////////////////////:
         void startModel()
         {
-            vsl::Sounds::p->play(1);
+        /// vsl::Sounds::p->play(1);
+            vsl::Musics::p->play(3);
 
             //cfg.cfgModel = *model::getConfig  ();
             cfg.setConfigModel(*model::getConfig(cfg.backDoor,

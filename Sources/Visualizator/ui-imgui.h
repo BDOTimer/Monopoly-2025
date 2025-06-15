@@ -161,6 +161,27 @@ namespace uii
             {///auto& color = ImGui::GetStyle().Colors[ImGuiCol_Button];
              ///      color = ImColor(6,15,14,170);
             }
+
+            ///----------------------------------|
+            /// Настройка стиля.                 |
+            ///----------------------------------:
+            {   ImGuiStyle& style = ImGui::GetStyle();
+
+                const float R{15};
+
+                // Округление всех элементов:
+                style.WindowRounding    = R;
+                style.ChildRounding     = R;
+                style.FrameRounding     = R+R;
+                style.PopupRounding     = R;
+                style.ScrollbarRounding = R;
+                style.GrabRounding      = R;
+                style.TabRounding       = R;
+
+                // Дополнительные настройки для более мягкого вида:
+                style.AntiAliasedLines = true;
+                style.AntiAliasedFill  = true;
+            }
         }
 
         ///--------------------------------------|
@@ -461,16 +482,16 @@ namespace uii
         ImU32  col[4][2]
         {
             {   IM_COL32( 50,  50,  50, 180), /// 0: ImGuiCol_Header
-                IM_COL32(200, 200, 200, 180)
+                IM_COL32(100, 100, 200, 180)
             },
-            {   IM_COL32(  0,  32,  32, 255), /// 1: ImGuiCol_Border
-                IM_COL32(  0,  64,  127, 180)
+            {   IM_COL32(  0,   0,  32, 255), /// 1: ImGuiCol_Border
+                IM_COL32(  0,   0, 127, 180)
             },
             {   IM_COL32(127, 127, 127, 180), /// 2: ImGuiCol_Text
                 IM_COL32(255, 255, 220, 255)
             },
-            {   IM_COL32( 64,  64,  64, 128), /// 3: ImGuiCol_WindowBg
-                IM_COL32(255, 255, 220,   0)
+            {   IM_COL32(  0,  32,  64, 128), /// 3: ImGuiCol_WindowBg
+                IM_COL32(  0,  64, 128, 128)
             }
         };
 
@@ -534,6 +555,7 @@ namespace uii
             ImGui::End();
 
             ImGui::PopStyleVar  ();
+
             ImGui::PopStyleColor();
             ImGui::PopStyleColor();
             ImGui::PopStyleColor();

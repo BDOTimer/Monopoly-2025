@@ -151,8 +151,8 @@ namespace uii
             ///
             ImGui::SetNextWindowPos (position);
 
-            ImGui::PushStyleColor(ImGuiCol_Border, IM_COL32(0, 100, 0, 80));
-            ImGui::PushStyleVar  (ImGuiStyleVar_WindowBorderSize, 8.0f);
+            ImGui::PushStyleColor(ImGuiCol_Border, IM_COL32(  0, 127, 127, 180));
+            ImGui::PushStyleVar  (ImGuiStyleVar_WindowBorderSize, 3.0f);
 
             ///---------------------------------------|
             /// Окно <name>.                          |
