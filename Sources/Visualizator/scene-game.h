@@ -314,6 +314,12 @@ namespace vsl
             ///-------------------------------:
             //cfg._3player[idUI].stateGame = sg;
 
+            if(cfg._3player[idUI].stateGame.dat[ED::E_ISBYU])
+            {   cfg.uiDownMessage << uii::Clear()
+                    << " Товар был куплен! Проверьте его наличие "
+                       "в вашей собственности!";
+            }
+
             set2uiCellInfo();
             setCellColor  ();
 
@@ -327,6 +333,12 @@ namespace vsl
         void doSell(unsigned idCell)
         {
             if(cfg._3player[idUI].isBot) return;
+
+            if(nClickDice == 0)
+            {   cfg.uiDownMessage << uii::Clear() << cfg._3player[idUI].name
+                                  << ", cначала киньте кубик!";
+                return;
+            }
 
                   auto& sg4S{cfg._3player[idUI].stateGame4S};
             const auto& mdl {cfg.cfgModel};
@@ -363,7 +375,7 @@ namespace vsl
             const auto& mdl{ cfg.cfgModel};
 
             cfg.uiPlayers[idUI]  << uii::Clear()
-                << "  ИГРОК  : " << sg.str[ES::E_NAME  ]        << '\n'
+            /// << "  ИГРОК  : " << sg.str[ES::E_NAME  ]        << '\n'
                 << "  КОШЕЛЁК: " << sg.dat[ED::E_MONEY1]        << '\n'
                 << "  КУБИК  : " << sg.dat[ED::E_NDICE ]        << '\n'
                 << "  СТАТУС : " << sg.dat[ED::E_STATUS_PERS]+1 << " ---> "

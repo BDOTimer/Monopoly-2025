@@ -83,7 +83,7 @@ namespace model
         std::string      name;
 
         void initName()
-        {   name = std::string(isBot ? "bot::" : "user::") + nameInput;
+        {   name = std::string(isBot ? "bot::" : "Человек::") + nameInput;
         }
     };
 

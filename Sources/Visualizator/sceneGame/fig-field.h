@@ -27,7 +27,7 @@ namespace vsl
     ///------------------------------------------------------------ FigureField:
     struct  FigurePosition  : sf::RectangleShape
     {       FigurePosition  ()
-            {   setFillColor( sf::Color{127,127,180,180} );
+            {   setFillColor( sf::Color{60, 60, 200, 180} );
             }
 
         unsigned idCellPos{};
