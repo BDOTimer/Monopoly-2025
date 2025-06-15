@@ -15,13 +15,13 @@ namespace controller
     {       Player() = default;
             Player( bool  isBot, unsigned id, std::string_view name)
                 :   isBot(isBot)
-                ,   id      (id)
+                ,   idTune      (id)
                 ,   name  (name)
             {
             }
 
         bool       isBot;
-        unsigned      id;
+        unsigned      idTune;
         std::string name;
 
         ///---------------------------|

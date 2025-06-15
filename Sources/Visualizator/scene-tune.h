@@ -19,7 +19,7 @@ namespace vsl
                 fon.setTexture(&HolderTexture::get("res/tune.jpg"));
                 pr::setOrigin(fon);
 
-                tmess1.setString(L"ТЮНИНГ.\nДля игры: ЖМИ \"1\"");
+                tmess1.setString(L"ТЮНИНГ.\nДля игры: ЖМИ \"F5\"");
 
                 const auto r = tmess1.getGlobalBounds();
 

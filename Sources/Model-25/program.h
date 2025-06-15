@@ -59,7 +59,7 @@ struct  TestGame2
         {
             for(auto& pl : players)
             {
-                unsigned& idPlayer = pl.id;
+                unsigned& idPlayer = pl.idTune;
 
                 std::stringstream ss; ss << std::setw(4) << ++cnt;
 

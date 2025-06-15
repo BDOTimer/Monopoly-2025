@@ -322,6 +322,17 @@ namespace vsl
 
             uiUpLog.messDown = &uiDownMessage;
         }
+
+        void infoCellSell(const unsigned idCell)
+        {   const auto& cellUser
+            {   this->cfgModel.cells[idCell]
+            };
+
+            this->uiSellPanel << uii::Clear() 
+                        << "ЯЧЕЙКА: " << idCell << "\n\"" 
+                        << cellUser.name
+                        << "\"\nБАЗОВАЯ СТОИМОСТЬ: " << cellUser.priseBase;
+        }
     };
 }
 

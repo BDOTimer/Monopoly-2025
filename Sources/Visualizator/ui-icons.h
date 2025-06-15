@@ -45,6 +45,7 @@ namespace uii
         Icons idCells;
 
         bool isFocus{false};
+        bool isBot  {true };
 
         std::function<void(UIGameIcons*, IconIt /* idCell */)> fooSellCell
         {   [this](UIGameIcons* p, IconIt idCell){}
@@ -82,12 +83,14 @@ namespace uii
                 {
                     const auto& id{i->first};
 
-
-
                     if (ImGui::ImageButton(
                         i->second.c_str(), getTexId(id), WH))
-                    {   vsl::Sounds::p->play(5);
-                        fooSellCell(this, i);
+                    {   
+                        if(isFocus)
+                        {   vsl::Sounds::p->play(5);
+                            fooSellCell(this, i);
+                        }
+                        else vsl::Sounds::p->play(2);
                     }
                     
                     if(++cnt % 8) ImGui::SameLine();

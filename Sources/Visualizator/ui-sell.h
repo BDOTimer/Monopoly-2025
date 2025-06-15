@@ -35,6 +35,7 @@ namespace uii
         IconIt       idCell;
 
         std::function<void(unsigned/*idCell*/)> fooSell{[this](unsigned id){}};
+        std::function<void(unsigned/*idCell*/)> fooNext{[this](unsigned id){}};
 
         bool isBot{true};
 
@@ -60,7 +61,7 @@ namespace uii
             return idCell;
         }
 
-        void loadInfo()
+        void xloadInfo()
         {   (*this) << uii::Clear() << "ЯЧЕЙКА: " << idCell->first;
         }
 
@@ -111,17 +112,23 @@ namespace uii
         ImGui::EndChild();
         ///////////////////////////////////////////////////////////////////////.
 
-            /// ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
-                if(ImGui::Button("ПРОДАТЬ", WH))
-                {
-                    const unsigned id = idCell->first;
-                    fooSell       (id);
-                    soundClick    (  );
-            ///     ColorBLog.next(  );
+                auto nt = isBot ? "...(bot)..." : "ПРОДАТЬ";
 
-                    if(pIcons->idCells.empty())
-                    {   doClose();
+            /// ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
+                if(ImGui::Button(nt, WH))
+                {
+                    if(!isBot)
+                    {
+                        const unsigned id = idCell->first;
+                        fooSell       (id);
+                        soundClick    (  );
+                ///     ColorBLog.next(  );
+
+                        if(pIcons->idCells.empty())
+                        {   doClose();
+                        }
                     }
+                    else vsl::Sounds::p->play(2);
                 }
             /// ImGui::PopStyleColor
 
@@ -129,8 +136,10 @@ namespace uii
 
                 if(ImGui::Button("СЛЕДУЮЩАЯ", WH))
                 {   next      ();
-                    loadInfo  ();
+                /// loadInfo  ();
                     soundClick();
+
+                    fooNext(idCell->first);
                 }
 
                 ImGui::SameLine();

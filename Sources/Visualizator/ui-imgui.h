@@ -458,9 +458,10 @@ namespace uii
 
         unsigned id;
 
-        void setPlayer(const controller::Player& pl)
-        {   id   = pl.id;
+        void setPlayer(const controller::Player& pl) /// ok.
+        {   id   = pl.idTune;
             name = pl.name;
+            setIsBot(pl.isBot);
         }
 
         inline void insertIcon(  unsigned idCell)
@@ -475,7 +476,9 @@ namespace uii
         {   uiGameIcons.reStart();
         }
 
-        void setFocus(bool b = true){ uiGameIcons.isFocus = b; }
+        void setFocus(const bool b = true){ uiGameIcons.isFocus  = b; }
+        void setIsBot(const bool b       ){ uiGameIcons.isBot    = b; }
+        bool isBot( ) const               { return uiGameIcons.isBot; }
 
         ImU32  col[4][2]
         {

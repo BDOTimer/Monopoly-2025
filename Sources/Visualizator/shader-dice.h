@@ -51,6 +51,15 @@ namespace vsl
         sf::Color colBorder{255,255,255};
         sf::Color colFon   {  0, 0, 128, 254};
 
+        void doDice()
+        {    resetDice();
+             isRot = true ;
+        }
+
+        void stopDice()
+        {    isRot = false;
+        }
+
         void upRotSpeed()
         {   if(!isRot) return;
             rotSpeed += cfg.dt() * 4;

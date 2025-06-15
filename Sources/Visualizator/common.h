@@ -89,9 +89,9 @@ namespace vsl
         };
 
         std::array<const char*, 4> fn
-        {   "res/snd/gaming.mp3",    /// 0
-            "res/snd/logo.mp3",      /// 1
-            "res/snd/musicRule.mp3", /// 2
+        {   "res/muz/gaming.mp3",    /// 0
+            "res/muz/logo.mp3",      /// 1
+            "res/muz/musicRule.mp3", /// 2
             "res/muz/kirk.mp3"       /// 3
         };
         
@@ -141,7 +141,7 @@ namespace vsl
 
         static inline Musics* p{nullptr};
 
-        unsigned n{};
+        unsigned n{0};
         void playn()
         {    play(n / 2); n = (n + 1) % (fn.size() * 2);
         }
@@ -174,10 +174,6 @@ namespace vsl
             "res/snd/field-fly.mp3",     // 4 - клик поле.
             "res/snd/tum.mp3"            // 5 - клик иконка.
         };
-
-        //Sound mp3no   {"res/snd/no.mp3"};
-        //Sound mp3dice1{"res/snd/dice1.mp3"};
-
 
         void play(unsigned i)
         {   if(i >= fn.size())  return;

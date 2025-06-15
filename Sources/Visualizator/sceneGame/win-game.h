@@ -169,12 +169,29 @@ namespace vsl
         }
 
         void reStart()
-        {   for(unsigned id = 0; id < 3; ++id) setPositionChip(id, 0, false);
+        {   for(unsigned id =  0; id < 3; ++id) setPositionChip(id, 0, false);
             isDiceHide   = true ;
             isUiCellInfo = false;
 
             figField.clear();
             figField.fooRePosition();
+        }
+
+        ///-------------------------------|
+        /// Крутить кубик.                |
+        ///-------------------------------:
+        void doDice()
+        {    dice.resetDice  ();
+             dice.isRot  = true;
+             isDiceHide = false;
+        }
+
+        ///-------------------------------|
+        /// Остановить кубик.             |
+        ///-------------------------------:
+        void stopDice()
+        {    dice.isRot = false;
+             isDiceHide = true;
         }
 
     private:

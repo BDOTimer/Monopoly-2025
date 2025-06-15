@@ -63,19 +63,17 @@ namespace vsl
                     {   this->cfg.uiSellPanel.doOpen2();
                         this->cfg.uiSellPanel.idCell = idCell;
                         this->cfg.uiSellPanel.pIcons = p;
-                        this->cfg.uiSellPanel.loadInfo();
 
-                        const auto& cellUder
-                        {   this->cfg.cfgModel.cells[idCell->first]
-                        };
-
-                        this-> cfg.uiSellPanel << "\n\"" << cellUder.name
-                            << "\"\nБАЗОВАЯ СТОИМОСТЬ: " << cellUder.priseBase;
+                        this->cfg.infoCellSell(idCell->first);
                     };
                 }
 
                 cfg.uiSellPanel.fooSell = [this](unsigned idCell)
                 {   this->doSell(idCell);
+                };
+
+                cfg.uiSellPanel.fooNext = [this](unsigned idCell)
+                {   this->cfg.infoCellSell(idCell);
                 };
             }
 
@@ -132,8 +130,7 @@ namespace vsl
                 case 0:
                 {   auto& o = this->winGame;
 
-                    o.dice.isRot = true ;
-                    o.isDiceHide = false;
+                    o.doDice();
 
                     this->winGame.isUiCellInfo = false;
                     this->cfg.sounds.play(3);
@@ -142,10 +139,7 @@ namespace vsl
                 case 1:
                 {   auto& o = this->winGame;
 
-                    o.dice.isRot = false;
-                    o.isDiceHide = true ;
-
-                    o.dice.resetDice();
+                    o.stopDice();
 
                     this->doStep();
                     break;
@@ -171,10 +165,12 @@ namespace vsl
 
         pr::InsexCircle iWin{3};
 
+        ///-----------------------------------|
+        /// Сделать ход к модели.             |
+        ///-----------------------------------:
         void doStep()
         {
-            const auto&    mdl    {cfg.cfgModel};
-            cfg.uiCellInfo.isBot = cfg._3player[idUI].isBot;
+            const auto&     mdl    {cfg.cfgModel};
 
             cfg.uiGameLog << model::doStep
             (   "start", { (int)mdl.idGame,
@@ -197,7 +193,7 @@ namespace vsl
 
             unsigned idM = (unsigned)sg.dat[ED::E_IDPLAYER];
 
-            ASSERT(cfg._3player[idUI].id == idM)
+            ASSERT(cfg._3player[idUI].idTune == idM)
 
             cfg._3player[idUI].stateGame = sg;
 
@@ -242,6 +238,9 @@ namespace vsl
             ++nStep;
 
             cfg.uiPlayers[idUI].setFocus(true);
+
+            cfg.uiCellInfo .isBot = cfg.uiPlayers[idUI].isBot();
+            cfg.uiSellPanel.isBot = cfg.uiPlayers[idUI].isBot();
         }
 
         ///-----------------------------------|
@@ -287,6 +286,9 @@ namespace vsl
             winGame.dice.resetDice();
 
             for(auto& e : cfg.uiPlayers) e.reStart();
+
+            cfg.uiCellInfo .isBot = cfg.uiPlayers[idUI].isBot();
+            cfg.uiSellPanel.isBot = cfg.uiPlayers[idUI].isBot();
         }
 
         ///-----------------------------------|
@@ -319,6 +321,9 @@ namespace vsl
             set2uiPlayers ();
         }
 
+        ///-----------------------------------|
+        /// Продажа ячейки.                   |
+        ///-----------------------------------:
         void doSell(unsigned idCell)
         {
             if(cfg._3player[idUI].isBot) return;
@@ -340,6 +345,7 @@ namespace vsl
                     << " Товар был продан! Проверьте деньги на вашем счету!";
 
                 cfg.uiPlayers[this->idUI].uiGameIcons.erase(idCell);
+                cfg.uiSellPanel.next();
 
                 winGame.setCellColor(idCell, false);
             }
