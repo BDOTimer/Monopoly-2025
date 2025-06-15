@@ -9,6 +9,7 @@
 /// #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS  |
 /// #define _CRT_SECURE_NO_WARNINGS                  |
 ///--------------------------------------------------|
+#include <windows.h>
 #include <functional>
 #include <filesystem> /// C++17
 #include <algorithm>
@@ -31,21 +32,25 @@
 #include <map>
 #include <set>
 
-
 #if __has_include(<SFML/Graphics.hpp>)
   #include <SFML/Graphics.hpp>
 #endif
 
 namespace win
 {
-#ifndef     __MINGW32__
+
+#ifdef _MSC_VER
     #include <windows.h>
     #pragma execution_character_set  ( "utf-8"   )
     const char* const COMPILATOR_NAME{ "VS 2022" };
     inline void noShowCursor(){ ShowCursor(FALSE); }
-#else
+#elif __MINGW32__
+    #include <windows.h>
     const char* const COMPILATOR_NAME{"GCC MINGW"};
-    inline void noShowCursor(){  }
+    inline void noShowCursor(){ ShowCursor(FALSE); }
+#else
+    const char* const COMPILATOR_NAME{"???"};
+    inline void noShowCursor(){ }
 #endif  //  __MINGW32__
 }
 

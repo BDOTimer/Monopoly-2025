@@ -214,11 +214,11 @@ namespace model
         bool isBusy() const { return nullptr != pers; }
 
         unsigned getBestBuy() const
-        {   return std::max(bankBuy[0], std::max(bankBuy[1], bankBuy[2]));
+        {   return ::std::max(bankBuy[0], ::std::max(bankBuy[1], bankBuy[2]));
         }
 
         unsigned getBestSell() const
-        {   return std::min(bankSell[0], std::min(bankSell[1], bankSell[2]));
+        {   return ::std::min(bankSell[0], ::std::min(bankSell[1], bankSell[2]));
         }
 
         friend std::ostream& operator<<(std::ostream& o, const Cell& cell);
