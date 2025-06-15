@@ -94,7 +94,7 @@ namespace vsl
             "res/snd/musicRule.mp3", /// 2
             "res/muz/kirk.mp3"       /// 3
         };
-
+        
         void play(unsigned i)
         {   if(i >= fn.size()) return;
             else if( auto& p = (*this)[i]; p != nullptr )

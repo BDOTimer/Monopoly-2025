@@ -92,10 +92,12 @@ namespace vsl
 
     private:
         ///////////////////////////////////////////////////////////////////////:
+        unsigned cntStart{};
+
         void startModel()
         {
-        /// vsl::Sounds::p->play(1);
-            vsl::Musics::p->play(3);
+            if(cntStart++ % 3) vsl::Sounds::p->play(1);
+            else               vsl::Musics::p->play(3);
 
             //cfg.cfgModel = *model::getConfig  ();
             cfg.setConfigModel(*model::getConfig(cfg.backDoor,
