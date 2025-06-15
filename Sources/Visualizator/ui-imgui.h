@@ -741,7 +741,9 @@ namespace uii
                     vsl::Sounds::p->play(0);
                 }
 
-                ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
+            fooHover();
+
+            ImGui::PushStyleColor(ImGuiCol_Button, ColorBLog.get());
                 if(ImGui::Button("Лог", WH))
                 {   fooLog    ();
                     vsl::Sounds::p->play(0);

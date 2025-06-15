@@ -42,8 +42,10 @@ namespace win
     #include <windows.h>
     #pragma execution_character_set  ( "utf-8"   )
     const char* const COMPILATOR_NAME{ "VS 2022" };
+    inline void noShowCursor(){ ShowCursor(FALSE); }
 #else
     const char* const COMPILATOR_NAME{"GCC MINGW"};
+    inline void noShowCursor(){  }
 #endif  //  __MINGW32__
 }
 

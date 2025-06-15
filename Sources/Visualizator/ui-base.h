@@ -12,7 +12,6 @@
 
 namespace uii
 {
-
     using Callback = std::function<void()>;
 
     constexpr ImColor colButtonA{ 6,15,14,120}; /// Нажата.
@@ -44,6 +43,35 @@ namespace uii
     struct Clear {};
 
 
+    ///------------------------------------------------------------------------|
+    /// MyHover.
+    ///---------------------------------------------------------------- MyHover:
+    struct  MyHover
+    {       MyHover()
+                :   txtr1("res/sys/cursor32-1.png")
+                ,   txtr2("res/sys/cursor32-2.png")
+                ,   cursor(txtr1)
+            {   
+                win::noShowCursor();
+            }
+
+        void reset()
+        {   cursor.setTexture(txtr1);
+        }
+
+        void test()
+        {   if (ImGui::IsItemHovered())
+            {   cursor.setTexture(txtr2);
+            }
+        }
+
+    //private:
+        const sf::Texture txtr1;
+        const sf::Texture txtr2;
+        sf::Sprite       cursor;
+    };
+
+
     struct  UIDownMessage;
     ///------------------------------------------------------------------------|
     /// UIBase.
@@ -57,6 +85,8 @@ namespace uii
             }
 
     // vsl::Config& cfg;
+
+        Callback       fooHover{[](){}};
 
         sf::SoundBuffer  buffer;
         sf::Sound        soundx;

@@ -87,6 +87,8 @@ namespace uii
                     fooRestart();
                 }
 
+                fooHover();
+
                 if(ImGui::Button("ПРОДОЛЖИТЬ", WH))
                 {   fooContinue();
                     vsl::Sounds::p->play(0);
