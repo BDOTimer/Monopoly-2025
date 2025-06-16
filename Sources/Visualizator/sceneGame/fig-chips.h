@@ -30,6 +30,10 @@ namespace vsl
         }
     };
 
+
+    ///------------------------------------------------------------------------|
+    /// FigureChip.
+    ///------------------------------------------------------------- FigureChip:
     struct  FigureChip : sf::RectangleShape
     {       FigureChip(unsigned idPers)
                 :   sf::RectangleShape(ConfigFigureChip::get().Size)
@@ -46,21 +50,36 @@ namespace vsl
             }
 
         unsigned idPers;
-        unsigned idCell;
+        unsigned idCell{};
 
         std::unique_ptr<vsl::Sound>  snd;
 
-        void setPosition(sf::Vector2f pos, bool isSnd)
-        {   
-            const auto& SZ = ConfigFigureChip::get().Size;
-            const auto  D{SZ.y / 5};
+        void setPosition(sf::Vector2f pos)
+        {   sf::RectangleShape::setPosition(pos);
+        }
 
-            sf::RectangleShape::setPosition( { pos.x, pos.y + D * idPers - D });
-
+        void setPosition(sf::Vector2f ps, unsigned idCell, bool isSnd)
+        {   parking(ps);
             if(isSnd) snd->play();
+            this->idCell = idCell;
+        }
+
+        void setPosition(sf::Vector2f ps, bool isSnd)
+        {   parking(ps);
+            if(isSnd) snd->play();
+        }
+
+    private:
+        void parking(sf::Vector2f ps)
+        {   const auto  D {ConfigFigureChip::get().Size.y / 5};
+            setPosition ( {ps.x, ps.y + D * idPers - D} );
         }
     };
 
+
+    ///------------------------------------------------------------------------|
+    /// FigureChips.
+    ///------------------------------------------------------------ FigureChips:
     struct  FigureChips : std::vector<FigureChip>, sf::Drawable
     {       FigureChips()
             {
@@ -69,19 +88,6 @@ namespace vsl
                 {   emplace_back(FigureChip(i));
                 }
             }
-
-        void setPosition(unsigned idPers,
-                         unsigned idCell,
-                         sf::Vector2f pos, 
-                         bool isSnd)
-        {   const auto& SZ = ConfigFigureChip::get().Size;
-
-            const auto D{SZ.y / 4};
-
-            auto& o = (*this)[idPers];
-                  o.setPosition( { pos.x, pos.y + D * o.idPers - D }, isSnd);
-                  o.idCell = idCell;
-        }
 
     private:
         ///------------------------------------|

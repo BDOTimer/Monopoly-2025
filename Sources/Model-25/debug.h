@@ -69,8 +69,8 @@ struct Log2File
     }
 };
 
-#define COUT   std::cout
-#define COUTx  Log2File::get()
+#define COUTx   std::cout
+#define COUT  Log2File::get()
 
 #define ln(a) COUT << #a << ":\n" << (a) << std::endl;
 #define  l(a) COUT << #a << ": "  << (a) << std::endl;

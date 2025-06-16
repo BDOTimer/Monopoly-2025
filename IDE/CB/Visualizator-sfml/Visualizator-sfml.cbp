@@ -140,6 +140,9 @@
 		<Unit filename="../../../Sources/Visualizator/sceneGame/markup.h">
 			<Option virtualFolder="vsl/sceneGame/" />
 		</Unit>
+		<Unit filename="../../../Sources/Visualizator/sceneGame/move-chip.h">
+			<Option virtualFolder="vsl/sceneGame/" />
+		</Unit>
 		<Unit filename="../../../Sources/Visualizator/sceneGame/win-down.h">
 			<Option virtualFolder="vsl/sceneGame/" />
 		</Unit>

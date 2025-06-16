@@ -6,6 +6,7 @@
 #include "../common.h"
 #include "fig-field.h"
 #include "fig-chips.h"
+#include "move-chip.h"
 
 namespace vsl
 {
@@ -52,6 +53,7 @@ namespace vsl
                 :   cfg         (cfg)
                 ,   figField    (cfg)
                 ,   dice        (cfg)
+                ,   moveChip    (cfg, figField)
 
             {   const auto& rect    = cfg.markupSG.getWinBase();
                 const auto& border  = cfg.markupSG.border;
@@ -151,11 +153,14 @@ namespace vsl
                              unsigned idCell,
                              bool     isSnd )
         {
-            figureChips.setPosition(
-                idPlayer, idCell, figField[idCell].getPosition(), isSnd
-            );
-
+/**
+            const auto& ps{ figField[idCell].getPosition() };
+            figureChips[idPlayer].setPosition( ps, idCell, isSnd );
+**/
             figField.setFigurePos2Pos(idCell);
+
+            /// TODO: ... MoveChip ...
+            moveChip.buildRoute(&figureChips[idPlayer], idCell);
         }
 
         void updateSetPositionChip()
@@ -204,6 +209,8 @@ namespace vsl
         FigureChips figureChips;
         bool       isUiCellInfo;
 
+        MoveChip       moveChip;
+
         ///------------------------------------|
         /// На рендер.                         |
         ///------------------------------------:
@@ -211,6 +218,8 @@ namespace vsl
                           sf::RenderStates  states) const
         {
             auto p = const_cast<WinGame*>(this);
+
+            if(moveChip.isMove) p->moveChip.move();
 
             objectTest4.update(cfg.dt());
 
