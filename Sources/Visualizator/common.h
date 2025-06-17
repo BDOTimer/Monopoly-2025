@@ -149,13 +149,13 @@ namespace vsl
     private:
         std::list<sf ::Music>           m;
         sf ::Music*         pnow{nullptr};
-        float volume                 {12};
+        float volume                  {8};
     };
 
 
     ///------------------------------------------------------------------------|
     /// Саунд-контрол.
-    /// vsl::Sounds::p->play(7);
+    /// vsl::Sounds::p->play(8);
     ///----------------------------------------------------------------- Sounds:
     struct  Sounds   : std::vector<sf::Sound*>
     {       Sounds() : std::vector<sf::Sound*>(60, nullptr)
@@ -166,7 +166,7 @@ namespace vsl
         {    E_click_01
         };
 
-        std::array<const char*, 8> fn
+        std::array<const char*, 10> fn
         {   "res/snd/click-01.mp3"       // 0
             ,"res/snd/gudok-doplera.mp3" // 1
             ,"res/snd/no.mp3"            // 2
@@ -175,6 +175,8 @@ namespace vsl
             ,"res/snd/tum.mp3"           // 5 - клик иконка.
             ,"res/snd/virus3.mp3"        // 6 - запрет хода.
             ,"res/snd/move1.mp3"         // 7 - движение фишки.
+            ,"res/snd/jjj1.mp3"          // 8 - движение фишки.
+            ,"res/snd/jjj2.mp3"          // 8 - движение фишки.
         };
 
         void play(unsigned i)

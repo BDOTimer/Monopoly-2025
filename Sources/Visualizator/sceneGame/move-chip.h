@@ -46,6 +46,11 @@ namespace vsl
             step     =    0;
 
             initStep();
+
+            if(isMove)
+            {   if(++memSnd == 10) memSnd = 7;
+                vsl::Sounds::p->playLoop( memSnd );
+            }
         }
 
         ///-------------------------------|
@@ -62,7 +67,7 @@ namespace vsl
             else
             {   if(++step == route.size())
                 {   fc->setPosition(b, route.back(), true);
-                    vsl::Sounds::p->stop(7);
+                    vsl::Sounds::p->stop(memSnd);
                     isMove = false;
                 }
                 else
@@ -98,13 +103,14 @@ namespace vsl
             if(distance   == 0.f)
             {   if(++step == route.size()) { return; }
                  initStep ();
+                 return;
             }
 
             unitDir = dir / distance;
             isMove  = true;
-
-            vsl::Sounds::p->playLoop(7);
         }
+
+        unsigned memSnd{7};
     };
 
 }
