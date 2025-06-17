@@ -149,13 +149,13 @@ namespace vsl
     private:
         std::list<sf ::Music>           m;
         sf ::Music*         pnow{nullptr};
-        float volume                 {60};
+        float volume                 {12};
     };
 
 
     ///------------------------------------------------------------------------|
     /// Саунд-контрол.
-    /// vsl::Sounds::p->play(5);
+    /// vsl::Sounds::p->play(7);
     ///----------------------------------------------------------------- Sounds:
     struct  Sounds   : std::vector<sf::Sound*>
     {       Sounds() : std::vector<sf::Sound*>(60, nullptr)
@@ -166,13 +166,15 @@ namespace vsl
         {    E_click_01
         };
 
-        std::array<const char*, 6> fn
-        {   "res/snd/click-01.mp3",      // 0
-            "res/snd/gudok-doplera.mp3", // 1
-            "res/snd/no.mp3",            // 2
-            "res/snd/dice1.mp3",         // 3 - бросок кубика.
-            "res/snd/field-fly.mp3",     // 4 - клик поле.
-            "res/snd/tum.mp3"            // 5 - клик иконка.
+        std::array<const char*, 8> fn
+        {   "res/snd/click-01.mp3"       // 0
+            ,"res/snd/gudok-doplera.mp3" // 1
+            ,"res/snd/no.mp3"            // 2
+            ,"res/snd/dice1.mp3"         // 3 - бросок кубика.
+            ,"res/snd/field-fly.mp3"     // 4 - клик поле.
+            ,"res/snd/tum.mp3"           // 5 - клик иконка.
+            ,"res/snd/virus3.mp3"        // 6 - запрет хода.
+            ,"res/snd/move1.mp3"         // 7 - движение фишки.
         };
 
         void play(unsigned i)
@@ -192,9 +194,19 @@ namespace vsl
             }
         }
 
+        void playLoop(unsigned i)
+        {   play(i);
+            (*this )[i]->setLooping(true);
+        }
+
         void setVolume(float  val)
         {   if(0.f   > val || val > 100.f) return;
             volume   = val ;
+        }
+
+        void stop(unsigned i)
+        {   ASSERT((*this )[i] != nullptr)
+                   (*this )[i]->stop();
         }
 
         float* getPVol() { return &volume; }

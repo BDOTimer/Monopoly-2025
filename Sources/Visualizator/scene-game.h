@@ -123,6 +123,11 @@ namespace vsl
         void upDice()
         {   ///if(isGameOver) return; TODO ...
 
+            if(winGame.moveChip.isMove)
+            {   vsl::Sounds::p->play(6);
+                return;
+            }
+
             cfg.uiSellPanel.doClose();
 
             switch(nClickDice)

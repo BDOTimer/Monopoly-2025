@@ -50,6 +50,7 @@
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\fig-chips.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\fig-field.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\markup.h" />
+    <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\move-chip.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\win-down.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\win-game.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\win-player.h" />

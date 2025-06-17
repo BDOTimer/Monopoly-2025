@@ -60,9 +60,10 @@ namespace vsl
                 distance -= r ;
             }
             else
-            {   if(++step     == route.size())
-                {   isMove     = false;
-                    fc->setPosition(b, route.back(), true);
+            {   if(++step == route.size())
+                {   fc->setPosition(b, route.back(), true);
+                    vsl::Sounds::p->stop(7);
+                    isMove = false;
                 }
                 else
                 {   fc->setPosition(b);
@@ -101,6 +102,8 @@ namespace vsl
 
             unitDir = dir / distance;
             isMove  = true;
+
+            vsl::Sounds::p->playLoop(7);
         }
     };
 
