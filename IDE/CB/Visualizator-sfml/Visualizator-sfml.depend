@@ -442,7 +442,7 @@
 1748566728 d:\!gforum-2025\projects\monopoly-2025\sources\model-25\model\implants\bot-iq.h
 	"../../debug.h"
 
-1750023455 d:\!gforum-2025\projects\monopoly-2025\sources\model-25\debug.h
+1750139436 d:\!gforum-2025\projects\monopoly-2025\sources\model-25\debug.h
 	<windows.h>
 	<functional>
 	<filesystem>
@@ -688,7 +688,7 @@
 1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\sleep.hpp
 	<SFML/System/Export.hpp>
 
-1749970805 d:\!gforum-2025\projects\monopoly-2025\sources\model-25\model\!m-model.h
+1750023956 d:\!gforum-2025\projects\monopoly-2025\sources\model-25\model\!m-model.h
 	"myl.h"
 	"cards.inc"
 	"field.inc"
@@ -737,7 +737,7 @@
 1748566728 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\player.h
 	"common.h"
 
-1749992597 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\common.h
+1750163997 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\common.h
 	<SFML/System/Angle.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
@@ -920,7 +920,7 @@
 	"common.h"
 	"scene-game.h"
 
-1750005324 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scene-game.h
+1750159725 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scene-game.h
 	"common.h"
 	"shader-dice.h"
 	"sceneGame/win-game.h"
@@ -932,15 +932,16 @@
 1749997462 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\shader-dice.h
 	"common.h"
 
-1749997393 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\win-game.h
+1750139436 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\win-game.h
 	"../common.h"
 	"fig-field.h"
 	"fig-chips.h"
+	"move-chip.h"
 
 1750005610 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\fig-field.h
 	"../common.h"
 
-1749657998 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\fig-chips.h
+1750139436 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\fig-chips.h
 	"../common.h"
 
 1749980664 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\win-up.h
@@ -1959,6 +1960,10 @@
 	"ui-icons.h"
 
 1750083702 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\move-chip.h
+	"fig-field.h"
+	"fig-chips.h"
+
+1750163548 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\move-chip.h
 	"fig-field.h"
 	"fig-chips.h"
 
