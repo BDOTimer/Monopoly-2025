@@ -11,5 +11,8 @@
 ### :sparkles: Таскборд Дизайнера игры: [:arrow_right:ссыль](https://github.com/users/slava-rusi11/projects/1/views/1)
 
  
- :sparkles:
  <img src="bin/Visualizator/res/logo.jpg"/>
+
+ 
+ <img src="bin/Visualizator/res/2025-06-17_085938.jpg"/>
+ 
