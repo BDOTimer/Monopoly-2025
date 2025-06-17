@@ -127,13 +127,14 @@ namespace vsl
         ///-------------------------------|
         /// Переключение фонов winGame.   |
         ///-------------------------------:
-        myl::SwitcherData<const char*, 7> buttonFon
+        myl::SwitcherData<const char*, 8> buttonFon
         {   "res/img/ground/01.jpg",
             "res/img/ground/02.jpg",
             "res/img/ground/03.jpg",
             "res/img/ground/04.jpg",
             "res/img/ground/05.jpg",
             "res/img/ground/06.jpg",
+            "res/img/ground/07.jpg",
             "..."
         };
 
