@@ -14,5 +14,5 @@
  <img src="bin/Visualizator/res/logo.jpg"/>
 
  
- <img src="bin/Visualizator/res/2025-06-17_085938.jpg"/>
+ <img src="---/2025-06-17_085938.jpg"/>
  
