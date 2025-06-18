@@ -675,6 +675,7 @@ namespace uii
         Callback fooFon      {[this](){}};
         Callback fooDice2    {[this](){}};
         Callback fooFieldGeom{[this](){}};
+        Callback fooTestGOver{[this](){}};
 
         Callback fooLog      {[this](){}};
 
@@ -721,7 +722,7 @@ namespace uii
             ImGui::SameLine();
 
                 if(ImGui::Button("Музыка", WH))
-                {   
+                {
                 /// fooMusic  ();
                     vsl::Sounds::p->play(0);
                     vsl::Musics::p->playn();
@@ -762,7 +763,7 @@ namespace uii
             ImGui::SameLine();
 
                 if(ImGui::Button("..3", WH))
-                {   fooEmpty  ();
+                {   fooTestGOver();
                     vsl::Sounds::p->play(0);
                 }
 

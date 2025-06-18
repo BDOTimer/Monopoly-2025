@@ -1,3 +1,2 @@
-fc->idPers: 0
-fc->idPers: 0
-fc->idPers: 1
+sz.x: 1344
+sz.y: 820

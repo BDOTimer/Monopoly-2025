@@ -7,6 +7,7 @@
 
 namespace uii
 {
+
     ///------------------------------------------------------------------------|
     /// UIWinGameCellInfo базовое начальное меню ...
     ///------------------------------------------------------ UIWinGameCellInfo:
@@ -21,8 +22,9 @@ namespace uii
 
         //ImVec4 buttonColor;
 
-        Callback fooBuy {[this](){}};
-        Callback fooNext{[this](){}};
+        Callback fooBuy      {[this](){}};
+        Callback fooNext     {[this](){}};
+        Callback fooInfoColor{[this](){}};
 
         bool isBot{true};
 
@@ -59,7 +61,8 @@ namespace uii
                     /// | ImGuiWindowFlags_AlwaysAutoResize
             );
 
-                ImGui::Text("%s", log.str().c_str());
+            /// ImGui::Text("%s", log.str().c_str());
+                fooInfoColor();
 
                 auto nt = isBot ? "...(bot)..." : "КУПИТЬ";
 
@@ -188,7 +191,7 @@ namespace uii
 
                 ImGui::PushFont(uiInit.second_font);
                 ImGui::Text("%s", text);
-                
+
 
                 ImGui::SameLine();
             /// ImGui::SetCursorPosY(py);

@@ -112,8 +112,9 @@ namespace vsl
         }
 
         void setFigurePos2Pos(unsigned id)
-        {   figPos.setPosition(sps[id].getPosition());
-            figPos.idCellPos     = id;
+        {   figPos.setPosition (sps[id].getPosition());
+            figPos.setFillColor(sps[id].getOutlineColor());
+            figPos.idCellPos      = id;
         }
 
         void updateFigurePos2Pos()

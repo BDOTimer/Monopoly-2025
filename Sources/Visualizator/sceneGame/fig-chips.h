@@ -52,6 +52,10 @@ namespace vsl
         unsigned idPers;
         unsigned idCell{};
 
+        void reset()
+        {   idCell = 0;
+        }
+
         std::unique_ptr<vsl::Sound>  snd;
 
         void setPosition(sf::Vector2f pos)
@@ -88,6 +92,12 @@ namespace vsl
                 {   emplace_back(FigureChip(i));
                 }
             }
+
+        void reset()
+        {   for(auto& chip : *this)
+            {   chip.reset();
+            }
+        }
 
     private:
         ///------------------------------------|

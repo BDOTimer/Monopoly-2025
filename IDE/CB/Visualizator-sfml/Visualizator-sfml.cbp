@@ -137,6 +137,9 @@
 		<Unit filename="../../../Sources/Visualizator/sceneGame/fig-field.h">
 			<Option virtualFolder="vsl/sceneGame/" />
 		</Unit>
+		<Unit filename="../../../Sources/Visualizator/sceneGame/fig-gameover.h">
+			<Option virtualFolder="vsl/sceneGame/" />
+		</Unit>
 		<Unit filename="../../../Sources/Visualizator/sceneGame/markup.h">
 			<Option virtualFolder="vsl/sceneGame/" />
 		</Unit>
@@ -175,6 +178,12 @@
 		</Unit>
 		<Unit filename="../../../Sources/Visualizator/ui-win-game.h">
 			<Option virtualFolder="vsl/ui/" />
+		</Unit>
+		<Unit filename="../../../bin/Visualizator/res/shaders/dice.frag">
+			<Option virtualFolder="res/" />
+		</Unit>
+		<Unit filename="../../../bin/Visualizator/res/shaders/firework-1.frag">
+			<Option virtualFolder="res/" />
 		</Unit>
 		<Unit filename="../../../extLibs/imgui-1.91.8/imconfig.h">
 			<Option virtualFolder="imgui/" />

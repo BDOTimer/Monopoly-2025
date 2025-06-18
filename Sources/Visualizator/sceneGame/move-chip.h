@@ -77,9 +77,20 @@ namespace vsl
             }
         }
 
+        void quickFinished()
+        {   if(!isMove) return;
+            vsl::Sounds::p->stop(memSnd);
+            fc->setPosition(b, route.back(), true);
+            isMove = false;
+        }
+
+        void reset()
+        {   memSnd = 7;
+        }
+
     private:
         std::vector<unsigned> route;
-        FigureChip*     fc{nullptr};
+        FigureChip*    fc {nullptr};
         const float    speed{500.f};
         unsigned               step;
         sf::Vector2f           a, b;
@@ -88,8 +99,8 @@ namespace vsl
         sf::Vector2f        unitDir;
 
         unsigned nextCell(unsigned idCell)
-        {   if(++idCell == ff.getPSP().size()) return 0;
-            return idCell;
+        {   if(  ++idCell == ff.getPSP().size()) return 0;
+            return idCell ;
         }
 
         void initStep()

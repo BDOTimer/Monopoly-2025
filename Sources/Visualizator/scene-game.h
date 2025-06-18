@@ -29,11 +29,12 @@ namespace vsl
                 cfg.info_01(++cnt);
 
                 cfg.uiUpLog.fooTune = [this]()
-                {   goTune();
+                {   this->winGame.quickFinished();
+                    goTune();
                 };
 
             //  cfg.uiUpLog.fooMusic = [this]()
-            //  {   
+            //  {
             //  };
 
                 cfg.uiUpLog.fooDice2 = [this]()
@@ -74,6 +75,15 @@ namespace vsl
 
                 cfg.uiSellPanel.fooNext = [this](unsigned idCell)
                 {   this->cfg.infoCellSell(idCell);
+                };
+
+                cfg.uiCellInfo.fooInfoColor = [this]()
+                {   this->set2uiCellInfoColor();
+                };
+
+                cfg.uiUpLog.fooTestGOver = [this]()
+                {   this->winGame.figGOver.isGameOver =
+                   !this->winGame.figGOver.isGameOver ;
                 };
             }
 
@@ -203,7 +213,7 @@ namespace vsl
             cfg._3player[idUI].stateGame = sg;
 
             set2uiPlayers ();
-            set2uiCellInfo();
+        /// set2uiCellInfo();
 
             if(isGameOver = sg.dat[ED::E_GAMEOVER] >= 0; isGameOver)
             {   cfg.uiDownMessage << uii::Clear()
@@ -212,7 +222,7 @@ namespace vsl
                     ;
             }
 
-            winGame.setPositionChip(idUI, sg.dat[ED::E_POSITION], true);
+            winGame.movePositionChip(idUI, sg.dat[ED::E_POSITION], true);
             ///////////////////////////////////////////////////
 
             winGame.isUiCellInfo = true;
@@ -325,7 +335,7 @@ namespace vsl
                        "в вашей собственности!";
             }
 
-            set2uiCellInfo();
+       ///  set2uiCellInfo();
             setCellColor  ();
 
             updateEndStep ();
@@ -367,7 +377,7 @@ namespace vsl
                 winGame.setCellColor(idCell, false);
             }
 
-            set2uiCellInfo();
+        /// set2uiCellInfo();
             setCellColor  ();
 
             updateEndStep ();
@@ -389,7 +399,7 @@ namespace vsl
                 ;
         }
 
-        void set2uiCellInfo()
+        void x_set2uiCellInfo()
         {
             const auto& sg = cfg._3player[idUI].stateGame;
             const auto& mdl{cfg.cfgModel};
@@ -403,6 +413,33 @@ namespace vsl
                 << "  ПРОДАЁТСЯ: " << sg.dat[ED::E_SELL]             << '\n'
                 << "  СКУПКА   : " << sg.dat[ED::E_BYU]              << '\n'
                 ;
+        }
+
+        void set2uiCellInfoColor()
+        {
+            const auto& sg = this->cfg._3player[idUI].stateGame;
+            const auto& mdl{ this->cfg.cfgModel};
+
+            const
+            unsigned I{static_cast<unsigned>(sg.dat[ED::E_STATUS_CELL])
+                     % static_cast<unsigned>(uii::style::colTxtStatus.size())};
+
+            ImGui::Text("  ИГРОК    : %s\n", sg.str[ES::E_NAME].c_str());
+            ImGui::Text("  ЯЧЕЙКА   : ");
+            ImGui::SameLine ();
+            ImGui::TextColored(
+                uii::style::colTxtStatus[I],"%s\n", sg.str[ES::E_CELL].c_str());
+
+            ImGui::Text("  ПОЗИЦИЯ  :  %d\n", sg.dat[ED::E_POSITION]);
+            ImGui::Text("  СТАТУС   : ");
+            ImGui::SameLine ();
+            ImGui::TextColored(
+                uii::style::colTxtStatus[I], "%u ---> %s\n",
+                sg.dat[ED::E_STATUS_CELL]+1,
+                mdl.decode2Str.getCell(sg.dat[ED::E_STATUS_CELL]).data());
+
+            ImGui::Text("  ПРОДАЁТСЯ:  %d\n", sg.dat[ED::E_SELL]);
+            ImGui::Text("  СКУПКА   :  %d\n", sg.dat[ED::E_BYU ]);
         }
 
         ///-----------------------------------|

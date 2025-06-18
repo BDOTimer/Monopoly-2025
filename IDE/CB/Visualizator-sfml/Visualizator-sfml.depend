@@ -1698,7 +1698,7 @@
 1748456712 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\player.h
 	"common.h"
 
-1750053703 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\common.h
+1750224376 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\common.h
 	<SFML/System/Angle.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
@@ -1868,7 +1868,7 @@
 	"ui-base.h"
 	"ui-imgui.h"
 
-1750053703 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-imgui.h
+1750255270 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-imgui.h
 	"ui-base.h"
 	"ui-icons.h"
 
@@ -1881,11 +1881,11 @@
 1750053703 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-logo.h
 	"common.h"
 
-1750053703 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-tune.h
+1750243800 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-tune.h
 	"common.h"
 	"scene-game.h"
 
-1750053703 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-game.h
+1750255282 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-game.h
 	"common.h"
 	"shader-dice.h"
 	"sceneGame/win-game.h"
@@ -1897,16 +1897,17 @@
 1750053703 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\shader-dice.h
 	"common.h"
 
-1750082476 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
+1750257592 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
 	"../common.h"
 	"fig-field.h"
 	"fig-chips.h"
 	"move-chip.h"
+	"fig-gameover.h"
 
-1750053703 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-field.h
+1750251940 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-field.h
 	"../common.h"
 
-1750081161 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-chips.h
+1750249143 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-chips.h
 	"../common.h"
 
 1750053703 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-up.h
@@ -1928,10 +1929,10 @@
 1749981232 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\ui-win-game.h
 	"ui-imgui.h"
 
-1750053703 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-win-game.h
+1750245035 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-win-game.h
 	"ui-imgui.h"
 
-1750053703 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-base.h
+1750246801 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-base.h
 	<SFML/Audio/Sound.hpp>
 	"imgui.h"
 	"imgui-SFML.h"
@@ -1959,11 +1960,14 @@
 	"ui-base.h"
 	"ui-icons.h"
 
-1750083702 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\move-chip.h
+1750250709 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\move-chip.h
 	"fig-field.h"
 	"fig-chips.h"
 
 1750163548 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\move-chip.h
 	"fig-field.h"
 	"fig-chips.h"
+
+1750259519 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-gameover.h
+	"../common.h"
 

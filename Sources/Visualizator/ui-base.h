@@ -14,6 +14,19 @@ namespace uii
 {
     using Callback = std::function<void()>;
 
+    ///------------------------------------------------------------------------|
+    /// Цветовая схема стиля оформления игры.
+    ///------------------------------------------------------------------------:
+    namespace style
+    {
+        constexpr std::array<ImVec4, 3> colTxtStatus
+        {   ImVec4(0.5f, 1.0f, 0.5f, 1.0f),
+            ImVec4(1.0f, 0.5f, 0.5f, 1.0f),
+            ImVec4(1.0f, 1.0f, 0.5f, 1.0f)
+        };
+
+    }
+
     constexpr ImColor colButtonA{ 6,15,14,120}; /// Нажата.
     constexpr ImColor colButtonB{ 6,35,34,170}; /// Спокойная.
     constexpr ImColor colButtonH{26,55,54,170}; /// Наведенная.
@@ -51,7 +64,7 @@ namespace uii
                 :   txtr1("res/sys/cursor32-1.png")
                 ,   txtr2("res/sys/cursor32-2.png")
                 ,   cursor(txtr1)
-            {   
+            {
                 win::noShowCursor();
             }
 

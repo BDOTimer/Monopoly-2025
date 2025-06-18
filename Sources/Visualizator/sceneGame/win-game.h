@@ -7,6 +7,7 @@
 #include "fig-field.h"
 #include "fig-chips.h"
 #include "move-chip.h"
+#include "fig-gameover.h"
 
 namespace vsl
 {
@@ -54,6 +55,7 @@ namespace vsl
                 ,   figField    (cfg)
                 ,   dice        (cfg)
                 ,   moveChip    (cfg, figField)
+                ,   figGOver    (cfg)
 
             {   const auto& rect    = cfg.markupSG.getWinBase();
                 const auto& border  = cfg.markupSG.border;
@@ -92,6 +94,8 @@ namespace vsl
                 };
 
             /// figField.fooRePosition(); /// UB!!!
+
+                figGOver.init();
             }
 
         vsl::Config& cfg;
@@ -151,14 +155,10 @@ namespace vsl
             }
         }
 
-        void setPositionChip(unsigned idPlayer,
-                             unsigned idCell,
-                             bool     isSnd )
+        void movePositionChip(unsigned idPlayer,
+                              unsigned idCell,
+                              bool     isSnd )
         {
-/**
-            const auto& ps{ figField[idCell].getPosition() };
-            figureChips[idPlayer].setPosition( ps, idCell, isSnd );
-**/
             figField.setFigurePos2Pos(idCell);
 
             /// TODO: ... MoveChip ...
@@ -176,12 +176,18 @@ namespace vsl
         }
 
         void reStart()
-        {   for(unsigned id =  0; id < 3; ++id) setPositionChip(id, 0, false);
+        {   for(unsigned id = 0; id < 3; ++id)
+            {   figureChips[id].setPosition(
+                    figField.getPSP()[0].getPosition(), 0, false);
+            }
+
             isDiceHide   = true ;
             isUiCellInfo = false;
 
             figField.clear();
             figField.fooRePosition();
+
+            moveChip.reset();
         }
 
         ///-------------------------------|
@@ -201,6 +207,10 @@ namespace vsl
              isDiceHide = true;
         }
 
+        void quickFinished()
+        {   moveChip.quickFinished();
+        }
+
     private:
         sf::View         camFon;
         sf::View        camMove;
@@ -212,6 +222,7 @@ namespace vsl
         bool       isUiCellInfo;
 
         MoveChip       moveChip;
+        FigureGameOver figGOver;
 
         ///------------------------------------|
         /// На рендер.                         |
@@ -249,6 +260,11 @@ if(isFon) { target.draw   (fon,         states); }
             /// Панель продажи ячеек.         |
             ///-------------------------------:
             cfg.uiSellPanel.show();
+
+            if(figGOver.isGameOver)
+            {   target.setView(camDice);
+                target.draw(figGOver, states);
+            }
         }
 
         friend struct SceneGame;
