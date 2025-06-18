@@ -175,6 +175,9 @@
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\move-chip.h">
       <Filter>Vsl\sceneGame</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\fig-gameover.h">
+      <Filter>Vsl\sceneGame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\extLibs\imgui-1.91.8\imgui.cpp">

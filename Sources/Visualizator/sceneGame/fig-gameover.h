@@ -7,9 +7,9 @@
 
 namespace vsl
 {
-    ///------------------------------------------------------------------------|
-    /// FigureGameOver
-    ///--------------------------------------------------------- FigureGameOver:
+    ///------------------------------------------------------------------------| 
+    /// NameWinner
+    ///------------------------------------------------------------- NameWinner:
     struct  NameWinner : sf::Text
     {       NameWinner(vsl::Config& cfg)
                 :   sf::Text(vsl::Config::getFont()),
@@ -87,6 +87,9 @@ namespace vsl
         void onGameOver(std::string_view name)
         {   nameWinner.setName(name);
             isGameOver = true;
+
+            vsl::Musics::p->stop( );
+            vsl::Musics::p->play(0);
         }
 
         void reset()

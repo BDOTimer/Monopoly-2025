@@ -216,11 +216,11 @@ namespace model
         /// Условие победы.              |
         ///------------------------------:
         struct
-        {   int        percentCapital{51};
+        {   int        percentCapital{25}; /// 51
 
             int             minus2x{-100};
 
-            int        cellsOccupied1{10};
+            int        cellsOccupied1 {3}; /// 10
             int         cellsOccupied2{2};
         }victoryCondition;
 

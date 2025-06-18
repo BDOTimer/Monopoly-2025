@@ -82,7 +82,8 @@ namespace vsl
                 };
 
                 cfg.uiUpLog.fooTestGOver = [this]()
-                {   this->winGame.figGOver.onGameOver("bot::tester");
+                {    this->winGame.figGOver.isGameOver =
+                    !this->winGame.figGOver.isGameOver ;
                 };
             }
 
@@ -126,11 +127,11 @@ namespace vsl
             }
         }
 
-        unsigned nStep     {};
-        unsigned nClickDice{};
+        unsigned  nStep     {};
+        unsigned  nClickDice{};
 
         void upDice()
-        {   ///if(isGameOver) return; TODO ...
+        {   if(winGame.figGOver.isGameOver) return;
 
             if(winGame.moveChip.isMove)
             {   vsl::Sounds::p->play(6);
@@ -219,6 +220,11 @@ namespace vsl
                     << "ИГРА ЗАКОНЧЕНА! Победитель: "
                     << cfg._3player[sg.dat[ED::E_GAMEOVER]].name
                     ;
+
+                this->winGame.figGOver.onGameOver(
+                    cfg._3player[sg.dat[ED::E_GAMEOVER]].name.c_str());
+
+                return;
             }
 
             winGame.movePositionChip(idUI, sg.dat[ED::E_POSITION], true);
@@ -280,6 +286,8 @@ namespace vsl
         ///-----------------------------------:
         void reStart()
         {
+            isGameOver = false;
+
             cfg.uiPlayers[idUI].setFocus(false);
 
             idUI       = 0;

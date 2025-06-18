@@ -49,6 +49,7 @@
     <ClInclude Include="..\..\..\Sources\Visualizator\scene-tune.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\fig-chips.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\fig-field.h" />
+    <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\fig-gameover.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\markup.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\move-chip.h" />
     <ClInclude Include="..\..\..\Sources\Visualizator\sceneGame\win-down.h" />
@@ -123,7 +124,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
