@@ -1885,7 +1885,7 @@
 	"common.h"
 	"scene-game.h"
 
-1750255282 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-game.h
+1750264178 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-game.h
 	"common.h"
 	"shader-dice.h"
 	"sceneGame/win-game.h"
@@ -1897,7 +1897,7 @@
 1750053703 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\shader-dice.h
 	"common.h"
 
-1750257592 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
+1750264097 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
 	"../common.h"
 	"fig-field.h"
 	"fig-chips.h"
@@ -1968,6 +1968,6 @@
 	"fig-field.h"
 	"fig-chips.h"
 
-1750259519 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-gameover.h
+1750264101 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-gameover.h
 	"../common.h"
 

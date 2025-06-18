@@ -19,7 +19,6 @@ namespace vsl
                 setFillColor({100,200,200});
                 setOutlineThickness(2);
                 setOutlineColor({200,200,200});
-                setName("test::NameWinner");
             }
 
         void setName ( std::string_view name)
@@ -64,7 +63,7 @@ namespace vsl
 
         PLUG_IOBJECT
 
-        inline static const char* filename{"res/shaders/firework-1.frag"};
+        inline static const char* filename{"res/shaders/firework-4i.frag"};
 
         sf::RenderTexture       rt;
         sf::View             camRt;
@@ -81,6 +80,18 @@ namespace vsl
 
             if (!shader.loadFromFile(filename, sf::Shader::Type::Fragment))
                 return throw("shader.loadFromFile(...");
+
+            reset();
+        }
+
+        void onGameOver(std::string_view name)
+        {   nameWinner.setName(name);
+            isGameOver = true;
+        }
+
+        void reset()
+        {   nameWinner.setName("test::NameWinner");
+            isGameOver = false;
         }
 
     private:

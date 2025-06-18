@@ -185,6 +185,9 @@
 		<Unit filename="../../../bin/Visualizator/res/shaders/firework-1.frag">
 			<Option virtualFolder="res/" />
 		</Unit>
+		<Unit filename="../../../bin/Visualizator/res/shaders/firework-4i.frag">
+			<Option virtualFolder="res/" />
+		</Unit>
 		<Unit filename="../../../extLibs/imgui-1.91.8/imconfig.h">
 			<Option virtualFolder="imgui/" />
 		</Unit>

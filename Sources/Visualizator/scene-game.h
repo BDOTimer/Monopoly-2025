@@ -82,8 +82,7 @@ namespace vsl
                 };
 
                 cfg.uiUpLog.fooTestGOver = [this]()
-                {   this->winGame.figGOver.isGameOver =
-                   !this->winGame.figGOver.isGameOver ;
+                {   this->winGame.figGOver.onGameOver("bot::tester");
                 };
             }
 

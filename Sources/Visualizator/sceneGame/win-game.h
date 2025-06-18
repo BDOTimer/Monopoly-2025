@@ -188,6 +188,7 @@ namespace vsl
             figField.fooRePosition();
 
             moveChip.reset();
+            figGOver.reset();
         }
 
         ///-------------------------------|
