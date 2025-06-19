@@ -100,9 +100,15 @@ namespace uii
 
         ///////////////////////////////////////////////////////////////////////:
         ImGui::BeginChild("Left Panel", WHPanelL, true);
+        const auto id{idCell->first};
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(8, 4));
+            ImGui::PushStyleColor(
+                        ImGuiCol_Button, uii::style::colBorderStatus[id % 3]);
             if (ImGui::ImageButton("idCellSell", getTexId(idCell->first), WHicon))
             {   vsl::Sounds::p->play(5);
             }
+            ImGui::PopStyleColor();
+            ImGui::PopStyleVar  ();
         ImGui::EndChild();
         ImGui::SameLine();
         ImGui::BeginChild("Right Panel", WHPanelR, true);
@@ -157,7 +163,7 @@ namespace uii
 
             WH       = { size.x / 3.2f, size.y / 7.9f };
 
-            const auto H = (sz.y - WH.y) / 1.2f;
+            const auto H = (sz.y - WH.y) / 1.24f;
 
             WHPanelL = { H + 20, H  };
             WHPanelR = { 0     , H  };
