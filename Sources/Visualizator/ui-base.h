@@ -12,7 +12,8 @@
 
 namespace uii
 {
-    using Callback = std::function<void()>;
+    using Callback  = std::function<void()>;
+    using Callback1 = std::function<void(unsigned)>;
 
     ///------------------------------------------------------------------------|
     /// Цветовая схема стиля оформления игры.

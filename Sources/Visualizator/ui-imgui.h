@@ -455,13 +455,12 @@ namespace uii
             }
 
         UIGameIcons uiGameIcons ;
-        Callback    fooInfoColor;
+        Callback1   fooInfoColor;
 
         unsigned id;
 
         void setPlayer(const controller::Player& pl) /// ok.
-        {   id   = pl.idTune;
-            name = pl.name;
+        {   name = pl.name;
             setIsBot(pl.isBot);
         }
 
@@ -548,7 +547,7 @@ namespace uii
                 {   
                 /// ImGui::Text("%s", log.str().c_str());
 
-                    fooInfoColor();
+                    fooInfoColor(id);
 
                     if (autoScroll)
                     {   ImGui::SetScrollHereY(1.0f);

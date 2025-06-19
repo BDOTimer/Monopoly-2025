@@ -58,6 +58,7 @@ namespace vsl
 
                _3player.emplace_back(controller::Player(b.isBot, b.id, b.name));
                 uiPlayers[i].setPlayer(_3player.back());
+                uiPlayers[i].id = i;
             }
         }
 

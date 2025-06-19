@@ -67,8 +67,8 @@ namespace vsl
 
                         this->cfg.infoCellSell(idCell->first);
                     };
-                    e.fooInfoColor = [this]()
-                    {   this->set2uiPlayers_Color();
+                    e.fooInfoColor = [this](unsigned idPlayer)
+                    {   this->set2uiPlayers_Color(idPlayer);
                     };
                 }
 
@@ -409,9 +409,9 @@ namespace vsl
                 ;
         }
 
-        void set2uiPlayers_Color()
+        void set2uiPlayers_Color(unsigned idPlayer)
         {
-                  auto& sg = cfg._3player[idUI].stateGame;
+                  auto& sg = cfg._3player[idPlayer].stateGame;
             const auto& mdl{ cfg.cfgModel};
 
             const

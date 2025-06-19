@@ -1511,7 +1511,8 @@ namespace model
             {
                 if(cap[i] >= capitalAll$cv)
                 {
-                    cfg->stateGame.dat[StateGame::eSTATE::E_GAMEOVER] = i;
+                    cfg->stateGame.dat[StateGame::eSTATE::E_GAMEOVER]
+                        = cfg->order[i];
 
                     const_cast<Referee*>(this)->_isGameOver = true;
                     const_cast<Referee*>(this)->conditionVictorStr
