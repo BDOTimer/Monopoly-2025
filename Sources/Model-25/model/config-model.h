@@ -216,11 +216,11 @@ namespace model
         /// Условие победы.              |
         ///------------------------------:
         struct
-        {   int        percentCapital{10}; /// 51
+        {   int        percentCapital{51}; /// 51
 
             int             minus2x{-100};
 
-            int        cellsOccupied1 {3}; /// 15
+            int        cellsOccupied1{10}; /// 9
             int         cellsOccupied2{2};
         }victoryCondition;
 
@@ -314,8 +314,8 @@ namespace model
 
         static std::string getTimeNow()
         {   auto end = std::chrono::system_clock::now();
-            std::time_t end_time = std::chrono::system_clock::to_time_t(end);
-            std::stringstream ss ;
+            std::time_t end_time  = std::chrono::system_clock::to_time_t(end);
+            std::stringstream  ss;
             ss  << "TIME Run: " << std::ctime(&end_time);
             return ss.str();
         }
@@ -326,7 +326,6 @@ namespace model
         void _init()
         {   stateGame.dat[StateGame::E_GAMEOVER] = -1;
             //worldGeometryN = rand()% _worldGeometry.size();
-            
         }
 
         ///------------------------------|

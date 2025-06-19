@@ -175,7 +175,7 @@ namespace model
         };
         #undef o
 
-        unsigned worldGeometryN1{0};
+        unsigned worldGeometryN1{3};
 
         const std::vector<std::vector<int>>& getWorldGeometry() const
         {   return _worldGeometry[worldGeometryN1];

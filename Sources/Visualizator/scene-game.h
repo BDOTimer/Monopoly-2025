@@ -87,6 +87,11 @@ namespace vsl
                 cfg.uiUpLog.fooTestGOver = [this]()
                 {    this->winGame.figGOver.isGameOver =
                     !this->winGame.figGOver.isGameOver ;
+
+                    if(this->winGame.figGOver.isGameOver)
+                    {   this->winGame.figGOver.onGameOver(
+                            "test::Петя Череззаборногузадерищенко");
+                    }
                 };
             }
 
@@ -134,9 +139,8 @@ namespace vsl
         unsigned  nClickDice{};
 
         void upDice()
-        {   if(winGame.figGOver.isGameOver) return;
-
-            if(winGame.moveChip.isMove)
+        {   
+            if(winGame.moveChip.isMove || winGame.figGOver.isGameOver)
             {   vsl::Sounds::p->play(6);
                 return;
             }
@@ -221,20 +225,18 @@ namespace vsl
             if(isGameOver = sg.dat[ED::E_GAMEOVER] >= 0; isGameOver)
             {   cfg.uiDownMessage << uii::Clear()
                     << "ИГРА ЗАКОНЧЕНА! Победитель: "
-                    << cfg._3player[sg.dat[ED::E_GAMEOVER]].name
-                    ;
+                    << cfg.cfgModel.players[sg.dat[ED::E_GAMEOVER]].name;
 
                 this->winGame.figGOver.onGameOver(
-                    cfg._3player[sg.dat[ED::E_GAMEOVER]].name.c_str());
-
-                return;
+                    cfg.cfgModel.players[sg.dat[ED::E_GAMEOVER]].name.c_str());
             }
+            else
+            {
+                winGame.movePositionChip(idUI, sg.dat[ED::E_POSITION], true);
+                ///////////////////////////////////////////////////
 
-            winGame.movePositionChip(idUI, sg.dat[ED::E_POSITION], true);
-            ///////////////////////////////////////////////////
-
-            winGame.isUiCellInfo = true;
-
+                winGame.isUiCellInfo = true;
+            }
             cfg.cfgModel.moneyBank = sg.dat[model::StateGame::E_BANK1];
         }
 
@@ -420,7 +422,7 @@ namespace vsl
 
             ImGui::Text("  КОШЕЛЁК:  %d\n", sg.dat[ED::E_MONEY1]);
             ImGui::Text("  КУБИК  :  %d\n", sg.dat[ED::E_NDICE ]);
-            ImGui::Text("  СТАТУС :  ");
+            ImGui::Text("  СТАТУС : ");
             ImGui::SameLine ();
             ImGui::TextColored(
                 uii::style::colTxtStatus[I], "%u ---> %s\n",

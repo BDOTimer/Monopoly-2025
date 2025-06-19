@@ -75,6 +75,11 @@ namespace vsl
                 fon.setOutlineColor({64,64,128});
                 fon.setOutlineThickness(border);
 
+                ///-------------------------------|
+                /// Установка фона.               |
+                ///-------------------------------:
+                isFon     = true;
+                buttonFon.n  = 7;
                 fon.setTexture(&HolderTexture::get(buttonFon.get()));
 
                 camMove = camFon;

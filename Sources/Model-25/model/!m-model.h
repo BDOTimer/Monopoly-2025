@@ -886,8 +886,8 @@ namespace model
 
             ///----------------------------------------|
             /// Ячейка уже занята!                     |
-            ///----------------------------------------:
-            if(cell.isBusy())
+            ///----------------------------------------: отключено ...
+            if(false && cell.isBusy())
             {
                 if(this == cell.pers)
                 {   messOper << "   ... это моя ячейка: +"
@@ -1076,8 +1076,8 @@ namespace model
 
             ///----------------------------------------|
             /// Ячейка уже занята!                     |
-            ///----------------------------------------:
-            if(cell.isBusy())
+            ///----------------------------------------: отключено ...
+            if(false && cell.isBusy())
             {
                 if(this == cell.pers)
                 {   messOper << "   ... это моя ячейка: +"
@@ -1512,7 +1512,7 @@ namespace model
                 if(cap[i] >= capitalAll$cv)
                 {
                     cfg->stateGame.dat[StateGame::eSTATE::E_GAMEOVER]
-                        = cfg->order[i];
+                        = i;
 
                     const_cast<Referee*>(this)->_isGameOver = true;
                     const_cast<Referee*>(this)->conditionVictorStr
