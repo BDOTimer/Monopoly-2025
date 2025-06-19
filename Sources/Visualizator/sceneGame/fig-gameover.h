@@ -17,7 +17,7 @@ namespace vsl
             {
                 const auto& szw{cfg.pwin->getSize()};
 
-                const unsigned   NF = szw.y <=768 ? 36 : 48; 
+                const unsigned   NF = szw.y <= 768 ? 36 : 48; 
                 setCharacterSize(NF);
                 setFillColor({60,100,160});
                 setOutlineThickness(2);

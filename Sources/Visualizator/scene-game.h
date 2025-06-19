@@ -316,6 +316,8 @@ namespace vsl
 
             cfg.uiCellInfo .isBot = cfg.uiPlayers[idUI].isBot();
             cfg.uiSellPanel.isBot = cfg.uiPlayers[idUI].isBot();
+
+            winGame.figField.setGeometryRand();
         }
 
         ///-----------------------------------|
@@ -379,10 +381,7 @@ namespace vsl
                                       {(int)mdl.idGame, (int)idUI}, sg4S);
 
             if(cfg._3player[idUI].stateGame.dat[ED::E_ISSELL])
-            {
-                cfg.uiDownMessage << uii::Clear()
-                    << " Товар был продан! Проверьте деньги на вашем счету!";
-
+            {   
                 cfg.uiPlayers[this->idUI].uiGameIcons.erase(idCell);
                 cfg.uiSellPanel.next();
 
@@ -394,6 +393,12 @@ namespace vsl
 
             updateEndStep ();
         /// set2uiPlayers ();
+
+            if(!cfg._3player[idUI].stateGame.str[ES::E_REFEREE].empty())
+            {
+                cfg.uiDownMessage << uii::Clear()
+                    << cfg._3player[idUI].stateGame.str[ES::E_REFEREE];
+            }
         }
 
         void x_set2uiPlayers()

@@ -570,7 +570,7 @@ namespace model
         //-------------------------------|
         /// Была покупка в этом круге?   |
         ///------------------------------:
-        bool isActBuy  {false};
+        bool isNoSell  {false};
 
         ///------------------------------|
         /// Список собственности.        |
@@ -686,7 +686,7 @@ namespace model
 
         void nextCircle()
         { ++circle;
-            isActBuy = false;
+            isNoSell = false;
         }
 
         [[nodiscard]]
@@ -934,7 +934,7 @@ namespace model
 
                         messOper << IPerson::infoCargo();
 
-                        isActBuy  = true;
+                        isNoSell  = true;
                         cell.pers = this;
 
                         pcfg->stateGame.dat[ED::E_ISBYU] = 1;
@@ -950,7 +950,6 @@ namespace model
                 ///----------------------------------------:
                 case implants::E_SELL:
                 {
-
                     messOper << IPerson::infoCargo();
 
                     if(cargo.empty())
@@ -995,7 +994,7 @@ namespace model
                 default: ;
             }
 
-            if( isActBuy )
+            if( isNoSell )
             {   messEvents << "   В этом круге блок на продажу!\n";
             }
 
@@ -1100,10 +1099,6 @@ namespace model
                 doByuOrSell();
             }
 
-            if( isActBuy )
-            {   messEvents << "   В этом круге блок на продажу!\n";
-            }
-
             Config* pcfg{const_cast<Config*>(&cfg)};
             pcfg->stateGame.dat[StateGame::eSTATE::E_MONEY2] = money;
         }
@@ -1162,7 +1157,7 @@ namespace model
 
                     messOper << IPerson::infoCargo();
 
-                    isActBuy  = true;
+                    isNoSell  = true;
                     cell.pers = this;
 
                     pcfg->stateGame4S.isBuy = false;
@@ -1173,10 +1168,21 @@ namespace model
                 else if(!isMoney) messEvents << "   ... мало денег ...\n";
             }
 
+            if( isNoSell )
+            {   messEvents << "   В этом круге блок на продажу!\n";
+            }
+
+            if( !cfg.stateGame4S.isSellIds.empty() && isNoSell )
+            {   pcfg->stateGame.str[StateGame::E_REFEREE]
+                    = "В этом круге блок на продажу!";
+
+                pcfg->stateGame.dat[StateGame::E_ISSELL] = 0;
+            }
+
             ///----------------------------------------|
             /// Продать.                               |
             ///----------------------------------------:
-            if(!cfg.stateGame4S.isSellIds.empty())
+            if( !cfg.stateGame4S.isSellIds.empty()  && !isNoSell)
             {
                 //ASSERT(cargo.size() == cfg.stateGame4S.isSellIds.size())
 
@@ -1215,6 +1221,9 @@ namespace model
                     messOper << IPerson::infoCargo();
 
                     cell.pers = nullptr;
+
+                    pcfg->stateGame.str[StateGame::E_REFEREE]
+                        = " Товар был продан! Проверьте деньги на вашем счету!";
                 }
 
                 pcfg->stateGame4S.isSellIds.clear();

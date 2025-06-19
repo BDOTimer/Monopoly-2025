@@ -83,7 +83,7 @@ namespace model
         std::string      name;
 
         void initName()
-        {   name = std::string(isBot ? "bot::" : "Человек::") + nameInput;
+        {   name = std::string(isBot ? "bot::" : "Сталкер::") + nameInput;
         }
     };
 
@@ -97,11 +97,11 @@ namespace model
         /// Состав игроков.              |
         ///------------------------------:
         std::array<Player, 3> players
-        {   Player{0, true , "aliskda"      }, /// Срединий.
-        /// Player{1, true , "Noname"       }, /// Умный.
-            Player{1, false, "Вася Пупкин"  },
-        /// Player{1, false, "Slava-rusi11" },
-            Player{2, true , "gudleifr"     }  /// Дурак.
+        {   Player{ 0, true , "aliskda(прилипала)" }, /// Срединий.
+        /// Player{ 1, true , "Noname"             }, /// Умный.
+            Player{ 1, false, "Другой Мир"         },
+        /// Player{ 1, false, "Slava-rusi11"       },
+            Player{ 2, true , "gudleifr(плакса)"   }  /// Дурак.
         };
 
         void initNames()
@@ -175,14 +175,18 @@ namespace model
         };
         #undef o
 
-        unsigned worldGeometryN1{3};
+        unsigned worldGeometryN{3};
 
         const std::vector<std::vector<int>>& getWorldGeometry() const
-        {   return _worldGeometry[worldGeometryN1];
+        {   return _worldGeometry[worldGeometryN];
         }
 
         void nextWorldGeometry()
-        {   worldGeometryN1 = (worldGeometryN1 + 1) % _worldGeometry.size();
+        {   worldGeometryN = (worldGeometryN + 1) % _worldGeometry.size();
+        }
+
+        void randWorldGeometry()
+        {   worldGeometryN = rand() % _worldGeometry.size();
         }
 
         ///------------------------------|
@@ -251,9 +255,10 @@ namespace model
         };
 
         enum eSTATESTR
-        {    E_      ,
-             E_NAME  ,
-             E_CELL  ,
+        {    E_       ,
+             E_NAME   ,
+             E_CELL   ,
+             E_REFEREE,
 
              /// ...
              E_STR

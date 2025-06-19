@@ -442,7 +442,7 @@
 1748566728 d:\!gforum-2025\projects\monopoly-2025\sources\model-25\model\implants\bot-iq.h
 	"../../debug.h"
 
-1750139436 d:\!gforum-2025\projects\monopoly-2025\sources\model-25\debug.h
+1750360442 d:\!gforum-2025\projects\monopoly-2025\sources\model-25\debug.h
 	<windows.h>
 	<functional>
 	<filesystem>
@@ -688,7 +688,7 @@
 1734196663 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\sleep.hpp
 	<SFML/System/Export.hpp>
 
-1750350974 d:\!gforum-2025\projects\monopoly-2025\sources\model-25\model\!m-model.h
+1750366077 d:\!gforum-2025\projects\monopoly-2025\sources\model-25\model\!m-model.h
 	"myl.h"
 	"cards.inc"
 	"field.inc"
@@ -699,7 +699,7 @@
 	<locale>
 	<codecvt>
 
-1750351141 d:\!gforum-2025\projects\monopoly-2025\sources\model-25\model\config-model.h
+1750363252 d:\!gforum-2025\projects\monopoly-2025\sources\model-25\model\config-model.h
 	"../debug.h"
 	"../user-model.h"
 	"implants/bot-iq.h"
@@ -713,7 +713,7 @@
 	"config-model.h"
 	"!m-model.h"
 
-1750331918 d:\!gforum-2025\projects\monopoly-2025\sources\model-25\user-model.h
+1750365385 d:\!gforum-2025\projects\monopoly-2025\sources\model-25\user-model.h
 	<iostream>
 	<string>
 	<vector>
@@ -737,7 +737,7 @@
 1748566728 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\player.h
 	"common.h"
 
-1750315234 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\common.h
+1750358539 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\common.h
 	<SFML/System/Angle.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
@@ -917,11 +917,11 @@
 1749986863 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scene-logo.h
 	"common.h"
 
-1749992229 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scene-tune.h
+1750360442 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scene-tune.h
 	"common.h"
 	"scene-game.h"
 
-1750350600 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scene-game.h
+1750365859 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scene-game.h
 	"common.h"
 	"shader-dice.h"
 	"sceneGame/win-game.h"
@@ -933,14 +933,14 @@
 1749997462 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\shader-dice.h
 	"common.h"
 
-1750331869 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\win-game.h
+1750362412 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\win-game.h
 	"../common.h"
 	"fig-field.h"
 	"fig-chips.h"
 	"move-chip.h"
 	"fig-gameover.h"
 
-1750312603 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\fig-field.h
+1750364243 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\fig-field.h
 	"../common.h"
 
 1750312603 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\fig-chips.h
@@ -1958,7 +1958,7 @@
 1750316392 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\ui-icons.h
 	"ui-base.h"
 
-1749998636 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\ui-sell.h
+1750357563 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\ui-sell.h
 	"ui-base.h"
 	"ui-icons.h"
 
@@ -1973,6 +1973,6 @@
 1750267455 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-gameover.h
 	"../common.h"
 
-1750356551 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\fig-gameover.h
+1750360650 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\fig-gameover.h
 	"../common.h"
 

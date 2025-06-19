@@ -75,6 +75,8 @@ namespace vsl
                 pr::setOrigin   (figPos);
 
                 cfg.holderTFieldCash.init(*this);
+
+                worldGeometryN = cfg.cfgModel.worldGeometryN;
             }
 
         vsl  ::Config&      cfg;
@@ -135,6 +137,13 @@ namespace vsl
         {   setGeomPos         ();
             updateFigurePos2Pos();
             fooRePosition      ();
+        }
+
+        unsigned worldGeometryN{};
+        void setGeometryRand()
+        {   cfg.cfgModel.worldGeometryN
+                = ++worldGeometryN % cfg.cfgModel._worldGeometry.size();
+            reGeometry();
         }
 
     private:

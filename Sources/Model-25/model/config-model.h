@@ -271,7 +271,7 @@ namespace model
             const_cast<Config*>(this)->_init();
 
             {   unsigned cnt{};
-                for(    const auto& s : _worldGeometry[worldGeometryN1])
+                for(    const auto& s : _worldGeometry[worldGeometryN])
                 {   for(const auto  c : s)
                     {   cnt += c == 'O' ? 1 : 0;
                     }

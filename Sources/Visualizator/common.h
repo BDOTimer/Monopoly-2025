@@ -29,6 +29,8 @@ namespace myl
 
         std::array<T, N> m;
         unsigned         n{};
+
+        unsigned size() const { return m.size(); }
     };
 
     inline std::wstring utf8ToWstring(const std::string& utf8Str)

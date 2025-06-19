@@ -31,7 +31,7 @@ namespace implants
             /// Получить инфу о возможности сделки.            |
             ///------------------------------------------------:
             bool mayBuy  = !cell.isBusy();
-            bool maySell = !pers->cargo.empty() && !pers->isActBuy;
+            bool maySell = !pers->cargo.empty() && !pers->isNoSell;
 
             ///------------------------------------------------|
             /// Узнаём цену покупки ячеки.                     |
@@ -169,7 +169,7 @@ namespace implants
             /// Получить инфу о возможности сделки.            |
             ///------------------------------------------------:
             bool mayBuy  = !cell.isBusy();
-            bool maySell = !pers->cargo.empty() && !pers->isActBuy;
+            bool maySell = !pers->cargo.empty() && !pers->isNoSell;
 
             ///------------------------------------------------|
             /// Узнаём цену покупки ячеки.                     |
@@ -283,7 +283,7 @@ namespace implants
             /// Получить инфу о возможности сделки.            |
             ///------------------------------------------------:
             bool mayBuy  = !cell.isBusy();
-            bool maySell = !pers->cargo.empty() && !pers->isActBuy;
+            bool maySell = !pers->cargo.empty() && !pers->isNoSell;
 
             ///------------------------------------------------|
             /// Узнаём цену покупки ячеки.                     |

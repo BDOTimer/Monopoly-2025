@@ -79,7 +79,7 @@ namespace vsl
                 /// Установка фона.               |
                 ///-------------------------------:
                 isFon     = true;
-                buttonFon.n  = 7;
+                buttonFon.n  = 6; // rand() % (buttonFon.size()-1);
                 fon.setTexture(&HolderTexture::get(buttonFon.get()));
 
                 camMove = camFon;
@@ -194,6 +194,8 @@ namespace vsl
 
             moveChip.reset();
             figGOver.reset();
+
+            fooFon();
         }
 
         ///-------------------------------|
