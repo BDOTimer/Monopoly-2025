@@ -74,6 +74,8 @@ namespace uii
 
             unsigned cnt{};
 
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(2, 5));
+
             ///----------------------------------------------------------------|
             if (ImGui::CollapsingHeader("СОБСТВЕННОСТЬ:",
                                              ImGuiTreeNodeFlags_DefaultOpen))
@@ -82,6 +84,9 @@ namespace uii
                 for(auto i = idCells.begin(); i != idCells.end(); ++i)
                 {
                     const auto& id{i->first};
+
+                    ImGui::PushStyleColor(
+                        ImGuiCol_Button, uii::style::colBorderStatus[id % 3]);
 
                     if (ImGui::ImageButton(
                         i->second.c_str(), getTexId(id), WH))
@@ -94,9 +99,13 @@ namespace uii
                     }
                     
                     if(++cnt % 8) ImGui::SameLine();
+
+                    ImGui::PopStyleColor();
                 }
                 ImGui::Text("%s", " ");
             }
+
+            ImGui::PopStyleVar  ();
         }
 
     private:

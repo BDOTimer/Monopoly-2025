@@ -25,6 +25,12 @@ namespace uii
             ImVec4(1.0f, 1.0f, 0.5f, 1.0f)
         };
 
+        constexpr std::array<ImVec4, 3> colBorderStatus
+        {   ImVec4(0.5f, 1.0f, 0.5f, 0.7f),
+            ImVec4(1.0f, 0.5f, 0.5f, 0.7f),
+            ImVec4(1.0f, 1.0f, 0.5f, 0.7f)
+        };
+
     }
 
     constexpr ImColor colButtonA{ 6,15,14,120}; /// Нажата.
