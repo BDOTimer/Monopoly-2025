@@ -126,9 +126,13 @@ namespace uii
 
             io.Fonts->Clear();
 
+            const auto& szw{this->window.getSize()};
+
+            float NF = szw.y <=768 ? 14.f : 18.f; 
+
             // Основной шрифт
             ImFont* main_font = io.Fonts->AddFontFromFileTTF(
-                fontname[0], 18.f, NULL,
+                fontname[0], NF, NULL,
                 io.Fonts->GetGlyphRangesCyrillic()
             );
 

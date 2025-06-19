@@ -720,7 +720,7 @@
 	<array>
 	"debug.h"
 
-1749995427 source:d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\main.cpp
+1750351292 source:d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\main.cpp
 	"render.h"
 	"ui-tune.h"
 	"common.h"
@@ -904,7 +904,7 @@
 	"../debug.h"
 	"../user-model.h"
 
-1750325508 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\ui-imgui.h
+1750356163 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\ui-imgui.h
 	"ui-base.h"
 	"ui-icons.h"
 
@@ -921,7 +921,7 @@
 	"common.h"
 	"scene-game.h"
 
-1750332098 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scene-game.h
+1750350600 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scene-game.h
 	"common.h"
 	"shader-dice.h"
 	"sceneGame/win-game.h"
@@ -1973,6 +1973,6 @@
 1750267455 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-gameover.h
 	"../common.h"
 
-1750314926 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\fig-gameover.h
+1750356551 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\fig-gameover.h
 	"../common.h"
 
