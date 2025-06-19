@@ -16,13 +16,14 @@ namespace vsl
                     cfg(cfg)
             {
                 setCharacterSize(48);
-                setFillColor({100,200,200});
+                setFillColor({60,100,160});
                 setOutlineThickness(2);
-                setOutlineColor({200,200,200});
+                setOutlineColor({100,200,200});
             }
 
         void setName ( std::string_view name)
-        {   setString( name.data());
+        {   
+            setString( sf::String::fromUtf8(name.begin(), name.end()));
             setOrigin({getGlobalBounds().size.x / 2,
                        getGlobalBounds().size.y / 2});
         }
@@ -93,7 +94,7 @@ namespace vsl
         }
 
         void reset()
-        {   nameWinner.setName("test::NameWinner");
+        {   nameWinner.setName("test::Петя Череззаборногузадерищенко");
             isGameOver = false;
         }
 

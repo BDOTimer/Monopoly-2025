@@ -67,6 +67,9 @@ namespace vsl
 
                         this->cfg.infoCellSell(idCell->first);
                     };
+                    e.fooInfoColor = [this]()
+                    {   this->set2uiPlayers_Color();
+                    };
                 }
 
                 cfg.uiSellPanel.fooSell = [this](unsigned idCell)
@@ -166,7 +169,7 @@ namespace vsl
                         setCellColor    ();
 
                         updateEndStep   ();
-                        set2uiPlayers   ();
+                    /// set2uiPlayers   ();
 
                         updateInfoPlayer();
                     }
@@ -212,7 +215,7 @@ namespace vsl
 
             cfg._3player[idUI].stateGame = sg;
 
-            set2uiPlayers ();
+        /// set2uiPlayers ();
         /// set2uiCellInfo();
 
             if(isGameOver = sg.dat[ED::E_GAMEOVER] >= 0; isGameOver)
@@ -342,11 +345,11 @@ namespace vsl
                        "в вашей собственности!";
             }
 
-       ///  set2uiCellInfo();
+        /// set2uiCellInfo();
             setCellColor  ();
 
             updateEndStep ();
-            set2uiPlayers ();
+        /// set2uiPlayers ();
         }
 
         ///-----------------------------------|
@@ -388,10 +391,10 @@ namespace vsl
             setCellColor  ();
 
             updateEndStep ();
-            set2uiPlayers ();
+        /// set2uiPlayers ();
         }
 
-        void set2uiPlayers()
+        void x_set2uiPlayers()
         {
                   auto& sg = cfg._3player[idUI].stateGame;
             const auto& mdl{ cfg.cfgModel};
@@ -404,6 +407,25 @@ namespace vsl
                 << mdl.decode2Str.getPlayer(sg.dat[ED::E_STATUS_PERS]).data()
                 << '\n'
                 ;
+        }
+
+        void set2uiPlayers_Color()
+        {
+                  auto& sg = cfg._3player[idUI].stateGame;
+            const auto& mdl{ cfg.cfgModel};
+
+            const
+            unsigned I{static_cast<unsigned>(sg.dat[ED::E_STATUS_PERS])
+                     % static_cast<unsigned>(uii::style::colTxtStatus.size())};
+
+            ImGui::Text("  КОШЕЛЁК:  %d\n", sg.dat[ED::E_MONEY1]);
+            ImGui::Text("  КУБИК  :  %d\n", sg.dat[ED::E_NDICE ]);
+            ImGui::Text("  СТАТУС :  ");
+            ImGui::SameLine ();
+            ImGui::TextColored(
+                uii::style::colTxtStatus[I], "%u ---> %s\n",
+                sg.dat[ED::E_STATUS_PERS]+1,
+                mdl.decode2Str.getPlayer(sg.dat[ED::E_STATUS_PERS]).data());
         }
 
         void x_set2uiCellInfo()

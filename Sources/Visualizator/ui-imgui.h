@@ -454,7 +454,8 @@ namespace uii
                 //ASSERT(ok)
             }
 
-        UIGameIcons uiGameIcons;
+        UIGameIcons uiGameIcons ;
+        Callback    fooInfoColor;
 
         unsigned id;
 
@@ -544,7 +545,10 @@ namespace uii
             {
                 if (ImGui::CollapsingHeader(name.data(),
                                              ImGuiTreeNodeFlags_DefaultOpen))
-                {   ImGui::Text("%s", log.str().c_str());
+                {   
+                /// ImGui::Text("%s", log.str().c_str());
+
+                    fooInfoColor();
 
                     if (autoScroll)
                     {   ImGui::SetScrollHereY(1.0f);
@@ -762,7 +766,7 @@ namespace uii
 
             ImGui::SameLine();
 
-                if(ImGui::Button("..3", WH))
+                if(ImGui::Button("=тест=", WH))
                 {   fooTestGOver();
                     vsl::Sounds::p->play(0);
                 }

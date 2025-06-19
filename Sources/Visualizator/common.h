@@ -13,6 +13,7 @@
 #include <map>
 
 #include "debug.h"
+#include <codecvt>
 
 ///---------|
 /// my lib  |
@@ -29,6 +30,16 @@ namespace myl
         std::array<T, N> m;
         unsigned         n{};
     };
+
+    inline std::wstring utf8ToWstring(const std::string& utf8Str)
+    {   std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+        return converter.from_bytes(utf8Str);
+    }
+
+    inline std::string wstringToUtf8(const std::wstring& wstr)
+    {   std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+        return converter.to_bytes(wstr);
+    }
 }
 
 #define ISKEYPRESSED(a) sf::Keyboard::isKeyPressed(sf::Keyboard::Key::a)
