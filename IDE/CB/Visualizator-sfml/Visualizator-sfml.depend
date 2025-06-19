@@ -435,7 +435,7 @@
 1733935265 d:\!gforum-2025\sfml-3.0.0\include\sfml\system\nativeactivity.hpp
 	<SFML/System/Export.hpp>
 
-1748566728 source:d:\!gforum-2025\projects\monopoly-2025\sources\model-25\model\implants\bot-iq.cpp
+1750366015 source:d:\!gforum-2025\projects\monopoly-2025\sources\model-25\model\implants\bot-iq.cpp
 	"bot-iq.h"
 	"../!m-model.h"
 
@@ -713,7 +713,7 @@
 	"config-model.h"
 	"!m-model.h"
 
-1750365385 d:\!gforum-2025\projects\monopoly-2025\sources\model-25\user-model.h
+1750374125 d:\!gforum-2025\projects\monopoly-2025\sources\model-25\user-model.h
 	<iostream>
 	<string>
 	<vector>
@@ -933,14 +933,14 @@
 1749997462 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\shader-dice.h
 	"common.h"
 
-1750362412 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\win-game.h
+1750373918 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\win-game.h
 	"../common.h"
 	"fig-field.h"
 	"fig-chips.h"
 	"move-chip.h"
 	"fig-gameover.h"
 
-1750364243 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\fig-field.h
+1750374044 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\fig-field.h
 	"../common.h"
 
 1750312603 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\fig-chips.h

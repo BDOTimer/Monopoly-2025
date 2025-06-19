@@ -139,7 +139,7 @@ namespace vsl
             fooRePosition      ();
         }
 
-        unsigned worldGeometryN{};
+        unsigned worldGeometryN{2};
         void setGeometryRand()
         {   cfg.cfgModel.worldGeometryN
                 = ++worldGeometryN % cfg.cfgModel._worldGeometry.size();

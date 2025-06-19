@@ -79,7 +79,7 @@ namespace vsl
                 /// Установка фона.               |
                 ///-------------------------------:
                 isFon     = true;
-                buttonFon.n  = 7; // rand() % (buttonFon.size()-1);
+                buttonFon.n  = 8; // rand() % (buttonFon.size()-1);
                 fon.setTexture(&HolderTexture::get(buttonFon.get()));
 
                 camMove = camFon;
@@ -136,7 +136,7 @@ namespace vsl
         ///-------------------------------|
         /// Переключение фонов winGame.   |
         ///-------------------------------:
-        myl::SwitcherData<const char*, 10> buttonFon
+        myl::SwitcherData<const char*, 11> buttonFon
         {   "res/img/ground/01.jpg",
             "res/img/ground/02.jpg",
             "res/img/ground/03.jpg",
@@ -146,6 +146,7 @@ namespace vsl
             "res/img/ground/07.jpg",
             "res/img/ground/08.jpg",
             "res/img/ground/09.jpg",
+            "res/img/ground/10.jpg",
             "..."
         };
 
