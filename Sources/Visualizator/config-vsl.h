@@ -15,12 +15,30 @@
 
 namespace vsl
 {
+    struct Resurces
+    {
+        static sf::Font& getFont()
+        {///static sf::Font font("consola.ttf");
+            static sf::Font font("res/fonts/JetBrainsMono-Regular.ttf");
+            return font;
+        }
+    };
+}
+
+
+#include "fps.h"
+
+
+namespace vsl
+{
     struct  Config
     {       Config (sf::RenderWindow& window)
                 :   pwin            (&window)
                 ,   uiInit          ( window, "Настройки ...")
             {   init_();
                 resizeFormImgui();
+
+                fps.init (szfWin);
 
                 Musics::p = &musics;
                 Sounds::p = &sounds;
@@ -72,18 +90,22 @@ namespace vsl
             //SIGNAL(1)
         }
 
-        sf::Vector2u         szuWin  ;
-        sf::Vector2f         szfWin  ;
+        sf::Vector2u           szuWin;
+        sf::Vector2f           szfWin;
+
+        ///--------------------------|
+        /// Fps.                     |
+        ///--------------------------:
+        Fps                      fps ;
+        Timers            timers{fps};
 
         sf::View*     camFon{nullptr};
         sf::View*     camGui{nullptr};
 
         ScenesSwitcher scenesSwitcher;
 
-        sf::Time           deltaTime;
-
-        Musics             musics;
-        Sounds             sounds;
+        Musics                 musics;
+        Sounds                 sounds;
 
         ///-----------------------------------|
         /// UI.                               |
@@ -125,17 +147,11 @@ namespace vsl
              uiUpLog  .clear();
         }
 
-        static sf::Font& getFont()
-        {///static sf::Font font("consola.ttf");
-            static sf::Font font("res/fonts/JetBrainsMono-Regular.ttf");
-            return font;
-        }
-
         void init_()
         {   szuWin = initWinSize();
             szfWin = {float(szuWin.x), float(szuWin.y)};
 
-            getFont().setSmooth(true);
+            Resurces::getFont().setSmooth(true);
         }
 
         inline static constexpr float SCALE_WIN{0.95f};
@@ -163,7 +179,7 @@ namespace vsl
         {   pwin->setFramerateLimit(fps);
         }
 
-        const float dt() const { return deltaTime.asSeconds(); }
+        const float dt() const { return fps.deltaTime.asSeconds(); }
 
         static vsl::Config&    get()
         {   sf::RenderWindow window(sf::VideoMode({ 1344, 768 }),
@@ -329,8 +345,8 @@ namespace vsl
             {   this->cfgModel.cells[idCell]
             };
 
-            this->uiSellPanel << uii::Clear() 
-                        << "ЯЧЕЙКА: " << idCell << "\n\"" 
+            this->uiSellPanel << uii::Clear()
+                        << "ЯЧЕЙКА: " << idCell << "\n\""
                         << cellUser.name
                         << "\"\nБАЗОВАЯ СТОИМОСТЬ: " << cellUser.priseBase;
         }

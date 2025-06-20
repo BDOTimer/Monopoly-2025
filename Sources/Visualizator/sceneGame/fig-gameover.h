@@ -7,17 +7,17 @@
 
 namespace vsl
 {
-    ///------------------------------------------------------------------------| 
+    ///------------------------------------------------------------------------|
     /// NameWinner
     ///------------------------------------------------------------- NameWinner:
     struct  NameWinner : sf::Text
     {       NameWinner(vsl::Config& cfg)
-                :   sf::Text(vsl::Config::getFont()),
+                :   sf::Text(vsl::Resurces::getFont()),
                     cfg(cfg)
             {
                 const auto& szw{cfg.pwin->getSize()};
 
-                const unsigned   NF = szw.y <= 768 ? 36 : 48; 
+                const unsigned   NF = szw.y <= 768 ? 36 : 48;
                 setCharacterSize(NF);
                 setFillColor({60,100,160});
                 setOutlineThickness(2);
@@ -25,7 +25,7 @@ namespace vsl
             }
 
         void setName ( std::string_view name)
-        {   
+        {
             setString( sf::String::fromUtf8(name.begin(), name.end()));
             setOrigin({getGlobalBounds().size.x / 2,
                        getGlobalBounds().size.y / 2});

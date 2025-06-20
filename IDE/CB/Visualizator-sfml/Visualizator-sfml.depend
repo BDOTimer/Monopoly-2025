@@ -1398,14 +1398,14 @@
 1733935265 c:\workcb-2024\sfml-3.0\sfml-3.0.0\include\sfml\system\nativeactivity.hpp
 	<SFML/System/Export.hpp>
 
-1748456712 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\implants\bot-iq.cpp
+1750399324 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\implants\bot-iq.cpp
 	"bot-iq.h"
 	"../!m-model.h"
 
 1748456712 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\implants\bot-iq.h
 	"../../debug.h"
 
-1750079364 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\debug.h
+1750399324 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\debug.h
 	<windows.h>
 	<functional>
 	<filesystem>
@@ -1651,7 +1651,7 @@
 1734196663 c:\workcb-2024\sfml-3.0\sfml-3.0.0\include\sfml\system\sleep.hpp
 	<SFML/System/Export.hpp>
 
-1750053703 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\!m-model.h
+1750399324 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\!m-model.h
 	"myl.h"
 	"cards.inc"
 	"field.inc"
@@ -1662,7 +1662,7 @@
 	<locale>
 	<codecvt>
 
-1749880384 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\config-model.h
+1750399324 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\model\config-model.h
 	"../debug.h"
 	"../user-model.h"
 	"implants/bot-iq.h"
@@ -1676,14 +1676,14 @@
 	"config-model.h"
 	"!m-model.h"
 
-1750053703 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\user-model.h
+1750399324 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\model-25\user-model.h
 	<iostream>
 	<string>
 	<vector>
 	<array>
 	"debug.h"
 
-1750053703 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\main.cpp
+1750429697 source:c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\main.cpp
 	"render.h"
 	"ui-tune.h"
 	"common.h"
@@ -1700,7 +1700,7 @@
 1748456712 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\player.h
 	"common.h"
 
-1750224376 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\common.h
+1750399324 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\common.h
 	<SFML/System/Angle.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
@@ -1710,6 +1710,7 @@
 	<list>
 	<map>
 	"debug.h"
+	<codecvt>
 	"config-vsl.h"
 
 1733935265 c:\workcb-2024\sfml-3.0\sfml-3.0.0\include\sfml\audio.hpp
@@ -1853,7 +1854,7 @@
 	<SFML/Audio/SoundFileFactory.hpp>
 	<memory>
 
-1750053703 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\config-vsl.h
+1750399324 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\config-vsl.h
 	"debug.h"
 	"controller/controller.h"
 	"ui-tune.h"
@@ -1870,7 +1871,7 @@
 	"ui-base.h"
 	"ui-imgui.h"
 
-1750255270 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-imgui.h
+1750399324 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-imgui.h
 	"ui-base.h"
 	"ui-icons.h"
 
@@ -1887,7 +1888,7 @@
 	"common.h"
 	"scene-game.h"
 
-1750267068 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-game.h
+1750399324 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scene-game.h
 	"common.h"
 	"shader-dice.h"
 	"sceneGame/win-game.h"
@@ -1899,14 +1900,14 @@
 1750053703 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\shader-dice.h
 	"common.h"
 
-1750264097 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
+1750399324 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-game.h
 	"../common.h"
 	"fig-field.h"
 	"fig-chips.h"
 	"move-chip.h"
 	"fig-gameover.h"
 
-1750251940 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-field.h
+1750399324 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-field.h
 	"../common.h"
 
 1750249143 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-chips.h
@@ -1921,7 +1922,7 @@
 1748715672 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\win-player.h
 	"../common.h"
 
-1749880384 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\fps.h
+1750432481 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\fps.h
 	"common.h"
 
 1750020617 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\ui-tune.h
@@ -1934,17 +1935,17 @@
 1750245035 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-win-game.h
 	"ui-imgui.h"
 
-1750246801 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-base.h
+1750399324 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-base.h
 	<SFML/Audio/Sound.hpp>
 	"imgui.h"
 	"imgui-SFML.h"
 	"misc/cpp/imgui_stdlib.h"
 	"common.h"
 
-1750053703 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-icons.h
+1750399324 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-icons.h
 	"ui-base.h"
 
-1750053703 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-sell.h
+1750399324 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\ui-sell.h
 	"ui-base.h"
 	"ui-icons.h"
 
@@ -1970,7 +1971,7 @@
 	"fig-field.h"
 	"fig-chips.h"
 
-1750267455 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-gameover.h
+1750399324 c:\workcb-2024\!projects\ggghub\monopoly-2025\sources\visualizator\scenegame\fig-gameover.h
 	"../common.h"
 
 1750360650 d:\!gforum-2025\projects\monopoly-2025\sources\visualizator\scenegame\fig-gameover.h

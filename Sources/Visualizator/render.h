@@ -8,15 +8,12 @@
 #include "scene-logo.h"
 #include "scene-tune.h"
 
-#include "fps.h"
-
 
 struct  Render
 {       Render( vsl::Config& cfg)
             :   cfg         (cfg)
             ,   window (    *cfg.pwin)
             ,   camFon (  window.getDefaultView() )
-            ,   fps    (     cfg)
         {
 
             cfg.pwin = &window;
@@ -57,11 +54,6 @@ struct  Render
     sf::View          camFon;
     sf::View          camGui;
 
-    ///---------------------|
-    /// Fps.                |
-    ///---------------------:
-    vsl::Fps             fps;
-
     uii::MyHover     myHover;
 
     void run()
@@ -99,8 +91,8 @@ private:
         // Создаем кастомный курсор
         /*
         const sf::Cursor cursor = sf::Cursor::createFromPixels(
-            imgCursor1.getPixelsPtr(), 
-            sf::Vector2u(32, 32), 
+            imgCursor1.getPixelsPtr(),
+            sf::Vector2u(32, 32),
             sf::Vector2u(0, 0)).value();
         window.setMouseCursor(cursor);
         */
@@ -134,7 +126,7 @@ private:
             });
             myHover.reset();
 
-            const auto& delta  = fps.getDeltaTime();
+            const auto& delta  = cfg.fps.getDeltaTime();
 
             ///----------------------|
             /// ImGui::SFML.         |
@@ -146,12 +138,12 @@ private:
             /// window.clear   ({0, 30, 60});
 
             window.setView       (camFon);
-            window.draw      (*nowScene);
+            window.draw       (*nowScene);
 
             window.setView       (camGui);
-            window.draw             (fps);
+            window.draw         (cfg.fps);
 
-            ImGui::SFML::Render (window);
+            ImGui::SFML::Render  (window);
 
             window.draw  (myHover.cursor);
             window.display       (      );

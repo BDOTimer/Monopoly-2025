@@ -29,7 +29,8 @@ void tests()
 /// model::ConfigShare::test();
 ///
 /// TRY(vsl::ShaderDice::test2())
-///
+/// TRY(vsl::Timers::test());
+
 TRY(Render::test())
 }
 

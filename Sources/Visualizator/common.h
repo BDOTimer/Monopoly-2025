@@ -107,7 +107,7 @@ namespace vsl
             "res/muz/musicRule.mp3", /// 2
             "res/muz/kirk.mp3"       /// 3
         };
-        
+
         void play(unsigned i)
         {   if(i >= fn.size()) return;
             else if( auto& p = (*this)[i]; p != nullptr )
@@ -466,7 +466,7 @@ struct  Object : vsl::IObject
 /// Отображаемое множество графических объектов.
 ///-------------------------------------------------------------------- Objects:
 struct  xObjects   : private std::vector<Object>, vsl::IObject
-{       xObjects() : tmess1(vsl::Config::getFont())
+{       xObjects() : tmess1(vsl::Resurces::getFont())
         {
             const auto&         dats = Data4Sprites::get();
             reserve(            dats.size());
@@ -589,7 +589,7 @@ namespace primitive
     sf::Vector2u cv(const sf::Vector2f f){return {(unsigned)f.x,(unsigned)f.y};}
 
     struct  TextStyleA    : sf::Text
-    {       TextStyleA()  : sf::Text(vsl::Config::getFont())
+    {       TextStyleA()  : sf::Text(vsl::Resurces::getFont())
             {   setCharacterSize         (18);
                 setFillColor({127, 196, 127});
             }

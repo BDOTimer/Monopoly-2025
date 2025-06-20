@@ -58,7 +58,7 @@ namespace vsl
         ///-------------------------------:
         void move()
         {
-            float r = speed * cfg.deltaTime.asSeconds();
+            float r = speed * cfg.dt();
 
             if (distance  > r )
             {   fc->move  ( r * unitDir );

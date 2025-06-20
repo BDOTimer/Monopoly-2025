@@ -21,7 +21,7 @@ namespace vsl
         bool isActive{ true};
 
         void go(sf::View&  cam)
-        {   cam.zoom(1.f - speed * cfg.deltaTime.asSeconds());
+        {   cam.zoom(1.f - speed * cfg.dt());
             const auto& sz{cam.getSize()};
             if(sz.y <= szEndFig.y || sz.x <= szEndFig.x)
             {

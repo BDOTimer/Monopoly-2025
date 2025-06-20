@@ -7,7 +7,7 @@
 
 struct  xModel   : vsl::IObject
 {       xModel() : table (Data4Sprites::get()[0])
-                , tmess1(vsl::Config::getFont())
+                , tmess1(vsl::Resurces::getFont())
         {
             for(unsigned i = 1; i < Data4Sprites::get().size(); ++i)
             {   m.emplace_back(Player(Data4Sprites::get()[i]));
