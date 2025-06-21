@@ -104,18 +104,32 @@ namespace vsl
     struct  Timers
     {       Timers(Fps& fps) : fps(fps)
             {
+                fps.fooTimers = [this]()
+                {   for(auto i = this->mm.begin(); i != this->mm.end();)
+                    {
+                        const auto&[t, p] = *i;
+
+                        if(t != this->fps.timeSec) break;
+                        p->foo();
+
+                        const auto ii = i++;
+                        this->mm.erase(ii);
+                    }
+                };
             }
 
-        ITimer add() { m.emplace_front(Timer()); return m.begin(); }
+        ITimer add() { alloc.emplace_front(Timer()); return alloc.begin(); }
 
         void setPeriod(ITimer itimer, uint64_t timeFoo)
         {   itimer->timeFoo = timeFoo + fps.timeSec;
             mm.insert({itimer->timeFoo, itimer});
         }
 
+        void erase(const ITimer i){  alloc.erase(i); }
+
     private:
         Fps&                           fps;
-        std::list<Timer>                 m;
+        std::list<Timer>             alloc;
         std::multimap<uint64_t, ITimer> mm;
 
         TEST
@@ -133,21 +147,6 @@ namespace vsl
                        it->foo = [&done]()
                        {    done = false;
                        };
-
-            fps.fooTimers = [&timers]()
-            {   for(auto i = timers.mm.begin(); i != timers.mm.end();)
-                {
-                    const auto&[t, p] = *i;
-
-                    if(t != timers.fps.timeSec) break;
-                    p->foo();
-
-                    const auto ii = i++;
-
-                    timers.mm.erase(ii);
-                }
-                l(timers.fps.timeSec)
-            };
 
             while(done)
             {

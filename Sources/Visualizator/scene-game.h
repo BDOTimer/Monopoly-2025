@@ -93,14 +93,25 @@ namespace vsl
                             "test::Петя Череззаборногузадерищенко");
                     }
                 };
+
+                timerNext = cfg.timers.add();
+
+                timerNext->foo = [this]()
+                {   if(this->cfg.uiCellInfo.isOpen)
+                    {
+                    }
+                    this->upDice();
+                };
             }
 
         vsl::Config&  cfg;
 
         PLUG_IOBJECT2
 
-        unsigned idUI{};
-        unsigned  cnt;
+        unsigned   idUI{};
+        unsigned      cnt;
+
+        ITimer  timerNext;
 
         using ED = model::StateGame::eSTATE;
         using ES = model::StateGame::eSTATESTR;
@@ -139,7 +150,7 @@ namespace vsl
         unsigned  nClickDice{};
 
         void upDice()
-        {   
+        {
             if(winGame.moveChip.isMove || winGame.figGOver.isGameOver)
             {   vsl::Sounds::p->play(6);
                 return;
@@ -156,6 +167,10 @@ namespace vsl
 
                     this->winGame.isUiCellInfo = false;
                     this->cfg.sounds.play(3);
+
+                    if(cfg._3player[idUI].isBot)
+                    {   cfg.timers.setPeriod(timerNext, 5);
+                    }
                     break;
                 }
                 case 1:
@@ -164,6 +179,10 @@ namespace vsl
                     o.stopDice();
 
                     this->doStep();
+
+                    if(cfg._3player[idUI].isBot)
+                    {   cfg.timers.setPeriod(timerNext, 2);
+                    }
                     break;
                 }
                 case 2:
@@ -176,6 +195,10 @@ namespace vsl
                     /// set2uiPlayers   ();
 
                         updateInfoPlayer();
+                    }
+
+                    if(cfg._3player[idUI].isBot)
+                    {   cfg.timers.setPeriod(timerNext, 2);
                     }
                     break;
                 }
@@ -266,6 +289,10 @@ namespace vsl
 
             cfg.uiCellInfo .isBot = cfg.uiPlayers[idUI].isBot();
             cfg.uiSellPanel.isBot = cfg.uiPlayers[idUI].isBot();
+
+            if(cfg._3player[idUI].isBot)
+            {   cfg.timers.setPeriod(timerNext, 2);
+            }
         }
 
         ///-----------------------------------|
@@ -381,7 +408,7 @@ namespace vsl
                                       {(int)mdl.idGame, (int)idUI}, sg4S);
 
             if(cfg._3player[idUI].stateGame.dat[ED::E_ISSELL])
-            {   
+            {
                 cfg.uiPlayers[this->idUI].uiGameIcons.erase(idCell);
                 cfg.uiSellPanel.next();
 
