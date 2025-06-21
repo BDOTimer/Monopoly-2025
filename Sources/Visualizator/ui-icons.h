@@ -47,6 +47,12 @@ namespace uii
         bool isFocus{false};
         bool isBot  {true };
 
+        void debug()
+        {   for(const auto&[icell, name] : idCells)
+            {   std::cout << "  icell: " << icell << '\n';
+            }
+        }
+
         std::function<void(UIGameIcons*, IconIt /* idCell */)> fooSellCell
         {   [this](UIGameIcons* p, IconIt idCell){}
         };

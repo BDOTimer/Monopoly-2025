@@ -960,10 +960,7 @@ namespace model
 
                     const auto&[sts, id] = *it;
 
-                /// if(TITER == nullptr) break;
-
                     Cell& cellSell = (*cfg.pfield)[id];
-                /// Cell& cellSell = (*cfg.pfield)[TITER->second];
 
                     const int price = goodSky ?
                         cellSell.getBestBuy() : cellSell.bankBuy[status];
@@ -978,12 +975,15 @@ namespace model
                         ///------------------------------:
                         deleteThing(it);
 
-                        messOper << "   \"" << cellSell.name
+                        messOper << "   \""         << cellSell.name
                                  << "\" продан за " << price << $s << '\n';
 
                         messOper << IPerson::infoCargo();
 
-                        cell.pers = nullptr;
+                        cellSell.pers = nullptr;
+
+                        pcfg->stateGame.dat[StateGame::eSTATE::E_ISSELL] = 1;
+                        pcfg->stateGame.idCellSells.push_back(cellSell.id);
                     }
 
                     break;
@@ -1091,16 +1091,22 @@ namespace model
                 }
             }
 
+            const Bank&   bank{ cfg.pfield->bank };
+                  Config& _cfg{ const_cast<Config&>(cfg) };
+
             ///----------------------------------------|
             /// Активность игрока-человека.            |
             ///----------------------------------------:
             if(cfg.stateGame4S.isWork())
             {
-                doByuOrSell();
-            }
+                doByu ();
+                doSell();
 
-            Config* pcfg{const_cast<Config*>(&cfg)};
-            pcfg->stateGame.dat[StateGame::eSTATE::E_MONEY2] = money;
+                getStateGame();
+
+                _cfg.stateGame.dat[StateGame::E_MONEY2] = money;
+                _cfg.stateGame.dat[StateGame::E_BANK2 ] = bank.money;
+            }
         }
 
         void doAct() override
@@ -1121,9 +1127,9 @@ namespace model
         ///------------------------------|
         /// Заява на покупку.            |
         ///------------------------------:
-        void doByuOrSell()
+        void doByu()
         {
-            Config* pcfg{const_cast<Config*>(&cfg)};
+            Config& _cfg{ const_cast<Config&>(cfg) };
 
             Bank&   bank =   cfg.pfield->bank;
             Cell&   cell = (*cfg.pfield)[position];
@@ -1160,23 +1166,35 @@ namespace model
                     isNoSell  = true;
                     cell.pers = this;
 
-                    pcfg->stateGame4S.isBuy = false;
-                    pcfg->stateGame.dat[StateGame::E_ISBYU     ] = 1;
-                    pcfg->stateGame.dat[StateGame::E_ISBUSYCELL] = 1;
+                    _cfg.stateGame4S.isBuy = false;
+                    _cfg.stateGame.dat[StateGame::E_ISBYU     ] = 1;
+                    _cfg.stateGame.dat[StateGame::E_ISBUSYCELL] = 1;
                 }
                 else if( isEmpty) messEvents << "   ... нет товара ...\n";
                 else if(!isMoney) messEvents << "   ... мало денег ...\n";
             }
+        }
+
+        ///------------------------------|
+        /// Заява на продажу.            |
+        ///------------------------------:
+        void doSell()
+        {
+            Config& _cfg{ const_cast<Config&>(cfg) };
+
+            Bank&   bank =   cfg.pfield->bank;
+            Cell&   cell = (*cfg.pfield)[position];
+            bool goodSky = cell.status == IPerson::status;
 
             if( isNoSell )
             {   messEvents << "   В этом круге блок на продажу!\n";
             }
 
             if( !cfg.stateGame4S.isSellIds.empty() && isNoSell )
-            {   pcfg->stateGame.str[StateGame::E_REFEREE]
+            {   _cfg.stateGame.str[StateGame::E_REFEREE]
                     = "В этом круге блок на продажу!";
 
-                pcfg->stateGame.dat[StateGame::E_ISSELL] = 0;
+                _cfg.stateGame.dat[StateGame::E_ISSELL] = 0;
             }
 
             ///----------------------------------------|
@@ -1208,7 +1226,7 @@ namespace model
                     ///------------------------------|
                     /// Вещь продана!                |
                     ///------------------------------:
-                    pcfg->stateGame.dat[StateGame::E_ISSELL] = 1;
+                    _cfg.stateGame.dat[StateGame::E_ISSELL] = 1;
 
                     ///------------------------------|
                     /// Удалить Вещь из инвентаря.   |
@@ -1222,17 +1240,12 @@ namespace model
 
                     cell.pers = nullptr;
 
-                    pcfg->stateGame.str[StateGame::E_REFEREE]
+                    _cfg.stateGame.str[StateGame::E_REFEREE]
                         = " Товар был продан! Проверьте деньги на вашем счету!";
                 }
 
-                pcfg->stateGame4S.isSellIds.clear();
+                _cfg.stateGame4S.isSellIds.clear();
             }
-
-            getStateGame();
-
-            pcfg->stateGame.dat[StateGame::E_MONEY2] = money;
-            pcfg->stateGame.dat[StateGame::E_BANK2 ] = bank.money;
         }
 
     private:
@@ -1377,6 +1390,8 @@ namespace model
             using ED = StateGame::eSTATE;
             using ES = StateGame::eSTATESTR;
 
+            cfg->stateGame.reset();
+
             if(_isGameOver) return
             {   "   |----------------------------|\n"
                 "   |      ИГРА ЗАКОНЧЕНА!       |\n"
@@ -1384,7 +1399,7 @@ namespace model
             };
 
             ++steps;
-
+             
             std::stringstream ss;
 
             ///------------------------------|
@@ -1394,7 +1409,7 @@ namespace model
 
             cfg->stateGame.dat[ED::E_IDPLAYER] = cfg->order[i];
             cfg->stateGame.dat[ED::E_BANK1] = cfg->pfield->bank.money;
-            cfg->stateGame.dat[ED::E_ISBYU] = 0;
+            //cfg->stateGame.dat[ED::E_ISBYU] = 0;
 
             persNow = perses[cfg->order[i]];
 
@@ -1520,8 +1535,7 @@ namespace model
             {
                 if(cap[i] >= capitalAll$cv)
                 {
-                    cfg->stateGame.dat[StateGame::eSTATE::E_GAMEOVER]
-                        = i;
+                    cfg->stateGame.dat[StateGame::eSTATE::E_GAMEOVER] = i;
 
                     const_cast<Referee*>(this)->_isGameOver = true;
                     const_cast<Referee*>(this)->conditionVictorStr
@@ -1533,8 +1547,6 @@ namespace model
                     return i;
                 }
             }
-
-            cfg->stateGame.dat[StateGame::eSTATE::E_GAMEOVER] = -1;
             return NPOS;
         }
 
@@ -1564,8 +1576,8 @@ namespace model
             ///--------------------------|
             /// Верификатор.             |
             ///--------------------------:
-            const unsigned&          id = cfg->order[idPlayer];
-            ASSERT(!cfg->players    [id].isBot) /// Запрет на ботов.
+            const unsigned&      id = cfg->order[idPlayer];
+            ASSERT(!cfg->players[id].isBot) /// Запрет на ботов.
 
             if(cfg->stateGame4S.isBuy) ASSERT(persNow == perses[id])
 

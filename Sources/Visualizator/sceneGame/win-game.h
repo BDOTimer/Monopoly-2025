@@ -198,6 +198,8 @@ namespace vsl
             figGOver.reset();
 
             fooFon();
+
+            cfg.isAutoClickNext = true;
         }
 
         ///-------------------------------|

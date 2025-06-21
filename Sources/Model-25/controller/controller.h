@@ -21,7 +21,7 @@ namespace controller
             }
 
         bool       isBot;
-        unsigned      idTune;
+        unsigned  idTune;
         std::string name;
 
         ///---------------------------|
@@ -33,6 +33,21 @@ namespace controller
         /// Данные для сервера.       |
         ///---------------------------:
         model::StateGame4Server stateGame4S;
+
+        struct Statistic
+        {
+            unsigned nAllSell{};
+            unsigned nAllByu {};
+
+            void reset()
+            {   nAllSell = 0;
+                nAllByu  = 0;
+            }
+        }statistic;
+
+        void reset()
+        {   statistic.reset();
+        }
 
         std::string input()
         {   std::string s; std::getline(std::cin, s); return s;

@@ -268,9 +268,14 @@ namespace model
         {   "3"
         };
 
+        std::vector<unsigned> idCellSells;
+
         void reset()
-        {    dat[E_ISSELL] = 0;
-             dat[E_ISBYU ] = 0;
+        {    dat[E_ISSELL   ] = 0;
+             dat[E_ISBYU    ] = 0;
+             dat[E_GAMEOVER ] =-1;
+
+             idCellSells.clear();
         }
     };
 

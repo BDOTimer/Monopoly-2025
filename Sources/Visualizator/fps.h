@@ -127,6 +127,8 @@ namespace vsl
 
         void erase(const ITimer i){  alloc.erase(i); }
 
+        void clearITimer(){ mm.clear(); }
+
     private:
         Fps&                           fps;
         std::list<Timer>             alloc;

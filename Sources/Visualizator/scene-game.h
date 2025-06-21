@@ -122,6 +122,9 @@ namespace vsl
         {   using E = vsl::ScenesSwitcher;
             cfg.scenesSwitcher.doSwitcher(E::E_TUNE);
             cfg.musics.stop();
+
+            cfg.timers.clearITimer();
+            cfg.isAutoClickNext = false;
         }
 
         void input(const std::optional<sf::Event>&  event) override
@@ -230,6 +233,12 @@ namespace vsl
             unsigned idM = (unsigned)sg.dat[ED::E_IDPLAYER];
 
             ASSERT(cfg._3player[idUI].idTune == idM)
+            
+            std::string name{"\""};
+                        name += cfg._3player[idUI].name;
+                        name += "\"";
+
+            ASSERT(sg.str[ES::E_NAME] == name)
 
             cfg._3player[idUI].stateGame = sg;
 
@@ -252,6 +261,8 @@ namespace vsl
                 winGame.isUiCellInfo = true;
             }
             cfg.cfgModel.moneyBank = sg.dat[model::StateGame::E_BANK1];
+
+            setCellColorSell();
         }
 
         bool isGameOver{false};
@@ -419,21 +430,6 @@ namespace vsl
             }
         }
 
-        void x_set2uiPlayers()
-        {
-                  auto& sg = cfg._3player[idUI].stateGame;
-            const auto& mdl{ cfg.cfgModel};
-
-            cfg.uiPlayers[idUI]  << uii::Clear()
-            /// << "  ИГРОК  : " << sg.str[ES::E_NAME  ]        << '\n'
-                << "  КОШЕЛЁК: " << sg.dat[ED::E_MONEY1]        << '\n'
-                << "  КУБИК  : " << sg.dat[ED::E_NDICE ]        << '\n'
-                << "  СТАТУС : " << sg.dat[ED::E_STATUS_PERS]+1 << " ---> "
-                << mdl.decode2Str.getPlayer(sg.dat[ED::E_STATUS_PERS]).data()
-                << '\n'
-                ;
-        }
-
         void set2uiPlayers_Color(unsigned idPlayer)
         {
                   auto& sg = cfg._3player[idPlayer].stateGame;
@@ -451,22 +447,6 @@ namespace vsl
                 uii::style::colTxtStatus[I], "%u ---> %s\n",
                 sg.dat[ED::E_STATUS_PERS]+1,
                 mdl.decode2Str.getPlayer(sg.dat[ED::E_STATUS_PERS]).data());
-        }
-
-        void x_set2uiCellInfo()
-        {
-            const auto& sg = cfg._3player[idUI].stateGame;
-            const auto& mdl{cfg.cfgModel};
-
-            cfg.uiCellInfo         << uii::Clear()
-                << "  ИГРОК    : " << sg.str[ES::E_NAME]             << '\n'
-                << "  ЯЧЕЙКА   : " << sg.str[ES::E_CELL]             << '\n'
-                << "  ПОЗИЦИЯ  : " << sg.dat[ED::E_POSITION]         << '\n'
-                << "  СТАТУС   : " << sg.dat[ED::E_STATUS_CELL]+1<< " ---> "
-                << mdl.decode2Str.getCell(sg.dat[ED::E_STATUS_CELL]) << '\n'
-                << "  ПРОДАЁТСЯ: " << sg.dat[ED::E_SELL]             << '\n'
-                << "  СКУПКА   : " << sg.dat[ED::E_BYU]              << '\n'
-                ;
         }
 
         void set2uiCellInfoColor()
@@ -506,8 +486,48 @@ namespace vsl
             const auto& isByu  =  sg.dat[ED::E_ISBYU      ];
 
             if(isByu)
-            {   insertIcon          (idUI  , idCell); /// TODO: отладка ...
+            {   insertIcon          (idUI   , idCell);
                 winGame.setCellColor(idCell, isBusy);
+
+                vsl::Sounds::p->play(11);
+                cfg.uiDownMessage << uii::Clear()
+                    << " Товар \""
+                    << cfg.cfgModel.cells[idCell].name
+                    << "\" был куплен!";
+
+                cfg._3player[this->idUI].statistic.nAllByu++;
+            }
+        }
+
+        ///-----------------------------------|
+        /// Цвет проданной ячейки.            |
+        ///-----------------------------------:
+        void setCellColorSell()
+        {
+            const auto& sg     = cfg._3player[idUI].stateGame;
+            const auto& isSell =  sg.dat[ED::E_ISSELL];
+
+            if(isSell)
+            {   for(const auto idCellSell : sg.idCellSells)
+                {   //cfg.uiPlayers[this->idUI].eraseIcon(idCellSell);
+
+                    cfg.uiPlayers[this->idUI].uiGameIcons.erase(idCellSell);
+                    winGame.setCellColor(idCellSell, false);
+
+                    cfg.uiDownMessage << uii::Clear()
+                        << " Товар \""  
+                        << cfg.cfgModel.cells[idCellSell].name 
+                        << "\" был продан!";
+
+                    cfg._3player[this->idUI].statistic.nAllSell++;
+                }
+                const_cast<model::StateGame&>(sg).idCellSells.clear();
+
+                cfg.uiPlayers[this->idUI] << uii::Clear()
+                    << "Всего продано: " 
+                    << cfg._3player[this->idUI].statistic.nAllSell;
+
+                vsl::Sounds::p->play(11);
             }
         }
 

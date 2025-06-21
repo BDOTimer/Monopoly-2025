@@ -179,7 +179,7 @@ namespace vsl
         {    E_click_01
         };
 
-        std::array<const char*, 11> fn
+        std::array<const char*, 12> fn
         {   "res/snd/click-01.mp3"       //  0
             ,"res/snd/gudok-doplera.mp3" //  1
             ,"res/snd/no.mp3"            //  2
@@ -190,7 +190,8 @@ namespace vsl
             ,"res/snd/move1.mp3"         //  7 - движение фишки.
             ,"res/snd/jjj1.mp3"          //  8 - движение фишки.
             ,"res/snd/jjj2.mp3"          //  9 - движение фишки.
-            ,"res/snd/kolokol1.mp3"      // 10 - колокол.
+            ,"res/snd/kolokol1.mp3"      // 10 - ход человека.
+            ,"res/snd/flute.mp3"         // 11 - продано.
         };
 
         void play(unsigned i)
