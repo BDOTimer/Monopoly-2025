@@ -91,7 +91,7 @@ namespace vsl
     private:
         std::vector<unsigned> route;
         FigureChip*    fc {nullptr};
-        const float    speed{500.f};
+        const float   speed{1000.f};
         unsigned               step;
         sf::Vector2f           a, b;
         sf::Vector2f            dir;

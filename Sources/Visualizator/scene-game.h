@@ -554,7 +554,7 @@ namespace vsl
         {   if(cfg.isAutoClickNext && cfg._3player[idUI].isBot)
             {   this->autoClickNext(1);
                 this->autoClickNext(4);
-                this->autoClickNext(9);
+                this->autoClickNext(7);
             }
             else
             {   vsl::Sounds::p->play(10);
