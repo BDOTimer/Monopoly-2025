@@ -38,7 +38,7 @@ namespace vsl
             //  };
 
                 cfg.uiUpLog.fooDice2 = [this]()
-                {   this->upDice();
+                {   clickUpDice();
                 };
 
                 cfg.uiUpLog.fooLog = [this]()
@@ -51,7 +51,7 @@ namespace vsl
                 };
 
                 cfg.uiCellInfo.fooNext = [this]()
-                {   this->upDice();
+                {   clickUpDice();
                 };
 
                 cfg.uiCellInfo.fooBuy = [this]()
@@ -135,8 +135,8 @@ namespace vsl
                 }
             }
 
-            if (ISKEYPRESSED(Enter))
-            {   this->upDice();
+            if (ISKEYPRESSED(Space))
+            {   clickUpDice();
             }
 
             if (auto p = event->getIf<sf::Event::MouseButtonPressed>())
@@ -168,9 +168,6 @@ namespace vsl
                     this->winGame.isUiCellInfo = false;
                     this->cfg.sounds.play(3);
 
-                    if(cfg._3player[idUI].isBot)
-                    {   cfg.timers.setPeriod(timerNext, 5);
-                    }
                     break;
                 }
                 case 1:
@@ -180,9 +177,6 @@ namespace vsl
 
                     this->doStep();
 
-                    if(cfg._3player[idUI].isBot)
-                    {   cfg.timers.setPeriod(timerNext, 2);
-                    }
                     break;
                 }
                 case 2:
@@ -197,9 +191,6 @@ namespace vsl
                         updateInfoPlayer();
                     }
 
-                    if(cfg._3player[idUI].isBot)
-                    {   cfg.timers.setPeriod(timerNext, 2);
-                    }
                     break;
                 }
                 default: ASSERT(false)
@@ -279,8 +270,8 @@ namespace vsl
 
             cfg.info_01(++cnt);
 
-            cfg.uiDownMessage << uii::Clear()   << "Ход ИГРОКА: "
-                              << (idUI + 1) << ": \""
+            cfg.uiDownMessage << uii::Clear() << "Ход ИГРОКА: "
+                              << (idUI + 1)   << ": \""
                               << cfg._3player[idUI].name << ": \""
                               << mess[rand()%mess.size()];
             ++nStep;
@@ -290,9 +281,7 @@ namespace vsl
             cfg.uiCellInfo .isBot = cfg.uiPlayers[idUI].isBot();
             cfg.uiSellPanel.isBot = cfg.uiPlayers[idUI].isBot();
 
-            if(cfg._3player[idUI].isBot)
-            {   cfg.timers.setPeriod(timerNext, 2);
-            }
+            this->autoClickNext();
         }
 
         ///-----------------------------------|
@@ -345,6 +334,8 @@ namespace vsl
             cfg.uiSellPanel.isBot = cfg.uiPlayers[idUI].isBot();
 
             winGame.figField.setGeometryRand();
+
+            autoClickNext();
         }
 
         ///-----------------------------------|
@@ -534,6 +525,27 @@ namespace vsl
         void eraseIcon(unsigned idPlayer, unsigned idCell)
         {   cfg.uiPlayers[idPlayer].eraseIcon(idCell);
         }
+
+        void autoClickNext(uint16_t sec)
+        {   cfg.timers.setPeriod(timerNext, sec);
+        }
+
+        void autoClickNext()
+        {   if(cfg.isAutoClickNext && cfg._3player[idUI].isBot)
+            {   this->autoClickNext(1);
+                this->autoClickNext(4);
+                this->autoClickNext(9);
+            }
+            else
+            {   vsl::Sounds::p->play(10);
+            }
+        }
+
+        void clickUpDice()
+        {   if(  this->cfg.isAutoClickNext && 
+                 this->cfg._3player[idUI].isBot ) vsl::Sounds::p->play(6);
+            else this->upDice();           
+        }       
 
         ///-----------------------------------|
         /// Дебаг.                            |

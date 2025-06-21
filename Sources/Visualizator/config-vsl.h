@@ -99,6 +99,8 @@ namespace vsl
         Fps                      fps ;
         Timers            timers{fps};
 
+        bool    isAutoClickNext{true};
+
         sf::View*     camFon{nullptr};
         sf::View*     camGui{nullptr};
 

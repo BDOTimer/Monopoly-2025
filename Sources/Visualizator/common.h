@@ -168,7 +168,7 @@ namespace vsl
 
     ///------------------------------------------------------------------------|
     /// Саунд-контрол.
-    /// vsl::Sounds::p->play(8);
+    /// vsl::Sounds::p->play(10);
     ///----------------------------------------------------------------- Sounds:
     struct  Sounds   : std::vector<sf::Sound*>
     {       Sounds() : std::vector<sf::Sound*>(60, nullptr)
@@ -179,17 +179,18 @@ namespace vsl
         {    E_click_01
         };
 
-        std::array<const char*, 10> fn
-        {   "res/snd/click-01.mp3"       // 0
-            ,"res/snd/gudok-doplera.mp3" // 1
-            ,"res/snd/no.mp3"            // 2
-            ,"res/snd/dice1.mp3"         // 3 - бросок кубика.
-            ,"res/snd/field-fly.mp3"     // 4 - клик поле.
-            ,"res/snd/tum.mp3"           // 5 - клик иконка.
-            ,"res/snd/virus3.mp3"        // 6 - запрет хода.
-            ,"res/snd/move1.mp3"         // 7 - движение фишки.
-            ,"res/snd/jjj1.mp3"          // 8 - движение фишки.
-            ,"res/snd/jjj2.mp3"          // 8 - движение фишки.
+        std::array<const char*, 11> fn
+        {   "res/snd/click-01.mp3"       //  0
+            ,"res/snd/gudok-doplera.mp3" //  1
+            ,"res/snd/no.mp3"            //  2
+            ,"res/snd/dice1.mp3"         //  3 - бросок кубика.
+            ,"res/snd/field-fly.mp3"     //  4 - клик поле.
+            ,"res/snd/tum.mp3"           //  5 - клик иконка.
+            ,"res/snd/virus3.mp3"        //  6 - запрет хода.
+            ,"res/snd/move1.mp3"         //  7 - движение фишки.
+            ,"res/snd/jjj1.mp3"          //  8 - движение фишки.
+            ,"res/snd/jjj2.mp3"          //  9 - движение фишки.
+            ,"res/snd/kolokol1.mp3"      // 10 - колокол.
         };
 
         void play(unsigned i)
