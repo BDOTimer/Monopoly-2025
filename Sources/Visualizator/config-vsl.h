@@ -354,14 +354,13 @@ namespace vsl
 
             this->uiSellPanel << uii::Clear()
                 << "ЯЧЕЙКА: " << idCell << "\n\""
-                << cellUser.name
-                << "\"\nБАЗОВАЯ СТОИМОСТЬ: " << cellUser.priseBase << '\n'
-                << "   Банк ПРОДАЁТ  : ["  << cellUser.bankSell[0] << ", "
-                                           << cellUser.bankSell[1] << ", "
-                                           << cellUser.bankSell[2] << "]\n"
-                << "   Банк ПОКУПАЕТ : ["  << cellUser.bankBuy [0] << ", "
-                                           << cellUser.bankBuy [1] << ", "
-                                           << cellUser.bankBuy [2] << "]\n"
+                << cellUser.name        << "\"\n\n"
+                << "Банк ПРОДАЁТ : ["  << cellUser.bankSell[0] << ", "
+                                       << cellUser.bankSell[1] << ", "
+                                       << cellUser.bankSell[2] << "]\n"
+                << "Банк ПОКУПАЕТ: ["  << cellUser.bankBuy [0] << ", "
+                                       << cellUser.bankBuy [1] << ", "
+                                       << cellUser.bankBuy [2] << "]\n"
                 ;
         }
     };
