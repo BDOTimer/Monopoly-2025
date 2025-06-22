@@ -93,7 +93,6 @@ namespace vsl
         std::function<void()> foo;
 
         void setPeriod(uint64_t timeFoo) { this->timeFoo = timeFoo; }
-
     };
 
 

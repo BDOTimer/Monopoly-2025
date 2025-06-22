@@ -131,7 +131,13 @@ namespace model
         ///------------------------------|
         /// Инфа о ячейках для игроков.  |
         ///------------------------------:
-        struct      CellUser{std::string name; int priseBase; };
+        struct      CellUser
+        {   std::string name;
+            int    priseBase;
+
+            std::array<int, 3> bankSell; /// Банк продаёт.
+            std::array<int, 3> bankBuy ; /// Банк покупает.
+        };
         std::vector<CellUser>       cells;
 
         ///------------------------------|

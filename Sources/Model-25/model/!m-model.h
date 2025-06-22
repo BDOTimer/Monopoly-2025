@@ -356,6 +356,9 @@ namespace model
 
                 ASSERT(size() == cfg.amountCells)
 
+                ///------------------------------|
+                /// Открываем цены клиенту.      |
+                ///------------------------------:
                 for(unsigned i{}; i < cfg.amountCells; ++i)
                 {
                           auto& r = p->cells[i];
@@ -363,6 +366,8 @@ namespace model
 
                     r.name      = s.name;
                     r.priseBase = s.priseBase;
+                    r.bankBuy   = s.bankBuy;
+                    r.bankSell  = s.bankSell;
                 }
             }
 
