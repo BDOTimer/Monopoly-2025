@@ -1591,6 +1591,19 @@ namespace model
             /// TODO ...
         }
 
+        int getPriseBankBuy(unsigned idPlayer, unsigned idCell)
+        {
+            IPerson* pers = perses[cfg->order[idPlayer]];
+            Cell&    cell = field [idCell];
+
+            bool goodSky = cell.status == pers->status;
+
+            const int price
+                = goodSky ? cell.getBestSell() : cell.bankBuy[cell.status];
+
+            return price;
+        }
+
         friend struct TestGame;
         friend struct ManagerEvents;
         friend struct ModelGate;

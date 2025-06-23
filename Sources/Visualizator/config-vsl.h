@@ -343,26 +343,6 @@ namespace vsl
 
             uiUpLog.messDown = &uiDownMessage;
         }
-
-        void infoCellSell(const unsigned idCell)
-        {   const auto& cellUser
-            {   this->cfgModel.cells[idCell]
-            };
-
-            /// bankSell - Банк продаёт.
-            /// bankBuy  - Банк покупает.
-
-            this->uiSellPanel << uii::Clear()
-                << "ЯЧЕЙКА: " << idCell << "\n\""
-                << cellUser.name        << "\"\n\n"
-                << "Банк ПРОДАЁТ : ["  << cellUser.bankSell[0] << ", "
-                                       << cellUser.bankSell[1] << ", "
-                                       << cellUser.bankSell[2] << "]\n"
-                << "Банк ПОКУПАЕТ: ["  << cellUser.bankBuy [0] << ", "
-                                       << cellUser.bankBuy [1] << ", "
-                                       << cellUser.bankBuy [2] << "]\n"
-                ;
-        }
     };
 }
 

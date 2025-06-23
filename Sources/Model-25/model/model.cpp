@@ -58,6 +58,10 @@ namespace model
                            const StateGame4Server&  stateGame4S)
         {   model::Referee::sendStateGame(idPlayer, stateGame4S);
         }
+
+        int getPriseBankBuy(unsigned idPlayer, unsigned idCell)
+        {   return model::Referee::getPriseBankBuy(idPlayer, idCell);
+        }
     };
 
     struct CG
@@ -113,22 +117,26 @@ namespace model
             }
         }
 
-        std::string doStep( unsigned idGame, unsigned idPlayer )
-        {   return (*this)[idGame].mdl->doStep(idPlayer);
+        std::string doStep( unsigned idGame, unsigned idPers )
+        {   return (*this)[idGame].mdl->doStep(idPers);
         }
 
         size_t whoVictor(unsigned idGame) const
         {   return (*this)[idGame].mdl->whoVictor();
         }
 
-        const StateGame getStateGame( unsigned idGame, unsigned idPlayer)
-        {   return (*this)[idGame].mdl->getStateGame(idPlayer);
+        const StateGame getStateGame( unsigned idGame, unsigned idPers)
+        {   return (*this)[idGame].mdl->getStateGame(idPers);
         }
 
-        void sendStateGame(unsigned idGame, unsigned idPlayer,
+        void sendStateGame(unsigned idGame, unsigned idPers,
                            const StateGame4Server& stateGame4S)
         {
-            (*this)[idGame].mdl->sendStateGame(idPlayer, stateGame4S);
+            (*this)[idGame].mdl->sendStateGame(idPers, stateGame4S);
+        }
+
+        int getPriseBankBuy(unsigned idGame, unsigned idPers, unsigned idCell)
+        {   return (*this)[idGame].mdl->getPriseBankBuy(idPers, idCell);
         }
 
     private:
@@ -199,6 +207,12 @@ namespace model
         return {{999}};
     }
 
+    ///------------------------------------------------------------------------|
+    /// Цена покупки ячейки банком.
+    ///-------------------------------------------------------- getPriseByuBank:
+    int getPriseBankBuy(unsigned idGame, unsigned idPers, unsigned idCell)
+    {   return holderGates.getPriseBankBuy(idGame, idPers, idCell);
+    }
 }
 
 

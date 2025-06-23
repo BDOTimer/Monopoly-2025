@@ -65,7 +65,7 @@ namespace vsl
                         this->cfg.uiSellPanel.idCell = idCell;
                         this->cfg.uiSellPanel.pIcons = p;
 
-                        this->cfg.infoCellSell(idCell->first);
+                        this->infoCellSell(idCell->first);
                     };
                     e.fooInfoColor = [this](unsigned idPlayer)
                     {   this->set2uiPlayers_Color(idPlayer);
@@ -77,7 +77,7 @@ namespace vsl
                 };
 
                 cfg.uiSellPanel.fooNext = [this](unsigned idCell)
-                {   this->cfg.infoCellSell(idCell);
+                {   this->infoCellSell(idCell);
                 };
 
                 cfg.uiCellInfo.fooInfoColor = [this]()
@@ -529,6 +529,29 @@ namespace vsl
 
                 vsl::Sounds::p->play(11);
             }
+        }
+
+        void infoCellSell(const unsigned idCell)
+        {   const auto& cellUser
+            {   this->cfg.cfgModel.cells[idCell]
+            };
+
+            /// bankSell - Банк продаёт.
+            /// bankBuy  - Банк покупает.
+
+            this->cfg.uiSellPanel << uii::Clear()
+                << "ЯЧЕЙКА: " << idCell << "\n\""
+                << cellUser.name        << "\"\n\n"
+                << "ЦЕНА         :  " 
+                << model::getPriseBankBuy(
+                        cfg.cfgModel.idGame, 0, idCell)        << "\n"
+                << "Банк ПРОДАЁТ : ["  << cellUser.bankSell[0] << ", "
+                                       << cellUser.bankSell[1] << ", "
+                                       << cellUser.bankSell[2] << "]\n"
+                << "Банк ПОКУПАЕТ: ["  << cellUser.bankBuy [0] << ", "
+                                       << cellUser.bankBuy [1] << ", "
+                                       << cellUser.bankBuy [2] << "]\n"
+                ;
         }
 
         void updateEndStep()

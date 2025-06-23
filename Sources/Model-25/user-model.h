@@ -339,8 +339,13 @@ namespace model
     /// Клиент ---> Сервер.       |
     ///---------------------------:
     const StateGame sendStateGame( std::string_view        command,
-                                   const std::vector<int>& args,
-                                   const StateGame4Server& stateGame4S );
+                                    const std::vector<int>& args,
+                                    const StateGame4Server& stateGame4S );
+
+    ///------------------------------------------------------------------------|
+    /// Цена покупки ячейки банком.
+    ///-------------------------------------------------------- getPriseByuBank:
+    int getPriseBankBuy(unsigned idGame, unsigned idPers, unsigned isCell);
 }
 
 #endif // USER_MODEL_H
