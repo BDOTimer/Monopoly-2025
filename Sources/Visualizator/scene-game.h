@@ -453,12 +453,17 @@ namespace vsl
         {
             const auto& sg = this->cfg._3player[idUI].stateGame;
             const auto& mdl{ this->cfg.cfgModel};
+            const auto& cellUser
+            {   this->cfg.cfgModel.cells[sg.dat[ED::E_POSITION]]
+            };
 
             const
             unsigned I{static_cast<unsigned>(sg.dat[ED::E_STATUS_CELL])
                      % static_cast<unsigned>(uii::style::colTxtStatus.size())};
 
-            ImGui::Text("  ИГРОК    : %s\n", sg.str[ES::E_NAME].c_str());
+            const auto& S{cfg.cfgModel.$s};
+
+        /// ImGui::Text("  ИГРОК    : %s\n", sg.str[ES::E_NAME].c_str());
             ImGui::Text("  ЯЧЕЙКА   : ");
             ImGui::SameLine ();
             ImGui::TextColored(
@@ -472,8 +477,15 @@ namespace vsl
                 sg.dat[ED::E_STATUS_CELL]+1,
                 mdl.decode2Str.getCell(sg.dat[ED::E_STATUS_CELL]).data());
 
-            ImGui::Text("  ПРОДАЁТСЯ:  %d\n", sg.dat[ED::E_SELL]);
-            ImGui::Text("  СКУПКА   :  %d\n", sg.dat[ED::E_BYU ]);
+            ImGui::Text("  ПРОДАЁТСЯ:  %-3d%s\n", sg.dat[ED::E_SELL], S);
+            ImGui::Text("  СКУПКА   :  %-3d%s\n", sg.dat[ED::E_BYU ], S);
+
+            ImGui::Text("  ЦЕНЫ ПРОДАЖИ: [%d, %d, %d]%s\n"
+                ,   cellUser.bankSell[0]
+                ,   cellUser.bankSell[1]
+                ,   cellUser.bankSell[2]
+                ,   S
+            );
         }
 
         ///-----------------------------------|
@@ -532,8 +544,9 @@ namespace vsl
         }
 
         void infoCellSell(const unsigned idCell)
-        {   const auto& cellUser
-            {   this->cfg.cfgModel.cells[idCell]
+        {   const auto& sg = cfg._3player[idUI].stateGame;
+            const auto& cellUser
+            {   this->cfg.cfgModel.cells[sg.dat[ED::E_POSITION]]
             };
 
             /// bankSell - Банк продаёт.
@@ -542,7 +555,7 @@ namespace vsl
             this->cfg.uiSellPanel << uii::Clear()
                 << "ЯЧЕЙКА: " << idCell << "\n\""
                 << cellUser.name        << "\"\n\n"
-                << "ЦЕНА         :  " 
+                << "Банк КУПИТ   :  " 
                 << model::getPriseBankBuy(
                         cfg.cfgModel.idGame, 0, idCell)        << "\n"
                 << "Банк ПРОДАЁТ : ["  << cellUser.bankSell[0] << ", "

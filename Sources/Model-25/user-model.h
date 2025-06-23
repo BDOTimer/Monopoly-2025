@@ -137,8 +137,30 @@ namespace model
 
             std::array<int, 3> bankSell; /// Банк продаёт.
             std::array<int, 3> bankBuy ; /// Банк покупает.
+
+            void sort1(std::array<int, 3>& a)
+            {   const auto b{a.cbegin()};
+                const auto e{a.cend  ()};
+                const auto min_idx = std::min_element(b, e) - b;
+                const auto max_idx = std::max_element(b, e) - b;
+                const auto mid_idx = 3 - min_idx - max_idx;
+
+                std::swap(a[0], a[max_idx]);
+                if (a[1] > a[2])
+                {   std::swap(a[1], a[2]);
+                }
+            }
+
+            void init()
+            {   sort1(bankSell);
+                sort1(bankBuy );
+            }
         };
-        std::vector<CellUser>       cells;
+        std::vector<CellUser> cells;
+
+        void init()
+        {   for(auto& cell : cells) cell.init();
+        }
 
         ///------------------------------|
         /// Мировая геометрия.           |
@@ -182,6 +204,8 @@ namespace model
         #undef o
 
         unsigned worldGeometryN{2};
+
+        std::string $s {" £"  };
 
         const std::vector<std::vector<int>>& getWorldGeometry() const
         {   return _worldGeometry[worldGeometryN];

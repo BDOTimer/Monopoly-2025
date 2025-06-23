@@ -368,6 +368,8 @@ namespace model
                     r.priseBase = s.priseBase;
                     r.bankBuy   = s.bankBuy;
                     r.bankSell  = s.bankSell;
+
+                    r.init();
                 }
             }
 
