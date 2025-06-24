@@ -154,7 +154,9 @@ namespace vsl
 
         void upDice()
         {
-            if(winGame.moveChip.isMove || winGame.figGOver.isGameOver)
+            if( winGame.moveChip.isMove     || 
+                winGame.figGOver.isGameOver ||
+                (cfg._3player[idUI].isBot   && cfg.isAutoClickNext))
             {   vsl::Sounds::p->play(6);
                 return;
             }
